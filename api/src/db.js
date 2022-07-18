@@ -1,8 +1,11 @@
 require('dotenv').config();
 const { Sequelize } = require('sequelize');
+const fs = require('fs');
+const path = require('path');
+const usuario = require('./models/User');
 const {DB_USER, DB_PASSWORD, DB_HOST} = process.env;
 
-const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/countries`, {
+const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/worldgame`, {
   logging: false, 
   native: false, 
 });
@@ -18,10 +21,10 @@ modelDefiners.forEach(model => model(sequelize));
 let entries = Object.entries(sequelize.models);
 let capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].slice(1), entry[1]]);
 sequelize.models = Object.fromEntries(capsEntries);
-// const {  } = sequelize.models;
+const { User } = sequelize.models;
 
 //relaciones
-
+//User.belongsToMany(User,{ through: 'Friends' });
 //usuario 
 //partida
 
