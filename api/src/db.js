@@ -24,9 +24,9 @@ sequelize.models = Object.fromEntries(capsEntries);
 const { User } = sequelize.models;
 
 //relaciones
-//User.belongsToMany(User,{ through: 'Friends' });
-//usuario 
-//partida
+User.belongsToMany(User,{ as: 'friends', foreignKey: 'friends', through: 'Friends'});
+// User.hasMany(Partida);
+// Partida.belongsTo(User);
 
 module.exports = {
     ...sequelize.models,

@@ -33,13 +33,13 @@ router.get('/', async(req, res, next) =>{
         //     where:{
         //     [Op.like]: `${username}`
         //     },
-        //     // include: User,
+        //     // include: [{model:User, as:'friends'}],
         // });
         let get = await User.findAll({
             where:{
             id:`${id}`,
             },
-            // include: User,
+            include: [{model:User, as:'friends'}],
         });
         return res.json(get);
     } catch(e){ 
@@ -62,5 +62,6 @@ router.delete('/', async(req, res, next) =>{
         next(e);
     }
 });
+
 
 module.exports = router;
