@@ -19,8 +19,10 @@
 //    *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/server.js');
 const { db } = require('./src/db.js');
+const {getCountries} = require('./src/controllers/country')
 
 db.sync({ force: true }).then(() => {
+  getCountries()
   server.listen(3001, () => {
     console.log('cuchando'); 
   });
