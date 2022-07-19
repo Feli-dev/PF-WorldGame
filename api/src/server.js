@@ -1,6 +1,6 @@
 const express = require('express');
 const routes = require('./routes/index.js');
-require('./db.js');
+require('./src/db.js');
 const server = express();
 server.use(express.json());
 
