@@ -1,14 +1,26 @@
-import { Text, View, TouchableOpacity } from 'react-native';
+import { View } from 'react-native';
 import tw from "twrnc"
+import Register from "./views/Register"
+import Login from "./views/Login"
+import Home from "./views/Home/Home"
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <View style={tw`flex h-full items-center justify-center bg-gray-900`}>
-      <Text style={tw`text-white text-3xl font-bold`}>World Game</Text>
-      <TouchableOpacity style={tw`bg-gray-800 px-8 py-2 rounded-full mt-10`}><Text style={tw`text-white`}>Iniciar sesión</Text></TouchableOpacity>
-      <TouchableOpacity style={tw`bg-gray-800 px-8 py-2 rounded-full mt-10`}><Text style={tw`text-white`}>Registarse</Text></TouchableOpacity>
-      <TouchableOpacity style={tw`bg-gray-700 px-8 py-2 rounded-full mt-10 w-40`}><Text style={tw`text-white text-center`}>GOOGLE</Text></TouchableOpacity>
-      <TouchableOpacity style={tw`bg-gray-700 px-8 py-2 rounded-full mt-10 w-40`}><Text style={tw`text-white text-center`}>FACEBOOK</Text></TouchableOpacity>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator 
+      initialRouteName='Login'
+      screenOptions={{
+      headerShown: false,
+    }}>
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Register" component={Register} />
+        <Stack.Screen name="Login" component={Login} />
+      </Stack.Navigator>
+      </NavigationContainer>
+    
   );
 }
