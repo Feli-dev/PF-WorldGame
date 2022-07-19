@@ -1,10 +1,11 @@
-import { Text, View, TouchableOpacity } from 'react-native';
-// import tw from "twrnc"
+import { Text, View, TouchableOpacity, TextInput} from 'react-native';
+import Register from './views/Register';
+ import tw from "twrnc"
 
 export default function App() {
   return (
-    <View>
-
+    <View style={tw`flex h-full items-center justify-center bg-gray-900`}>
+      <Register/>
     </View>
   );
 }
