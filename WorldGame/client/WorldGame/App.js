@@ -1,6 +1,7 @@
-import { Text, View, TouchableOpacity, TextInput} from 'react-native';
-import Register from './views/Register';
- import tw from "twrnc"
+
+import { Text, View, TouchableOpacity, TextInput } from 'react-native';
+import tw from "twrnc"
+
 
 export default function App() {
   return (
