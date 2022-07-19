@@ -2,10 +2,9 @@ require('dotenv').config();
 const path = require('path');
 const fs = require('fs');
 const { Sequelize } = require('sequelize');
-const fs = require('fs');
-const path = require('path');
-const usuario = require('./models/User');
 const {DB_USER, DB_PASSWORD, DB_HOST} = process.env;
+const usuario = require('./models/User');
+
 
 const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/worldgame`, {
   logging: false, 
