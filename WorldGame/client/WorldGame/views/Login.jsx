@@ -2,7 +2,8 @@ import { Text, View, TouchableOpacity, TextInput } from "react-native";
 import tw from "twrnc";
 import Svg, { Path } from "react-native-svg";
 
-export default function Login() {
+
+export default function Login({ navigation }) {
   return (
     <View style={tw`flex h-full items-center justify-center bg-gray-900`}>
       <View style={tw`flex flex-col`}>
@@ -16,12 +17,15 @@ export default function Login() {
       <View>
         <Text style={tw`text-white text-lg text-left mb-2`}>Password</Text>
         <TextInput
+          secureTextEntry={true}
           placeholder="Password..."
           placeholderTextColor="#6f6f6f"
           style={tw`pl-3 mb-5 w-70 h-10 rounded-md bg-gray-800 text-white placeholder-gray-200`}
         ></TextInput>
       </View>
-      <TouchableOpacity style={tw`bg-gray-600 px-8 py-2 rounded-md mt-10 w-50`}>
+      <TouchableOpacity style={tw`bg-gray-600 px-8 py-2 rounded-md mt-10 w-50`}
+        onPress={() => navigation.navigate('Home')}
+        >
         <Text style={tw`text-white text-center font-bold`}>LOGIN</Text>
       </TouchableOpacity>
       <View style={tw`flex flex-row mt-15 mb-5 justify-center items-center`}>
@@ -84,7 +88,7 @@ export default function Login() {
           If you don't have an account,
           <Text
             style={tw`text-blue-200 text-center font-bold`}
-            onPress={() => Linking.openURL("abre el link a registrarse")}
+            onPress={() => navigation.navigate('Register')}
           >
             &nbsp;register
           </Text>

@@ -2,7 +2,7 @@ import { Text, View, TouchableOpacity,TextInput} from "react-native";
 import tw from "twrnc";
 import Svg, { Path } from "react-native-svg";
 
-export default function Register() {
+export default function Register({navigation}) {
   return (
     <View style={tw`flex h-full items-center justify-center bg-gray-900`}>
       <View style={tw`flex`}>
@@ -16,15 +16,16 @@ export default function Register() {
       </View>
       <View style={tw`flex flex-col`}> 
         <Text style={tw`text-white text-lg text-left mb-2`}>Password</Text>
-        <TextInput placeholder='Password...' placeholderTextColor="#6f6f6f" style={tw`pl-3 mb-5 w-70 h-10 rounded-md bg-gray-800 text-white placeholder-gray-200`}></TextInput>
+        <TextInput secureTextEntry={true} placeholder='Password...' placeholderTextColor="#6f6f6f" style={tw`pl-3 mb-5 w-70 h-10 rounded-md bg-gray-800 text-white placeholder-gray-200`}></TextInput>
       </View>
       <View style={tw`flex flex-col`}> 
         <Text style={tw`text-white text-lg text-left mb-2`}>Repeat password</Text>
-        <TextInput placeholder='Repeat password...' placeholderTextColor="#6f6f6f" style={tw`pl-3 mb-5 w-70 h-10 rounded-md bg-gray-800 text-white placeholder-gray-200`}></TextInput>
+        <TextInput secureTextEntry={true} placeholder='Repeat password...' placeholderTextColor="#6f6f6f" style={tw`pl-3 mb-5 w-70 h-10 rounded-md bg-gray-800 text-white placeholder-gray-200`}></TextInput>
       </View>
       </View>
 
       <TouchableOpacity
+        onPress={() => navigation.navigate('Home')}
         style={tw`bg-gray-600 px-8 py-2 rounded-md mt-10 w-50`}
       >
         <Text style={tw`text-white text-center font-bold`}>REGISTER</Text>
@@ -86,7 +87,7 @@ export default function Register() {
         <Text style={tw`text-white text-center font-bold`}>
           If you have an account,  
           <Text style={tw`text-blue-200 text-center font-bold`}
-            onPress={() => Linking.openURL("abre el link a registrarse")}>
+            onPress={() => navigation.navigate('Login')}>
              &nbsp;Log in
           </Text>
         </Text>
