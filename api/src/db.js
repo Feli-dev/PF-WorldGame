@@ -26,12 +26,13 @@ sequelize.models = Object.fromEntries(capsEntries);
 const { User, Game } = sequelize.models;
 
 //relaciones
-User.belongsToMany(User,{ as: 'friend', foreignKey: 'friends', through: 'friends'});
+User.belongsToMany(User,{ as: 'amigo', through: 'friend'});
+// User.belongsToMany(User,{ as: 'f', through: 'friends'});
 User.hasMany(Game);
 Game.belongsTo(User);
 
 module.exports = {
     ...sequelize.models,
-    db: sequelize,     
+    db: sequelize,      
   };
   
