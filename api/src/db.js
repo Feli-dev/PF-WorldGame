@@ -23,15 +23,16 @@ modelDefiners.forEach(model => model(sequelize));
 let entries = Object.entries(sequelize.models);
 let capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].slice(1), entry[1]]);
 sequelize.models = Object.fromEntries(capsEntries);
-const { User } = sequelize.models;
+const { User, Game } = sequelize.models;
 
 //relaciones
-User.belongsToMany(User,{ as: 'friends', foreignKey: 'friends', through: 'Friends'});
-// User.hasMany(Partida);
-// Partida.belongsTo(User);
+User.belongsToMany(User,{ as: 'amigo', through: 'friend'});
+// User.belongsToMany(User,{ as: 'f', through: 'friends'});
+User.hasMany(Game);
+Game.belongsTo(User);
 
 module.exports = {
     ...sequelize.models,
-    db: sequelize,     
+    db: sequelize,      
   };
   

@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
-    sequelize.define('User', {
+    sequelize.define('user', {
         id: {
           type: DataTypes.INTEGER,
           primaryKey: true,
@@ -16,15 +16,6 @@ module.exports = (sequelize) => {
             type:DataTypes.TEXT,
             allowNull: false,
         },
-        // timePlaying: {
-        //     type:DataTypes.DECIMAL,
-        // },
-        // timePerTry: {
-        //     type:DataTypes.DECIMAL,
-        // },
-        // attemps: {
-        //     type:DataTypes.ARRAY,
-        // },
     },{
         timestamps: false,
      });

@@ -6,7 +6,7 @@ import Game from "./Game";
 
 export default function Home() {
   return (
-    <View style={tw`flex md:container md:mx-auto items-center justify-center bg-gray-900`}>
+    <View style={tw`flex items-center justify-center bg-gray-900 mb-5`}>
       <View>
         <Navbar/>
       </View>
@@ -14,7 +14,7 @@ export default function Home() {
       <View>
         <Game/>
       </View>
-      <View style={tw`w-70 mt--33 mb-12 border-b border-solid border-gray-400`}></View>
+      <View style={tw`w-70 mt--33 mb-10 border-b border-solid border-gray-400`}></View>
       <View>
         <Footer/>
       </View>
