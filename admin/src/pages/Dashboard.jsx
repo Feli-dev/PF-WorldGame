@@ -3,8 +3,8 @@ import NavBar from "../components/NavBar";
 import SideBar from "../components/SideBar";
 
 import AddIcon from "@mui/icons-material/Add";
-import TableUser from "../components/TableUser";
-import CardDashboard from "../components/CardDashboard";
+import TableUser from "../components/TableUser/TableUser";
+import CardsDashboard from "../components/CardsDashboard";
 
 const Dashboard = () => {
   return (
@@ -22,11 +22,11 @@ const Dashboard = () => {
 
                 <button class="shadow inline-flex items-center bg-blue-500 hover:bg-blue-600 focus:outline-none focus:shadow-outline text-white font-semibold py-2 px-4 rounded-lg">
                   <AddIcon />
-                  Añadir Usuario
+                  Add User
                 </button>
               </div>
 
-              <CardDashboard />
+              <CardsDashboard />
 
               <TableUser />
             </div>

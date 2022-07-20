@@ -56,21 +56,21 @@ const Login = () => {
                 for="remember"
                 class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
               >
-                Recordarme
+                Remember me
               </label>
             </div>
             <a
               href="#"
               class="ml-auto text-sm text-blue-700 hover:underline dark:text-blue-500"
             >
-              ¿Olvidaste la contraseña?
+              Forgot password?
             </a>
           </div>
           <button
             type="submit"
             class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
-            Login
+            <Link to="/dashboard">Login</Link>
           </button>
         </form>
       </div>

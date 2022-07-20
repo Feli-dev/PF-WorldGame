@@ -4,10 +4,10 @@ const TableUser = () => {
   return (
     <>
       <div class="flex items-center justify-between mb-4">
-        <h2 class="text-xl font-bold text-gray-800">Últimos Usuarios</h2>
+        <h2 class="text-xl font-bold text-gray-800">Latest Users</h2>
 
         <a href="#" class="text-blue-600 hover:text-blue-500 font-medium">
-          Ver todos
+          See all
         </a>
       </div>
       <div class="overflow-x-auto bg-white rounded-lg shadow">
@@ -15,19 +15,19 @@ const TableUser = () => {
           <thead>
             <tr class="text-left">
               <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">
-                Perfil
+                Profile
               </th>
               <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">
-                Nombre
+                Name
               </th>
               <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">
-                Fecha de registro
+                Registration date
               </th>
               <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs ">
-                Estado
+                State
               </th>
               <th class="x-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">
-                Acciones
+                Actions
               </th>
             </tr>
           </thead>

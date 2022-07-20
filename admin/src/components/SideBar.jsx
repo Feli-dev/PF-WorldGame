@@ -35,7 +35,7 @@ const SideBar = () => {
               class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200"
             >
               <PersonIcon className="mr-4 opacity-50" />
-              Usuarios
+              Users
             </Link>
           </li>
 
@@ -45,7 +45,7 @@ const SideBar = () => {
               class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200"
             >
               <SportsEsportsIcon className="mr-4 opacity-50" />
-              Juegos
+              Games
             </Link>
           </li>
 
@@ -55,7 +55,7 @@ const SideBar = () => {
               class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200"
             >
               <PaidIcon className="mr-4 opacity-50" />
-              Pagos
+              Payments
             </Link>
           </li>
 
@@ -65,7 +65,7 @@ const SideBar = () => {
               class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200"
             >
               <SettingsIcon className="mr-4 opacity-50" />
-              Ajustes
+              Settings
             </a>
           </li>
         </ul>

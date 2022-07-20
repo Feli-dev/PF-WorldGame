@@ -10,13 +10,13 @@ const NoFound = () => {
             <span className="sr-only">Error</span>404
           </h2>
           <p className="text-2xl font-semibold md:text-3xl mb-5">
-            Lo sentimos, no pudimos encontrar esta página.
+            Sorry, we couldn't find this page.
           </p>
           <Link
             to="/"
             className="px-8 py-4 my-6 font-semibold rounded dark:bg-violet-400 dark:text-gray-900"
           >
-            Volver a página principal
+            Back to home
           </Link>
         </div>
       </div>
