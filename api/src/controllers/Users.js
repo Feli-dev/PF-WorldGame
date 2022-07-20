@@ -1,4 +1,5 @@
 const{ User } = require('../db');
+const BitHash = require('./BitHash');
 
 function parseObject(data = ""){
     let json = JSON.stringify(data) || null;
@@ -16,11 +17,11 @@ async function validate(username = "", password = "") {
             });
             return state;
         }).catch((error) => {
-            console.log(`Error: ${error}`);
+            console.log(`Error [Validate]: ${error}`);
             return false;
         });
     } catch (error) {
-        console.log(`Error: ${error}`);
+        console.log(`Error [Validate]: ${error}`);
         return false;
     }
 }
@@ -39,13 +40,14 @@ async function insert(username = "", password = ""){
 
 module.exports = class {
 
+    #bitHash = new BitHash();
     #username = "";
     #password = "";
     #state = false;
 
     constructor(username = "", password = ""){
         this.#username = username;
-        this.#password = password;
+        this.#password = this.#bitHash.encrypt(password);
     }
 
     async create() {
@@ -61,7 +63,7 @@ module.exports = class {
 
     async login() {
         try {
-            this.#state = await validate(this.#username, this.#password);
+            this.#state = await validate(this.#username, this.#password.toString());
             if(this.#state) return "Se inicio sesión correctamente";
             return "No existe este usuario";
         } catch (error) {
