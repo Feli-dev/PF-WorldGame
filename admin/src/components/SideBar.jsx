@@ -10,7 +10,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 
 const SideBar = () => {
   return (
-    <div class="bg-white w-64 min-h-screen overflow-y-auto hidden md:block shadow relative z-30">
+    <div class="bg-white w-64 min-h-screen overflow-y-auto hidden md:block shadow relative">
       <div class="flex items-center px-6 py-3 h-16">
         <div class="text-2xl font-bold tracking-tight text-gray-800">
           Dashboard Admin.

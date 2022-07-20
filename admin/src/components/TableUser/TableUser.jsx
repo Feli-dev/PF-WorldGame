@@ -1,10 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 
 // Icons
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import ModalUser from "./ModalUser/ModalUser";
 
 const TableUser = () => {
+  const [modalUser, setModalUser] = useState(false);
+
+  const getUserEdit = () => {
+    alert("Usuario Editado");
+  };
+
+  const deleteUser = () => {
+    alert("Usuario Eliminado");
+  };
+
   return (
     <>
       <div class="flex items-center justify-between mb-4">
@@ -36,10 +47,13 @@ const TableUser = () => {
             </tr>
           </thead>
           <tbody>
-            <tr class="focus-within:bg-gray-200 overflow-hidden">
+            <tr class="focus-within:bg-gray-200 overflow-hidden hover:bg-gray-100 ">
               <td class="border-t">
-                <span class="text-gray-700 px-6 py-4 flex items-center">
-                  <div class="font-bold w-10 h-10 bg-blue-200 text-blue-600 flex items-center justify-center rounded-full">
+                <span class="text-gray-700 px-6 py-4 flex items-center  ">
+                  <div
+                    class=" cursor-pointer font-bold w-10 h-10 bg-blue-200 text-blue-600 flex items-center justify-center rounded-full"
+                    onClick={() => setModalUser(true)}
+                  >
                     AD
                   </div>
                 </span>
@@ -57,22 +71,31 @@ const TableUser = () => {
               <td class="border-t">
                 <span class="px-6 py-4 flex items-center">
                   <span class="px-2 rounded-full text-sm uppercase tracking-wide font-semibold bg-green-200 text-green-800">
-                    Activo
+                    Active
                   </span>
                 </span>
               </td>
               <td class="border-t">
                 <div class="text-gray-700  flex w-2.5 gap-3 text-center">
-                  <EditIcon className="text-yellow-500" />
-                  <DeleteIcon className="text-red-500" />
+                  <EditIcon
+                    className="text-yellow-500 z-50 cursor-pointer"
+                    onClick={getUserEdit}
+                  />
+                  <DeleteIcon
+                    className="text-red-500 cursor-pointer"
+                    onClick={deleteUser}
+                  />
                 </div>
               </td>
             </tr>
 
-            <tr class="focus-within:bg-gray-200 overflow-hidden">
+            <tr class="focus-within:bg-gray-200 overflow-hidden hover:bg-gray-100 ">
               <td class="border-t">
                 <span class="text-gray-700 px-6 py-4 flex items-center">
-                  <div class="font-bold w-10 h-10 bg-blue-200 text-blue-600 flex items-center justify-center rounded-full">
+                  <div
+                    class=" cursor-pointer font-bold w-10 h-10 bg-blue-200 text-blue-600 flex items-center justify-center rounded-full"
+                    onClick={() => setModalUser(true)}
+                  >
                     AD
                   </div>
                 </span>
@@ -90,20 +113,28 @@ const TableUser = () => {
               <td class="border-t">
                 <span class="px-6 py-4 flex items-center">
                   <span class="px-2 rounded-full text-sm uppercase tracking-wide font-semibold bg-red-200 text-red-800">
-                    Bloqueado
+                    blocked
                   </span>
                 </span>
               </td>
               <td class="border-t">
                 <div class="text-gray-700  flex w-2.5 gap-3 text-center">
-                  <EditIcon className="text-yellow-500" />
-                  <DeleteIcon className="text-red-500" />
+                  <EditIcon
+                    className="text-yellow-500 z-50 cursor-pointer"
+                    onClick={getUserEdit}
+                  />
+                  <DeleteIcon
+                    className="text-red-500 cursor-pointer"
+                    onClick={deleteUser}
+                  />
                 </div>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
+
+      {modalUser && <ModalUser setModalUser={setModalUser} />}
     </>
   );
 };
