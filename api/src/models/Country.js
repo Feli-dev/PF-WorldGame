@@ -23,8 +23,8 @@ module.exports = (sequelize) => {
         googleMap: {
             type: DataTypes.STRING,
         },
-        averageTemp: {
-            type: DataTypes.STRING()
+        area: {
+            type: DataTypes.INTEGER,
         }
     }, {
         timestamps: false,
