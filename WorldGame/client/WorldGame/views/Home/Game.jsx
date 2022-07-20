@@ -3,7 +3,7 @@ import tw from "twrnc";
 
 export default function Game() {
   return (
-    <View style={tw`flex h-8/10 items-center justify-center bg-gray-900`}>
+    <View style={tw`flex h-7/9 items-center justify-center bg-gray-900`}>
       <ScrollView>
         <View style={tw`flex flex-row justify-center items-center mb-3 mt-3`}>
             <View style={tw`flex justify-center items-center bg-green-600 h-10 w-10 rounded-md mr-5`}>
