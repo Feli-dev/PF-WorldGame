@@ -13,7 +13,7 @@ const SideBar = () => {
     <div class="bg-white w-64 min-h-screen overflow-y-auto hidden md:block shadow relative">
       <div class="flex items-center px-6 py-3 h-16">
         <div class="text-2xl font-bold tracking-tight text-gray-800">
-          Dashboard Admin.
+          <Link to="/dashboard">Dashboard Admin</Link>
         </div>
       </div>
 
@@ -60,13 +60,13 @@ const SideBar = () => {
           </li>
 
           <li>
-            <a
-              href="#"
+            <Link
+              to="/profile"
               class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200"
             >
               <SettingsIcon className="mr-4 opacity-50" />
               Settings
-            </a>
+            </Link>
           </li>
         </ul>
       </div>

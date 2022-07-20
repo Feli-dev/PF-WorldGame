@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const NavBar = () => {
   const [user, setUser] = useState(false);
@@ -42,9 +43,14 @@ const NavBar = () => {
               x-show="panel"
               style={{ display: user ? "" : "none" }}
             >
-              <div class="p-2 hover:bg-blue-100 cursor-pointer">Profile</div>
-              <div class="p-2 hover:bg-blue-100 cursor-pointer">Messages</div>
-              <div class="p-2 hover:bg-blue-100 cursor-pointer">To-Do's</div>
+              <Link to="/profile">
+                <div class="p-2 hover:bg-blue-100 cursor-pointer">Profile</div>
+              </Link>
+              <Link to="/update-password">
+                <div class="p-2 hover:bg-blue-100 cursor-pointer">
+                  Update Password
+                </div>
+              </Link>
             </div>
           </div>
         </div>
