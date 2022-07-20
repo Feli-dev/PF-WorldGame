@@ -9,9 +9,11 @@ module.exports = (sequelize) => {
         },
         countrie: {
             type: DataTypes.TEXT,
+            allowNull: false,
         },
         winned: {
             type: DataTypes.BOOLEAN,
+            allowNull: false,
         },
         time: {
             type: DataTypes.DECIMAL,

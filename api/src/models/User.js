@@ -16,6 +16,18 @@ module.exports = (sequelize) => {
             type:DataTypes.TEXT,
             allowNull: false,
         },
+        country: {
+            type:DataTypes.TEXT,
+            allowNull: false,
+        },
+        points: {
+            type:DataTypes.FLOAT,
+            defaultValue: "0",
+        },
+        isActive: {
+            type:DataTypes.BOOLEAN,
+            allowNull: false,
+        },
     },{
         timestamps: false,
      });
