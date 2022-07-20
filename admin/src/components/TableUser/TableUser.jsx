@@ -1,5 +1,9 @@
 import React from "react";
 
+// Icons
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+
 const TableUser = () => {
   return (
     <>
@@ -58,9 +62,10 @@ const TableUser = () => {
                 </span>
               </td>
               <td class="border-t">
-                <span class="text-gray-700 px-6 py-4 flex items-center">
-                  10
-                </span>
+                <div class="text-gray-700  flex w-2.5 gap-3 text-center">
+                  <EditIcon className="text-yellow-500" />
+                  <DeleteIcon className="text-red-500" />
+                </div>
               </td>
             </tr>
 
@@ -90,9 +95,10 @@ const TableUser = () => {
                 </span>
               </td>
               <td class="border-t">
-                <span class="text-gray-700 px-6 py-4 flex items-center">
-                  10
-                </span>
+                <div class="text-gray-700  flex w-2.5 gap-3 text-center">
+                  <EditIcon className="text-yellow-500" />
+                  <DeleteIcon className="text-red-500" />
+                </div>
               </td>
             </tr>
           </tbody>
