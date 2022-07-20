@@ -23,6 +23,15 @@ module.exports = (sequelize) => {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
+        points: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0,
+            validate:{
+                min:0,
+                max:5
+            },
+            allowNull: false
+        },
     },{
         timestamps: false,
      });

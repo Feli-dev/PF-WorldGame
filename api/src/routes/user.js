@@ -1,6 +1,7 @@
 const { Router } = require('express');
-const { User } = require('../db.js');
+const { User, Game } = require('../db.js');
 const { Op } = require('sequelize');
+const { averageScore } = require('../Tools.js');
 
 const router = Router();
 router.post('/', async(req, res, next) =>{
@@ -39,9 +40,11 @@ router.get('/', async(req, res, next) =>{
             where:{
             id:`${id}`,
             },
-            include: [{model:User, as:'friends'}],
+            include: Game,
         });
-        return res.json(get);
+        console.log(get);
+        _averageScore = averageScore(get[0].games);
+        return res.json({get, _averageScore});
     } catch(e){ 
         next(e);
     }
