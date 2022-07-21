@@ -103,11 +103,13 @@ const AddUser = () => {
                   placeholder="1234567"
                 />
               </div>
-              <input
-                type="submit"
-                class="bg-slate-500 w-1/2 my-3 mx-auto text-white text-sm font-medium px-6 py-2 rounded uppercase cursor-pointer"
-                value="Create User"
-              />
+              <div className="flex flex-col justify-center">
+                <input
+                  type="submit"
+                  class="bg-slate-500 w-1/2 my-3 mx-auto text-white text-sm font-medium px-6 py-2 rounded uppercase cursor-pointer"
+                  value="Create User"
+                />
+              </div>
               {/* <hr class="border-gray-200" /> */}
             </div>
           </div>
