@@ -2,9 +2,10 @@ require('dotenv').config();
 const path = require('path');
 const fs = require('fs');
 const { Sequelize } = require('sequelize');
+
 const {DB_USER, DB_PASSWORD, DB_HOST, DB_NAME} = process.env;
 const usuario = require('./models/User');
-
+const BitHash = require('./Tools/BitHash');
 
 // console.log('11',DB_NAME, process.env)
 let sequelize =
@@ -41,6 +42,12 @@ let sequelize =
 //   native: false, 
 // });
 
+
+
+
+
+
+
 const basename = path.basename(__filename);
 const modelDefiners = [];
 fs.readdirSync(path.join(__dirname, '/models'))
@@ -48,7 +55,7 @@ fs.readdirSync(path.join(__dirname, '/models'))
   .forEach((file) => {
     modelDefiners.push(require(path.join(__dirname, '/models', file)));
   });
-  
+
 modelDefiners.forEach(model => model(sequelize));
 let entries = Object.entries(sequelize.models);
 let capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].slice(1), entry[1]]);
@@ -63,6 +70,7 @@ Game.belongsTo(User);
 
 module.exports = {
     ...sequelize.models,
-    db: sequelize,      
+    db: sequelize, 
+    bitHash     
   };
   
