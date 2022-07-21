@@ -3,9 +3,11 @@ import { type } from "../actions/types"
 
 const initialState = {
     game: [],
-    countrys: [],
+    countries: [],
+    countrie:{},
     users: [],
     login:[],
+    attemps:[],
     userdetail: {}
 }
 
@@ -57,7 +59,21 @@ export const rootReducer=(state=initialState, action)=>{
                 ...state,
                 users: sortedpoints,
             }
-
+        case type.GET_COUNTRIES:
+            return{
+                ...state,
+                countrie: action.payload,
+            }
+        case type.GET_ALL_COUNTRIES:
+            return{
+                ...state,
+                countries:action.payload
+            }
+        case type.CALL_GAME_ACTIONS:
+            return{
+                ...state,
+                attemps:[...attemps, action.payload]
+            }
         default:{
             return state;
         }
