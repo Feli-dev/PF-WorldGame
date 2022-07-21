@@ -39,16 +39,21 @@ const NavBar = () => {
               </svg>
             </button>
             <div
-              class="absolute top-16 bg-white border rounded-md p-2 w-56"
+              class="absolute top-16 bg-white border rounded-md w-56"
               x-show="panel"
               style={{ display: user ? "" : "none" }}
             >
               <Link to="/profile">
-                <div class="p-2 hover:bg-blue-100 cursor-pointer">Profile</div>
+                <div class="p-3 hover:bg-blue-100 cursor-pointer">Profile</div>
               </Link>
               <Link to="/update-password">
-                <div class="p-2 hover:bg-blue-100 cursor-pointer">
+                <div class="p-3 hover:bg-blue-100 cursor-pointer">
                   Update Password
+                </div>
+              </Link>
+              <Link to="/">
+                <div class="p-3 bg-red-200 hover:bg-red-500 cursor-pointer">
+                  Logout
                 </div>
               </Link>
             </div>
