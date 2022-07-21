@@ -29,6 +29,11 @@ module.exports = (sequelize) => {
             unique: true,
             allowNull: false,
         },
+        email: {
+            type: DataTypes.STRING,
+            //unique: true,
+            allowNull: false,
+        },
         points: {
             type:DataTypes.FLOAT,
             defaultValue: 0,
