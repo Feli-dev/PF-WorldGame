@@ -4,13 +4,7 @@ import { type } from './types';
 export function getGame(id){
     return async function(dispatch){
         try{
-            if(id){
-                var json = await axios.get("http://localhost:3001/games", id)
-            }
-            else{
-                var json = await axios.get("http://localhost:3001/games") 
-
-            }
+            var json = await axios.get("http://localhost:3001/games", id)
             return dispatch({
                 type: type.GET_GAME,
                 payload : json.data,
@@ -34,12 +28,12 @@ export function PostGame(payload){
 
 //-------------------------login----------------------------//
 
-export function getLogin(payload){
+export function postLogin(payload){
     return async function(dispatch){
         try{
-            var json = await axios.get("http://localhost:3001/Login", payload)
+            var json = await axios.post("http://localhost:3001/Login", payload)
             return dispatch({
-                type: type.GET_LOGIN,
+                type: type.POST_LOGIN,
                 payload : json.data,
             })
     }catch(e){
@@ -105,5 +99,17 @@ export function sortByWeight(payload) {
     return {
         type: type.SORTED_BY_POINTS,
         payload,
+    }
+}
+//-----------------------friens---------------------//
+export function PostFriend(payload){
+    return async function(dispatch){
+        try{
+            const response = axios.post("http://localhost:3001/friends", payload)
+            return response
+
+        }catch(e){
+            return e.message
+        }
     }
 }

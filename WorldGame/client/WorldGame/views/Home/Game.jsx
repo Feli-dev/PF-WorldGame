@@ -4,7 +4,7 @@ import Svg, { Path } from "react-native-svg";
 
 export default function Game() {
   return (
-    <View style={tw`flex h-7/9 items-center justify-center bg-gray-900`}>
+    <View style={tw`flex h-7/9 items-center justify-center`}>
       <ScrollView>
         <View style={tw`flex flex-row justify-center items-center mb-3 mt-3`}>
           <View

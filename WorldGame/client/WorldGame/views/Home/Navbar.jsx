@@ -10,6 +10,7 @@ export default function Navbar({navigation}) {
       <View style={tw`flex flex-row justify-center items-center`}>
         <TouchableOpacity
           style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-md mr-5 w-10 h-15`}
+          onPress={() => navigation.navigate('Info')}
         >
           <View style={tw`w-10 h-10`}>
             <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
