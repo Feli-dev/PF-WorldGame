@@ -1,15 +1,32 @@
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Register from "./views/Register";
+import Login from "./views/Login";
+import Home from "./views/Home/Home";
+import Instructions from "./views/Instructions";
+import Ranking from "./views/Ranking";
+import Profile from "./views/Profile";
+import Configuration from "./views/Configuration";
 
-import { Text, View, TouchableOpacity, TextInput } from 'react-native';
-import tw from "twrnc"
-import Register from './views/Register'
-import Info from './views/Info';
-
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <View style={tw`flex h-full items-center justify-center bg-gray-900`}>
-      <Register/>
-      <Info/>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName="Home"
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Register" component={Register} />
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Instructions" component={Instructions} />
+        <Stack.Screen name="Ranking" component={Ranking} />
+        <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen name="Configuration" component={Configuration} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
