@@ -9,9 +9,11 @@ module.exports = (sequelize) => {
         },
         countrie: {
             type: DataTypes.TEXT,
+            allowNull: false,
         },
         winned: {
             type: DataTypes.BOOLEAN,
+            allowNull: false,
         },
         time: {
             type: DataTypes.DECIMAL,
@@ -20,6 +22,15 @@ module.exports = (sequelize) => {
         attempts: {
             type: DataTypes.INTEGER,
             allowNull: false,
+        },
+        points: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0,
+            validate:{
+                min:0,
+                max:5
+            },
+            allowNull: false
         },
     },{
         timestamps: false,
