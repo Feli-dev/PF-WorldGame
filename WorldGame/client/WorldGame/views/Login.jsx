@@ -11,7 +11,7 @@ export default function Login({ navigation }) {
         <TextInput
           placeholder="User..."
           placeholderTextColor="#6f6f6f"
-          style={tw`pl-3 mb-5 w-70 h-10 rounded-md bg-gray-800 text-white placeholder-gray-200`}
+          style={tw`pl-3 mb-5 w-70 h-10 rounded-md bg-gray-800 text-white`}
         ></TextInput>
       </View>
       <View>
@@ -20,11 +20,11 @@ export default function Login({ navigation }) {
           secureTextEntry={true}
           placeholder="Password..."
           placeholderTextColor="#6f6f6f"
-          style={tw`pl-3 mb-5 w-70 h-10 rounded-md bg-gray-800 text-white placeholder-gray-200`}
+          style={tw`pl-3 mb-5 w-70 h-10 rounded-md bg-gray-800 text-white`}
         ></TextInput>
       </View>
       <TouchableOpacity style={tw`bg-gray-600 px-8 py-2 rounded-md mt-10 w-50`}
-        onPress={() => navigation.navigate('Home')}
+        onPress={() => navigation.navigate('Instructions')}
         >
         <Text style={tw`text-white text-center font-bold`}>LOGIN</Text>
       </TouchableOpacity>

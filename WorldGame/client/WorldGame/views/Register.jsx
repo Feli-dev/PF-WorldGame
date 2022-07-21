@@ -511,7 +511,7 @@ export default function Register({ navigation }) {
       </View>
 
       <TouchableOpacity
-        onPress={() => navigation.navigate("Home")}
+        onPress={() => navigation.navigate("Instructions")}
         style={tw`bg-gray-600 px-8 py-2 rounded-md mt-10 w-50`}
       >
         <Text style={tw`text-white text-center font-bold`}>REGISTER</Text>

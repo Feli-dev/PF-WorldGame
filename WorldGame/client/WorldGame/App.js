@@ -7,6 +7,7 @@ import Instructions from "./views/Instructions";
 import Ranking from "./views/Ranking";
 import Profile from "./views/Profile";
 import Configuration from "./views/Configuration";
+import Info from "./views/Info";
 
 const Stack = createNativeStackNavigator();
 
@@ -14,7 +15,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Home"
+        initialRouteName="Login"
         screenOptions={{
           headerShown: false,
         }}
@@ -26,6 +27,7 @@ export default function App() {
         <Stack.Screen name="Ranking" component={Ranking} />
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="Configuration" component={Configuration} />
+        <Stack.Screen name="Info" component={Info} />
       </Stack.Navigator>
     </NavigationContainer>
   );
