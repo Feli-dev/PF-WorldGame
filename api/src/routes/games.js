@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const { Game } = require('../db.js');
 const router = Router();
+let {one, all} = require ('../controllers/game')
 
 router.post('/', async(req, res, next) =>{
 
@@ -18,11 +19,15 @@ router.get('/', async(req, res, next) =>{
 
     try {
 
-        let { id } = req.body;
+        let game;
 
-        let game = await Game.findAll({
-            where:{ id }
-        });
+        if(req.body.id){
+            let {id} = req.body;
+            game = await one(id, Game);
+        }else{
+            game = await all(Game);
+        }
+
         return res.json(game);
 
     }catch(e){
