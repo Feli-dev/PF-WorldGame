@@ -1,6 +1,9 @@
 const { Router } = require('express');
 const { bitHash } = require('../db');
-const User = require('../controllers/Users/Users');
+const User1 = require('../controllers/Users/Users');
+const { averageScore } = require('../Tools/averageScore');
+const { Game, User } = require('../db');
+const ParseObject = require('../Tools/ParseObject');
 
 const router = Router();
 const user = new User();
@@ -39,15 +42,19 @@ router.put('/', async(req, res) =>{
 });
 
 router.get('/', async(req, res) =>{
-    try{
-        return await user.select()
-        .then(result => {
-            return res.status(200).json({Request: result});
-        })
-    } catch(error){
-        console.log(`Error: ${error}\nRuta: ${path}\nMetodo: GET`);
-        return res.status(400).json({ Error: error });
-    }
+    let { username, id } = req.body;
+    // try{
+    //     return await user.select()
+    //     .then(result => {
+    //         return res.status(200).json({Request: result});
+    //     })
+    // } catch(error){
+    //     console.log(`Error: ${error}\nRuta: ${path}\nMetodo: GET`);
+    //     return res.status(400).json({ Error: error });
+    // }
+    let get = await User.findAll({ where:{ id }, include: Game });
+    _averageScore = averageScore(get[0].games);
+    return res.json({get, _averageScore});
 });
 
 router.delete('/recycle/:id', async(req, res) =>{

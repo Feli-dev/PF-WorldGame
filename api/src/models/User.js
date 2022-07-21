@@ -29,6 +29,10 @@ module.exports = (sequelize) => {
             unique: true,
             allowNull: false,
         },
+        points: {
+            type:DataTypes.FLOAT,
+            defaultValue: 0,
+        },
         country: {
             type: DataTypes.STRING,
             allowNull: false,
