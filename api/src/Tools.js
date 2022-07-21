@@ -9,7 +9,8 @@ tools.averageScore = (games) => {
             res += p.points
             count++;
         });
-        return res/count;
+        let x = Array.of(res/count).toString().split('',4);
+        return parseFloat(x.join(''));
     }
     return 0;
 };
