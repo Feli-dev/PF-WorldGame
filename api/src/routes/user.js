@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const { bitHash } = require('../db');
 const User1 = require('../controllers/Users/Users');
-const { averageScore } = require('../Tools/averageScore');
+const { averageScore } = require('../Tools');
 const { Game, User } = require('../db');
 const ParseObject = require('../Tools/ParseObject');
 
@@ -11,9 +11,13 @@ const path = "api/src/routes/user.js"
 
 router.post('/', async(req, res) =>{
     try {
-        const { name, username, password, country } = req.body;
+        const { username, password } = req.body;
+        req.body.name = username;
         const passEncrypt = bitHash.encrypt(password);
-        return await user.create(name, username, passEncrypt.toString(), country, true, false)
+        req.body.password = passEncrypt;
+        // console.log(username);
+        
+        return await User.create(req.body)
         .then(result => res.status(200).json({ Request: result }))
         .catch(error => {
             console.log(`Error: ${error}\nRuta: ${path}\nMetodo: POST`);
@@ -38,6 +42,7 @@ router.put('/', async(req, res) =>{
     } catch (error) {
         console.log(`Error: ${error}\nRuta: ${path}\nMetodo: PUT`);
         return res.status(400).json({ Error: error });
+    
     }
 });
 
@@ -53,6 +58,7 @@ router.get('/', async(req, res) =>{
     //     return res.status(400).json({ Error: error });
     // }
     let get = await User.findAll({ where:{ id }, include: Game });
+    console.log(get);
     _averageScore = averageScore(get[0].games);
     return res.json({get, _averageScore});
 });
