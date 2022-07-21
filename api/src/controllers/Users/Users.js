@@ -1,6 +1,5 @@
 const { auth, session, duplicate } = require('./Validate');
-const { select, insert, update, stateUser } = require('./Crud');
-const ParseObject = require('../../Tools/ParseObject');
+const { select, insert, update, stateUser, remove, ranking } = require('./Crud');
 
 module.exports = class {
 
@@ -9,9 +8,9 @@ module.exports = class {
     constructor(){
     }
 
-    async select(){
+    async select(id = 0){
         try {
-            return await select()
+            return await select(id)
             .then(result => result)
             .catch(error => {
                 console.log(`Error: ${error}\nRuta: ${this.#path}\nFunción: select`);
@@ -23,13 +22,13 @@ module.exports = class {
         }
     }
 
-    async create(name = "", username = "", password = "", country = "", state = true, authorization = false) {
+    async create(name = "", username = "", password = "", country = "", email = "", points = 0, state = true, authorization = false) {
         try {
             const validateName = await duplicate(name, "insert");
             if(!validateName) {
                 return await session(username, password, "insert", 0)
                 .then(result => {
-                    if(!result) return insert(name, username, password, country, state, authorization);
+                    if(!result) return insert(name, username, password, country, email, points, state, authorization);
                     return "El usuario ya existe";
                 })
                 .catch(error => {
@@ -45,13 +44,13 @@ module.exports = class {
         }
     }
 
-    async update(id = 0, name = "", username = "", password = "", country = "") {
+    async update(id = 0, name = "", username = "", password = "", country = "", email = "", points = 0) {
         try {
             const validateName = await duplicate(name, "update", id);
             if(!validateName) {
                 return await session(username, password, "update", id)
                 .then(result => {
-                    if(!result) return update(id, name, username, password, country);
+                    if(!result) return update(id, name, username, password, country, email, points);
                     return "El usuario no puede actualizarse";
                 })
                 .catch(error => {
@@ -78,6 +77,34 @@ module.exports = class {
         } catch (error) {
             console.log(`Error: ${error}\nRuta: ${this.#path}\nFunción: state`);
             return "Error al cambiar el estado de usuarios";
+        }
+    }
+
+    async delete(id = 0) {
+        try {
+            return await remove(id)
+            .then(result => result)
+            .catch(error => {
+                console.log(`Error: ${error}\nRuta: ${this.#path}\nFunción: delete`);
+                return "Error al cambiar el estado de usuarios";
+            });
+        } catch (error) {
+            console.log(`Error: ${error}\nRuta: ${this.#path}\nFunción: delete`);
+            return "Error al eliminar un usuario";
+        }
+    }
+
+    async rank(total = 10){
+        try {
+            return await ranking(total)
+            .then(result => result)
+            .catch(error => {
+                console.log(`Error: ${error}\nRuta: ${this.#path}\nFunción: rank`);
+                return "Error al mostrar el ranking";
+            });
+        } catch (error) {
+            console.log(`Error: ${error}\nRuta: ${this.#path}\nFunción: rank`);
+            return "Error al mostrar el ranking";
         }
     }
 
