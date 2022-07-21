@@ -2,7 +2,7 @@ import { Text, View, TouchableOpacity } from "react-native";
 import tw from "twrnc";
 import Svg, { Path } from "react-native-svg";
 
-export default function Navbar() {
+export default function Navbar({navigation}) {
   return (
     <View
       style={tw`flex h-1/6 items-center justify-center bg-gray-900 mt-35 mb--8`}
@@ -19,6 +19,7 @@ export default function Navbar() {
         </TouchableOpacity>
         <TouchableOpacity
           style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-md mr-5 w-10 h-15`}
+          onPress={() => navigation.navigate('Configuration')}
         >
           <View style={tw`w-10 h-10`}>
             <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -28,15 +29,17 @@ export default function Navbar() {
         </TouchableOpacity>
         <TouchableOpacity
           style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-md mr-5 w-10 h-15`}
+          onPress={() => navigation.navigate('Ranking')}
         >
           <View style={tw`w-10 h-10`}>
-            <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" >
-                <Path fill="#000" d="M464 64c26.5 0 48 21.49 48 48 0 15.1-7.1 29.3-19.2 38.4L275.2 313.6a32.1 32.1 0 01-38.4 0L19.2 150.4C7.113 141.3 0 127.1 0 112c0-26.51 21.49-48 48-48h416zM217.6 339.2a63.9 63.9 0 0076.8 0L512 176v208c0 35.3-28.7 64-64 64H64c-35.35 0-64-28.7-64-64V176l217.6 163.2z" />
+            <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+              <Path fill="#000" d="M406.1 61.65c9.3 1.44 13.3 12.94 6.5 19.76l-38 36.69 9 52c.5 9.4-8.3 16.6-16.9 12.3l-46.5-24.5-46.9 24.8c-8.6 4.3-18.3-2.9-16.9-12.2l9-52.1-38-36.99c-6.8-6.82-2.8-18.32 6.5-19.76l52.3-7.54 23.6-47.778c4.3-8.621 16.5-8.262 20.4 0l23.6 47.778 52.3 7.54zM384 256c17.7 0 32 14.3 32 32v192c0 17.7-14.3 32-32 32H256c-17.7 0-32-14.3-32-32V288c0-17.7 14.3-32 32-32h128zm-224 64c17.7 0 32 14.3 32 32v128c0 17.7-14.3 32-32 32H32c-17.67 0-32-14.3-32-32V352c0-17.7 14.33-32 32-32h128zm288 96c0-17.7 14.3-32 32-32h128c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32H480c-17.7 0-32-14.3-32-32v-64z" />
             </Svg>
           </View>
         </TouchableOpacity>
         <TouchableOpacity
           style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-md w-10 h-15`}
+          onPress={() => navigation.navigate('Profile')}
         >
           <View style={tw`w-10 h-10`}>
             <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
