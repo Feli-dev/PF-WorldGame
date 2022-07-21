@@ -3,12 +3,12 @@ import thunk from "redux-thunk";
 
 // Reducers
 import alertReducer from "./alert/alertReducer";
-import userReducer from "./user/userReducer";
+import authReducer from "./auth/authReducer";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
-  combineReducers({ alertReducer, userReducer }),
+  combineReducers({ alertReducer, authReducer }),
   composeEnhancers(applyMiddleware(thunk))
 );
 

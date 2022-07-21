@@ -13,7 +13,7 @@ let initState = {
   cargando: true,
 };
 
-function userReducer(state = initState, action) {
+function authReducer(state = initState, action) {
   switch (action.type) {
     case GET_USER:
       return {
@@ -52,4 +52,4 @@ function userReducer(state = initState, action) {
   }
 }
 
-export default userReducer;
+export default authReducer;
