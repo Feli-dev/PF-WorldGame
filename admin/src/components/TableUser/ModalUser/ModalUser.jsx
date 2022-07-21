@@ -35,6 +35,13 @@ const ModalUser = ({ setModalUser }) => {
               </span>
             </p>
             <p className="font-bold">
+              Rol:
+              <span class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                {" "}
+                Admin
+              </span>
+            </p>
+            <p className="font-bold">
               Registration Date:
               <span class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
                 {" "}
