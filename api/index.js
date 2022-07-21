@@ -19,10 +19,10 @@
 //    *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/server.js');
 const { db } = require('./src/db.js');
-const path = "api/index.js"
+const path = "api/index.js";
 const User = require('./src/controllers/Users/Users');
 const { bitHash } = require('./src/db');
-const {getCountries} = require('./src/controllers/country')
+const {getCountries} = require('./src/controllers/country');
 
 const user = new User();
 
@@ -37,7 +37,7 @@ async function admin(){
   }
 }
 
-db.sync({ force: true }).then(() => {
+db.sync({ force: false }).then(() => {
   getCountries()
   server.listen(3001, () => {
     admin();
