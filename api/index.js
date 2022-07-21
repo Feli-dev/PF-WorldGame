@@ -23,7 +23,7 @@ const {getCountries} = require('./src/controllers/country')
 
 db.sync({ force: true }).then(() => {
   getCountries()
-  server.listen(3001, () => {
-    console.log('cuchando'); 
+  server.listen(process.env.PORT, () => {
+    console.log('cuchando en', process.env.PORT); 
   });
 });
