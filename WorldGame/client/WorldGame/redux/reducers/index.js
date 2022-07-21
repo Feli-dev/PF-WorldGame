@@ -57,6 +57,7 @@ export const rootReducer=(state=initialState, action)=>{
                 ...state,
                 users: sortedpoints,
             }
+
         default:{
             return state;
         }
