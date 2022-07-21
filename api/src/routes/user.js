@@ -83,11 +83,11 @@ router.delete('/restore/:id', async(req, res) =>{
         return await user.state(parseInt(id), true)
         .then(result => res.status(200).json({ Request: result }))
         .catch(error => {
-            console.log(`Error: ${error}\nRuta: ${path}\nMetodo: delete/recycle`);
+            console.log(`Error: ${error}\nRuta: ${path}\nMetodo: delete/restore`);
             return res.status(400).json({ Error: error });
         });
     } catch (error) {
-        console.log(`Error: ${error}\nRuta: ${path}\nMetodo: delete/recycle`);
+        console.log(`Error: ${error}\nRuta: ${path}\nMetodo: delete/restore`);
         return res.status(400).json({ Error: error });
     }
 });
