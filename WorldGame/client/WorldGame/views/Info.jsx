@@ -13,9 +13,9 @@ import yellow from '../assets/viewInfo/yellow.png';
 import arrow_up from '../assets/viewInfo/arrow_up.png';
 import arrow_down from '../assets/viewInfo/arrow_down.png';
 
-export default function Info() {
+export default function Info({navigation}) {
     return (
-        <View>
+        <View style={tw`bg-gray-600`}>
             <ScrollView>
                 <View style={tw`w-95% `}>
                 
@@ -157,10 +157,10 @@ export default function Info() {
                         </View>
                     </View>
                     <TouchableOpacity
-                        style={tw`bg-gray-600 px-8 py-2 rounded-md mt-10 w-95% m-4.5 `}
+                        style={tw`bg-gray-400 px-8 py-2 rounded-md mt-10 w-95% m-4.5 `}
                     >
                         <Text style={tw`text-white text-center font-bold`}
-                            onPress={() => Linking.openURL("abre el link a home")}
+                            onPress={() => navigation.navigate('Home')}
                         >BACK</Text>
                     </TouchableOpacity>
                 </View >
