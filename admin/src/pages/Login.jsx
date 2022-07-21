@@ -59,12 +59,12 @@ const Login = () => {
                 Remember me
               </label>
             </div>
-            <a
-              href="#"
+            <Link
+              to="forgot-password"
               class="ml-auto text-sm text-blue-700 hover:underline dark:text-blue-500"
             >
               Forgot password?
-            </a>
+            </Link>
           </div>
           <button
             type="submit"
