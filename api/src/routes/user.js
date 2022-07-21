@@ -42,7 +42,6 @@ router.put('/', async(req, res) =>{
     } catch (error) {
         console.log(`Error: ${error}\nRuta: ${path}\nMetodo: PUT`);
         return res.status(400).json({ Error: error });
-    
     }
 });
 
