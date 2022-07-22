@@ -1,5 +1,3 @@
-let comp = {};
-
 // name
 // continent
 // population
@@ -107,5 +105,3 @@ export const coordinates = (country, attempt) => {
     //direrection va a ser (n,s,w,e)o (nw,ne,sw,se), que es la data que muestra la pista, 
     //arrowD es para setear la flecha de la pista.
 };
-
-module.exports = comp;

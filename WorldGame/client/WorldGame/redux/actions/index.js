@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { type } from './types';
-import { population, area,coordinates,continent,hemisphere } from './actionsGame';
+import { population, area, coordinates, continent, hemisphere } from './actionsGame';
 //--------------------------games----------------------//
 export function getGame(id){
     return async function(dispatch){
@@ -76,18 +76,6 @@ export function PutUser(payload){
     }
 }}; 
 
-export function PostGame(payload){
-    return async function(dispatch){
-        try{
-            const response = axios.post("http://localhost:3001/User", payload)
-            return response
-
-        }catch(e){
-            return e.message
-        }
-    }
-}
-
 export function deleteUser(payload){
     return async function(dispatch){
         try{
@@ -149,15 +137,24 @@ export function getCountrie(name){
     }
 }};
 
-export function getAllCountries(){
+export function getAllCountries(form = false){
     return async function(dispatch){
         try{
-            var json = await axios.get("http://localhost:3001/countries")
+            var {data} = await axios.get("http://localhost:3001/countries")
+            if(!form){ 
             return dispatch({
                 type: type.GET_ALL_COUNTRIES,
-                payload : json.data,
-            })
-    }catch(e){
+                payload : data,
+            })}
+            else {
+                var aux = []
+                data?.map(e => {aux.push({ label: e.name, value: e.name })})
+                return dispatch({
+                    type: type.GET_ALL_COUNTRIES,
+                    payload : aux,
+                })}
+            }
+     catch(e){
         return e.message
     }
 }};

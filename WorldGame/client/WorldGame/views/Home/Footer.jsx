@@ -1,10 +1,20 @@
 import { Text, View, TouchableOpacity, TextInput } from "react-native";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import tw from "twrnc";
 import Svg, { Path } from "react-native-svg";
+import { gameAction, getCountrie, getAllCountries} from "../../redux/actions/index"
 
 //onpress white flag render confirm message
 
 export default function Footer() {
+  const dispatch = useDispatch()
+  const countries = useSelector((state) => state.countries)
+  
+  useEffect(()=>{
+    dispatch(getAllCountries(true))
+  },[])
+
   return (
     <View style={tw`flex h-1/6 items-center justify-center bg-gray-900`}>
       <View style={tw`flex flex-row justify-center items-center`}>
