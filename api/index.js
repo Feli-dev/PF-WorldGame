@@ -29,7 +29,7 @@ const user = new User();
 async function admin(){
   try {
     const passEncrypt = bitHash.encrypt("admin");
-    return await user.create("sebas", "admin", passEncrypt.toString(), "peru", true, true)
+    return await user.create("sebas", "admin", passEncrypt.toString(), "peru", "sebas.goyas@gmail.com", 0, true, true)
     .then(result => console.log("Administrador creado"))
     .catch(error => console.log(`Error: ${error}\nRuta: ${path}\nFunción: admin`));
   } catch (error) {

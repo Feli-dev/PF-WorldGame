@@ -1,4 +1,3 @@
-
 const { averageScore } = require('../../Tools/AverageScore');
 const { Game, User } = require('../../db');
 const parseObject = require('../../Tools/ParseObject');
