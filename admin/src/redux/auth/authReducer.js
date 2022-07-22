@@ -10,7 +10,7 @@ import {
 let initState = {
   profile: "",
   error: "",
-  cargando: true,
+  cargando: false,
 };
 
 function authReducer(state = initState, action) {
@@ -28,14 +28,12 @@ function authReducer(state = initState, action) {
         error: "",
       };
     case LOGOUT_USER:
-      localStorage.removeItem("token");
       return {
         ...state,
         profile: "",
         error: "",
       };
     case ERROR:
-      localStorage.removeItem("token");
       return {
         ...state,
         profile: "",
@@ -44,7 +42,7 @@ function authReducer(state = initState, action) {
     case LOADING_USER:
       return {
         ...state,
-        cargando: false,
+        cargando: !state.cargando,
         error: "",
       };
     default:
