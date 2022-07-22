@@ -25,7 +25,13 @@ module.exports = (sequelize) => {
         },
         area: {
             type: DataTypes.INTEGER,
-        }
+        },
+        flagSvg: {
+            type: DataTypes.STRING
+        },
+        // flagEmoji: {
+        //     type: DataTypes.STRING
+        // }
     }, {
         timestamps: false,
       })

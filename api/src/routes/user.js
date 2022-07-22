@@ -128,16 +128,12 @@ router.delete('/restore/:id', async(req, res) =>{
         if(id > 0) return await user.state(parseInt(id), true)
         .then(result => res.status(200).json({ Request: result }))
         .catch(error => {
-            console.log(`Error: ${error}\nRuta: ${path}\nMetodo: delete/recycle`);
-<<<<<<< Updated upstream
+            console.log(`Error: ${error}\nRuta: ${path}\nMetodo: delete/restore`);
             return res.status(400).json({ Error: error });
-=======
-            return res.status(404).json({ Error: error });
->>>>>>> Stashed changes
         });
         else return res.status(404).json({ Error: "El id no puede ser menor igual a 0" });
     } catch (error) {
-        console.log(`Error: ${error}\nRuta: ${path}\nMetodo: delete/recycle`);
+        console.log(`Error: ${error}\nRuta: ${path}\nMetodo: delete/restore`);
         return res.status(400).json({ Error: error });
     }
 });

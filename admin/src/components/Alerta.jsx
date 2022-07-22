@@ -2,20 +2,22 @@ import React from "react";
 
 // Icons
 import ErrorIcon from "@mui/icons-material/Error";
+import InfoIcon from "@mui/icons-material/Info";
 
-const Alerta = () => {
+const Alerta = ({ alerta }) => {
   return (
     <div
-      class="flex p-4 mb-4 text-sm text-blue-700 bg-blue-100 rounded-lg dark:bg-blue-200 dark:text-blue-800"
+      className={
+        alerta.error
+          ? "p-4 mb-4 text-sm  rounded-lg text-center text-red-700 bg-red-100"
+          : "p-4 mb-4 text-sm  rounded-lg text-center text-green-700 bg-green-100"
+      }
       role="alert"
     >
-      <ErrorIcon />
-
-      <span class="sr-only">Info</span>
-      <div>
-        <span class="font-medium">Info alert!</span> Change a few things up and
-        try submitting again.
-      </div>
+      <span className="font-medium">
+        <InfoIcon />
+      </span>{" "}
+      {alerta.msg}
     </div>
   );
 };

@@ -49,6 +49,7 @@ export default function Navbar({navigation}) {
           </View>
         </TouchableOpacity>
       </View>
+      <View style={tw`w-70 mt-5 border-b border-solid border-gray-400`}></View>
     </View>
   );
 }

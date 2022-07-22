@@ -60,23 +60,13 @@ async function getCountries (){
             latitud: country.latlng[0],
             longitud: country.latlng[1],
             googleMap: country.maps.googleMaps,
-            area: country.area
+            area: country.area,
+            flagSvg: country.flags[0],
+            //flagEmoji: country.flag
         }
     } )
     await Country.bulkCreate(formatedCountries)
     
-    // console.log(formatedCountries)
-    // formatedCountries.forEach(country => {
-    //     Country.findOrCreate({where: {
-    //         name: country.name,
-    //         continent: country.continent,
-    //         population: country.population,
-    //         latitud: country.latitud,
-    //         longitud: country.longitud,
-    //         googleMap: country.googleMap,
-    //         area: country.area
-    //     }})
-    // })
     console.log('listo')
 }
 

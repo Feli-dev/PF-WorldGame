@@ -1,10 +1,49 @@
 import { Text, View, TouchableOpacity, TextInput } from "react-native";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import tw from "twrnc";
 import Svg, { Path } from "react-native-svg";
+import { gameAction, getAllCountries} from "../../redux/actions/index"
 
 //onpress white flag render confirm message
 
 export default function Footer() {
+  const dispatch = useDispatch()
+  var attemp = {}
+  const [input, setInput] = useState("")
+  const [countryOfDay, setCountryOfDay] = useState("")
+  const countries = useSelector((state) => state.countries)
+  
+  useEffect(()=>{
+    dispatch(getAllCountries())
+  },[])
+  
+  useEffect(()=>{
+    setCountryOfDay(countries[Math.floor(Math.random() * 249)])
+  },[])
+  
+
+  // const handleChange = (e)=>{
+  //   e.preventDefault();
+  //   setInput(e.target.value)
+  // }
+
+  const handleSubmit = (e)=>{
+    e.preventDefault();
+    console.log(countryOfDay)
+    if(countries.some(el => { if(el.name.toLowerCase() === input.toLowerCase()){
+      attemp = el
+      return true
+    }})) {
+      dispatch(gameAction(countryOfDay, attemp))
+      setInput("")
+      attemp = {}
+    } else {
+      console.log(input)
+      console.log("No encontré el país")
+    }
+  }
+
   return (
     <View style={tw`flex h-1/6 items-center justify-center bg-gray-900`}>
       <View style={tw`flex flex-row justify-center items-center`}>
@@ -24,9 +63,12 @@ export default function Footer() {
           placeholder="Country..."
           placeholderTextColor="#6f6f6f"
           style={tw`pl-3 mr-5 w-45 h-15 rounded-md bg-gray-800 text-white text-lg `}
+          onChangeText={text => setInput(text)}
+          value={input}
         ></TextInput>
         <TouchableOpacity
           style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-md w-10 h-15`}
+          onPress={(e) => handleSubmit(e)}
         >
           <View style={tw`w-10 h-10`}>
             <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
