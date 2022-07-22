@@ -1,8 +1,20 @@
 import { Text, View, TouchableOpacity, TextInput } from "react-native";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import tw from "twrnc";
 import Svg, { Path } from "react-native-svg";
+import { gameAction, getCountrie, getAllCountries} from "../../redux/actions/index"
+
+//onpress white flag render confirm message
 
 export default function Footer() {
+  const dispatch = useDispatch()
+  const countries = useSelector((state) => state.countries)
+  
+  useEffect(()=>{
+    dispatch(getAllCountries(true))
+  },[])
+
   return (
     <View style={tw`flex h-1/6 items-center justify-center bg-gray-900`}>
       <View style={tw`flex flex-row justify-center items-center`}>
@@ -21,7 +33,7 @@ export default function Footer() {
         <TextInput
           placeholder="Country..."
           placeholderTextColor="#6f6f6f"
-          style={tw`pl-3 mr-5 w-45 h-15 rounded-md bg-gray-800 text-white text-lg placeholder-gray-200`}
+          style={tw`pl-3 mr-5 w-45 h-15 rounded-md bg-gray-800 text-white text-lg `}
         ></TextInput>
         <TouchableOpacity
           style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-md w-10 h-15`}

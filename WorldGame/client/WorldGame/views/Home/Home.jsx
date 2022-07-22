@@ -4,11 +4,11 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import Game from "./Game";
 
-export default function Home() {
+export default function Home({navigation}) {
   return (
     <View style={tw`flex items-center justify-center bg-gray-900 mb-5`}>
       <View>
-        <Navbar/>
+        <Navbar navigation={navigation}/>
       </View>
       <View style={tw`w-70 mt--10 mb-3 border-b border-solid border-gray-400`}></View>
       <View>
