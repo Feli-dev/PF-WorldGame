@@ -1,6 +1,7 @@
 import { Text, View, ScrollView } from "react-native";
 import tw from "twrnc";
 import Svg, { Path } from "react-native-svg";
+import { getAttemps} from "../../redux/actions/index" //Crear action y reducer
 
 export default function Game() {
   return (

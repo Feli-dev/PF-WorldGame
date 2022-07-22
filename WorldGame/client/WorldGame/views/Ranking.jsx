@@ -8439,7 +8439,7 @@ export default function Ranking() {
         <ScrollView style={tw`mt-15 mb-45`}>
             {aux.map(player => {
                 return(
-                    <View style={tw`flex flex-row justify-center items-center bg-gray-700 mt-5 rounded-md p-3`}>
+                    <View key={player.pos}  style={tw`flex flex-row justify-center items-center bg-gray-700 mt-5 rounded-md p-3`}>
                         <View style={tw`w-1/6`}>
                             <Text style={tw`mr-5 text-white text-center font-bold`}> {`#${player.pos}`} </Text>
                         </View>

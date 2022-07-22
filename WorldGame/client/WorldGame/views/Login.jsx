@@ -2,7 +2,6 @@ import { Text, View, TouchableOpacity, TextInput } from "react-native";
 import tw from "twrnc";
 import Svg, { Path } from "react-native-svg";
 
-
 export default function Login({ navigation }) {
   return (
     <View style={tw`flex h-full items-center justify-center bg-gray-900`}>
