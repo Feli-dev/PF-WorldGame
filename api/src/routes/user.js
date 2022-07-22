@@ -7,6 +7,7 @@ const user = new User();
 const path = "api/src/routes/user.js"
 
 router.post('/', async(req, res) =>{
+    
     try {
         const { name, username, password, country, email, points } = req.body;
         const passEncrypt = bitHash.encrypt(password);

@@ -63,6 +63,42 @@ export function getUser(id){
     }
 }};
 
+// export function PostUser(payload){
+//     return async function(dispatch){
+//         try{
+//             console.log("payload", payload)
+//             return await axios.post("http://localhost:3001/User", payload)
+//             .catch(error =>  console.log(error))
+
+//         }catch(e){
+//             console.log("error en acción:", e)
+//             return e.message
+//         }
+//     }
+// }
+export function PostUser(payload){
+    return async function(dispatch){
+        try{
+            console.log("payload", payload)
+            var json = await axios.post("http://192.168.1.83:3001/User", payload)
+            //para que los métodos de axios funcionen bien en el emulador expo
+            //teniendo el back corriendo en tu pc, es necesario que reemplaces lolcalhost
+            //en la url del método, con tu ipv4. Esta se encuentra yendo a configuración, red e internet,
+            //propiedades, y yendo hacia abajo aparece "ipv4".
+            console.log("json", json.data)
+            return dispatch({
+                type: type.POST_USER,
+                payload : json.data,
+            })
+        }
+        catch(e){
+            console.log("error en acción:", e)
+            return e.message
+        }
+    }
+}
+
+
 export function PutUser(payload){
     return async function(dispatch){
         try{
