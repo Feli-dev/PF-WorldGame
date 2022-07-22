@@ -29,14 +29,14 @@ module.exports = class {
                 return await session(username, password, "insert", 0)
                 .then(result => {
                     if(!result) return insert(name, username, password, country, email, points, state, authorization);
-                    return "El usuario ya existe";
+                    return "El nombre de usuario esta en uso";
                 })
                 .catch(error => {
                     console.log(`Error: ${error}\nRuta: ${this.#path}\nFunción: create`);
                     return "Error al crear usuarios";
                 });
             }else{
-                return "El nombre esta en uso"
+                return "El nombre ya existe";
             }
         } catch (error) {
             console.log(`Error: ${error}\nRuta: ${this.#path}\nFunción: create`);
@@ -58,7 +58,7 @@ module.exports = class {
                     return "Error al actualizar usuarios";
                 });
             }else{
-                return "El nombre esta en uso"
+                return "El nombre ya existe";
             }
         } catch (error) {
             console.log(`Error: ${error}\nRuta: ${this.#path}\nFunción: create`);
