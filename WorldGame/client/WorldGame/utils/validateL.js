@@ -1,5 +1,4 @@
 let validate = (type,event) => {
-    console.log(event);
     let reg =  new RegExp(/(?!.*[\.\-\_]{5,})^[a-zA-Z0-9\.\-\_]{0,20}$/);
     if(type === "username"){
         if(reg.test(event) === false){
