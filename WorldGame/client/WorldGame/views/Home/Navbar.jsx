@@ -5,7 +5,7 @@ import Svg, { Path } from "react-native-svg";
 export default function Navbar({navigation}) {
   return (
     <View
-      style={tw`flex h-1/6 items-center justify-center bg-gray-900 mt-35 mb--8`}
+      style={tw`flex h-1/6 items-center justify-center bg-gray-900 mt-40 mb--8`}
     >
       <View style={tw`flex flex-row justify-center items-center`}>
         <TouchableOpacity

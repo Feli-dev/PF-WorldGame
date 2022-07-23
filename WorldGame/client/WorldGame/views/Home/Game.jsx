@@ -7,7 +7,7 @@ export default function Game() {
   const listOfAttemps = useSelector((state) => state.attemps)
 
   return (
-    <View style={tw`flex h-6/8 items-center justify-center`}>
+    <View style={tw`flex h-5/7 items-center justify-center`}>
       <ScrollView>
         {listOfAttemps?.map(el => {
           return (
