@@ -10,8 +10,8 @@ const NavBar = () => {
         </div>
         <div className="flex items-center w-1/7">
           <div className="flex flex-shrink-0 items-center ml-auto">
-            <div class="dropdown inline-block relative">
-              <button class="text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
+            <div className="dropdown inline-block relative">
+              <button className="text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
                 <div className="hidden md:flex md:flex-col md:items-end md:leading-tight">
                   <span className="font-semibold">Andres Guerrero</span>
                   <span className="text-sm text-gray-600">Admin</span>
@@ -24,26 +24,26 @@ const NavBar = () => {
                   />
                 </span>
               </button>
-              <ul class="dropdown-menu absolute hidden text-gray-700  bg-white border rounded-lg">
-                <li class="">
+              <ul className="dropdown-menu absolute hidden text-gray-700 bg-white border rounded-lg pt-1 w-11/12">
+                <li>
                   <Link
-                    class="rounded-t py-2 px-4 block whitespace-no-wrap hover:text-blue-600 hover:bg-gray-200"
+                    className="rounded-t py-2 px-4 block whitespace-no-wrap hover:text-blue-600 hover:bg-gray-200"
                     to="/profile"
                   >
                     Profile
                   </Link>
                 </li>
-                <li class="">
+                <li>
                   <Link
-                    class="py-2 px-4 block whitespace-no-wrap hover:text-blue-600 hover:bg-gray-200"
+                    className="py-2 px-4 block whitespace-no-wrap hover:text-blue-600 hover:bg-gray-200"
                     to="/update-password"
                   >
                     Update Password
                   </Link>
                 </li>
-                <li class="">
+                <li>
                   <Link
-                    class="rounded-b  py-2 px-4 block whitespace-no-wrap hover:text-red-600  hover:bg-red-200"
+                    className="rounded-b py-2 px-4 block whitespace-no-wrap hover:text-red-600  hover:bg-red-200"
                     to="/"
                   >
                     Logout
