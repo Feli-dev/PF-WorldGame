@@ -88,7 +88,7 @@ function Login({ navigation, user, postLogin }) {
           placeholderTextColor="#6f6f6f"
           style={tw`pl-3 mb-5 w-70 h-10 rounded-md bg-gray-800 text-white`}
         ></TextInput>
-        <Text style={tw`text-white text-sm text-left mb-2`}>{err.username}</Text>
+        <Text style={tw`text-white text-xs text-left mb-1`}>{err.username}</Text>
       </View>
       <View>
         <Text style={tw`text-white text-lg text-left mb-2`}>Password</Text>
@@ -100,15 +100,16 @@ function Login({ navigation, user, postLogin }) {
           placeholderTextColor="#6f6f6f"
           style={tw`pl-3 mb-5 w-70 h-10 rounded-md bg-gray-800 text-white`}
         ></TextInput>
-        <Text style={tw`text-white text-sm text-left mb-2`}>{err.password}</Text>
+        <Text style={tw`text-white text-xs text-left mb-1`}>{err.password}</Text>
       </View>
       <TouchableOpacity style={tw`bg-gray-600 px-8 py-2 rounded-md mt-10 w-50`}
         onPress={() => log(input)}
         >
         <Text style={tw`text-white text-center font-bold`}>LOGIN</Text>
       </TouchableOpacity>
+      <Text style={tw`text-white text-lg text-left mb-4`}></Text>
       <View>
-        <Text style={tw`text-white text-sm text-left mb-2`}>{logErr}</Text>
+      <Text style={tw`text-white text-xs text-left mb-1`}>{logErr}</Text>
       </View>
       <View style={tw`flex flex-row mt-15 mb-5 justify-center items-center`}>
         <View
