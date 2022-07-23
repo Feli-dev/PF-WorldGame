@@ -46,6 +46,7 @@ export default function Footer() {
 
   return (
     <View style={tw`flex h-1/6 items-center justify-center bg-gray-900`}>
+      <View style={tw`w-70 mt--50 mb-5 border-b border-solid border-gray-400`}></View>
       <View style={tw`flex flex-row justify-center items-center`}>
         <TouchableOpacity
           style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-md mr-5 w-10 h-15`}
