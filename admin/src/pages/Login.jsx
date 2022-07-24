@@ -81,21 +81,21 @@ const Login = () => {
           {msg && <Alerta alerta={error} />}
           <div>
             <label
-              htmlFor="email"
+              htmlFor="username"
               className={
                 errorForm.emailError
                   ? "block mb-2 text-sm font-medium  text-red-700"
                   : "block mb-2 text-sm font-medium  text-gray-900"
               }
             >
-              Email
+              Username
             </label>
             <input
               type="text"
               name="email"
               value={email}
-              id="email"
-              placeholder="Email"
+              id="username"
+              placeholder="Username"
               className={
                 errorForm.emailError
                   ? " bg-gray-50 border text-sm rounded-lg  block w-full p-2.5 border-red-500 text-red-900"
@@ -106,7 +106,7 @@ const Login = () => {
             />
             {errorForm.emailError && (
               <p className="mt-2 text-sm text-red-600 dark:text-red-500">
-                <span className="font-medium">Email is required</span>
+                <span className="font-medium">Username is required</span>
               </p>
             )}
           </div>
