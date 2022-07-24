@@ -12,3 +12,7 @@
     margin: 0px;
     transform: translate3d(20px, 70px, 0px);
 }
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}

@@ -7,6 +7,8 @@ const LOADING_USER = "LOADING_USER";
 const SHOW_ALERT = "SHOW_ALERT";
 const HIDE_ALERT = "HIDE_ALERT";
 
+const GET_ALL_USERS = "GET_ALL_USERS" 
+
 export {
   GET_USER,
   LOGIN_USER,
@@ -15,4 +17,5 @@ export {
   LOADING_USER,
   SHOW_ALERT,
   HIDE_ALERT,
+  GET_ALL_USERS,
 };

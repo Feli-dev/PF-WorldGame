@@ -1,8 +1,17 @@
 import { Text, View, TouchableOpacity, TextInput } from "react-native";
 import tw from "twrnc";
 import Svg, { Path } from "react-native-svg";
+import { useDispatch } from "react-redux";
+import { getAllCountries} from "../redux/actions/index"
+import { useEffect } from "react";
 
 export default function Login({ navigation }) {
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+    dispatch(getAllCountries())
+  },[])
+
   return (
     <View style={tw`flex h-full items-center justify-center bg-gray-900`}>
       <View style={tw`flex flex-col`}>

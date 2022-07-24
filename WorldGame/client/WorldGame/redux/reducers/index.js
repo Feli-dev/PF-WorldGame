@@ -70,9 +70,10 @@ export const rootReducer=(state=initialState, action)=>{
                 countries:action.payload
             }
         case type.CALL_GAME_ACTIONS:
+            console.log(state.attemps)
             return{
                 ...state,
-                attemps:[...attemps, action.payload]
+                attemps:[...state.attemps, action.payload]
             }
         default:{
             return state;

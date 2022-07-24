@@ -51,7 +51,7 @@ export function getUser(id){
                 var json = await axios.get("https://world-game-v2.herokuapp.com/User", id)
             }
             else{
-                var json = await axios.get("https://world-game-v2.herokuapp.com/User") 
+                var json = await axios.get("https://world-game-v2.herokuapp.com/User")
             }
             return dispatch({
                 type: type.GET_USER,
@@ -146,7 +146,7 @@ export function sortByWeight(payload) {
         payload,
     }
 }
-//-----------------------friens---------------------//
+//-----------------------friends---------------------//
 export function PostFriend(payload){
     return async function(dispatch){
         try{
@@ -195,16 +195,17 @@ export function getAllCountries(form = false){
 }};
 
 //------------------------game.action------------------//
-export function gameAction(attempt){
-    return async function(dispatch){
+export function gameAction(country, attempt){
+    return function(dispatch){
         try{
             const lastattemp={
-                area: area(attempt),
-                hemisphere: hemisphere(attempt),
-                population: population(attempt),
-                coordinates: coordinates(attempt),
-                continent: continent(attempt)
-          }
+                name: attempt.name,
+                area: area(country, attempt),
+                hemisphere: hemisphere(country, attempt),
+                population: population(country, attempt),
+                coordinates: coordinates(country, attempt),
+                continent: continent(country, attempt)
+            }
             return dispatch({
                 type: type.CALL_GAME_ACTIONS,
                 payload : lastattemp,
