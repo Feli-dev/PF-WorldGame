@@ -62,7 +62,7 @@ async function getCountries (){
             googleMap: country.maps.googleMaps,
             area: country.area,
             flagSvg: country.flags[0],
-            flagEmoji: country.flag
+            //flagEmoji: country.flag
         }
     } )
     await Country.bulkCreate(formatedCountries)

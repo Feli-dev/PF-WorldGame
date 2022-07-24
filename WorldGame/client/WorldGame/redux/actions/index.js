@@ -5,7 +5,7 @@ import { population, area, coordinates, continent, hemisphere } from './actionsG
 export function getGame(id){
     return async function(dispatch){
         try{
-            var json = await axios.get("http://localhost:3001/games", id)
+            var json = await axios.get("https://world-game-v2.herokuapp.com/games", id)
             return dispatch({
                 type: type.GET_GAME,
                 payload : json.data,
@@ -18,7 +18,7 @@ export function getGame(id){
 export function PostGame(payload){
     return async function(dispatch){
         try{
-            const response = axios.post("http://localhost:3001/games", payload)
+            const response = axios.post("https://world-game-v2.herokuapp.com/games", payload)
             return response
 
         }catch(e){
@@ -32,7 +32,7 @@ export function PostGame(payload){
 export function postLogin(payload){
     return async function(dispatch){
         try{
-            var json = await axios.post("http://localhost:3001/Login", payload)
+            var json = await axios.post("https://world-game-v2.herokuapp.com/Login", payload)
             return dispatch({
                 type: type.POST_LOGIN,
                 payload : json.data,
@@ -48,11 +48,10 @@ export function getUser(id){
     return async function(dispatch){
         try{
             if(id){
-                var json = await axios.get("http://localhost:3001/User", id)
+                var json = await axios.get("https://world-game-v2.herokuapp.com/User", id)
             }
             else{
-                var json = await axios.get("http://localhost:3001/User") 
-
+                var json = await axios.get("https://world-game-v2.herokuapp.com/User")
             }
             return dispatch({
                 type: type.GET_USER,
@@ -63,10 +62,46 @@ export function getUser(id){
     }
 }};
 
+// export function PostUser(payload){
+//     return async function(dispatch){
+//         try{
+//             console.log("payload", payload)
+//             return await axios.post("https://world-game-v2.herokuapp.com/User", payload)
+//             .catch(error =>  console.log(error))
+
+//         }catch(e){
+//             console.log("error en acción:", e)
+//             return e.message
+//         }
+//     }
+// }
+export function PostUser(payload){
+    return async function(dispatch){
+        try{
+            console.log("payload", payload)
+            var json = await axios.post("https://world-game-v2.herokuapp.com/User", payload)
+            //para que los métodos de axios funcionen bien en el emulador expo
+            //teniendo el back corriendo en tu pc, es necesario que reemplaces lolcalhost
+            //en la url del método, con tu ipv4. Esta se encuentra yendo a configuración, red e internet,
+            //propiedades, y yendo hacia abajo aparece "ipv4".
+            console.log("json", json.data)
+            return dispatch({
+                type: type.POST_USER,
+                payload : json.data,
+            })
+        }
+        catch(e){
+            console.log("error en acción:", e)
+            return e.message
+        }
+    }
+}
+
+
 export function PutUser(payload){
     return async function(dispatch){
         try{
-            var json = await axios.put("http://localhost:3001/User", payload)
+            var json = await axios.put("https://world-game-v2.herokuapp.com/User", payload)
             return dispatch({
                 type: type.PUT_USER,
                 payload : json.data,
@@ -79,7 +114,7 @@ export function PutUser(payload){
 export function deleteUser(payload){
     return async function(dispatch){
         try{
-            const response = axios.delete(`http://localhost:3001/User/delete/recycle/${payload}`)
+            const response = axios.delete(`https://world-game-v2.herokuapp.com/User/delete/recycle/${payload}`)
             return response
         }catch(e){
             return e.message
@@ -89,7 +124,7 @@ export function deleteUser(payload){
 export function restoreUser(payload){
     return async function(dispatch){
         try{
-            const response = axios.delete(`http://localhost:3001/User/delete/restore/${payload}`)
+            const response = axios.delete(`https://world-game-v2.herokuapp.com/User/delete/restore/${payload}`)
             return response
         }catch(e){
             return e.message
@@ -111,11 +146,11 @@ export function sortByWeight(payload) {
         payload,
     }
 }
-//-----------------------friens---------------------//
+//-----------------------friends---------------------//
 export function PostFriend(payload){
     return async function(dispatch){
         try{
-            const response = axios.post("http://localhost:3001/friends", payload)
+            const response = axios.post("https://world-game-v2.herokuapp.com/friends", payload)
             return response
 
         }catch(e){
@@ -127,7 +162,7 @@ export function PostFriend(payload){
 export function getCountrie(name){
     return async function(dispatch){
         try{
-            var json = await axios.get("http://localhost:3001/countries",name)
+            var json = await axios.get("https://world-game-v2.herokuapp.com/countries",name)
             return dispatch({
                 type: type.GET_COUNTRIES,
                 payload : json.data,
@@ -140,7 +175,7 @@ export function getCountrie(name){
 export function getAllCountries(form = false){
     return async function(dispatch){
         try{
-            var {data} = await axios.get("http://localhost:3001/countries")
+            var {data} = await axios.get("https://world-game-v2.herokuapp.com/countries")
             if(!form){ 
             return dispatch({
                 type: type.GET_ALL_COUNTRIES,
@@ -160,16 +195,17 @@ export function getAllCountries(form = false){
 }};
 
 //------------------------game.action------------------//
-export function gameAction(attempt){
-    return async function(dispatch){
+export function gameAction(country, attempt){
+    return function(dispatch){
         try{
             const lastattemp={
-                area: area(attempt),
-                hemisphere: hemisphere(attempt),
-                population: population(attempt),
-                coordinates: coordinates(attempt),
-                continent: continent(attempt)
-          }
+                name: attempt.name,
+                area: area(country, attempt),
+                hemisphere: hemisphere(country, attempt),
+                population: population(country, attempt),
+                coordinates: coordinates(country, attempt),
+                continent: continent(country, attempt)
+            }
             return dispatch({
                 type: type.CALL_GAME_ACTIONS,
                 payload : lastattemp,

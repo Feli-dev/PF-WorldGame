@@ -29,9 +29,9 @@ module.exports = (sequelize) => {
         flagSvg: {
             type: DataTypes.STRING
         },
-        flagEmoji: {
-            type: DataTypes.STRING
-        }
+        // flagEmoji: {
+        //     type: DataTypes.STRING
+        // }
     }, {
         timestamps: false,
       })
