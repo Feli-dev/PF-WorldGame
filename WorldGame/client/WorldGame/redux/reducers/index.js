@@ -65,7 +65,6 @@ export const rootReducer=(state=initialState, action)=>{
                 countrie: action.payload,
             }
         case type.GET_ALL_COUNTRIES:
-            console.log(action.payload)
             return{
                 ...state,
                 countries:action.payload

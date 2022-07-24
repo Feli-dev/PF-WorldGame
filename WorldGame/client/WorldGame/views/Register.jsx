@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { Text, View, TouchableOpacity, TextInput, ScrollView } from "react-native";
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  TextInput,
+  ScrollView,
+} from "react-native";
 import tw from "twrnc";
 import { useDispatch } from "react-redux";
 import Svg, { Path } from "react-native-svg";
@@ -8,6 +14,7 @@ import validateInput from "../utils/ValidateInput";
 import { PostUser } from "../redux/actions";
 
 export default function Register({ navigation }) {
+  const dispatch = useDispatch();
   const countries = [
     { label: "Afghanistan", value: "Afghanistan" },
     {
@@ -456,61 +463,61 @@ export default function Register({ navigation }) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState(countries);
-
-  const dispatch = useDispatch()
-
   const [input, setInput] = useState({
-    email: "", 
+    email: "",
     username: "",
     password: "",
     repeatPassword: "",
-    country: ""
-});
-const [err, setErr] = useState({}) 
+    country: "",
+  });
+  const [err, setErr] = useState({});
 
-function handleSubmit(e){
-
-  console.log("despachanding: ", input)
-  dispatch(PostUser(input))
-}
-
-function handleInputChange(type, text){
-  setInput({
-      ...input,
-      [type]: text
-  })
+  function handleSubmit(e) {
+    setErr(validateInput(input));
+    if(!(Object.keys(err).length > 0)) dispatch(PostUser({
+      email: input.email,
+      username: input.username,
+      password: input.password,
+      country: input.country,}))
+  }
   
-   setErr(validateInput({...input, [type]: text}))
-   //setErr(validateInput(input))
-}
+  function handleInputChange(type, text) {
+    setInput({
+      ...input,
+      [type]: text,
+    });
+  }
 
   return (
     // <ScrollView style={tw`pt-8 bg-gray-900`}>
-    <View style={tw`flex h-full items-center justify-center pt-70 bg-gray-900 `}>
-
+    <View
+      style={tw`flex h-full items-center justify-center pt-10 bg-gray-900 `}
+    >
       <View style={tw`flex`}>
         <View style={tw`flex flex-col`}>
           <Text style={tw`text-white text-lg text-left mb-1`}>Mail</Text>
           <TextInput
             type="email"
-            onChangeText={e => handleInputChange("email", e)}
+            onChangeText={(e) => handleInputChange("email", e)}
             placeholder="Email..."
             placeholderTextColor="#6f6f6f"
-            style={tw`pl-3 mb-3 w-70 h-10 rounded-md bg-gray-800 text-white placeholder-gray-200`}
+            style={tw`pl-3 mb-1 w-70 h-10 rounded-md bg-gray-800 text-white`}
           ></TextInput>
-          <Text style={tw`text-white text-xs text-left mb-1`}>{err.email}</Text>
+          <Text style={tw`text-red-500 text-xs text-left mb-1`}>{err.email}</Text>
         </View>
 
         <View style={tw`flex flex-col`}>
           <Text style={tw`text-white text-lg text-left mb-1`}>Username</Text>
           <TextInput
             type="username"
-            onChangeText={e => handleInputChange("username", e)}
+            onChangeText={(e) => handleInputChange("username", e)}
             placeholder="Username..."
             placeholderTextColor="#6f6f6f"
-            style={tw`pl-3 mb-3 w-70 h-10 rounded-md bg-gray-800 text-white placeholder-gray-200`}
+            style={tw`pl-3 mb-1 w-70 h-10 rounded-md bg-gray-800 text-white`}
           ></TextInput>
-          <Text style={tw`text-white text-xs text-left mb-1`}>{err.username}</Text>
+          <Text style={tw`text-red-500 text-xs text-left mb-1`}>
+            {err.username}
+          </Text>
         </View>
 
         <View style={tw`flex flex-col`}>
@@ -518,12 +525,14 @@ function handleInputChange(type, text){
           <TextInput
             type="password"
             secureTextEntry={true}
-            onChangeText={e => handleInputChange("password", e)}
+            onChangeText={(e) => handleInputChange("password", e)}
             placeholder="Password..."
             placeholderTextColor="#6f6f6f"
-            style={tw`pl-3 mb-3 w-70 h-10 rounded-md bg-gray-800 text-white placeholder-gray-200`}
+            style={tw`pl-3 mb-1 w-70 h-10 rounded-md bg-gray-800 text-white`}
           ></TextInput>
-          <Text style={tw`text-white text-xs text-left mb-1`}>{err.password}</Text>
+          <Text style={tw`text-red-500 text-xs text-left mb-1`}>
+            {err.password}
+          </Text>
         </View>
 
         <View style={tw`flex flex-col`}>
@@ -533,12 +542,14 @@ function handleInputChange(type, text){
           <TextInput
             type="repeatPassword"
             secureTextEntry={true}
-            onChangeText={e => handleInputChange("repeatPassword", e)}
+            onChangeText={(e) => handleInputChange("repeatPassword", e)}
             placeholder="Repeat password..."
             placeholderTextColor="#6f6f6f"
-            style={tw`pl-3 mb-3 w-70 h-10 rounded-md bg-gray-800 text-white placeholder-gray-200`}
+            style={tw`pl-3 mb-1 w-70 h-10 rounded-md bg-gray-800 text-white`}
           ></TextInput>
-          <Text style={tw`text-white text-xs text-left mb-1`}>{err.repeatPassword}</Text>
+          <Text style={tw`text-red-500 text-xs text-left mb-1`}>
+            {err.repeatPassword}
+          </Text>
         </View>
 
         <View style={tw`flex flex-col`}>
@@ -555,18 +566,27 @@ function handleInputChange(type, text){
             setValue={setValue}
             setItems={setItems}
             arrowIconStyle={{ tintColor: "white" }}
-            onSelectItem={e => handleInputChange("country", e.value)}
+            onSelectItem={(e) => handleInputChange("country", e.value)}
           />
-          <Text style={tw`text-white text-xs text-left mt-5`}>{err.country}</Text>
+          <Text style={tw`text-red-500 text-xs text-left mt-5`}>
+            {err.country}
+          </Text>
         </View>
       </View>
 
-      <TouchableOpacity
+      {Object.keys(err).length > 0 ?
+      <TouchableOpacity 
+        disabled
         onPress={(e) => handleSubmit(e)}
-        style={tw`bg-gray-600 px-8 py-2 rounded-md mt-10 w-50`}
+        style={tw`bg-gray-600 px-8 py-2 rounded-md mt-5 w-50`}
+      >
+        <Text style={tw`text-gray-500 text-center font-bold`}>REGISTER</Text>
+      </TouchableOpacity> : <TouchableOpacity 
+        onPress={(e) => handleSubmit(e)}
+        style={tw`bg-gray-800 px-8 py-2 rounded-md mt-5 w-50`}
       >
         <Text style={tw`text-white text-center font-bold`}>REGISTER</Text>
-      </TouchableOpacity>
+      </TouchableOpacity>}
 
       <View style={tw`flex flex-row mt-8  justify-center items-center`}>
         <View
@@ -581,9 +601,9 @@ function handleInputChange(type, text){
 
       <View style={tw`flex flex-row justify-center items-center mt-8`}>
         <TouchableOpacity
-          style={tw`flex justify-center items-center bg-[#4267B2] px-8 py-2 rounded-md mr-5 w-20 h-20`}
+          style={tw`flex justify-center items-center bg-[#4267B2] px-8 py-2 rounded-md mr-5 w-15 h-15`}
         >
-          <View style={tw`w-10 h-10`}>
+          <View style={tw`w-8 h-8`}>
             <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
               <Path
                 fill="#FFF"
@@ -593,9 +613,9 @@ function handleInputChange(type, text){
           </View>
         </TouchableOpacity>
         <TouchableOpacity
-          style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-md w-20 h-20`}
+          style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-md w-15 h-15`}
         >
-          <View style={tw`w-10 h-10`}>
+          <View style={tw`w-8 h-8`}>
             <Svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 326667 333333"
