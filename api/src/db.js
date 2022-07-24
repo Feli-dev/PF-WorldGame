@@ -9,7 +9,7 @@ const usuario = require('./models/User');
 
 const bitHash = new BitHash();
 
-const sequelize = new Sequelize(`postgres://postgres:12345@localhost:5432/worldgame`, {
+const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/worldgame`, {
   logging: false, 
   native: false, 
 });
