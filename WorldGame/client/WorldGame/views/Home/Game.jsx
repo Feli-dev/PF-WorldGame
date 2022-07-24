@@ -7,7 +7,6 @@ import React, { useRef } from 'react';
 export default function Game() {
   const listOfAttemps = useSelector((state) => state.attemps)
   const scrollViewRef = useRef();
-
   return (
     <View style={tw`flex h-5/7 items-center justify-center`}>
       <ScrollView 

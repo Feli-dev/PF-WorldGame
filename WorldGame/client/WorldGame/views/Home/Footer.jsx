@@ -13,6 +13,7 @@ export default function Footer() {
   const [input, setInput] = useState("")
   const [countryOfDay, setCountryOfDay] = useState("")
   const countries = useSelector((state) => state.countries)
+  const listOfAttemps = useSelector((state) => state.attemps)
   
   useEffect(()=>{
     dispatch(getAllCountries())
@@ -30,12 +31,19 @@ export default function Footer() {
 
   const handleSubmit = (e)=>{
     e.preventDefault();
-    console.log(countryOfDay)
     if(countries.some(el => { if(el.name.toLowerCase() === input.toLowerCase()){
       attemp = el
       return true
     }})) {
-      dispatch(gameAction(countryOfDay, attemp))
+      if(!(listOfAttemps.some(el => el.name.toLowerCase() === attemp.name.toLowerCase()))){
+        if(!(listOfAttemps.some(el => el.name.toLowerCase() === countryOfDay.name.toLowerCase()))){
+          dispatch(gameAction(countryOfDay, attemp))
+        }else {
+          console.log("Ya encontraste el país, felicitaciones!")
+        }
+      } else {
+        console.log("Ya has probado con ese país, intenta con otra opción!")
+      }
       setInput("")
       attemp = {}
     } else {
