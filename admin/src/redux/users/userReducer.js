@@ -8,10 +8,10 @@ let initialState = {
 function userReducer(state = initialState, action) {
   switch (action.type) {
     case GET_ALL_USERS:
-      console.log('reducer', state.users)  
+      console.log('reducer')  
       return {
         ...state,
-        users: action.payload,
+        users: action.payload.Request,
         
       };
     

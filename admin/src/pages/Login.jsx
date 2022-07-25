@@ -88,14 +88,14 @@ const Login = () => {
                   : "block mb-2 text-sm font-medium  text-gray-900"
               }
             >
-              Email
+              UserName
             </label>
             <input
               type="text"
               name="email"
               value={email}
               id="email"
-              placeholder="Email"
+              placeholder="UserName"
               className={
                 errorForm.emailError
                   ? " bg-gray-50 border text-sm rounded-lg  block w-full p-2.5 border-red-500 text-red-900"
