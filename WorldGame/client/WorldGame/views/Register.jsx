@@ -482,7 +482,6 @@ export default function Register({ navigation }) {
         username: input.username,
         password: input.password,
         country: input.country,
-        name: "Feli222",
       }))
       navigation.navigate("Login")
       }

@@ -1,19 +1,16 @@
 import {
   View,
   Text,
-  ScrollView,
   TouchableOpacity,
   TextInput,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import tw from "twrnc";
 import Svg, { Path } from "react-native-svg";
-
-import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { PutUser, getUser } from "../redux/actions/index";
 
-export default function Profile() {
+export default function Profile({navigation}) {
 
   const dispatch = useDispatch()
 
@@ -63,7 +60,7 @@ export default function Profile() {
     console.log('userInfo.Request--->', userInfo.Request)
     console.log('info que manda a actualizar', userData)
     dispatch(PutUser(userData))
-    navigation.navigate('Register')
+    navigation.navigate('Home')
   }
 
 
