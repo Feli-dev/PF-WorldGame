@@ -48,7 +48,7 @@ export function getUser(id){
     return async function(dispatch){
         try{
             if(id){
-                var json = await axios.get("https://world-game-v2.herokuapp.com/User", id)
+                var json = await axios.get("https://world-game-v2.herokuapp.com/User/" + id)
             }
             else{
                 var json = await axios.get("https://world-game-v2.herokuapp.com/User") 
