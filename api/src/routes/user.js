@@ -16,7 +16,7 @@ function field(name = "", username = "", password = "") {
 router.post('/', async(req, res) =>{
     try {
         const { name, username, password, country, email, points } = req.body;
-        const message = field(name, username, password);
+        const message = field(username, password);
         if(!message.length){
             const passEncrypt = bitHash.encrypt(password);
             return await user.create(name, username, passEncrypt.toString(), country, email, points, true, false)

@@ -8,7 +8,8 @@ const initialState = {
     users: [],
     login:[],
     attemps:[],
-    userdetail: {}
+    userdetail: {},
+    rank:[],
 }
 
 
@@ -75,6 +76,11 @@ export const rootReducer=(state=initialState, action)=>{
                 ...state,
                 attemps:[...state.attemps, action.payload]
             }
+            case type.GET_RANK:
+                return{
+                    ...state,
+                    rank: action.payload,
+                }
         default:{
             return state;
         }
