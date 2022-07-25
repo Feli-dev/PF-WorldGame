@@ -19,6 +19,10 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             unique: true,
             allowNull: false,
+            validate:{
+                min:3,
+                max:20
+            },
             get() {
                 const value = this.getDataValue('username');
                 return value ? value.toLowerCase() : null;
@@ -28,15 +32,26 @@ module.exports = (sequelize) => {
             type: DataTypes.TEXT,
             //unique: true,
             allowNull: false,
+            validate:{
+                min:4,
+                max:50
+            },
         },
         email: {
             type: DataTypes.STRING,
             //unique: true,
             allowNull: false,
+            validate:{
+                max:80,
+            },
         },
         points: {
             type:DataTypes.FLOAT,
             defaultValue: 0,
+                validate:{
+                    min:0,
+                    max:5,
+                },
         },
         country: {
             type: DataTypes.STRING,
