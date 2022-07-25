@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch, useHistory } from "react-router-dom";
 
 // Pages
 import NoFound from "./pages/NoFound";
@@ -22,8 +22,14 @@ import { authenticateAction } from "./redux/auth/authActions";
 function App() {
   const dispatch = useDispatch();
 
+  const navigate = useHistory();
+
   useEffect(() => {
-    dispatch(authenticateAction());
+    const redirect = dispatch(authenticateAction());
+
+    if (redirect === "redirect") {
+      navigate.push("/");
+    }
   }, []);
 
   return (
