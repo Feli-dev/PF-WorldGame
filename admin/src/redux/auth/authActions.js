@@ -22,7 +22,7 @@ function authenticateAction() {
           type: ERROR,
           payload: "Unauthorized User",
         });
-        return;
+        return "redirect";
       }
 
       dispatch({
@@ -66,6 +66,7 @@ function loginAction(user) {
         type: LOADING_USER_AUTH,
       });
     } catch (err) {
+      console.log(err)
       dispatch({
         type: ERROR,
         payload: { msg: err.response.data.Request, error: true },

@@ -41,6 +41,7 @@ function authReducer(state = initState, action) {
         ...state,
         profile: "",
         error: action.payload,
+        cargandoAuth: false,
       };
     case LOADING_USER:
       return {
