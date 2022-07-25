@@ -9,7 +9,7 @@ import PublicIcon from '@mui/icons-material/Public';
 const CardsDashboard = () => {
   return (
     <div className="grid grid-cols-4 gap-6 m-4">
-      <div className="p-5  flex flex-col bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+      <div className="p-5  flex flex-col bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100">
         <div className="flex flex-row justify-between items-center font-extrabold">
           Total users
           <PeopleAltIcon />
@@ -20,7 +20,7 @@ const CardsDashboard = () => {
         </div>
       </div>
 
-      <div className="p-5  flex flex-col bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+      <div className="p-5  flex flex-col bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100">
         <div className="flex flex-row justify-between items-center font-extrabold">
           Total Payments
           <PaymentIcon />
@@ -31,7 +31,7 @@ const CardsDashboard = () => {
         </div>
       </div>
 
-      <div className="p-5  flex flex-col bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+      <div className="p-5  flex flex-col bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 ">
         <div className="flex flex-row justify-between items-center font-extrabold">
           Total Games
           <GamesIcon />
@@ -42,7 +42,7 @@ const CardsDashboard = () => {
         </div>
       </div>
 
-      <div className="p-5  flex flex-col bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+      <div className="p-5  flex flex-col bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100">
         <div className="flex flex-row justify-between items-center font-extrabold">
           Total Countries
           <PublicIcon />
