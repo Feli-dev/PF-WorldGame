@@ -485,7 +485,7 @@ export default function Register({ navigation }) {
           country: input.country,
         })
       );
-      navigation.navigate("Login");
+      navigation.navigate("Home");
     }
   }
 
