@@ -1,10 +1,20 @@
 import { useState } from "react";
-import { Text, View, TouchableOpacity, TextInput } from "react-native";
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  TextInput,
+  ScrollView,
+} from "react-native";
 import tw from "twrnc";
+import { useDispatch } from "react-redux";
 import Svg, { Path } from "react-native-svg";
 import DropDownPicker from "react-native-dropdown-picker";
+import validateInput from "../utils/ValidateInput";
+import { PostUser } from "../redux/actions";
 
 export default function Register({ navigation }) {
+  const dispatch = useDispatch();
   const countries = [
     { label: "Afghanistan", value: "Afghanistan" },
     {
@@ -450,48 +460,108 @@ export default function Register({ navigation }) {
     { label: "Zimbabwe", value: "Zimbabwe" },
   ];
   const [open, setOpen] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(true);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState(countries);
+  const [input, setInput] = useState({
+    email: "",
+    username: "",
+    password: "",
+    repeatPassword: "",
+    country: "",
+  });
+  const [err, setErr] = useState({});
+
+  //UseEffect limpiar estados
+
+  function handleSubmit(e) {
+    setErr(validateInput(input));
+    if(!(Object.keys(err).length > 0)) {
+      dispatch(PostUser({
+        email: input.email,
+        username: input.username,
+        password: input.password,
+        country: input.country,
+      }))
+      navigation.navigate("Login")
+      }
+    }
+    
+    function handleInputChange(type, text) {
+      setInput({
+        ...input,
+        [type]: text,
+      });
+      setErr(validateInput({...input, [type]:text}));
+      if(!(Object.keys(validateInput({...input, [type]:text})).length > 0)){
+        setIsDisabled(false)
+      }
+  }
 
   return (
-    <View style={tw`flex h-full items-center justify-center bg-gray-900`}>
+    // <ScrollView style={tw`pt-8 bg-gray-900`}>
+    <View
+      style={tw`flex h-full items-center justify-center pt-10 bg-gray-900 `}
+    >
       <View style={tw`flex`}>
         <View style={tw`flex flex-col`}>
           <Text style={tw`text-white text-lg text-left mb-1`}>Mail</Text>
           <TextInput
-            placeholder="Mail..."
+            type="email"
+            onChangeText={(e) => handleInputChange("email", e)}
+            placeholder="Email..."
             placeholderTextColor="#6f6f6f"
-            style={tw`pl-3 mb-3 w-70 h-10 rounded-md bg-gray-800 text-white placeholder-gray-200`}
+            style={tw`pl-3 mb-1 w-70 h-10 rounded-md bg-gray-800 text-white`}
           ></TextInput>
+          <Text style={tw`text-red-500 text-xs text-left mb-1`}>{err.email}</Text>
         </View>
+
         <View style={tw`flex flex-col`}>
           <Text style={tw`text-white text-lg text-left mb-1`}>Username</Text>
           <TextInput
+            type="username"
+            onChangeText={(e) => handleInputChange("username", e)}
             placeholder="Username..."
             placeholderTextColor="#6f6f6f"
-            style={tw`pl-3 mb-3 w-70 h-10 rounded-md bg-gray-800 text-white placeholder-gray-200`}
+            style={tw`pl-3 mb-1 w-70 h-10 rounded-md bg-gray-800 text-white`}
           ></TextInput>
+          <Text style={tw`text-red-500 text-xs text-left mb-1`}>
+            {err.username}
+          </Text>
         </View>
+
         <View style={tw`flex flex-col`}>
           <Text style={tw`text-white text-lg text-left mb-1`}>Password</Text>
           <TextInput
+            type="password"
             secureTextEntry={true}
+            onChangeText={(e) => handleInputChange("password", e)}
             placeholder="Password..."
             placeholderTextColor="#6f6f6f"
-            style={tw`pl-3 mb-3 w-70 h-10 rounded-md bg-gray-800 text-white placeholder-gray-200`}
+            style={tw`pl-3 mb-1 w-70 h-10 rounded-md bg-gray-800 text-white`}
           ></TextInput>
+          <Text style={tw`text-red-500 text-xs text-left mb-1`}>
+            {err.password}
+          </Text>
         </View>
+
         <View style={tw`flex flex-col`}>
           <Text style={tw`text-white text-lg text-left mb-1`}>
             Repeat password
           </Text>
           <TextInput
+            type="repeatPassword"
             secureTextEntry={true}
+            onChangeText={(e) => handleInputChange("repeatPassword", e)}
             placeholder="Repeat password..."
             placeholderTextColor="#6f6f6f"
-            style={tw`pl-3 mb-3 w-70 h-10 rounded-md bg-gray-800 text-white placeholder-gray-200`}
+            style={tw`pl-3 mb-1 w-70 h-10 rounded-md bg-gray-800 text-white`}
           ></TextInput>
+          <Text style={tw`text-red-500 text-xs text-left mb-1`}>
+            {err.repeatPassword}
+          </Text>
         </View>
+
         <View style={tw`flex flex-col`}>
           <Text style={tw`text-white text-lg text-left mb-1`}>Country</Text>
           <DropDownPicker
@@ -506,30 +576,44 @@ export default function Register({ navigation }) {
             setValue={setValue}
             setItems={setItems}
             arrowIconStyle={{ tintColor: "white" }}
+            onSelectItem={(e) => handleInputChange("country", e.value)}
           />
+          <Text style={tw`text-red-500 text-xs text-left mt-5`}>
+            {err.country}
+          </Text>
         </View>
       </View>
 
-      <TouchableOpacity
-        onPress={() => navigation.navigate("Instructions")}
-        style={tw`bg-gray-600 px-8 py-2 rounded-md mt-10 w-50`}
+      {isDisabled ?
+      <TouchableOpacity 
+        disabled
+        onPress={(e) => handleSubmit(e)}
+        style={tw`bg-gray-600 px-8 py-2 rounded-md mt-5 w-50`}
+      >
+        <Text style={tw`text-gray-500 text-center font-bold`}>REGISTER</Text>
+      </TouchableOpacity> : <TouchableOpacity 
+        onPress={(e) => handleSubmit(e)}
+        style={tw`bg-gray-800 px-8 py-2 rounded-md mt-5 w-50`}
       >
         <Text style={tw`text-white text-center font-bold`}>REGISTER</Text>
-      </TouchableOpacity>
+      </TouchableOpacity>}
+
       <View style={tw`flex flex-row mt-8  justify-center items-center`}>
         <View
           style={tw`w-30 mr-5 border-b border-solid border-gray-400`}
         ></View>
+
         <Text style={tw`text-gray-100 text-xs`}>OR</Text>
         <View
           style={tw`w-30 ml-5 border-b border-solid border-gray-400`}
         ></View>
       </View>
+
       <View style={tw`flex flex-row justify-center items-center mt-8`}>
         <TouchableOpacity
-          style={tw`flex justify-center items-center bg-[#4267B2] px-8 py-2 rounded-md mr-5 w-20 h-20`}
+          style={tw`flex justify-center items-center bg-[#4267B2] px-8 py-2 rounded-md mr-5 w-15 h-15`}
         >
-          <View style={tw`w-10 h-10`}>
+          <View style={tw`w-8 h-8`}>
             <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
               <Path
                 fill="#FFF"
@@ -539,9 +623,9 @@ export default function Register({ navigation }) {
           </View>
         </TouchableOpacity>
         <TouchableOpacity
-          style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-md w-20 h-20`}
+          style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-md w-15 h-15`}
         >
-          <View style={tw`w-10 h-10`}>
+          <View style={tw`w-8 h-8`}>
             <Svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 326667 333333"
@@ -571,6 +655,7 @@ export default function Register({ navigation }) {
           </View>
         </TouchableOpacity>
       </View>
+
       <View style={tw`mt-10`}>
         <Text style={tw`text-white text-center font-bold`}>
           If you have an account,
@@ -583,5 +668,6 @@ export default function Register({ navigation }) {
         </Text>
       </View>
     </View>
+    //</ScrollView>
   );
 }

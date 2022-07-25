@@ -73,29 +73,29 @@ const Login = () => {
 
   return (
     <div className="w-screen h-screen flex justify-center items-center">
-      <div className="w-1/3 p-4 bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700">
+      <div className="w-1/3 p-4 bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 ">
         <form className="space-y-6" onSubmit={handleSubmit}>
-          <h5 className="text-xl font-medium text-gray-900 dark:text-white text-center">
+          <h5 className="text-xl font-medium text-gray-900  text-center">
             Login
           </h5>
           {msg && <Alerta alerta={error} />}
           <div>
             <label
-              htmlFor="email"
+              htmlFor="username"
               className={
                 errorForm.emailError
                   ? "block mb-2 text-sm font-medium  text-red-700"
                   : "block mb-2 text-sm font-medium  text-gray-900"
               }
             >
-              UserName
+              Username
             </label>
             <input
               type="text"
               name="email"
               value={email}
-              id="email"
-              placeholder="UserName"
+              id="username"
+              placeholder="Username"
               className={
                 errorForm.emailError
                   ? " bg-gray-50 border text-sm rounded-lg  block w-full p-2.5 border-red-500 text-red-900"
@@ -105,8 +105,8 @@ const Login = () => {
               onChange={handleChange}
             />
             {errorForm.emailError && (
-              <p className="mt-2 text-sm text-red-600 dark:text-red-500">
-                <span className="font-medium">Email is required</span>
+              <p className="mt-2 text-sm text-red-600 ">
+                <span className="font-medium">Username is required</span>
               </p>
             )}
           </div>
@@ -136,7 +136,7 @@ const Login = () => {
               onChange={handleChange}
             />
             {errorForm.passwordError && (
-              <p className="mt-2 text-sm text-red-600 dark:text-red-500">
+              <p className="mt-2 text-sm text-red-600 ">
                 <span className="font-medium">Password is required</span>
               </p>
             )}
@@ -148,27 +148,27 @@ const Login = () => {
                   id="remember"
                   type="checkbox"
                   value=""
-                  className="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
+                  className="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300 "
                   required=""
                 />
               </div>
               <label
                 htmlFor="remember"
-                className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                className="ml-2 text-sm font-medium text-gray-900 "
               >
                 Remember me
               </label>
             </div>
             <Link
               to="forgot-password"
-              className="ml-auto text-sm text-blue-700 hover:underline dark:text-blue-500"
+              className="ml-auto text-sm text-blue-700 hover:underline "
             >
               Forgot password?
             </Link>
           </div>
           <button
             type="submit"
-            className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            className="w-full p-2 rounded-md text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium"
           >
             Login
           </button>

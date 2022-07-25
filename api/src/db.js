@@ -6,7 +6,6 @@ const BitHash = require('./Tools/BitHash');
 const {DB_USER, DB_PASSWORD, DB_HOST} = process.env;
 const usuario = require('./models/User');
 
-
 const bitHash = new BitHash();
 
 const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/worldgame`, {
