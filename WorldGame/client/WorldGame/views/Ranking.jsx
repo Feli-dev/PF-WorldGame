@@ -5,12 +5,20 @@ import {
   ScrollView,
   TextInput,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import DropDownPicker from "react-native-dropdown-picker";
 import tw from "twrnc";
 import Svg, { Path, G, Use, Circle, Defs, RadialGradient, Stop } from "react-native-svg";
+import { getRank } from "../redux/actions";
 
 export default function Ranking() {
+  const ranking = useSelector((state) => state.rank)
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+    dispatch(getRank(10))
+  },[])
   const countries = [
     { label: "Afghanistan", value: "Afghanistan" },
     {
@@ -8387,7 +8395,7 @@ export default function Ranking() {
       />
     </Svg>
     </View>
-
+ 
   return (
     <View style={tw`flex h-full items-center justify-center bg-gray-900`}>
       <View style={tw`flex flex-row mt-50 mr-8`}>
@@ -8437,16 +8445,16 @@ export default function Ranking() {
       <View style={tw`w-70 mt-15 mb--10 border-b border-solid border-gray-400`}></View>
       <View>
         <ScrollView style={tw`mt-15 mb-45`}>
-            {aux.map(player => {
+            {ranking?.map(player => {
                 return(
-                    <View key={player.pos}  style={tw`flex flex-row justify-center items-center bg-gray-700 mt-5 rounded-md p-3`}>
+                    <View key={(ranking?.findIndex((e)=>e.username===player.username)+1)}  style={tw`flex flex-row justify-center items-center bg-gray-700 mt-5 rounded-md p-3`}>
                         <View style={tw`w-1/6`}>
-                            <Text style={tw`mr-5 text-white text-center font-bold`}> {`#${player.pos}`} </Text>
+                            <Text style={tw`mr-5 text-white text-center font-bold`}> {`#${(ranking.findIndex((e)=>e.username===player.username)+1)}`} </Text>
                         </View>
                         <View style={tw`w-3/6`}>
                             <Text style={tw`mr-5 text-white text-center font-bold`}> {player.name} </Text>
                         </View>
-                        {player.country == "ARG" ? <Arg_Flag/> : (player.country == "MEX" ? <Mex_Flag/> : <Per_Flag/>)}
+                          <Text>{player.country}</Text>
                     </View>
                 )
             })}

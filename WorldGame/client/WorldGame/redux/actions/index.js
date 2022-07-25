@@ -44,6 +44,20 @@ export function postLogin(payload){
 
 //------------------------user--------------------------//
 
+export function getRank(payload){
+    return async function(dispatch){
+        try{
+            var json = await axios.get("https://world-game-v2.herokuapp.com/User/rank", {total: payload})
+            console.log(json)
+            return dispatch({
+                type: type.GET_RANK,
+                payload : json.data,
+            })
+    }catch(e){
+        return e.message
+    }
+}};
+
 export function getUser(id){
     return async function(dispatch){
         try{
