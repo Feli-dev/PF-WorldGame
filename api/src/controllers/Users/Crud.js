@@ -3,8 +3,8 @@ const { Game, User } = require('../../db');
 const parseObject = require('../../Tools/ParseObject');
 const path = "api/src/controllers/Users/Crud.js";
 
-function show({ id, name, username, password, country, email, points, state, authorization, games }, averageScore){
-    return { id, name, username, password, country, email, points, state, authorization, games, averageScore  };
+function show({ id, name, username, password, country, email, points, premium, state, authorization, games }, averageScore){
+    return { id, name, username, password, country, email, points, premium, state, authorization, games, averageScore  };
 }
 
 module.exports = {
@@ -16,12 +16,12 @@ module.exports = {
                 let user = parseObject(result);
                 if(user.length) {
                     if(id > 0){
-                        const stats = averageScore(user[0].games);
-                        return show(user[0], stats) || "No hay usuarios";
+                        const _averageScore = averageScore(user[0].games);
+                        return show(user[0], _averageScore) || "No hay usuarios";
                     }
                     return user.map(e => {
-                        const stats = averageScore(e.games);
-                        return show(e, stats) || "No hay usuarios";
+                        const _averageScore = averageScore(e.games);
+                        return show(e, _averageScore) || "No hay usuarios";
                     });
                 };
                 return "No hay usuarios";
@@ -35,12 +35,13 @@ module.exports = {
             return "Error al mostrar usuarios";
         }
     },
-    insert: async (name = "",username = "", password = "", country = "", email = "", points = 0, state = true, authorization = false) => {
+    insert: async (name = "",username = "", password = "", country = "", email = "", points = 0, premium = false, state = true, authorization = "User") => {
         try {
-            return await User.create({ name, username, password, country, email, points, state, authorization })
+            console.log(points);
+            return await User.create({ name, username, password, country, email, points, premium, state, authorization })
             .then(result => {
                 let user = parseObject(result);
-                return `El usuario ${user.name} creado exitosamente`;
+                return `El usuario ${user.username} creado exitosamente`;
             })
             .catch(error => {
                 console.log(`Error: ${error}\nRuta: ${path}\nFunción: insert`);
@@ -51,9 +52,9 @@ module.exports = {
             return "El usuario no se creo";
         }
     },
-    update: async (id = 0, name = "",username = "", password = "", country = "", email = "", points = 0) => {
+    update: async (id = 0, name = "",username = "", password = "", country = "", email = "", points = 0, premium = false, authorization = "User") => {
         try {
-            return await User.update({ name, username, password, country, email, points },{ where: { id } } )
+            return await User.update({ name, username, password, country, email, points, premium, authorization },{ where: { id } } )
             .then(result => {
                 parseObject(result);
                 return `El usuario se actualizado exitosamente`;

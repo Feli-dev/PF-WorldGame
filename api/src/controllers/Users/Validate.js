@@ -42,25 +42,5 @@ module.exports = {
             console.log(`Error: ${error}\nRuta: ${path}\nFunción: session`);
             return false;
         }
-    },
-    duplicate: async (name = "", type = "", id = 0) => {
-        try {
-            const where = type === "insert" ? { where: { name } } : { where: { name: { [Op.eq]:name }, id: { [Op.ne]:id } }};
-            return await User.findAll(where)
-            .then(result => {
-                let user = parseObject(result);
-                if(user.length) {
-                    return user[0].name.length ? true : false;
-                }
-                return false;
-            })
-            .catch(error => {
-                console.log(`Error: ${error}\nRuta: ${path}\nFunción: duplicate`);
-                return false;
-            });
-        } catch (error) {
-            console.log(`Error: ${error}\nRuta: ${path}\nFunción: duplicate`);
-            return false;
-        }
     }
 }
