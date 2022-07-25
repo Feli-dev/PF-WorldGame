@@ -44,6 +44,20 @@ export function postLogin(payload){
 
 //------------------------user--------------------------//
 
+export function getRank(payload){
+    return async function(dispatch){
+        try{
+            var json = await axios.get("https://world-game-v2.herokuapp.com/User/rank", {total: payload})
+            console.log(json.data.Request)
+            return dispatch({
+                type: type.GET_RANK,
+                payload : json.data.Request,
+            })
+    }catch(e){
+        return e.message
+    }
+}};
+
 export function getUser(id){
     return async function(dispatch){
         try{
@@ -51,8 +65,7 @@ export function getUser(id){
                 var json = await axios.get("https://world-game-v2.herokuapp.com/User", id)
             }
             else{
-                var json = await axios.get("https://world-game-v2.herokuapp.com/User") 
-
+                var json = await axios.get("https://world-game-v2.herokuapp.com/User")
             }
             return dispatch({
                 type: type.GET_USER,
@@ -62,6 +75,42 @@ export function getUser(id){
         return e.message
     }
 }};
+
+// export function PostUser(payload){
+//     return async function(dispatch){
+//         try{
+//             console.log("payload", payload)
+//             return await axios.post("https://world-game-v2.herokuapp.com/User", payload)
+//             .catch(error =>  console.log(error))
+
+//         }catch(e){
+//             console.log("error en acción:", e)
+//             return e.message
+//         }
+//     }
+// }
+export function PostUser(payload){
+    return async function(dispatch){
+        try{
+            console.log("payload", payload)
+            var json = await axios.post("https://world-game-v2.herokuapp.com/User", payload)
+            //para que los métodos de axios funcionen bien en el emulador expo
+            //teniendo el back corriendo en tu pc, es necesario que reemplaces lolcalhost
+            //en la url del método, con tu ipv4. Esta se encuentra yendo a configuración, red e internet,
+            //propiedades, y yendo hacia abajo aparece "ipv4".
+            console.log("json", json.data)
+            return dispatch({
+                type: type.POST_USER,
+                payload : json.data,
+            })
+        }
+        catch(e){
+            console.log("error en acción:", e)
+            return e.message
+        }
+    }
+}
+
 
 export function PutUser(payload){
     return async function(dispatch){
@@ -96,16 +145,16 @@ export function restoreUser(payload){
         }
     }
 }
-//-----------------------Sorted--------------------------//
+//-----------------------Filters--------------------------//
 
-export function sortByCountry(payload) {
+export function filterByCountry(payload) {
     return {
         type: type.FILTER_BY_COUNTRY,
         payload,
     }
 }
 
-export function sortByWeight(payload) {
+export function filterByTop(payload) {
     return {
         type: type.SORTED_BY_POINTS,
         payload,
@@ -132,16 +181,17 @@ export function getCountrie(name){
                 type: type.GET_COUNTRIES,
                 payload : json.data,
             })
-    }catch(e){
-        return e.message
-    }
-}};
-
-export function getAllCountries(form = false){
-    return async function(dispatch){
-        try{
-            var {data} = await axios.get("https://world-game-v2.herokuapp.com/countries")
-            if(!form){ 
+        }catch(e){
+            return e.message
+        }
+    }};
+    
+    export function getAllCountries(form = false){
+        return async function(dispatch){
+            try{
+                var {data} = await axios.get("https://world-game-v2.herokuapp.com/countries")
+                console.log(data)
+                if(!form){ 
             return dispatch({
                 type: type.GET_ALL_COUNTRIES,
                 payload : data,
