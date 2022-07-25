@@ -48,6 +48,10 @@ module.exports = (sequelize) => {
         points: {
             type:DataTypes.FLOAT,
             defaultValue: 0,
+                validate:{
+                    min:0,
+                    max:5,
+                },
         },
         country: {
             type: DataTypes.STRING,
