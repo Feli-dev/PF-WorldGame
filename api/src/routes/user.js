@@ -14,6 +14,7 @@ function field(name = "", username = "", password = "") {
 }
 
 router.post('/', async(req, res) =>{
+    
     try {
         const { name, username, password, country, email, points } = req.body;
         const message = field(username, password);

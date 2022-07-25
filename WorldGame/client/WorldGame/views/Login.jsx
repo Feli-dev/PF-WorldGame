@@ -1,16 +1,81 @@
 import { Text, View, TouchableOpacity, TextInput } from "react-native";
+import { useState, useEffect } from "react";
+import { useDispatch, connect } from "react-redux";
+import {postLogin, getAllCountries} from "../redux/actions/index"
 import tw from "twrnc";
 import Svg, { Path } from "react-native-svg";
-import { useDispatch } from "react-redux";
-import { getAllCountries} from "../redux/actions/index"
-import { useEffect } from "react";
+import validate from "../utils/validateL";
 
-export default function Login({ navigation }) {
-  const dispatch = useDispatch()
+
+function Login({ navigation, user, postLogin }) {
+
+  const dispatch = useDispatch();
+
+  const [input, setInput] = useState({
+    username: "",
+    password: "",
+  });
+
+  const [err, setErr] = useState({
+    username: "",
+    password: "",
+  });
+
+  const [pressed, setPressed] = useState(false);
+  const [logErr, setLogErr] = useState("");
+
+  let log = (_input) => {
+
+    setPressed(true);
+    
+    if(_input.username.length < 3){
+      setErr({...err,
+        username:"Enter your username",
+      })
+      console.log(err)
+    }
+    if(_input.password.length < 3){
+      setErr({...err,
+        password:"Enter your password",
+      })
+    }
+    if(validate("username",_input.username) === "" && validate("password",input.password) === ""){
+      postLogin(_input);
+    }
+
+  }
+
+  function handleInputChange(type ,text){
+
+    setPressed(false);
+
+    setInput({
+      ...input,
+      [type]: text
+    });
+
+    setErr({...err,[type]:validate(type, text)});
+
+  }
+
+  useEffect(() =>{
+
+    if(pressed === true && user.Request){
+      setInput({
+        username: "",
+        password: "",
+      })
+      navigation.navigate('Instructions')
+    } else if (pressed === true && !user.Request) {
+      console.log(1)
+      setLogErr("invalid user or password");
+    }
+
+  },[user,pressed]);
 
   useEffect(()=>{
     dispatch(getAllCountries())
-  },[])
+  },[dispatch]);
 
   return (
     <View style={tw`flex h-full items-center justify-center bg-gray-900`}>
@@ -18,24 +83,34 @@ export default function Login({ navigation }) {
         <Text style={tw`text-white text-lg text-left mb-2`}>User</Text>
         <TextInput
           placeholder="User..."
+          value={input.username}
+          onChangeText={e => handleInputChange("username",e)}
           placeholderTextColor="#6f6f6f"
           style={tw`pl-3 mb-5 w-70 h-10 rounded-md bg-gray-800 text-white`}
         ></TextInput>
+        <Text style={tw`text-white text-xs text-left mb-1`}>{err.username}</Text>
       </View>
       <View>
         <Text style={tw`text-white text-lg text-left mb-2`}>Password</Text>
         <TextInput
           secureTextEntry={true}
           placeholder="Password..."
+          value={input.password}
+          onChangeText={e => handleInputChange("password",e)}
           placeholderTextColor="#6f6f6f"
           style={tw`pl-3 mb-5 w-70 h-10 rounded-md bg-gray-800 text-white`}
         ></TextInput>
+        <Text style={tw`text-white text-xs text-left mb-1`}>{err.password}</Text>
       </View>
       <TouchableOpacity style={tw`bg-gray-600 px-8 py-2 rounded-md mt-10 w-50`}
-        onPress={() => navigation.navigate('Instructions')}
+        onPress={() => log(input)}
         >
         <Text style={tw`text-white text-center font-bold`}>LOGIN</Text>
       </TouchableOpacity>
+      <Text style={tw`text-white text-lg text-left mb-4`}></Text>
+      <View>
+      <Text style={tw`text-white text-xs text-left mb-1`}>{logErr}</Text>
+      </View>
       <View style={tw`flex flex-row mt-15 mb-5 justify-center items-center`}>
         <View
           style={tw`w-30 mr-5 border-b border-solid border-gray-400`}
@@ -105,3 +180,11 @@ export default function Login({ navigation }) {
     </View>
   );
 }
+
+function mapStateToProps(state){
+  return {
+    user: state.login,
+  }
+}
+
+export default connect(mapStateToProps,{postLogin})(Login)

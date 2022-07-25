@@ -2,13 +2,17 @@ import { Text, View, ScrollView } from "react-native";
 import tw from "twrnc";
 import Svg, { Path } from "react-native-svg";
 import { useSelector } from "react-redux";
+import React, { useRef } from 'react';
 
 export default function Game() {
   const listOfAttemps = useSelector((state) => state.attemps)
-
+  const scrollViewRef = useRef();
   return (
     <View style={tw`flex h-5/7 items-center justify-center`}>
-      <ScrollView>
+      <ScrollView 
+        ref={scrollViewRef}
+        onContentSizeChange={() => scrollViewRef.current.scrollToEnd({ animated: true })}
+      >
         {listOfAttemps?.map(el => {
           return (
             <View key={el.name} style={tw`flex flex-row justify-center items-center mb-3 mt-3`}>
