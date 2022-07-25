@@ -57,23 +57,25 @@ export function getRank(payload){
     }
 }};
 
-export function getUser(id){
-    return async function(dispatch){
-        try{
-            if(id){
-                var json = await axios.get("https://world-game-v2.herokuapp.com/User", id)
+export function getUser(id) {
+    return async function (dispatch) {
+        try {
+            if (id) {
+                var json = await axios.get("http://localhost:3001/User/" + id)
             }
-            else{
-                var json = await axios.get("https://world-game-v2.herokuapp.com/User")
+            else {
+                var json = await axios.get("http://localhost:3001/User")
+
             }
             return dispatch({
                 type: type.GET_USER,
-                payload : json.data,
+                payload: json.data,
             })
-    }catch(e){
-        return e.message
+        } catch (e) {
+            return e.message
+        }
     }
-}};
+};
 
 // export function PostUser(payload){
 //     return async function(dispatch){
