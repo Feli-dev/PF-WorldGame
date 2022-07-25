@@ -4,8 +4,8 @@ import React, { useEffect, useState } from 'react'
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-const User = ({user, setModalUser}) => {
-  console.log('user', user)
+const User = ({user, setModalUser, setUserInfo}) => {
+  // console.log('user', user)
   
   const getUserEdit = () => {
     alert("Usuario Editado");
@@ -14,6 +14,11 @@ const User = ({user, setModalUser}) => {
   const deleteUser = () => {
     alert("Usuario Eliminado");
   };
+
+  const handleClickInfo = () => {
+    setUserInfo(user)
+    setModalUser(true)
+  }
   
   return (
             <tr className="focus-within:bg-gray-200 overflow-hidden hover:bg-gray-100 w-auto">
@@ -21,7 +26,7 @@ const User = ({user, setModalUser}) => {
                 <span className="text-gray-700 px-6 py-4 flex items-center  ">
                   <div
                     className=" cursor-pointer font-bold w-10 h-10 bg-blue-200 text-blue-600 flex items-center justify-center rounded-full"
-                    onClick={() => setModalUser(true)}
+                    onClick={handleClickInfo}
                   >
                     Info
                   </div>

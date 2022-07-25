@@ -4,46 +4,28 @@ import { getAllUsers } from '../../redux/users/userActions'
 // Icons
 import ModalUser from "./ModalUser/ModalUser";
 //Components
-import User from './user/User'
+import User from './user/DashUser'
 
-// {
-//   "id": 4,
-//   "name": "FER",
-//   "username": "fers",
-//   "password": "8735202216849030",
-//   "country": "Mexico",
-//   "email": "",
-//   "points": 1,
-//   "state": true,
-//   "authorization": false,
-//   "games": [],
-//   "averageScore": 0
-// }
+
 
 const TableUser = () => {
   const [modalUser, setModalUser] = useState(false);
+  const [userInfo, setUserInfo] = useState({})
 
   let dispatch = useDispatch();
-  let allUsers = useSelector((state) => state.userReducer.users);
+  let lastUsers = useSelector((state) => state.userReducer.last);
   
   
 
   useEffect(()=>{
-    console.log('entro')
+    // console.log('entro')
     dispatch(getAllUsers())
   },[]);
 
-  console.log('Table', allUsers)
-  console.log('length', allUsers)
+  // console.log('Table', allUsers)
+  // console.log('length', allUsers)
 
-  const getUserEdit = () => {
-    alert("Usuario Editado");
-  };
-
-  const deleteUser = () => {
-    alert("Usuario Eliminado");
-  };
-
+  
   return (
     <>
       <div className="flex items-center justify-between mb-4" >
@@ -75,16 +57,16 @@ const TableUser = () => {
             </tr>
           </thead>
           
-          <tbody className = " max-h-max border-solid border-2 border-indigo-600 overflow-y-auto">
-           {allUsers.length
-           ?allUsers.reverse().map(user => <User key={user.id} user={user} setModalUser={setModalUser}/>)
+          <tbody className = " max-h-max border-solid border-2 overflow-y-auto">
+           {lastUsers.length
+           ?lastUsers.map(user => user?<User key={user.id} user={user} setModalUser={setModalUser} setUserInfo={setUserInfo}/>:null)
            :<tr className="focus-within:bg-gray-200 overflow-hidden hover:bg-gray-100 w-auto">Sin usuarios</tr> } 
            
           </tbody>
         </table>
       </div>
 
-      {modalUser && <ModalUser setModalUser={setModalUser} />}
+      {modalUser && <ModalUser userInfo={userInfo} setModalUser={setModalUser} />}
     </>
   );
 };
