@@ -34,7 +34,6 @@ module.exports = (sequelize) => {
             allowNull: false,
             validate:{
                 min:4,
-                max:50
             },
         },
         email: {
