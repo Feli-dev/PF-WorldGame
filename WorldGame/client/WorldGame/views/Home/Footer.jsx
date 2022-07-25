@@ -31,6 +31,7 @@ export default function Footer() {
 
   const handleSubmit = (e)=>{
     e.preventDefault();
+    console.log(countryOfDay);
     if(countries.some(el => { if(el.name.toLowerCase() === input.toLowerCase()){
       attemp = el
       return true
@@ -47,7 +48,6 @@ export default function Footer() {
       setInput("")
       attemp = {}
     } else {
-      console.log(input)
       console.log("No encontré el país")
     }
   }

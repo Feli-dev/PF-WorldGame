@@ -48,7 +48,6 @@ export function getRank(payload){
     return async function(dispatch){
         try{
             var json = await axios.get("https://world-game-v2.herokuapp.com/User/rank", {total: payload})
-            console.log(json.data.Request)
             return dispatch({
                 type: type.GET_RANK,
                 payload : json.data.Request,
@@ -92,13 +91,11 @@ export function getUser(id){
 export function PostUser(payload){
     return async function(dispatch){
         try{
-            console.log("payload", payload)
             var json = await axios.post("https://world-game-v2.herokuapp.com/User", payload)
             //para que los métodos de axios funcionen bien en el emulador expo
             //teniendo el back corriendo en tu pc, es necesario que reemplaces lolcalhost
             //en la url del método, con tu ipv4. Esta se encuentra yendo a configuración, red e internet,
             //propiedades, y yendo hacia abajo aparece "ipv4".
-            console.log("json", json.data)
             return dispatch({
                 type: type.POST_USER,
                 payload : json.data,
@@ -190,7 +187,6 @@ export function getCountrie(name){
         return async function(dispatch){
             try{
                 var {data} = await axios.get("https://world-game-v2.herokuapp.com/countries")
-                console.log(data)
                 if(!form){ 
             return dispatch({
                 type: type.GET_ALL_COUNTRIES,
