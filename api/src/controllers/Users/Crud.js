@@ -16,12 +16,12 @@ module.exports = {
                 let user = parseObject(result);
                 if(user.length) {
                     if(id > 0){
-                        const _averageScore = averageScore(user[0].games);
-                        return show(user[0], _averageScore) || "No hay usuarios";
+                        const stats = averageScore(user[0].games);
+                        return show(user[0], stats) || "No hay usuarios";
                     }
                     return user.map(e => {
-                        const _averageScore = averageScore(e.games);
-                        return show(e, _averageScore) || "No hay usuarios";
+                        const stats = averageScore(e.games);
+                        return show(e, stats) || "No hay usuarios";
                     });
                 };
                 return "No hay usuarios";
