@@ -24,7 +24,7 @@ module.exports = (sequelize) => {
             allowNull: false,
         },
         points: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.FLOAT,
             defaultValue: 0,
             validate:{
                 min:0,

@@ -1,12 +1,14 @@
 const { Router } = require('express');
 const { Game } = require('../db.js');
+let {Percentage} = require('../Tools/Percentage');
 const router = Router();
 let {one, all} = require ('../controllers/game')
 
 router.post('/', async(req, res, next) =>{
 
     try {
-        const { countrie, winned, time, attempts, UserId, points } = req.body
+        let { countrie, winned, time, attempts, UserId, points } = req.body
+        points = Percentage(attempts, points);
         let game = await Game.create({ countrie, winned, time, attempts, UserId, points });
         game.setUser(UserId);
         return res.json(game);
