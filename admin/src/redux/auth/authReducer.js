@@ -12,7 +12,7 @@ let initState = {
   profile: "",
   error: "",
   cargando: false,
-  cargandoAuth: true,
+  cargandoAuth: false,
 };
 
 function authReducer(state = initState, action) {
