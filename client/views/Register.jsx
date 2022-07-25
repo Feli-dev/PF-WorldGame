@@ -483,7 +483,7 @@ export default function Register({ navigation }) {
         password: input.password,
         country: input.country,
       }))
-      navigation.navigate("Login")
+      navigation.navigate("Home")
       }
     }
     
