@@ -37,7 +37,7 @@ async function admin(){
   }
 }
 
-db.sync({ force: false }).then(() => {
+db.sync({ force: true }).then(() => {
   getCountries()
   server.listen(3001, () => {
     admin();
