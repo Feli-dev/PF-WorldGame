@@ -476,26 +476,28 @@ export default function Register({ navigation }) {
 
   function handleSubmit(e) {
     setErr(validateInput(input));
-    if(!(Object.keys(err).length > 0)) {
-      dispatch(PostUser({
-        email: input.email,
-        username: input.username,
-        password: input.password,
-        country: input.country,
-      }))
-      navigation.navigate("Login")
-      }
+    if (!(Object.keys(err).length > 0)) {
+      dispatch(
+        PostUser({
+          email: input.email,
+          username: input.username,
+          password: input.password,
+          country: input.country,
+        })
+      );
+      navigation.navigate("Login");
     }
-    
-    function handleInputChange(type, text) {
-      setInput({
-        ...input,
-        [type]: text,
-      });
-      setErr(validateInput({...input, [type]:text}));
-      if(!(Object.keys(validateInput({...input, [type]:text})).length > 0)){
-        setIsDisabled(false)
-      }
+  }
+
+  function handleInputChange(type, text) {
+    setInput({
+      ...input,
+      [type]: text,
+    });
+    setErr(validateInput({ ...input, [type]: text }));
+    if (!(Object.keys(validateInput({ ...input, [type]: text })).length > 0)) {
+      setIsDisabled(false);
+    }
   }
 
   return (
@@ -513,7 +515,9 @@ export default function Register({ navigation }) {
             placeholderTextColor="#6f6f6f"
             style={tw`pl-3 mb-1 w-70 h-10 rounded-md bg-gray-800 text-white`}
           ></TextInput>
-          <Text style={tw`text-red-500 text-xs text-left mb-1`}>{err.email}</Text>
+          <Text style={tw`text-red-500 text-xs text-left mb-1`}>
+            {err.email}
+          </Text>
         </View>
 
         <View style={tw`flex flex-col`}>
@@ -584,19 +588,22 @@ export default function Register({ navigation }) {
         </View>
       </View>
 
-      {isDisabled ?
-      <TouchableOpacity 
-        disabled
-        onPress={(e) => handleSubmit(e)}
-        style={tw`bg-gray-600 px-8 py-2 rounded-md mt-5 w-50`}
-      >
-        <Text style={tw`text-gray-500 text-center font-bold`}>REGISTER</Text>
-      </TouchableOpacity> : <TouchableOpacity 
-        onPress={(e) => handleSubmit(e)}
-        style={tw`bg-gray-800 px-8 py-2 rounded-md mt-5 w-50`}
-      >
-        <Text style={tw`text-white text-center font-bold`}>REGISTER</Text>
-      </TouchableOpacity>}
+      {isDisabled ? (
+        <TouchableOpacity
+          disabled
+          onPress={(e) => handleSubmit(e)}
+          style={tw`bg-gray-600 px-8 py-2 rounded-md mt-5 w-50`}
+        >
+          <Text style={tw`text-gray-500 text-center font-bold`}>REGISTER</Text>
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity
+          onPress={(e) => handleSubmit(e)}
+          style={tw`bg-gray-800 px-8 py-2 rounded-md mt-5 w-50`}
+        >
+          <Text style={tw`text-white text-center font-bold`}>REGISTER</Text>
+        </TouchableOpacity>
+      )}
 
       <View style={tw`flex flex-row mt-8  justify-center items-center`}>
         <View
