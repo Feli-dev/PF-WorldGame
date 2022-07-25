@@ -10,6 +10,7 @@ const initialState = {
     attemps:[],
     userdetail: {},
     rank:[],
+    rank_filter:[],
 }
 
 
@@ -47,11 +48,18 @@ export const rootReducer=(state=initialState, action)=>{
                 user: action.payload
             }
         case type.FILTER_BY_COUNTRY:
-            const all = state.users
-            const filCountry = all.filter(el=> el.country === action.payload)
-            return{
-                ...state,
-                users: filCountry,
+            const all = state.rank
+            if(action.payload === "All Countries"){
+                return{
+                    ...state,
+                    rank_filter: all,
+                }
+            } else {
+                const filCountry = all.filter(el => el.country.toLowerCase() === action.payload.toLowerCase())
+                return{
+                    ...state,
+                    rank_filter: filCountry,
+                }
             }
         case type.SORTED_BY_POINTS:
             const sortedpoints= action.payload === 'asc' ?
@@ -76,7 +84,6 @@ export const rootReducer=(state=initialState, action)=>{
                 countries:action.payload
             }
         case type.CALL_GAME_ACTIONS:
-            console.log(state.attemps)
             return{
                 ...state,
                 attemps:[...state.attemps, action.payload]
@@ -85,6 +92,7 @@ export const rootReducer=(state=initialState, action)=>{
                 return{
                     ...state,
                     rank: action.payload,
+                    rank_filter: action.payload,
                 }
         default:{
             return state;

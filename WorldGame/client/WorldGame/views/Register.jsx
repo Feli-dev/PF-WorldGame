@@ -459,8 +459,8 @@ export default function Register({ navigation }) {
     { label: "Zambia", value: "Zambia" },
     { label: "Zimbabwe", value: "Zimbabwe" },
   ];
-  
   const [open, setOpen] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(true);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState(countries);
   const [input, setInput] = useState({
@@ -472,20 +472,31 @@ export default function Register({ navigation }) {
   });
   const [err, setErr] = useState({});
 
+  //UseEffect limpiar estados
+
   function handleSubmit(e) {
     setErr(validateInput(input));
-    if(!(Object.keys(err).length > 0)) dispatch(PostUser({
-      email: input.email,
-      username: input.username,
-      password: input.password,
-      country: input.country,}))
-  }
-  
-  function handleInputChange(type, text) {
-    setInput({
-      ...input,
-      [type]: text,
-    });
+    if(!(Object.keys(err).length > 0)) {
+      dispatch(PostUser({
+        email: input.email,
+        username: input.username,
+        password: input.password,
+        country: input.country,
+        name: "Feli222",
+      }))
+      navigation.navigate("Login")
+      }
+    }
+    
+    function handleInputChange(type, text) {
+      setInput({
+        ...input,
+        [type]: text,
+      });
+      setErr(validateInput({...input, [type]:text}));
+      if(!(Object.keys(validateInput({...input, [type]:text})).length > 0)){
+        setIsDisabled(false)
+      }
   }
 
   return (
@@ -574,7 +585,7 @@ export default function Register({ navigation }) {
         </View>
       </View>
 
-      {Object.keys(err).length > 0 ?
+      {isDisabled ?
       <TouchableOpacity 
         disabled
         onPress={(e) => handleSubmit(e)}

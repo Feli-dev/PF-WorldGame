@@ -48,10 +48,10 @@ export function getRank(payload){
     return async function(dispatch){
         try{
             var json = await axios.get("https://world-game-v2.herokuapp.com/User/rank", {total: payload})
-            console.log(json)
+            console.log(json.data.Request)
             return dispatch({
                 type: type.GET_RANK,
-                payload : json.data,
+                payload : json.data.Request,
             })
     }catch(e){
         return e.message
@@ -145,16 +145,16 @@ export function restoreUser(payload){
         }
     }
 }
-//-----------------------Sorted--------------------------//
+//-----------------------Filters--------------------------//
 
-export function sortByCountry(payload) {
+export function filterByCountry(payload) {
     return {
         type: type.FILTER_BY_COUNTRY,
         payload,
     }
 }
 
-export function sortByWeight(payload) {
+export function filterByTop(payload) {
     return {
         type: type.SORTED_BY_POINTS,
         payload,
@@ -181,16 +181,17 @@ export function getCountrie(name){
                 type: type.GET_COUNTRIES,
                 payload : json.data,
             })
-    }catch(e){
-        return e.message
-    }
-}};
-
-export function getAllCountries(form = false){
-    return async function(dispatch){
-        try{
-            var {data} = await axios.get("https://world-game-v2.herokuapp.com/countries")
-            if(!form){ 
+        }catch(e){
+            return e.message
+        }
+    }};
+    
+    export function getAllCountries(form = false){
+        return async function(dispatch){
+            try{
+                var {data} = await axios.get("https://world-game-v2.herokuapp.com/countries")
+                console.log(data)
+                if(!form){ 
             return dispatch({
                 type: type.GET_ALL_COUNTRIES,
                 payload : data,
