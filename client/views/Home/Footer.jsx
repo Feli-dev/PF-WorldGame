@@ -1,60 +1,79 @@
-import { Text, View, TouchableOpacity, TextInput,KeyboardAvoidingView } from "react-native";
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  TextInput,
+  KeyboardAvoidingView,
+} from "react-native";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import tw from "twrnc";
 import Svg, { Path } from "react-native-svg";
-import { gameAction, getAllCountries} from "../../redux/actions/index"
+import { gameAction, getAllCountries } from "../../redux/actions/index";
 
 //onpress white flag render confirm message
 
 export default function Footer() {
-  const dispatch = useDispatch()
-  var attemp = {}
-  const [input, setInput] = useState("")
-  const [countryOfDay, setCountryOfDay] = useState("")
-  const countries = useSelector((state) => state.countries)
-  const listOfAttemps = useSelector((state) => state.attemps)
-  
-  useEffect(()=>{
-    dispatch(getAllCountries())
-  },[])
-  
-  useEffect(()=>{
-    setCountryOfDay(countries[Math.floor(Math.random() * 249)])
-  },[])
-  
+  const dispatch = useDispatch();
+  var attemp = {};
+  const [input, setInput] = useState("");
+  const [countryOfDay, setCountryOfDay] = useState("");
+  const countries = useSelector((state) => state.countries);
+  const listOfAttemps = useSelector((state) => state.attemps);
+
+  useEffect(() => {
+    dispatch(getAllCountries());
+  }, []);
+
+  useEffect(() => {
+    setCountryOfDay(countries[Math.floor(Math.random() * 249)]);
+  }, []);
 
   // const handleChange = (e)=>{
   //   e.preventDefault();
   //   setInput(e.target.value)
   // }
 
-  const handleSubmit = (e)=>{
+  const handleSubmit = (e) => {
     e.preventDefault();
     console.log(countryOfDay);
-    if(countries.some(el => { if(el.name.toLowerCase() === input.toLowerCase()){
-      attemp = el
-      return true
-    }})) {
-      if(!(listOfAttemps.some(el => el.name.toLowerCase() === attemp.name.toLowerCase()))){
-        if(!(listOfAttemps.some(el => el.name.toLowerCase() === countryOfDay.name.toLowerCase()))){
-          dispatch(gameAction(countryOfDay, attemp))
-        }else {
-          console.log("Ya encontraste el país, felicitaciones!")
+    if (
+      countries.some((el) => {
+        if (el.name.toLowerCase() === input.toLowerCase()) {
+          attemp = el;
+          return true;
+        }
+      })
+    ) {
+      if (
+        !listOfAttemps.some(
+          (el) => el.name.toLowerCase() === attemp.name.toLowerCase()
+        )
+      ) {
+        if (
+          !listOfAttemps.some(
+            (el) => el.name.toLowerCase() === countryOfDay.name.toLowerCase()
+          )
+        ) {
+          dispatch(gameAction(countryOfDay, attemp));
+        } else {
+          console.log("Ya encontraste el país, felicitaciones!");
         }
       } else {
-        console.log("Ya has probado con ese país, intenta con otra opción!")
+        console.log("Ya has probado con ese país, intenta con otra opción!");
       }
-      setInput("")
-      attemp = {}
+      setInput("");
+      attemp = {};
     } else {
-      console.log("No encontré el país")
+      console.log("No encontré el país");
     }
-  }
+  };
 
   return (
     <View style={tw`flex h-1/6 items-center justify-center bg-gray-900`}>
-      <View style={tw`w-70 mt--50 mb-5 border-b border-solid border-gray-400`}></View>
+      <View
+        style={tw`w-70 mt--50 mb-5 border-b border-solid border-gray-400`}
+      ></View>
       <View style={tw`flex flex-row justify-center items-center`}>
         <TouchableOpacity
           style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-md mr-5 w-10 h-15`}
@@ -72,7 +91,7 @@ export default function Footer() {
           placeholder="Country..."
           placeholderTextColor="#6f6f6f"
           style={tw`pl-3 mr-5 w-45 h-15 rounded-md bg-gray-800 text-white text-lg `}
-          onChangeText={text => setInput(text)}
+          onChangeText={(text) => setInput(text)}
           value={input}
         ></TextInput>
         <TouchableOpacity
