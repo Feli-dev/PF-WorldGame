@@ -38,7 +38,7 @@ router.post('/', async(req, res) =>{
 router.put('/', async(req, res) =>{
     try {
         const { id, name, username, password, country, email, points } = req.body;
-        const message = field(name, username, password);
+        const message = field(name,username, password);
         if(!message.length){
             const passEncrypt = bitHash.encrypt(password);
             return await user.update(id, name, username, passEncrypt.toString(), country, email, points)
