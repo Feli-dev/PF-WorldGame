@@ -7,8 +7,9 @@
 
 export const hemisphere = (country, attempt) => {
     let {latitud} = country;
+    let latitudAttempt = attempt.latitud;
     let hemisphere = latitud > 0 ? "North" : "South"
-    let tryHemisphere = latitud > 0 ? "North" : "South"
+    let tryHemisphere = latitudAttempt > 0 ? "North" : "South"
     if(hemisphere === tryHemisphere)return {asserted: true, hemisphere};
     return {asserted: false, tryHemisphere};
     //depende de asserted el color del la pista(rojo/verde), tryHemisphere muestra la data del pais del intento
@@ -76,7 +77,6 @@ export const coordinates = (country, attempt) => {
     let res = [];
     let setDirection = (tryValue, realValue, type) => {
         let out;
-        console.log(tryValue)
         if(tryValue === realValue){
             out = '';
         } else if(tryValue > realValue){
@@ -100,7 +100,7 @@ export const coordinates = (country, attempt) => {
         } 
     });
     let arrowD = arrowDirVer + arrowDirHor;
-    res = {direction:direction.join(''), arrowD};
+    res = {direction: direction.join(''), arrowD};
     return res;
     //direrection va a ser (n,s,w,e)o (nw,ne,sw,se), que es la data que muestra la pista, 
     //arrowD es para setear la flecha de la pista.

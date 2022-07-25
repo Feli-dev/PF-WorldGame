@@ -5,12 +5,14 @@ import {
   LOADING_USER,
   LOGIN_USER,
   LOGOUT_USER,
+  LOADING_USER_AUTH,
 } from "../../types";
 
 let initState = {
   profile: "",
   error: "",
-  cargando: true,
+  cargando: false,
+  cargandoAuth: true,
 };
 
 function authReducer(state = initState, action) {
@@ -28,14 +30,13 @@ function authReducer(state = initState, action) {
         error: "",
       };
     case LOGOUT_USER:
-      localStorage.removeItem("token");
       return {
         ...state,
         profile: "",
         error: "",
       };
     case ERROR:
-      localStorage.removeItem("token");
+      localStorage.removeItem("profile");
       return {
         ...state,
         profile: "",
@@ -44,8 +45,13 @@ function authReducer(state = initState, action) {
     case LOADING_USER:
       return {
         ...state,
-        cargando: false,
+        cargando: !state.cargando,
         error: "",
+      };
+    case LOADING_USER_AUTH:
+      return {
+        ...state,
+        cargandoAuth: false,
       };
     default:
       return state;

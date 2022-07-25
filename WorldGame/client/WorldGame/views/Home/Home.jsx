@@ -10,11 +10,9 @@ export default function Home({navigation}) {
       <View>
         <Navbar navigation={navigation}/>
       </View>
-      <View style={tw`w-70 mt--10 mb-3 border-b border-solid border-gray-400`}></View>
       <View>
         <Game/>
       </View>
-      <View style={tw`w-70 mt--33 mb-10 border-b border-solid border-gray-400`}></View>
       <View>
         <Footer/>
       </View>

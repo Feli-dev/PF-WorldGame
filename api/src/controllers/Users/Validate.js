@@ -25,7 +25,7 @@ module.exports = {
     },
     session: async (username = "", password = "", type = "", id = 0) => {
         try {
-            const where = type === "insert" ? { where: { [Op.or]: [ { username }, { password } ] } } : { where: {  [Op.or]: [ { username }, { password } ], id: { [Op.ne]:id } }};
+            const where = type === "insert" ? { where: { [Op.and]: [ { username }, { password } ] } } : { where: {  [Op.and]: [ { username }, { password } ], id: { [Op.ne]:id } }};
             return await User.findAll(where)
             .then(result => {
                 let user = parseObject(result);
