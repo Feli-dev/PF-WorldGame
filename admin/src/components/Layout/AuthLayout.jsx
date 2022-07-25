@@ -8,13 +8,12 @@ import Spinner from "../Spinner";
 const AuthLayout = (props) => {
   let { profile, cargandoAuth } = useSelector((state) => state.authReducer);
 
-  if (cargandoAuth) {
+  if (cargandoAuth)
     return (
       <div className="main-loading">
         <Spinner />
       </div>
     );
-  }
 
   return (
     <>

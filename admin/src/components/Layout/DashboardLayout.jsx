@@ -10,13 +10,12 @@ import Spinner from "../Spinner";
 const DashboardLayout = (props) => {
   let { profile, cargandoAuth } = useSelector((state) => state.authReducer);
 
-  if (cargandoAuth) {
+  if (cargandoAuth)
     return (
       <div className="main-loading">
         <Spinner />
       </div>
     );
-  }
 
   return (
     <>
