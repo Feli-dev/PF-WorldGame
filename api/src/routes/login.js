@@ -11,17 +11,7 @@ router.post('/', async(req, res, next) =>{
         const passEncrypt = bitHash.encrypt(password);
         return await user.login(username, passEncrypt.toString())
         .then(result => {
-            if(result.hasOwnProperty("name")){
-                return res.status(200).json({ Request: {
-                    id: result.id,
-                    name: result.name,
-                    username: result.username,
-                    password: bitHash.decrypt(result.password),
-                    country: result.country,
-                    state: result.state,
-                    authorization: result.authorization
-                } });
-            }
+            if(result.hasOwnProperty("name")) return res.status(200).json({ Request: result });
             return res.status(400).json({ Request: result })
         });
     }

@@ -15,28 +15,39 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             unique: true,
             allowNull: false,
-            get() {
-                const value = this.getDataValue('username');
-                return value ? value.toLowerCase() : null;
-            }
+            validate:{
+                len: [3,20]
+            },
+            get() { return this.getDataValue('username').toLowerCase(); }
         },
         password: {
             type: DataTypes.TEXT,
-            //unique: true,
             allowNull: false,
+            validate:{
+                len: [3,40]
+            },
         },
         email: {
             type: DataTypes.STRING,
-            //unique: true,
+            unique: true,
             allowNull: false,
+            validate:{
+                len: [10,80],
+                isEmail: true
+            },
         },
         points: {
             type:DataTypes.FLOAT,
             defaultValue: 0,
+            validate:{
+                min:0,
+                max:5,
+                isNumeric: true
+            },
         },
         country: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
         },
         premium: {
             type: DataTypes.BOOLEAN,
@@ -49,9 +60,10 @@ module.exports = (sequelize) => {
         authorization: {
             type: DataTypes.ENUM,
             values: ['Pro-Admin', 'Community-Admin', 'Enterprise-Admin', 'User'],
-            defaultValue: 'Pro-Admin'
+            defaultValue: 'Pro-Admin',
+            allowNull: false
         }
     },{
-        timestamps: false,
+        timestamps: true,
     });
 };

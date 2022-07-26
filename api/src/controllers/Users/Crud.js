@@ -1,11 +1,8 @@
 const { averageScore } = require('../../Tools/AverageScore');
+const { showUsers } = require('../../Tools/filterShow');
 const { Game, User } = require('../../db');
 const parseObject = require('../../Tools/ParseObject');
 const path = "api/src/controllers/Users/Crud.js";
-
-function show({ id, name, username, password, country, email, points, premium, state, authorization, games }, averageScore){
-    return { id, name, username, password, country, email, points, premium, state, authorization, games, averageScore  };
-}
 
 module.exports = {
     select: async (id = 0) => {
@@ -16,12 +13,12 @@ module.exports = {
                 let user = parseObject(result);
                 if(user.length) {
                     if(id > 0){
-                        const _averageScore = averageScore(user[0].games);
-                        return show(user[0], _averageScore) || "No hay usuarios";
+                        const stats = averageScore(user[0].games);
+                        return showUsers(user[0], stats) || "No hay usuarios";
                     }
                     return user.map(e => {
-                        const _averageScore = averageScore(e.games);
-                        return show(e, _averageScore) || "No hay usuarios";
+                        const stats = averageScore(e.games);
+                        return showUsers(e, stats) || "No hay usuarios";
                     });
                 };
                 return "No hay usuarios";
@@ -37,7 +34,6 @@ module.exports = {
     },
     insert: async (name = "",username = "", password = "", country = "", email = "", points = 0, premium = false, state = true, authorization = "User") => {
         try {
-            console.log(points);
             return await User.create({ name, username, password, country, email, points, premium, state, authorization })
             .then(result => {
                 let user = parseObject(result);
