@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 const ForgotPassword = () => {
   return (
@@ -28,9 +27,9 @@ const ForgotPassword = () => {
 
           <button
             type="submit"
-            className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium"
+            className="w-full p-2 rounded-md text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium"
           >
-            <Link to="/new-password/1">Reset Password</Link>
+            Reset Password
           </button>
         </form>
       </div>
