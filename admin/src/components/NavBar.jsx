@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { logoutUser } from "../redux/auth/authActions";
 
+// Helper
+import capitalized from "../helpers/capitalized";
+
 const NavBar = () => {
   const dispatch = useDispatch();
   const navigate = useHistory();
@@ -28,12 +31,10 @@ const NavBar = () => {
               <button className="text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
                 <div className="hidden md:flex md:flex-col md:items-end md:leading-tight">
                   <span className="font-semibold">
-                  {profile?.name.charAt(0).toUpperCase() +
-                      profile?.name.slice(1)}
+                    {capitalized(profile?.name)}
                   </span>
                   <span className="text-sm text-gray-600">
-                    {profile?.username.charAt(0).toUpperCase() +
-                      profile?.username.slice(1)}
+                    {capitalized(profile?.username)}
                   </span>
                 </div>
                 <span className="h-10 w-10 ml-2 sm:ml-3 mr-2 bg-gray-100 rounded-full overflow-hidden">
