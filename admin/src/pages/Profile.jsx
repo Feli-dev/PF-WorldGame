@@ -34,7 +34,7 @@ const Profile = () => {
   };
 
   const handleSubmit = async (e) => {
-    console.log("aqui")
+    console.log("aqui");
     e.preventDefault();
     if (email === "" && username === "" && name === "") {
       setErrorForm({
@@ -114,7 +114,14 @@ const Profile = () => {
               </div>
               <div className="md:w-2/3 w-full flex flex-col p-4">
                 <div className="py-3 px-16">
-                  <label htmlFor="name" className="text-sm text-gray-600">
+                  <label
+                    htmlFor="name"
+                    className={
+                      errorForm.usernameError
+                        ? "text-sm text-red-700"
+                        : "text-sm text-gray-600"
+                    }
+                  >
                     Username
                   </label>
                   <input
@@ -135,7 +142,14 @@ const Profile = () => {
                   )}
                 </div>
                 <div className="py-3 px-16">
-                  <label htmlFor="name" className="text-sm text-gray-600">
+                  <label
+                    htmlFor="name"
+                    className={
+                      errorForm.nameError
+                        ? "text-sm text-red-700"
+                        : "text-sm text-gray-600"
+                    }
+                  >
                     Name
                   </label>
                   <input
@@ -157,7 +171,14 @@ const Profile = () => {
                 </div>
 
                 <div className="py-3 px-16">
-                  <label htmlFor="email" className="text-sm text-gray-600">
+                  <label
+                    htmlFor="email"
+                    className={
+                      errorForm.emailError
+                        ? "text-sm text-red-700"
+                        : "text-sm text-gray-600"
+                    }
+                  >
                     Email Address
                   </label>
                   <input
