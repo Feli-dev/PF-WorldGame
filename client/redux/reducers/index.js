@@ -19,6 +19,11 @@ export const rootReducer = (state = initialState, action) => {
         ...state,
         game: action.payload,
       };
+    case type.POST_GAME:
+      return {
+        ...state,
+        attemps: [],
+      };
     case type.GET_USER:
       return {
         ...state,

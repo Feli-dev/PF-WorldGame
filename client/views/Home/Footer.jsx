@@ -9,7 +9,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import tw from "twrnc";
 import Svg, { Path } from "react-native-svg";
-import { gameAction, getAllCountries } from "../../redux/actions/index";
+import { gameAction, getAllCountries, PostGame } from "../../redux/actions/index";
 
 //onpress white flag render confirm message
 
@@ -19,6 +19,7 @@ export default function Footer() {
   const [input, setInput] = useState("");
   const [countryOfDay, setCountryOfDay] = useState("");
   const countries = useSelector((state) => state.countries);
+  const login = useSelector((state) => state.login);
   const listOfAttemps = useSelector((state) => state.attemps);
 
   useEffect(() => {
@@ -57,6 +58,7 @@ export default function Footer() {
         ) {
           dispatch(gameAction(countryOfDay, attemp));
         } else {
+          dispatch(PostGame({countrie: countryOfDay, winned: true, time: 120, attemps: listOfAttemps.length, UserId: login.id, points: 5000}))
           console.log("Ya encontraste el país, felicitaciones!");
         }
       } else {
