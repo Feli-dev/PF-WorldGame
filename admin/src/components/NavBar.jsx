@@ -1,12 +1,14 @@
 import { Button } from "@mui/material";
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { logoutUser } from "../redux/auth/authActions";
 
 const NavBar = () => {
   const dispatch = useDispatch();
   const navigate = useHistory();
+
+  const { profile } = useSelector((state) => state.authReducer);
 
   const logout = () => {
     localStorage.removeItem("profile");
@@ -25,8 +27,14 @@ const NavBar = () => {
             <div className="dropdown inline-block relative">
               <button className="text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
                 <div className="hidden md:flex md:flex-col md:items-end md:leading-tight">
-                  <span className="font-semibold">Andres Guerrero</span>
-                  <span className="text-sm text-gray-600">Admin</span>
+                  <span className="font-semibold">
+                  {profile?.name.charAt(0).toUpperCase() +
+                      profile?.name.slice(1)}
+                  </span>
+                  <span className="text-sm text-gray-600">
+                    {profile?.username.charAt(0).toUpperCase() +
+                      profile?.username.slice(1)}
+                  </span>
                 </div>
                 <span className="h-10 w-10 ml-2 sm:ml-3 mr-2 bg-gray-100 rounded-full overflow-hidden">
                   <img
@@ -39,7 +47,7 @@ const NavBar = () => {
               <ul className="dropdown-menu absolute hidden text-gray-700 bg-white border rounded-lg pt-1 w-11/12">
                 <li>
                   <Link
-                    className="rounded-t py-2 px-4 block whitespace-no-wrap hover:text-blue-600 hover:bg-gray-200"
+                    className="rounded-t py-2 px-4 block whitespace-no-wrap text-left hover:text-blue-600 hover:bg-gray-200"
                     to="/profile"
                   >
                     Profile
@@ -47,7 +55,7 @@ const NavBar = () => {
                 </li>
                 <li>
                   <Link
-                    className="py-2 px-4 block whitespace-no-wrap hover:text-blue-600 hover:bg-gray-200"
+                    className="py-2 px-4 block whitespace-no-wrap text-left hover:text-blue-600 hover:bg-gray-200"
                     to="/update-password"
                   >
                     Update Password
@@ -55,7 +63,7 @@ const NavBar = () => {
                 </li>
                 <li>
                   <button
-                    className="rounded-b py-2 px-4 block whitespace-no-wrap hover:text-red-600  hover:bg-red-200"
+                    className="rounded-b w-full text-left py-2 px-4 block whitespace-no-wrap hover:text-red-600  hover:bg-red-200"
                     onClick={logout}
                   >
                     Logout
