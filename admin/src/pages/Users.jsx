@@ -12,6 +12,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 const Users = () => {
     const dispatch = useDispatch()
     const [modalUser, setModalUser] = useState(false);
+    const [userInfo, setUserInfo] = useState({})
     let allUsers = useSelector((state) => state.userReducer.users)
     
     useEffect(() => {
@@ -74,88 +75,14 @@ const Users = () => {
             </tr>
           </thead>
           <tbody>
-            
-            <tr className="focus-within:bg-gray-200 overflow-hidden hover:bg-gray-100 ">
-            <td className="border-t">
-                <span className="text-gray-700 px-6 py-4 flex items-center">
-                  AndresG
-                </span>
-              </td>  
-              <td className="border-t">
-                <span className="text-gray-700 px-6 py-4 flex items-center">
-                  Andres Guerrero
-                </span>
-              </td>
-              
-              <td className="border-t">
-                <span className="text-gray-700 px-6 py-4 flex items-center">
-                  20 Jul 2022
-                </span>
-              </td>
-              <td className="border-t">
-                <span className="text-gray-700 px-6 py-4 flex items-center">
-                  Argentina
-                </span>
-              </td>
-
-              <td className="border-t">
-                <span className="text-gray-700 px-6 py-4 flex items-center  ">
-                  <div
-                    className=" cursor-pointer font-semibold w-10 h-10 bg-blue-200 text-blue-600 flex items-center justify-center rounded-full"
-                    onClick={() => setModalUser(true)}
-                  >
-                    A
-                  </div>
-                </span>
-              </td>
-
-              <td className="border-t">
-                <span className="text-gray-700 px-6 py-4 flex items-center ml-3">
-                  100
-                </span>
-              </td>
-
-              <td className="border-t">
-                <span className="text-gray-700 px-6 py-4 flex items-center ml-3">
-                  75
-                </span>
-              </td>
-
-              <td className="border-t">
-                <span className="text-gray-700 px-6 py-4 flex items-center">
-                  Premium
-                </span>
-              </td>
-
-              <td className="border-t">
-                <span className="px-6 py-4 flex items-center">
-                  <span className="px-2 rounded-full text-sm uppercase tracking-wide font-semibold bg-green-200 text-green-800">
-                    Active
-                  </span>
-                </span>
-              </td>
-              <td className="border-t">
-                <span className="text-gray-700 px-6 py-4 flex items-center">
-                  Admin
-                </span>
-              </td>
-
-              <td className="border-t">
-                <div className="text-gray-700  flex w-2.5 gap-3 text-center">
-                  <EditIcon
-                    className="text-yellow-500 z-50 cursor-pointer"
-                    onClick={getUserEdit}
-                  />
-                  <DeleteIcon
-                    className="text-red-500 cursor-pointer"
-                    onClick={deleteUser}
-                  />
-                </div>
-              </td>
-            </tr>
 
 
-        {allUsers.Request && allUsers.Request.map((user) =>{
+        {allUsers && allUsers.map((user) =>{
+
+            const handleClickInfo = () => {
+              setUserInfo(user)
+              setModalUser(true)
+            }
             return (
             <tr className="focus-within:bg-gray-200 overflow-hidden hover:bg-gray-100 ">
             <td className="border-t">
@@ -171,7 +98,7 @@ const Users = () => {
               
               <td className="border-t">
                 <span className="text-gray-700 px-6 py-4 flex items-center">
-                  añadir date
+                  {user.createdAt.slice(0,10)}
                 </span>
               </td>
               <td className="border-t">
@@ -184,7 +111,7 @@ const Users = () => {
                 <span className="text-gray-700 px-6 py-4 flex items-center  ">
                   <div
                     className=" cursor-pointer font-semibold w-10 h-10 bg-blue-200 text-blue-600 flex items-center justify-center rounded-full"
-                    onClick={() => setModalUser(true)}
+                    onClick={handleClickInfo}
                   >
                     {user.username.charAt(0).toUpperCase()}
                   </div>
@@ -205,7 +132,7 @@ const Users = () => {
 
               <td className="border-t">
                 <span className="text-gray-700 px-6 py-4 flex items-center">
-                  {user.premium}
+                  {user.premium === true? "Premium" : "Normal"}
                 </span>
               </td>
 
@@ -248,7 +175,7 @@ const Users = () => {
         </table>
       </div>
 
-      {modalUser && <ModalUser setModalUser={setModalUser} />}
+      {modalUser && <ModalUser userInfo={userInfo} setModalUser={setModalUser} />}
     </div>
   );
 };
