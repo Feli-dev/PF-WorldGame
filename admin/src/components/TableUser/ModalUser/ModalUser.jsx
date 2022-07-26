@@ -3,7 +3,22 @@ import React from "react";
 // Icons
 import CloseIcon from "@mui/icons-material/Close";
 
-const ModalUser = ({ setModalUser }) => {
+// {
+//   "id": 4,
+//   "name": "FER",
+//   "username": "fers",
+//   "password": "8735202216849030",
+//   "country": "Mexico",
+//   "email": "",
+//   "points": 1,
+//   "state": true,
+//   "authorization": false,
+//   "games": [],
+//   "averageScore": 0
+// }
+
+const ModalUser = ({ setModalUser, userInfo }) => {
+  console.log('Modeluser', userInfo)
   return (
     <div
       id="small-modal"
@@ -13,7 +28,7 @@ const ModalUser = ({ setModalUser }) => {
         <div className="relative bg-white rounded-lg shadow ">
           <div className="flex justify-between items-center p-5 rounded-t border-b ">
             <h3 className="text-xl font-medium text-gray-900 ">
-              Usuario - Andres Guerrero
+              {userInfo.name? `User - ${userInfo.name}`: `User - Unknow`}          
             </h3>
             <button
               type="button"
@@ -27,31 +42,31 @@ const ModalUser = ({ setModalUser }) => {
 
           <div className="p-6 space-y-6">
             <p className="font-bold">
-              Email:
+              E-mail:
               <span className="text-base leading-relaxed text-gray-500">
                 {" "}
-                correo@correo.com
+                {userInfo.email? `${userInfo.email}`: `Unknow`}
               </span>
             </p>
             <p className="font-bold">
               Rol:
               <span className="text-base leading-relaxed text-gray-500 ">
                 {" "}
-                Admin
+                {userInfo.authorization? `Admin`: `User`}
               </span>
             </p>
             <p className="font-bold">
               Registration Date:
               <span className="text-base leading-relaxed text-gray-500 ">
                 {" "}
-                20 Jul 2022
+                20 Jul 2022 {/* {userInfo.date? `${userInfo.date}`: `Unknow`} */}
               </span>
             </p>
 
             <p className="font-bold">
               State:{" "}
               <span className="px-2 rounded-full text-sm uppercase tracking-wide font-semibold bg-green-200 text-green-800">
-                Active
+              {userInfo.state? `Active`: `Bloked`}
               </span>
             </p>
 
@@ -59,7 +74,7 @@ const ModalUser = ({ setModalUser }) => {
               Games Played:
               <span className="text-base leading-relaxed text-gray-500 ">
                 {" "}
-                0
+                {userInfo.games.length? `${userInfo.games.length}`: `0`}
               </span>
             </p>
 
@@ -67,7 +82,7 @@ const ModalUser = ({ setModalUser }) => {
               Friends:
               <span className="text-base leading-relaxed text-gray-500 ">
                 {" "}
-                0
+                0?? {/* {userInfo.friends.length? `${userInfo.friends.length}`: `0`} */}
               </span>
             </p>
 
@@ -75,7 +90,7 @@ const ModalUser = ({ setModalUser }) => {
               Points:
               <span className="text-base leading-relaxed text-gray-500 ">
                 {" "}
-                0
+                {userInfo.points? `${userInfo.points}`: '0'}
               </span>
             </p>
           </div>

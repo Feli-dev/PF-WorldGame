@@ -1,3 +1,4 @@
+
 import {
   View,
   Text,
@@ -6,6 +7,7 @@ import {
   Image,
   Button,
 } from "react-native";
+
 import React, { useEffect, useState } from "react";
 import tw from "twrnc";
 import Svg, { Path } from "react-native-svg";
@@ -15,30 +17,31 @@ import iconPremium from '../assets/calidad-premium.png'
 
 export default function Profile({ navigation }) {
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const userlogin = useSelector((state) => state.login)
 
-  const userInfo = useSelector((state) => state.userdetail)
+  const userlogin = useSelector((state) => state.login);
+
+  const userInfo = useSelector((state) => state.userdetail);
 
   // const userId = userlogin.Request.id;
 
-
-  const [userUpdate, SetUserUpdate] = useState(false)
+  const [userUpdate, SetUserUpdate] = useState(false);
 
   const [userData, SetUserData] = useState({
-    "id": "",
-    "name": "",
-    "username": "",
-    "password": "",
-    "country": "",
-    "email": "",
-    "points": "",
-    "state": "",
-    "authorization": "",
-    "games": [],
-    "averageScore": "",
+    id: "",
+    name: "",
+    username: "",
+    password: "",
+    country: "",
+    email: "",
+    points: "",
+    state: "",
+    authorization: "",
+    games: [],
+    averageScore: "",
   });
+
 
 
   // useEffect(() => {
@@ -46,32 +49,29 @@ export default function Profile({ navigation }) {
   // }, [dispatch, userId])
 
 
+
   const handleUpdate = () => {
-    SetUserUpdate(userUpdate => !userUpdate);
+    SetUserUpdate((userUpdate) => !userUpdate);
     SetUserData(userInfo.Request);
-  }
+  };
   const handlePut = () => {
-    console.log('entra en handlePut')
-    console.log('userInfo.Request--->', userInfo.Request)
-    console.log('info que manda a actualizar', userData)
-    dispatch(PutUser(userData))
-    navigation.navigate('Home')
-  }
-
-
-
+    console.log("entra en handlePut");
+    console.log("userInfo.Request--->", userInfo.Request);
+    console.log("info que manda a actualizar", userData);
+    dispatch(PutUser(userData));
+    navigation.navigate("Home");
+  };
 
   const handleOnChange = (type, e) => {
     SetUserData({
       ...userData,
       [type]: e,
-    })
-  }
+    });
+  };
 
 
 
   return (
-
     <View
       style={tw`bg-gray-900 h-full flex justify-start items-center flex-col`}
     >
@@ -96,17 +96,22 @@ export default function Profile({ navigation }) {
         </View>
       </View>
 
-      <View style={tw`flex justify-center items-center bg-gray-700 rounded-md w-90 h-6/9 mt-12 mb-6`}
+      <View
+        style={tw`flex justify-center items-center bg-gray-700 rounded-md w-90 h-6/9 mt-12 mb-6`}
       >
         {/* AJUSTAR EL TEXTO  */}
         <View>
           <View style={tw`flex-row mt-1`}>
             <Text style={tw` text-white font-bold text-xl `}>User:</Text>
-            <Text style={tw` text-white text-xl ml-2`}>{userInfo.Request ? userInfo.Request.username : "..."}</Text>
+            <Text style={tw` text-white text-xl ml-2`}>
+              {userInfo.Request ? userInfo.Request.username : "..."}
+            </Text>
           </View>
           <View style={tw`flex-row mt-5`}>
+
             <Text style={tw`text-white font-bold text-xl `}>Average Score:</Text>
             <Text style={tw` text-white text-xl ml-2`}>{userInfo.Request ? userInfo.Request.averageScore.averageScore : "..."}</Text>
+
           </View>
         </View>
 
@@ -117,8 +122,7 @@ export default function Profile({ navigation }) {
             placeholderTextColor="#9f9f9f"
             style={tw`pl-3 mb-5 w-70 h-10 rounded-md bg-gray-800 text-white`}
             editable={userUpdate}
-            onChangeText={(e) => handleOnChange('name', e)}
-
+            onChangeText={(e) => handleOnChange("name", e)}
           ></TextInput>
         </View>
 
@@ -129,7 +133,7 @@ export default function Profile({ navigation }) {
             placeholderTextColor="#9f9f9f"
             style={tw`pl-3 mb-5 w-70 h-10 rounded-md bg-gray-800 text-white`}
             editable={userUpdate}
-            onChangeText={(e) => handleOnChange('country', e)}
+            onChangeText={(e) => handleOnChange("country", e)}
           ></TextInput>
         </View>
 
@@ -142,7 +146,7 @@ export default function Profile({ navigation }) {
             placeholderTextColor="#9f9f9f"
             style={tw`pl-3 mb-5 w-70 h-10 rounded-md bg-gray-800 text-white`}
             editable={userUpdate}
-            onChangeText={(e) => handleOnChange('email', e)}
+            onChangeText={(e) => handleOnChange("email", e)}
           ></TextInput>
         </View>
 
@@ -150,10 +154,14 @@ export default function Profile({ navigation }) {
           style={tw`w-50 mt-10 bg-gray-600 rounded-md h-10 flex justify-center items-center`}
           onPress={userUpdate ? handlePut : handleUpdate}
         >
-          {userUpdate ? <Text style={tw`text-white font-bold text-base`}>Save</Text> : <Text style={tw`text-white font-bold text-base`}>Update</Text>}
-
+          {userUpdate ? (
+            <Text style={tw`text-white font-bold text-base`}>Save</Text>
+          ) : (
+            <Text style={tw`text-white font-bold text-base`}>Update</Text>
+          )}
         </TouchableOpacity>
       </View>
+
       <View>
 
         {/* <TouchableOpacity
@@ -174,6 +182,7 @@ export default function Profile({ navigation }) {
 
         </TouchableOpacity> */}
       </View>
+
 
     </View>
   );

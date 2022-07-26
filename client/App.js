@@ -1,7 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Provider } from 'react-redux';
-import store from './redux/store';
+import { Provider } from "react-redux";
+import store from "./redux/store";
 import Register from "./views/Register";
 import Login from "./views/Login";
 import Home from "./views/Home/Home";
@@ -16,7 +16,7 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-      <Provider store = { store }>
+    <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator
           initialRouteName="Login"
@@ -35,7 +35,6 @@ export default function App() {
           <Stack.Screen name="Payment" component={Stripe} />
         </Stack.Navigator>
       </NavigationContainer>
-      </Provider>
+    </Provider>
   );
 }
-

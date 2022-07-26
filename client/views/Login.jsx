@@ -8,7 +8,6 @@ import validate from "../utils/validateL";
 
 function Login({ navigation, user, postLogin }) {
   const dispatch = useDispatch();
-  const [isDisabled, setIsDisabled] = useState(true);
   const [input, setInput] = useState({
     username: "",
     password: "",
@@ -66,7 +65,6 @@ function Login({ navigation, user, postLogin }) {
       });
       navigation.navigate("Instructions");
     } else if (pressed === true && !user.Request) {
-      console.log(1);
       setLogErr("invalid user or password");
     }
   }, [user, pressed]);

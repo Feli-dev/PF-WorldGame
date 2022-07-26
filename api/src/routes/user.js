@@ -6,21 +6,19 @@ const router = Router();
 const user = new User();
 const path = "api/src/routes/user.js"
 
-function field(name = "", username = "", password = "") {
-    if(!name.length) return " Nombre";
+function field(username = "", password = "") {
     if(!username.length) return " Usuario";
     if(!password.length) return " Contraseña";
     return "";
 }
 
 router.post('/', async(req, res) =>{
-    
     try {
-        const { name, username, password, country, email, points } = req.body;
-        const message = field(name,username, password);
+        const { name, username, password, country, email, points, premium, authorization } = req.body;
+        const message = field(username, password);
         if(!message.length){
             const passEncrypt = bitHash.encrypt(password);
-            return await user.create(name, username, passEncrypt.toString(), country, email, points, true, false)
+            return await user.create(name, username, passEncrypt.toString(), country, email, points, premium, true, authorization)
             .then(result => res.status(200).json({ Request: result }))
             .catch(error => {
                 console.log(`Error: ${error}\nRuta: ${path}\nMetodo: POST`);
@@ -37,11 +35,11 @@ router.post('/', async(req, res) =>{
 
 router.put('/', async(req, res) =>{
     try {
-        const { id, name, username, password, country, email, points } = req.body;
-        const message = field(name,username, password);
+        const { id, name, username, password, country, email, points ,premium, authorization  } = req.body;
+        const message = field(username, password);
         if(!message.length){
             const passEncrypt = bitHash.encrypt(password);
-            return await user.update(id, name, username, passEncrypt.toString(), country, email, points)
+            return await user.update(id, name, username, passEncrypt.toString(), country, email, points, premium, authorization)
             .then(result => res.status(200).json({ Request: result }))
             .catch(error => {
                 console.log(`Error: ${error}\nRuta: ${path}\nMetodo: PUT`);

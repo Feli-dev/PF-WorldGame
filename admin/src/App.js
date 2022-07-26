@@ -11,6 +11,7 @@ import UpdatePassword from "./pages/UpdatePassword";
 import AddUser from "./pages/AddUser";
 import NewPassword from "./pages/NewPassword";
 import ForgotPassword from "./pages/ForgotPassword";
+import Users from "./pages/Users";
 
 // Layout
 import DashboardLayout from "./components/Layout/DashboardLayout";
@@ -40,6 +41,7 @@ function App() {
         <AuthLayout exact path="/new-password/:token" component={NewPassword} />
         <DashboardLayout path="/dashboard" component={Dashboard} />
         <DashboardLayout path="/profile" component={Profile} />
+        <DashboardLayout path="/users" component={Users} />
         <DashboardLayout path="/update-password" component={UpdatePassword} />
         <DashboardLayout path="/add-user" component={AddUser} />
         <Route exact path="/*" component={NoFound} />

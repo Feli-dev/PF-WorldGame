@@ -3,23 +3,23 @@ import {
   View,
   TouchableOpacity,
   ScrollView,
-  TextInput
+  TextInput,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import DropDownPicker from "react-native-dropdown-picker";
 import tw from "twrnc";
-import { SvgUri } from 'react-native-svg';
+import { SvgUri } from "react-native-svg";
 import { getRank, getAllCountries, filterByCountry } from "../redux/actions";
 
 export default function Ranking() {
-  const ranked = useSelector((state) => state.rank_filter)
-  const allCountries = useSelector((state) => state.countries)
-  const dispatch = useDispatch()
+  const ranked = useSelector((state) => state.rank_filter);
+  const allCountries = useSelector((state) => state.countries);
+  const dispatch = useDispatch();
 
-  useEffect(()=>{
-    dispatch(getRank(10))
-  },[])
+  useEffect(() => {
+    dispatch(getRank(10));
+  }, []);
 
   const countries = [
     { label: "All Countries", value: "All Countries" },
@@ -485,8 +485,6 @@ export default function Ranking() {
   const [items, setItems] = useState(countries);
   const [items2, setItems2] = useState(rank);
 
-
- 
   return (
     <View style={tw`flex h-full items-center justify-center bg-gray-900`}>
       <View style={tw`flex flex-row mt-50 mr-8`}>
@@ -510,7 +508,7 @@ export default function Ranking() {
               arrowIconStyle={{ tintColor: "white" }}
               containerStyle={tw`w-6/7`}
               onChangeValue={(value) => {
-                dispatch(filterByCountry(value))
+                dispatch(filterByCountry(value));
               }}
             />
           </View>
@@ -537,24 +535,47 @@ export default function Ranking() {
           </View>
         </View>
       </View>
-      <View style={tw`w-70 mt-15 mb--10 border-b border-solid border-gray-400`}></View>
+      <View
+        style={tw`w-70 mt-15 mb--10 border-b border-solid border-gray-400`}
+      ></View>
       <View>
         <ScrollView style={tw`mt-15 mb-45`}>
-            {ranked?.map(player => {
-                return(
-                    <View key={(ranked?.findIndex((e)=>e.username===player.username)+1)}  style={tw`flex flex-row justify-center items-center bg-gray-700 mt-5 rounded-md p-3`}>
-                        <View style={tw`w-1/6`}>
-                            <Text style={tw`mr-5 text-white text-center font-bold`}> {`#${(ranked.findIndex((e)=>e.username===player.username)+1)}`} </Text>
-                        </View>
-                        <View style={tw`w-3/6`}>
-                            <Text style={tw`mr-5 text-white text-center font-bold`}> {player.username} </Text>
-                        </View>
-                        <View style={tw`flex justify-center items-center text-center w-20 h-10`}>
-                          <Text style={tw`font-bold text-white`}>{`${allCountries.find(e => e.name.toLowerCase() === player.country.toLowerCase()).name}`}</Text>
-                        </View>
-                    </View>
-                )
-            })}
+          {ranked?.map((player) => {
+            return (
+              <View
+                key={
+                  ranked?.findIndex((e) => e.username === player.username) + 1
+                }
+                style={tw`flex flex-row justify-center items-center bg-gray-700 mt-5 rounded-md p-3`}
+              >
+                <View style={tw`w-1/6`}>
+                  <Text style={tw`mr-5 text-white text-center font-bold`}>
+                    {" "}
+                    {`#${
+                      ranked.findIndex((e) => e.username === player.username) +
+                      1
+                    }`}{" "}
+                  </Text>
+                </View>
+                <View style={tw`w-3/6`}>
+                  <Text style={tw`mr-5 text-white text-center font-bold`}>
+                    {" "}
+                    {player.username}{" "}
+                  </Text>
+                </View>
+                <View
+                  style={tw`flex justify-center items-center text-center w-20 h-10`}
+                >
+                  <Text style={tw`font-bold text-white`}>{`${
+                    allCountries.find(
+                      (e) =>
+                        e.name.toLowerCase() === player.country.toLowerCase()
+                    ).name
+                  }`}</Text>
+                </View>
+              </View>
+            );
+          })}
         </ScrollView>
       </View>
     </View>
