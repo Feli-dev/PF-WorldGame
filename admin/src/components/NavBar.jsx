@@ -1,7 +1,19 @@
+import { Button } from "@mui/material";
 import React from "react";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
+import { logoutUser } from "../redux/auth/authActions";
 
 const NavBar = () => {
+  const dispatch = useDispatch();
+  const navigate = useHistory();
+
+  const logout = () => {
+    localStorage.removeItem("profile");
+    dispatch(logoutUser());
+    navigate.push("");
+  };
+
   return (
     <>
       <div className="px-4 md:px-8 py-2 h-16 flex justify-between items-center shadow-sm bg-white">
@@ -42,12 +54,12 @@ const NavBar = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link
+                  <button
                     className="rounded-b py-2 px-4 block whitespace-no-wrap hover:text-red-600  hover:bg-red-200"
-                    to="/"
+                    onClick={logout}
                   >
                     Logout
-                  </Link>
+                  </button>
                 </li>
               </ul>
             </div>
