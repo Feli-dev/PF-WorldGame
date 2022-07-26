@@ -1,4 +1,4 @@
-const { auth, session, duplicate } = require('./Validate');
+const { auth, session } = require('./Validate');
 const { select, insert, update, stateUser, remove, ranking } = require('./Crud');
 
 module.exports = class {
@@ -24,7 +24,7 @@ module.exports = class {
 
     async create(name = "", username = "", password = "", country = "", email = "", points = 0, premium = false, state = true, authorization = "User") {
         try {
-            return await session(username, password, "insert", 0)
+            return await session(username, "insert", 0)
             .then(result => {
                 if(!result) return insert(name, username, password, country, email, points, premium, state, authorization);
                 return "El nombre de usuario esta en uso";
@@ -41,7 +41,7 @@ module.exports = class {
 
     async update(id = 0, name = "", username = "", password = "", country = "", email = "", points = 0, premium = false, authorization = "User") {
         try {
-            return await session(username, password, "update", id)
+            return await session(username, "update", id)
             .then(result => {
                 if(!result) return update(id, name, username, password, country, email, points, premium, authorization);
                 return "El usuario no puede actualizarse";
