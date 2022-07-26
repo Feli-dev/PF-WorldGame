@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import {useDispatch, useSelector} from 'react-redux'
 import { getAllUsers } from '../../redux/users/userActions'
-// Icons
-import ModalUser from "./ModalUser/ModalUser";
+import { Link } from "react-router-dom";
+
 //Components
+import ModalUser from "./ModalUser/ModalUser";
 import User from './user/DashUser'
 
 
@@ -31,9 +32,9 @@ const TableUser = () => {
       <div className="flex items-center justify-between mb-4" >
         <h2 className="text-xl font-bold text-gray-800">Latest Users</h2>
 
-        <a href="#" className="text-blue-600 hover:text-blue-500 font-medium">
+        <Link to={'/users'}><a href="#" className="text-blue-600 hover:text-blue-500 font-medium">
           See all
-        </a>
+        </a></Link>
       </div>
       <div className="overflow-x-auto bg-white rounded-lg shadow overflow-y-auto">
         <table className="w-full whitespace-no-wrap bg-white overflow-hidden table-striped ">
@@ -56,16 +57,16 @@ const TableUser = () => {
               </th>
             </tr>
           </thead>
-          
-          <tbody className = " max-h-max border-solid border-2 overflow-y-auto">
-           {lastUsers.length
-           ?lastUsers.map(user => user?<User key={user.id} user={user} setModalUser={setModalUser} setUserInfo={setUserInfo}/>:null)
-           :<tr className="focus-within:bg-gray-200 overflow-hidden hover:bg-gray-100 w-auto">Sin usuarios</tr> } 
-           
-          </tbody>
-        </table>
-      </div>
 
+          {lastUsers.length > 0 && <tbody className = " max-h-max border-solid border-2 overflow-y-auto">
+          {lastUsers.map(user => <User key={user.id} user={user} setModalUser={setModalUser} setUserInfo={setUserInfo}/>)}
+          </tbody>}
+          
+          
+        </table>
+        {lastUsers.length < 1 && <h1 className="text-center px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xl ">Sin usuarios registrados... aún 🥶</h1>}
+      </div>
+        
       {modalUser && <ModalUser userInfo={userInfo} setModalUser={setModalUser} />}
     </>
   );
