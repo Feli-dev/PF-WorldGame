@@ -21,6 +21,7 @@ export default function Footer() {
   const countries = useSelector((state) => state.countries);
   const login = useSelector((state) => state.login);
   const listOfAttemps = useSelector((state) => state.attemps);
+  var lista_intentos = []
 
   useEffect(() => {
     dispatch(getAllCountries());
@@ -51,15 +52,11 @@ export default function Footer() {
           (el) => el.name.toLowerCase() === attemp.name.toLowerCase()
         )
       ) {
-        if (
-          !listOfAttemps.some(
-            (el) => el.name.toLowerCase() === countryOfDay.name.toLowerCase()
-          )
-        ) {
+        if (!listOfAttemps.some((el) => el.name.toLowerCase() === countryOfDay.name.toLowerCase())){
           dispatch(gameAction(countryOfDay, attemp));
-        } else {
-
-          dispatch(PostGame({countrie: countryOfDay, winned: true, time: 120, attemps: listOfAttemps.length, UserId: login.id, points: 5000}))
+        }
+        if(attemp.name.toLowerCase() === countryOfDay.name.toLowerCase()){
+          dispatch(PostGame({countrie: countryOfDay.name, winned: true, time: 120, attempts: listOfAttemps.length + 1, UserId: login.Request.id, points: 5})) //cambiar puntos por 5000
           console.log("Ya encontraste el país, felicitaciones!");
         }
       } else {

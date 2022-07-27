@@ -18,11 +18,15 @@ import iconPremium from '../assets/calidad-premium.png'
 export default function Profile({ navigation }) {
 
   const dispatch = useDispatch();
-
-
+  
+  
   const userlogin = useSelector((state) => state.login);
-
+  
   const userInfo = useSelector((state) => state.userdetail);
+  
+  useEffect(()=>{
+    dispatch(getUser(userlogin.Request.id))
+  })
 
   // const userId = userlogin.Request.id;
 
@@ -110,7 +114,7 @@ export default function Profile({ navigation }) {
           <View style={tw`flex-row mt-5`}>
 
             <Text style={tw`text-white font-bold text-xl `}>Average Score:</Text>
-            <Text style={tw` text-white text-xl ml-2`}>{userInfo.Request ? userInfo.Request.averageScore.averageScore : "..."}</Text>
+            <Text style={tw` text-white text-xl ml-2`}>{userInfo.Request ? (userInfo.Request.averageScore.averageScore ? userInfo.Request.averageScore.averageScore : userInfo.Request.averageScore) : "..."}</Text>
 
           </View>
         </View>
