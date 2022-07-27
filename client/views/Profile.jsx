@@ -114,7 +114,7 @@ export default function Profile({ navigation }) {
           <View style={tw`flex-row mt-5`}>
 
             <Text style={tw`text-white font-bold text-xl `}>Average Score:</Text>
-            <Text style={tw` text-white text-xl ml-2`}>{userInfo.Request ? (userInfo.Request.averageScore.averageScore ? userInfo.Request.averageScore.averageScore : userInfo.Request.averageScore) : "..."}</Text>
+            <Text style={tw` text-white text-xl ml-2`}>{userInfo.Request ? userInfo.Request.stats.averageScore : "..."}</Text>
 
           </View>
         </View>
