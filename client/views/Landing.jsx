@@ -27,6 +27,7 @@ const Landing = ({ navigation }) => {
             }
         }else{
             console.log("not users")
+            navigation.navigate("Register");
         }
         
     }
@@ -43,6 +44,7 @@ const Landing = ({ navigation }) => {
         if(allUser.Request){
             getLogin();
         }
+        console.log(allUser);
     }, [allUser]);
 
     return (

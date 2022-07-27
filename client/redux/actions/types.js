@@ -16,4 +16,5 @@ export const type = {
   CALL_GAME_ACTIONS: "CALL_GAME_ACTIONS",
   GET_RANK: "GET_RANK",
   SET_LOGIN: "SET_LOGIN",
+  NEW_GAME: "NEW_GAME"
 };

@@ -9,7 +9,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import tw from "twrnc";
 import Svg, { Path } from "react-native-svg";
-import { gameAction, getAllCountries, PostGame } from "../../redux/actions/index";
+import { gameAction, getAllCountries, PostGame, newGame } from "../../redux/actions/index";
 import { setTestDeviceIDAsync, AdMobInterstitial } from "expo-ads-admob";
 //onpress white flag render confirm message
 
@@ -21,7 +21,7 @@ export default function Footer() {
   const countries = useSelector((state) => state.countries);
   const login = useSelector((state) => state.login);
   const listOfAttemps = useSelector((state) => state.attemps);
-  var lista_intentos = []
+  const [win, setWin] = useState(false)
 
   useEffect(() => {
     dispatch(getAllCountries());
@@ -29,7 +29,7 @@ export default function Footer() {
 
   useEffect(() => {
     setCountryOfDay(countries[Math.floor(Math.random() * 249)]);
-  }, []);
+  }, [win]);
 
   async function chargeAds(){
     await setTestDeviceIDAsync('EMULATOR');
@@ -70,10 +70,11 @@ export default function Footer() {
         }
         if(attemp.name.toLowerCase() === countryOfDay.name.toLowerCase()){
           dispatch(PostGame({countrie: countryOfDay.name, winned: true, time: 120, attempts: listOfAttemps.length + 1, UserId: login.Request.id, points: 5})) //cambiar puntos por 5000
-          console.log("Ya encontraste el país, felicitaciones!");
+          setWin(true)
           if(!(login.Request.premium)){
-            setTimeout(()=>{showAds()},1500)
+            setTimeout(()=>{showAds()}, 1000)
           }
+          console.log("Ya encontraste el país, felicitaciones!");
         }
       } else {
         console.log("Ya has probado con ese país, intenta con otra opción!");
@@ -112,16 +113,22 @@ export default function Footer() {
         ></TextInput>
         <TouchableOpacity
           style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-md w-10 h-15`}
-          onPress={(e) => handleSubmit(e)}
+          onPress={!win ? (e) => handleSubmit(e) : () => {setWin(false); dispatch(newGame());}}
         >
-          <View style={tw`w-10 h-10`}>
+          {!win ? <View style={tw`w-10 h-10`}>
             <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
               <Path
                 fill="#000"
                 d="M374.6 246.6c-6.2 6.3-14.4 9.4-22.6 9.4s-16.38-3.125-22.62-9.375L224 141.3V448c0 17.69-14.33 31.1-31.1 31.1S160 465.7 160 448V141.3L54.63 246.6c-12.5 12.5-32.75 12.5-45.25 0s-12.5-32.75 0-45.25l160-160c12.5-12.5 32.75-12.5 45.25 0l160 160c12.47 12.55 12.47 32.75-.03 45.25z"
               />
             </Svg>
+          </View> :
+          <View style={tw`w-10 h-10`}>
+            <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" >
+              <Path fill="#000" d="M496 48v144c0 17.69-14.31 32-32 32H320c-17.69 0-32-14.31-32-32s14.31-32 32-32h63.39c-29.97-39.7-77.25-63.78-127.6-63.78C167.7 96.22 96 167.9 96 256s71.69 159.8 159.8 159.8c34.88 0 68.03-11.03 95.88-31.94 14.22-10.53 34.22-7.75 44.81 6.375 10.59 14.16 7.75 34.22-6.375 44.81-39.03 29.28-85.36 44.86-134.2 44.86C132.5 479.9 32 379.4 32 256S132.5 32.1 255.9 32.1c69.15 0 134 32.47 176.1 86.12V48c0-17.69 14.31-32 32-32s32 14.31 32 32z" />
+            </Svg>
           </View>
+          }
         </TouchableOpacity>
       </View>
     </View>
