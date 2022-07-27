@@ -55,6 +55,22 @@ function loginAction(user) {
         password: user.password,
       });
 
+      if (data.Request.authorization === "User") {
+        dispatch({
+          type: ERROR,
+          payload: { msg: "Not authorized", error: true },
+        });
+
+        setTimeout(() => {
+          dispatch({
+            type: ERROR,
+            payload: "",
+          });
+        }, 3000);
+
+        return;
+      }
+
       localStorage.setItem("profile", JSON.stringify(data.Request));
 
       dispatch({
