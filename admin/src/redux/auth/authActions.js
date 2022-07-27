@@ -71,8 +71,10 @@ function loginAction(user) {
 
         return;
       }
+      
+      const {password,...dataUser} = data.Request 
 
-      localStorage.setItem("profile", JSON.stringify(data.Request));
+      localStorage.setItem("profile", JSON.stringify(dataUser));
 
       dispatch({
         type: LOGIN_USER,
@@ -114,9 +116,11 @@ function updateUserAdmin(updateUser) {
 
       const userActual = JSON.parse(localStorage.getItem("profile"));
 
+      const { password, ...user } = updateUser;
+
       localStorage.setItem(
         "profile",
-        JSON.stringify({ ...userActual, ...updateUser })
+        JSON.stringify({ ...userActual, ...user })
       );
 
       dispatch({
@@ -142,6 +146,4 @@ function updateUserAdmin(updateUser) {
   };
 }
 
-updateUserAdmin();
-
-export { loginAction, authenticateAction, logoutUser };
+export { loginAction, authenticateAction, logoutUser, updateUserAdmin };
