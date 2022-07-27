@@ -16,7 +16,7 @@ function authenticateAction() {
   return async function (dispatch) {
     try {
       const profile = JSON.parse(localStorage.getItem("profile"));
-      
+
       if (!profile) {
         dispatch({
           type: ERROR,
@@ -66,7 +66,7 @@ function loginAction(user) {
         type: LOADING_USER_AUTH,
       });
     } catch (err) {
-      console.log(err)
+      console.log(err);
       dispatch({
         type: ERROR,
         payload: { msg: err.response.data.Request, error: true },
@@ -84,4 +84,10 @@ function loginAction(user) {
   };
 }
 
-export { loginAction, authenticateAction };
+function logoutUser() {
+  return {
+    type: LOGOUT_USER,
+  };
+}
+
+export { loginAction, authenticateAction, logoutUser };

@@ -54,6 +54,14 @@ function authReducer(state = initState, action) {
         ...state,
         cargandoAuth: false,
       };
+    case LOGOUT_USER:
+      return {
+        ...state,
+        profile: "",
+        error: "",
+        cargando: false,
+        cargandoAuth: false,
+      };
     default:
       return state;
   }

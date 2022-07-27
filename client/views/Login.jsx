@@ -2,7 +2,7 @@ import { Text, View, TouchableOpacity, TextInput } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState, useEffect } from "react";
 import { useDispatch, connect } from "react-redux";
-import { postLogin, getAllCountries } from "../redux/actions/index";
+import { postLogin, setLogin, getAllCountries } from "../redux/actions/index";
 import tw from "twrnc";
 import Svg, { Path } from "react-native-svg";
 import validate from "../utils/validateL";

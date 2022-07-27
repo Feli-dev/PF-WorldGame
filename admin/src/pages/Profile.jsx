@@ -1,22 +1,98 @@
-import React from "react";
+import React, { useState } from "react";
+
+// Redux
+import { useDispatch, useSelector } from "react-redux";
+
+// Components
+import Alerta from "../components/Alerta";
+import capitalized from "../helpers/capitalized";
 
 const Profile = () => {
+  const dispatch = useDispatch();
+
+  const { error, profile } = useSelector((state) => state.authReducer);
+
+  const [user, setUser] = useState({
+    email: "",
+    username: profile.username,
+    name: profile.name,
+  });
+
+  const [errorForm, setErrorForm] = useState({
+    emailError: false,
+    usernameError: false,
+    nameError: false,
+  });
+
+  const { email, username, name } = user;
+
+  const handleChange = (e) => {
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    console.log("aqui");
+    e.preventDefault();
+    if (email === "" && username === "" && name === "") {
+      setErrorForm({
+        emailError: true,
+        nameError: true,
+        usernameError: true,
+      });
+      return;
+    } else if (email === "") {
+      setErrorForm({
+        emailError: true,
+        nameError: false,
+        usernameError: false,
+      });
+      return;
+    } else if (name === "") {
+      setErrorForm({
+        emailError: false,
+        nameError: true,
+        usernameError: false,
+      });
+      return;
+    } else if (username === "") {
+      setErrorForm({
+        emailError: false,
+        nameError: false,
+        usernameError: true,
+      });
+      return;
+    }
+
+    setErrorForm({
+      emailError: false,
+      nameError: false,
+      usernameError: false,
+    });
+
+    //const error = await dispatch(loginAction(user));
+  };
+
+  const { msg } = error;
+
   return (
     <>
       <div className="container mx-auto">
         <div className="md:max-w-6xl md:mx-auto px-4 py-7">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-bold text-gray-800">Account Settings</h2>
+            <h2 className="text-xl font-bold text-gray-800">
+              Account Settings
+            </h2>
           </div>
 
-          <form
-            action="{{ route('profile.save') }}"
-            method="POST"
-       
-          >
+          <form onSubmit={handleSubmit}>
+            {msg && <Alerta alerta={error} />}
+
             <div className="w-full bg-white rounded-lg mx-auto mt-8 flex overflow-hidden rounded-b-none">
               <div className="w-1/3 bg-gray-100 p-8 hidden md:inline-block">
-                <h2 className="font-medium text-md text-gray-700 mb-4 tracking-wide">
+                <h2 className="font-medium text-md text-gray-700 mb-4 tracking-wide text-center">
                   Profile
                 </h2>
                 <div className=" clearfix flex flex-col ">
@@ -26,69 +102,105 @@ const Profile = () => {
                     src="https://lh3.googleusercontent.com/ogw/AOh-ky3Ii6IooCwW2Wt4MSNICaWX-Y30xCQGon99Mga6=s64-c-mo"
                     alt="photo"
                   />
-                  <div className="bg-gray-200 text-gray-500 text-xs mt-5 ml-3 font-bold px-4 py-2 rounded-lg float-left hover:bg-gray-300 hover:text-gray-600 relative overflow-hidden cursor-pointer">
+                  <div className="bg-gray-200 text-gray-500 text-xs  text-center mt-5 ml-3 font-bold px-4 py-2 rounded-lg float-left hover:bg-gray-300 hover:text-gray-600 relative overflow-hidden cursor-pointer">
                     <input
                       type="file"
                       name="photo"
-                     
-                      className="absolute w-full h-full opacity-0 cursor-pointer"
+                      className="absolute w-full h-full opacity-0 cursor-pointer text-center"
                     />{" "}
                     Change Photo
                   </div>
                 </div>
               </div>
               <div className="md:w-2/3 w-full flex flex-col p-4">
-                <div className="py-5 px-16">
-                  <label htmlFor="name" className="text-sm text-gray-600">
+                <div className="py-3 px-16">
+                  <label
+                    htmlFor="name"
+                    className={
+                      errorForm.usernameError
+                        ? "text-sm text-red-700"
+                        : "text-sm text-gray-600"
+                    }
+                  >
                     Username
                   </label>
                   <input
-                    className="mt-2 border-2 border-gray-200 px-3 py-2 block w-full rounded-lg text-base text-gray-900 focus:outline-none "
                     type="text"
-                    value=""
+                    value={capitalized(username)}
                     name="username"
-                    placeholder="Andres G"
+                    onChange={handleChange}
+                    className={
+                      errorForm.usernameError
+                        ? " mt-2 border-2  px-3 py-2 block w-full rounded-lg text-base  focus:outline-none  border-red-500 text-red-900"
+                        : "mt-2 border-2  px-3 py-2 block w-full rounded-lg text-base  focus:outline-none  border-gray-300 text-gray-900"
+                    }
                   />
+                  {errorForm.usernameError && (
+                    <p className="mt-2 text-sm text-red-600 ">
+                      <span className="font-medium">Username is required</span>
+                    </p>
+                  )}
                 </div>
-                <div className="py-5 px-16">
-                  <label htmlFor="name" className="text-sm text-gray-600">
+                <div className="py-3 px-16">
+                  <label
+                    htmlFor="name"
+                    className={
+                      errorForm.nameError
+                        ? "text-sm text-red-700"
+                        : "text-sm text-gray-600"
+                    }
+                  >
                     Name
                   </label>
                   <input
-                    className="mt-2 border-2 border-gray-200 px-3 py-2 block w-full rounded-lg text-base text-gray-900 focus:outline-none "
                     type="text"
-                    value=""
+                    value={capitalized(name)}
                     name="name"
-                    placeholder="Andres Guerrero"
+                    onChange={handleChange}
+                    className={
+                      errorForm.nameError
+                        ? " mt-2 border-2  px-3 py-2 block w-full rounded-lg text-base  focus:outline-none  border-red-500 text-red-900"
+                        : "mt-2 border-2  px-3 py-2 block w-full rounded-lg text-base  focus:outline-none  border-gray-300 text-gray-900"
+                    }
                   />
+                  {errorForm.nameError && (
+                    <p className="mt-2 text-sm text-red-600 ">
+                      <span className="font-medium">Name is required</span>
+                    </p>
+                  )}
                 </div>
-                <div className="py-5 px-16">
-                  <label htmlFor="lastname" className="text-sm text-gray-600">
-                    Last Name
-                  </label>
-                  <input
-                    className="mt-2 border-2 border-gray-200 px-3 py-2 block w-full rounded-lg text-base text-gray-900 focus:outline-none "
-                    type="text"
-                    value=""
-                    name="name"
-                    placeholder="Andres Guerrero"
-                  />
-                </div>
-                <div className="py-5 px-16">
-                  <label htmlFor="email" className="text-sm text-gray-600">
+
+                <div className="py-3 px-16">
+                  <label
+                    htmlFor="email"
+                    className={
+                      errorForm.emailError
+                        ? "text-sm text-red-700"
+                        : "text-sm text-gray-600"
+                    }
+                  >
                     Email Address
                   </label>
                   <input
-                    className="mt-2 border-2 border-gray-200 px-3 py-2 block w-full rounded-lg text-base text-gray-900 focus:outline-none "
                     type="email"
+                    value={capitalized(email)}
                     name="email"
-                    value=""
-                    placeholder="correo@correo.com"
+                    onChange={handleChange}
+                    className={
+                      errorForm.emailError
+                        ? " mt-2 border-2  px-3 py-2 block w-full rounded-lg text-base  focus:outline-none  border-red-500 text-red-900"
+                        : "mt-2 border-2  px-3 py-2 block w-full rounded-lg text-base  focus:outline-none  border-gray-300 text-gray-900"
+                    }
                   />
+                  {errorForm.emailError && (
+                    <p className="mt-2 text-sm text-red-600 ">
+                      <span className="font-medium">Email is required</span>
+                    </p>
+                  )}
                 </div>
                 <input
                   type="submit"
-                  className="bg-slate-500 w-1/2 mx-auto text-white text-sm font-medium px-6 py-2 rounded uppercase cursor-pointer"
+                  className="bg-slate-500 w-1/2 mx-auto my-2 text-white text-sm font-medium px-6 py-2 rounded uppercase cursor-pointer"
                   value="Save"
                 />
                 {/* <hr className="border-gray-200" /> */}
