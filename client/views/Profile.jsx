@@ -1,18 +1,30 @@
-import { View, Text, TouchableOpacity, TextInput } from "react-native";
+
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  TextInput,
+  Image,
+  Button,
+} from "react-native";
+
 import React, { useEffect, useState } from "react";
 import tw from "twrnc";
 import Svg, { Path } from "react-native-svg";
 import { useDispatch, useSelector } from "react-redux";
 import { PutUser, getUser } from "../redux/actions/index";
+import iconPremium from '../assets/calidad-premium.png'
 
 export default function Profile({ navigation }) {
+
   const dispatch = useDispatch();
+
 
   const userlogin = useSelector((state) => state.login);
 
   const userInfo = useSelector((state) => state.userdetail);
 
-  const userId = userlogin.Request.id;
+  // const userId = userlogin.Request.id;
 
   const [userUpdate, SetUserUpdate] = useState(false);
 
@@ -30,18 +42,13 @@ export default function Profile({ navigation }) {
     averageScore: "",
   });
 
-  //data login
-  // "id": 2,
-  // "name": "RAFAEL",
-  // "username": "rafacar93",
-  // "password": "clave123",
-  // "country": "Argentina",
-  // "state": true,
-  // "authorization": false
 
-  useEffect(() => {
-    dispatch(getUser(userId));
-  }, [dispatch]);
+
+  // useEffect(() => {
+  //   dispatch(getUser(userId))
+  // }, [dispatch, userId])
+
+
 
   const handleUpdate = () => {
     SetUserUpdate((userUpdate) => !userUpdate);
@@ -62,13 +69,13 @@ export default function Profile({ navigation }) {
     });
   };
 
-  console.log("userData", userData);
-  ///averageScore y point seria el ultimo puntaje o todos? Y "games": [], VER QUE TRAEN
+
 
   return (
     <View
       style={tw`bg-gray-900 h-full flex justify-start items-center flex-col`}
     >
+
       <View
         style={tw`rounded-md bg-gray-700 flex items-center justify-center w-90 mt-15`}
       >
@@ -101,12 +108,10 @@ export default function Profile({ navigation }) {
             </Text>
           </View>
           <View style={tw`flex-row mt-5`}>
-            <Text style={tw`text-white font-bold text-xl `}>
-              Average Score:
-            </Text>
-            <Text style={tw` text-white text-xl ml-2`}>
-              {userInfo.Request ? userInfo.Request.averageScore : "..."}
-            </Text>
+
+            <Text style={tw`text-white font-bold text-xl `}>Average Score:</Text>
+            <Text style={tw` text-white text-xl ml-2`}>{userInfo.Request ? userInfo.Request.averageScore.averageScore : "..."}</Text>
+
           </View>
         </View>
 
@@ -156,6 +161,29 @@ export default function Profile({ navigation }) {
           )}
         </TouchableOpacity>
       </View>
+
+      <View>
+
+        {/* <TouchableOpacity
+          style={tw` mt-0`} onPress={() => navigation.navigate('Payment')}
+        >
+          <Text style={tw`text-white font-bold text-base text-xl  `} >Paymeeeent</Text>
+        </TouchableOpacity> */}
+
+        {/* <TouchableOpacity
+          style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-md mr-5 w-10 h-15`}
+        >
+          <View style={tw`w-10 h-10`}>
+            <Svg xmlns={`https://cdn.icon-icons.com/icons2/2485/PNG/512/premium_quality_icon_150034.png`} viewBox="0 0 512 512">
+            onPress={() => navigation.navigate('Payment')}
+
+            </Svg>
+          </View>
+
+        </TouchableOpacity> */}
+      </View>
+
+
     </View>
   );
 }
