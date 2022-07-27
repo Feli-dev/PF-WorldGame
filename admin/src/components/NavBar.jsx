@@ -37,12 +37,10 @@ const NavBar = () => {
                     {capitalized(profile?.username)}
                   </span>
                 </div>
-                <span className="h-10 w-10 ml-2 sm:ml-3 mr-2 bg-gray-100 rounded-full overflow-hidden">
-                  <img
-                    src="https://lh3.googleusercontent.com/ogw/AOh-ky3Ii6IooCwW2Wt4MSNICaWX-Y30xCQGon99Mga6=s64-c-mo"
-                    alt="user profile photo"
-                    className="h-full w-full object-cover"
-                  />
+                <span className="text-gray-700 px-6 py-4 flex items-center  ">
+                  <div className=" cursor-pointer font-semibold w-10 h-10 bg-blue-200 text-blue-600 flex items-center justify-center rounded-full">
+                    {profile?.username.charAt(0).toUpperCase()}
+                  </div>
                 </span>
               </button>
               <ul className="dropdown-menu absolute hidden text-gray-700 bg-white border rounded-lg pt-1 w-11/12">
