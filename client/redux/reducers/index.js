@@ -19,6 +19,11 @@ export const rootReducer = (state = initialState, action) => {
         ...state,
         game: action.payload,
       };
+    case type.POST_GAME:
+      return {
+        ...state,
+        attemps: [],
+      };
     case type.GET_USER:
       return {
         ...state,
@@ -34,6 +39,13 @@ export const rootReducer = (state = initialState, action) => {
         ...state,
         login: action.payload,
       };
+    case type.SET_LOGIN:
+      action.payload={Request:action.payload}
+      return {
+        ...state,
+        login: action.payload,
+        userdetail: action.payload,
+      };
     case type.GET_LOGIN:
       return {
         ...state,
@@ -42,7 +54,7 @@ export const rootReducer = (state = initialState, action) => {
     case type.PUT_USER:
       return {
         ...state,
-        user: action.payload,
+        users: action.payload,
       };
     case type.FILTER_BY_COUNTRY:
       const all = state.rank;

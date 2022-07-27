@@ -18,7 +18,9 @@ module.exports = (sequelize) => {
             validate:{
                 len: [3,20]
             },
-            get() { return this.getDataValue('username').toLowerCase(); }
+            get() {
+                return this.getDataValue('username') ? this.getDataValue('username').toLowerCase() : "";
+            }
         },
         password: {
             type: DataTypes.TEXT,

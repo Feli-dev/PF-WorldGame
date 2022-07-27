@@ -28,14 +28,14 @@ module.exports = {
             return "Error al autenticar el usuario";
         }
     },
-    session: async (username = "", password = "", type = "", id = 0) => {
+    session: async (username = "", type = "", id = 0) => {
         try {
-            const where = type === "insert" ? { where: { [Op.and]: [ { username }, { password } ] } } : { where: {  [Op.and]: [ { username }, { password } ], id: { [Op.ne]:id } }};
+            const where = type === "insert" ? { where: { username } } : { where: { username, id: { [Op.ne]:id } }};
             return await User.findAll(where)
             .then(result => {
                 let user = parseObject(result);
                 if(user.length){
-                    return user[0].username.length && user[0].password.length ? true : false;
+                    return user[0].username.length ? true : false;
                 }
                 return false;
             })
