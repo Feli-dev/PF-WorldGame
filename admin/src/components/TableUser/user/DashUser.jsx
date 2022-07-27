@@ -34,19 +34,19 @@ const User = ({user, setModalUser, setUserInfo}) => {
               </td>
               <td className="border-t">
                 <span className="text-gray-700 px-6 py-4 flex items-center">
-                  {user.name}
+                  {user.name? user.name : 'Unknow'}
                 </span>
               </td>
               <td className="border-t">
                 <span className="text-gray-700 px-6 py-4 flex items-center">
-                  20 Jul 2022
+                {user.createdAt.slice(0,10)}
                 </span>
               </td>
               <td className="border-t">
                 <span className="px-6 py-4 flex items-center">
                   
                     {user.state? <span className="px-2 rounded-full text-sm uppercase tracking-wide font-semibold bg-green-200 text-green-800">Active</span>:
-                     <span className="px-2 rounded-full text-sm uppercase tracking-wide font-semibold bg-green-200 text-green-800">Block</span>}
+                     <span className="px-2 rounded-full text-sm uppercase tracking-wide font-semibold bg-red-200 text-red-800">Block</span>}
                   
                 </span>
               </td>
