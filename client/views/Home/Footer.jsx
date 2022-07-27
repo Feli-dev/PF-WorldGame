@@ -9,7 +9,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import tw from "twrnc";
 import Svg, { Path } from "react-native-svg";
-import { gameAction, getAllCountries } from "../../redux/actions/index";
+import { gameAction, getAllCountries, PostGame } from "../../redux/actions/index";
 
 //onpress white flag render confirm message
 
@@ -19,7 +19,9 @@ export default function Footer() {
   const [input, setInput] = useState("");
   const [countryOfDay, setCountryOfDay] = useState("");
   const countries = useSelector((state) => state.countries);
+  const login = useSelector((state) => state.login);
   const listOfAttemps = useSelector((state) => state.attemps);
+  var lista_intentos = []
 
   useEffect(() => {
     dispatch(getAllCountries());
@@ -50,13 +52,11 @@ export default function Footer() {
           (el) => el.name.toLowerCase() === attemp.name.toLowerCase()
         )
       ) {
-        if (
-          !listOfAttemps.some(
-            (el) => el.name.toLowerCase() === countryOfDay.name.toLowerCase()
-          )
-        ) {
+        if (!listOfAttemps.some((el) => el.name.toLowerCase() === countryOfDay.name.toLowerCase())){
           dispatch(gameAction(countryOfDay, attemp));
-        } else {
+        }
+        if(attemp.name.toLowerCase() === countryOfDay.name.toLowerCase()){
+          dispatch(PostGame({countrie: countryOfDay.name, winned: true, time: 120, attempts: listOfAttemps.length + 1, UserId: login.Request.id, points: 5})) //cambiar puntos por 5000
           console.log("Ya encontraste el país, felicitaciones!");
         }
       } else {

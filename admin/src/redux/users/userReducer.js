@@ -1,4 +1,4 @@
-import {GET_ALL_USERS, GET_LAST_USERS } from "../../types";
+import {GET_ALL_USERS } from "../../types";
 
 let initialState = {
   users: [],
