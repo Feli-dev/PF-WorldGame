@@ -69,7 +69,7 @@ const ModalUser = ({ setModalUser, userInfo }) => {
               <span className="px-2 rounded-full text-sm uppercase tracking-wide font-semibold bg-green-200 text-green-800">
               Active
               </span>:<span className="px-2 rounded-full text-sm uppercase tracking-wide font-semibold bg-red-200 text-red-800">
-              Bloked
+              Blocked
               </span> }
             </p>
 
