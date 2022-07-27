@@ -8,7 +8,6 @@ export default function Configuration({navigation}) {
     await AsyncStorage.removeItem("User")
     navigation.navigate("Login")
   }
-
   return (
     <View style={tw`h-full bg-gray-900 flex justify-center items-center`}>
       <TouchableOpacity 

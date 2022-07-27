@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import tw from "twrnc";
 import Svg, { Path } from "react-native-svg";
 import { gameAction, getAllCountries, PostGame } from "../../redux/actions/index";
-
+import { setTestDeviceIDAsync, AdMobInterstitial } from "expo-ads-admob";
 //onpress white flag render confirm message
 
 export default function Footer() {
@@ -31,6 +31,19 @@ export default function Footer() {
     setCountryOfDay(countries[Math.floor(Math.random() * 249)]);
   }, []);
 
+  async function chargeAds(){
+    await setTestDeviceIDAsync('EMULATOR');
+    await AdMobInterstitial.setAdUnitID('ca-app-pub-3940256099942544/8691691433');
+    await AdMobInterstitial.requestAdAsync({ servePersonalizedAds: false});
+  }
+  
+  async function showAds(){
+    await AdMobInterstitial.showAdAsync();
+  }
+
+  if(!(login.Request.premium)){
+    chargeAds()
+  }
   // const handleChange = (e)=>{
   //   e.preventDefault();
   //   setInput(e.target.value)
@@ -58,6 +71,9 @@ export default function Footer() {
         if(attemp.name.toLowerCase() === countryOfDay.name.toLowerCase()){
           dispatch(PostGame({countrie: countryOfDay.name, winned: true, time: 120, attempts: listOfAttemps.length + 1, UserId: login.Request.id, points: 5})) //cambiar puntos por 5000
           console.log("Ya encontraste el país, felicitaciones!");
+          if(!(login.Request.premium)){
+            setTimeout(()=>{showAds()},1500)
+          }
         }
       } else {
         console.log("Ya has probado con ese país, intenta con otra opción!");
