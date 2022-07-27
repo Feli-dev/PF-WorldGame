@@ -60,11 +60,6 @@ const Login = () => {
     const error = await dispatch(loginAction(user));
 
     if (!error) {
-      setUser({
-        email: "",
-        password: "",
-      });
-
       navigate.push("/dashboard");
     }
   };
