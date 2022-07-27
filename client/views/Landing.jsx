@@ -1,8 +1,8 @@
-import { View, Image, Text } from 'react-native'
+import { View, Image, ActivityIndicator } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import img from "../assets/fondo_zoom_pg.png"
+import img from "../assets/Worldgame.png"
 import { getUser, setLogin, getAllCountries } from '../redux/actions'
 import tw from "twrnc";
 
@@ -18,16 +18,24 @@ const Landing = ({ navigation }) => {
                 const User = (allUser.Request.find((e) => (e.username.toLowerCase() === value.username.toLowerCase())))
                 if (User) {
                     dispatch(setLogin(User));
-                    navigation.navigate("Home");
+                    setTimeout(()=>{
+                        navigation.navigate("Home");
+                    }, 1200)
                 } else {
-                    navigation.navigate("Login");
+                    setTimeout(()=>{
+                        navigation.navigate("Login");
+                    }, 1200)
                 }
             } else {
-                navigation.navigate("Login");
+                setTimeout(()=>{
+                    navigation.navigate("Login");
+                }, 1200)
             }
         }else{
             console.log("not users")
-            navigation.navigate("Register");
+            setTimeout(()=>{
+                navigation.navigate("Register");
+            }, 1200)
         }
         
     }
@@ -48,9 +56,9 @@ const Landing = ({ navigation }) => {
     }, [allUser]);
 
     return (
-        <View>
-             <Image style={tw`h-10 w-20`}source={{img}}/> 
-            <Text>hola que tal </Text>
+        <View style={tw`h-full bg-gray-900 flex items-center justify-center`}>
+            <Image style={tw`h-100 w-100`} source={img}/>
+            <ActivityIndicator size="large" color="#FFF"/>
         </View>
     )
 

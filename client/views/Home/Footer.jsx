@@ -69,10 +69,11 @@ export default function Footer() {
           dispatch(gameAction(countryOfDay, attemp));
         }
         if(attemp.name.toLowerCase() === countryOfDay.name.toLowerCase()){
-          dispatch(PostGame({countrie: countryOfDay.name, winned: true, time: 120, attempts: listOfAttemps.length + 1, UserId: login.Request.id, points: 5})) //cambiar puntos por 5000
+          console.log(login)
+          dispatch(PostGame({countrie: countryOfDay.name, winned: true, time: 120, attempts: listOfAttemps.length + 1, UserId: login.Request.id, points: 5000})) 
           setWin(true)
           if(!(login.Request.premium)){
-            setTimeout(()=>{showAds()}, 1000)
+            setTimeout(()=>{showAds()}, 500)
           }
           console.log("Ya encontraste el país, felicitaciones!");
         }
