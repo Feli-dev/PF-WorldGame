@@ -10,6 +10,7 @@ import {
   LOADING_USER_AUTH,
   LOGIN_USER,
   LOGOUT_USER,
+  UPDATE_USER_ADMIN,
 } from "../../types";
 
 function authenticateAction() {
@@ -105,5 +106,42 @@ function logoutUser() {
     type: LOGOUT_USER,
   };
 }
+
+function updateUserAdmin(updateUser) {
+  return async function (dispatch) {
+    try {
+      await clienteAxios.put(`/User`, { ...updateUser });
+
+      const userActual = JSON.parse(localStorage.getItem("profile"));
+
+      localStorage.setItem(
+        "profile",
+        JSON.stringify({ ...userActual, ...updateUser })
+      );
+
+      dispatch({
+        type: UPDATE_USER_ADMIN,
+        payload: JSON.parse(localStorage.getItem("profile")),
+      });
+    } catch (err) {
+      console.log(err);
+      dispatch({
+        type: ERROR,
+        payload: { msg: err.response.data.Request, error: true },
+      });
+
+      setTimeout(() => {
+        dispatch({
+          type: ERROR,
+          payload: "",
+        });
+      }, 3000);
+
+      return true;
+    }
+  };
+}
+
+updateUserAdmin();
 
 export { loginAction, authenticateAction, logoutUser };
