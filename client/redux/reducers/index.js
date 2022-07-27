@@ -28,6 +28,7 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         userdetail: action.payload,
+        users: action.payload,
       };
     case type.GET_ALL_USER:
       return {

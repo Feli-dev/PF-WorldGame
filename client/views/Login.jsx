@@ -1,4 +1,5 @@
 import { Text, View, TouchableOpacity, TextInput } from "react-native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState, useEffect } from "react";
 import { useDispatch, connect } from "react-redux";
 import { postLogin, getAllCountries } from "../redux/actions/index";
@@ -20,6 +21,14 @@ function Login({ navigation, user, postLogin }) {
 
   const [pressed, setPressed] = useState(false);
   const [logErr, setLogErr] = useState("");
+  
+  const setLogin = async (value) => {
+    try {
+        return await AsyncStorage.setItem('User', JSON.stringify(value))
+    } catch (error) {
+       console.error('AsyncStorage#setItem error: ' + error.message);
+    }
+  }
 
   let log = (_input) => {
     setPressed(true);
@@ -40,9 +49,10 @@ function Login({ navigation, user, postLogin }) {
 
     if (
       validate("username", _input.username) === "" &&
-      validate("password", input.password) === ""
+      validate("password", _input.password) === ""
     ) {
       postLogin(_input);
+      setLogin(_input);
     }
   };
 

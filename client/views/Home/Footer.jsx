@@ -58,6 +58,7 @@ export default function Footer() {
         ) {
           dispatch(gameAction(countryOfDay, attemp));
         } else {
+
           dispatch(PostGame({countrie: countryOfDay, winned: true, time: 120, attemps: listOfAttemps.length, UserId: login.id, points: 5000}))
           console.log("Ya encontraste el país, felicitaciones!");
         }
