@@ -44,7 +44,7 @@ const TableUser = () => {
                 Profile
               </th>
               <th className="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">
-                Name
+                Username
               </th>
               <th className="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">
                 Registration date
