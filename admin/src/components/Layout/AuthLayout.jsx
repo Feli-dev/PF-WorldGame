@@ -17,8 +17,8 @@ const AuthLayout = (props) => {
 
   return (
     <>
-      {profile?.id ? (
-        <Redirect to="/dashboard" />
+      {profile?.authorization ? (
+        profile?.authorization !== "User" && <Redirect to="/dashboard" />
       ) : (
         <Route exact path={props.path} component={props.component} />
       )}
