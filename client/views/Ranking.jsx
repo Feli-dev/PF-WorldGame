@@ -4,12 +4,12 @@ import {
   TouchableOpacity,
   ScrollView,
   TextInput,
+  Image,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import DropDownPicker from "react-native-dropdown-picker";
 import tw from "twrnc";
-import { SvgUri } from "react-native-svg";
 import { getRank, getAllCountries, filterByCountry } from "../redux/actions";
 
 export default function Ranking() {
@@ -566,12 +566,13 @@ export default function Ranking() {
                 <View
                   style={tw`flex justify-center items-center text-center w-20 h-10`}
                 >
-                  <Text style={tw`font-bold text-white`}>{`${
-                    allCountries.find(
-                      (e) =>
-                        e.name.toLowerCase() === player.country.toLowerCase()
-                    ).name
-                  }`}</Text>
+                  <Image style={tw`h-7 w-9.33`}
+                    source={{
+                      uri:`${
+                        allCountries.find((e) =>e.name.toLowerCase() === player.country.toLowerCase()).flagSvg.replace("svg", "png").replace("//","").replace("/","/w2560/").replace("https:","https://")
+                      }`
+                    }}
+                  />
                 </View>
               </View>
             );
