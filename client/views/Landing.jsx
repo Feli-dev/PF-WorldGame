@@ -15,7 +15,7 @@ const Landing = ({ navigation }) => {
             var value = await AsyncStorage.getItem("User")
             if (value !== null) {
                 value = JSON.parse(value);
-                const User = (allUser.Request.find((e) => (e.username === value.username)))
+                const User = (allUser.Request.find((e) => (e.username.toLowerCase() === value.username.toLowerCase())))
                 if (User) {
                     dispatch(setLogin(User));
                     navigation.navigate("Home");
