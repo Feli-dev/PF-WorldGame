@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import ModalUser from "../components/TableUser/ModalUser/ModalUser";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllUsers } from "../redux/users/userActions";
+import { deactivateUser, getAllUsers, reactivateUser } from "../redux/users/userActions";
+
 
 // Icons
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import ReplayIcon from '@mui/icons-material/Replay';
 
 
 
@@ -13,10 +15,11 @@ const Users = () => {
     const dispatch = useDispatch()
     const [modalUser, setModalUser] = useState(false);
     const [userInfo, setUserInfo] = useState({})
+    
     let allUsers = useSelector((state) => state.userReducer.users)
     
     useEffect(() => {
-        console.log('entro')
+        //console.log('entro')
         dispatch(getAllUsers())
       },[dispatch])
 
@@ -26,10 +29,28 @@ const Users = () => {
         alert("Usuario Editado");
       };
     
-    const deleteUser = () => {
-        alert("Usuario Eliminado");
+    const deleteUser = (id) => {
+        
+        dispatch(deactivateUser(id))
+        .then(result =>{ 
+          alert(result.Request)
+          dispatch(getAllUsers())
+        })
+        .catch(result => alert(result.Error))
+        
       };
-      console.log("aaa", allUsers)
+    
+    const activateUser = (id) => {
+        //console.log("id", id)
+        dispatch(reactivateUser(id))
+        .then(result =>{ 
+          alert(result.Request)
+          dispatch(getAllUsers())
+        })
+        .catch(result => alert(result.Error))
+      };
+      
+      
   return (
     <div className="md:max-w-8xl md:mx-auto px-4 py-6">
         <div className="flex items-center justify-between mb-4 ml-2">
@@ -39,6 +60,9 @@ const Users = () => {
         <table className="w-full whitespace-no-wrap bg-white overflow-hidden table-striped">
           <thead>
             <tr className="text-left">
+            <th className="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">
+                Email
+              </th>
             <th className="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">
                 Username
               </th>
@@ -50,9 +74,6 @@ const Users = () => {
               </th>
               <th className="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">
                 Country
-              </th>
-              <th className="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">
-                Email
               </th>
               <th className="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">
                 Points
@@ -86,6 +107,17 @@ const Users = () => {
             return (
             <tr className="focus-within:bg-gray-200 overflow-hidden hover:bg-gray-100 ">
             <td className="border-t">
+                <span className="text-gray-700 px-6 py-4 flex items-center  ">
+                  <div
+                    className=" cursor-pointer font-semibold w-10 h-10 bg-blue-200 text-blue-600 flex items-center justify-center rounded-full"
+                    onClick={handleClickInfo}
+                  >
+                    {user.username.charAt(0).toUpperCase()}
+                  </div>
+                </span>
+              </td>
+
+            <td className="border-t">
                 <span className="text-gray-700 px-6 py-4 flex items-center">
                   {user.username}
                 </span>
@@ -104,17 +136,6 @@ const Users = () => {
               <td className="border-t">
                 <span className="text-gray-700 px-6 py-4 flex items-center">
                 {user.country}
-                </span>
-              </td>
-
-              <td className="border-t">
-                <span className="text-gray-700 px-6 py-4 flex items-center  ">
-                  <div
-                    className=" cursor-pointer font-semibold w-10 h-10 bg-blue-200 text-blue-600 flex items-center justify-center rounded-full"
-                    onClick={handleClickInfo}
-                  >
-                    {user.username.charAt(0).toUpperCase()}
-                  </div>
                 </span>
               </td>
 
@@ -161,10 +182,16 @@ const Users = () => {
                     className="text-yellow-500 z-50 cursor-pointer"
                     onClick={getUserEdit}
                   />
+                  {user.state === true ?
                   <DeleteIcon
-                    className="text-red-500 cursor-pointer"
-                    onClick={deleteUser}
+                  className="text-red-500 cursor-pointer"
+                  onClick={() => deleteUser(user.id)}
+                />
+                  : <ReplayIcon className="text-green-500 cursor-pointer"
+                  onClick={() => activateUser(user.id)}
                   />
+                  }
+                  
                 </div>
               </td>
             </tr>
