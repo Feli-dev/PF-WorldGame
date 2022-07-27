@@ -58,6 +58,13 @@ export function postLogin(payload) {
   };
 }
 
+export function setLogin(payload) {
+  return({
+    type: type.SET_LOGIN,
+    payload,
+  });
+}
+
 //------------------------user--------------------------//
 
 export function getRank(payload) {
@@ -84,13 +91,17 @@ export function getUser(id) {
         var json = await axios.get(
           "https://world-game-v3.herokuapp.com/User/" + id
         );
+        return dispatch({
+          type: type.GET_USER,
+          payload: json.data,
+        });
       } else {
         var json = await axios.get("https://world-game-v3.herokuapp.com/User");
+        return dispatch({
+          type: type.GET_ALL_USER,
+          payload: json.data,
+        });
       }
-      return dispatch({
-        type: type.GET_USER,
-        payload: json.data,
-      });
     } catch (e) {
       return e.message;
     }

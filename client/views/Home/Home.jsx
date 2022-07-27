@@ -3,6 +3,9 @@ import tw from "twrnc";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import Game from "./Game";
+import { useSelector } from 'react-redux'
+import { useEffect } from "react";
+
 
 export default function Home({ navigation }) {
   return (
