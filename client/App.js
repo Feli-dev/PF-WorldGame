@@ -10,6 +10,7 @@ import Ranking from "./views/Ranking";
 import Profile from "./views/Profile";
 import Configuration from "./views/Configuration";
 import Info from "./views/Info";
+import Landing from "./views/Landing";
 
 const Stack = createNativeStackNavigator();
 
@@ -18,11 +19,12 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="Login"
+          initialRouteName="Landing"
           screenOptions={{
             headerShown: false,
           }}
         >
+          <Stack.Screen name="Landing" component={Landing} />
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Register" component={Register} />
           <Stack.Screen name="Login" component={Login} />

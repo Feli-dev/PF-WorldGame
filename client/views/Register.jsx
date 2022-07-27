@@ -1,4 +1,5 @@
 import { useState } from "react";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   Text,
   View,
@@ -472,6 +473,13 @@ export default function Register({ navigation }) {
   });
   const [err, setErr] = useState({});
 
+  const setLogin = async (value) => {
+    try {
+        return await AsyncStorage.setItem('User', JSON.stringify(value))
+    } catch (error) {
+       console.error('AsyncStorage#setItem error: ' + error.message);
+    }
+  }
   //UseEffect limpiar estados
 
   function handleSubmit(e) {
@@ -485,6 +493,12 @@ export default function Register({ navigation }) {
           country: input.country,
         })
       );
+      setLogin({
+        email: input.email,
+        username: input.username,
+        password: input.password,
+        country: input.country,
+      })
       navigation.navigate("Home");
     }
   }

@@ -57,6 +57,7 @@ export default function Footer() {
         ) {
           dispatch(gameAction(countryOfDay, attemp));
         } else {
+          
           console.log("Ya encontraste el país, felicitaciones!");
         }
       } else {
