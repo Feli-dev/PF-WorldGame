@@ -15,6 +15,23 @@ export function getAllUsers(){
     }
 }
 
+
+export function deactivateUser(id){
+    return async function(){ 
+    //console.log("ENTRÓ A ACCION")
+    let accions = await clienteAxios.delete(`/user/recycle/${id}`)
+    //console.log("ACCION DESACTIVADORA:", accions.data)
+    return accions.data
+    }
+}
+
+export function reactivateUser(id){
+    return async function(){
+        let deact = await clienteAxios.delete(`/user/restore/${id}`)
+        return deact.data
+    }
+}
+
 export function postUser (data){
     return function(dispatch){
         let created = clienteAxios.post('/User/', data)
