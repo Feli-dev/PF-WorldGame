@@ -1,7 +1,7 @@
 import clienteAxios from '../../config/axios'
 
 
-import { GET_ALL_USERS, GET_LAST_USERS } from '../../types' 
+import { GET_ALL_USERS } from '../../types' 
 
 export function getAllUsers(){
     
@@ -12,6 +12,22 @@ export function getAllUsers(){
             type: GET_ALL_USERS,
             payload: allUsers
         })
+    }
+}
+
+export function deactivateUser(id){
+    return async function(){ 
+    //console.log("ENTRÓ A ACCION")
+    let accions = await clienteAxios.delete(`/user/recycle/${id}`)
+    //console.log("ACCION DESACTIVADORA:", accions.data)
+    return accions.data
+    }
+}
+
+export function reactivateUser(id){
+    return async function(){
+        let deact = await clienteAxios.delete(`/user/restore/${id}`)
+        return deact.data
     }
 }
 
