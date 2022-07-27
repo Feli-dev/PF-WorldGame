@@ -112,7 +112,7 @@ const EditUser = () => {
     <div className="container mx-auto">
       <div className="md:max-w-6xl md:mx-auto px-4 py-7">
         <div className="flex flex-col items-left justify-between mb-4">
-          <h2 className="text-xl font-bold block text-gray-800">Add User</h2>
+          <h2 className="text-xl font-bold block text-gray-800">Edit User</h2>
           <h2 className="text-xs font-bold block text-gray-800">
             (*) Required field
           </h2>
@@ -121,7 +121,7 @@ const EditUser = () => {
         <form onSubmit={handleSubmit}>
           <div className="w-full bg-white rounded-lg mx-auto mt-8 flex overflow-hidden rounded-b-none">
             <div className="md:w-2/3 w-full px-2 py-4 justify-center m-auto">
-              <h2 className="text-center font-bold text-3xl">New User</h2>
+              <h2 className="text-center font-bold text-3xl">Edit User</h2>
               <div className="p-2 w-2/2 block">
                 <label htmlFor="name" className="text-sm text-gray-600">
                   * Full Name
@@ -227,7 +227,7 @@ const EditUser = () => {
                   <input
                     type="submit"
                     className="bg-blue-500 w-1/2 my-3 mx-auto text-white text-sm font-medium px-6 py-2 rounded uppercase cursor-pointer"
-                    value="Create User"
+                    value="Save Changes"
                   />
                 </div>
               )}
