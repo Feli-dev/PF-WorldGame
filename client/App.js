@@ -11,6 +11,7 @@ import Profile from "./views/Profile";
 import Configuration from "./views/Configuration";
 import Info from "./views/Info";
 import Landing from "./views/Landing";
+import Stripe from "./Stripe/Stripe";
 
 const Stack = createNativeStackNavigator();
 
@@ -33,6 +34,7 @@ export default function App() {
           <Stack.Screen name="Profile" component={Profile} />
           <Stack.Screen name="Configuration" component={Configuration} />
           <Stack.Screen name="Info" component={Info} />
+          <Stack.Screen name="Payment" component={Stripe} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
