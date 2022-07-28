@@ -62,7 +62,7 @@ module.exports = (sequelize) => {
         authorization: {
             type: DataTypes.ENUM,
             values: ['Pro-Admin', 'Community-Admin', 'Enterprise-Admin', 'User'],
-            defaultValue: 'Pro-Admin',
+            defaultValue: 'User',
             allowNull: false
         }
     },{

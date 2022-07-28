@@ -8,6 +8,7 @@ const games = require('./games.js');
 const friends = require('./friends.js');
 const countries = require("./countries.js");
 const payment = require("./stripe.js");
+const email = require("./email");
 
 
 router.use('/User', user);
@@ -16,5 +17,6 @@ router.use('/friends', friends);
 router.use('/games', games);
 router.use("/countries", countries);
 router.use("/payment", payment);
+router.use("/Email", email);
 
 module.exports = router;
