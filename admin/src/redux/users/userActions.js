@@ -43,3 +43,4 @@ export function getUser(id) {
     return data.Request;
   };
 }
+
