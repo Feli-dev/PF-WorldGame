@@ -1,43 +1,64 @@
-import { View, Image, Text } from 'react-native'
+import { View, Image, ActivityIndicator } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import img from "../assets/fondo_zoom_pg.png"
-import { getUser } from '../redux/actions'
+import img from "../assets/Worldgame.png"
+import { getUser, setLogin, getAllCountries } from '../redux/actions'
 import tw from "twrnc";
 
 const Landing = ({ navigation }) => {
     const allUser = useSelector((state) => state.users)
     const dispatch = useDispatch()
-    const[users,setUser]=useState([])
 
     const getLogin = async () => {
         if (allUser.Request?.length > 0) {
             var value = await AsyncStorage.getItem("User")
             if (value !== null) {
                 value = JSON.parse(value);
-                if (allUser.Request.find((e) => (e.username === value.username)))
-                    navigation.navigate("Home");
+                const User = (allUser.Request.find((e) => (e.username.toLowerCase() === value.username.toLowerCase())))
+                if (User) {
+                    dispatch(setLogin(User));
+                    setTimeout(()=>{
+                        navigation.navigate("Home");
+                    }, 1200)
+                } else {
+                    setTimeout(()=>{
+                        navigation.navigate("Login");
+                    }, 1200)
+                }
             } else {
-                navigation.navigate("Login");
+                setTimeout(()=>{
+                    navigation.navigate("Login");
+                }, 1200)
             }
         }else{
-            setUser(["not users"])
+            console.log("not users")
+            setTimeout(()=>{
+                navigation.navigate("Register");
+            }, 1200)
         }
-
+        
     }
+    
+    useEffect(() => {
+        dispatch(getAllCountries());
+    }, [dispatch]);
 
     useEffect(() => {
-        dispatch(
-            getUser()
-        )
-        getLogin();
+        dispatch(getUser());
+    }, []);
+
+    useEffect(() => {
+        if(allUser.Request){
+            getLogin();
+        }
+        console.log(allUser);
     }, [allUser]);
 
     return (
-        <View>
-             <Image style={tw`h-10 w-20`}source={{img}}/> 
-            <Text>hola que tal </Text>
+        <View style={tw`h-full bg-gray-900 flex items-center justify-center`}>
+            <Image style={tw`h-100 w-100`} source={img}/>
+            <ActivityIndicator size="large" color="#FFF"/>
         </View>
     )
 

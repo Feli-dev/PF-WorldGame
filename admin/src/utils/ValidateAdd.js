@@ -2,7 +2,7 @@ export default function validateAdd(input) {
   let errors = {};
   
   
-  if (!/[a-zA-Z]+$/.test(input.name)) {
+  if (!/[a-zA-Z\s]+$/.test(input.name)) {
     errors.name = "Only letters are accepted";
   }
 

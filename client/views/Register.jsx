@@ -499,7 +499,7 @@ export default function Register({ navigation }) {
         password: input.password,
         country: input.country,
       })
-      navigation.navigate("Home");
+      navigation.navigate("Login");
     }
   }
 

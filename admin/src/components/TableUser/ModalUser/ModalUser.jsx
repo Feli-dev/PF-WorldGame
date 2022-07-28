@@ -52,22 +52,25 @@ const ModalUser = ({ setModalUser, userInfo }) => {
               Rol:
               <span className="text-base leading-relaxed text-gray-500 ">
                 {" "}
-                {userInfo.authorization? `Admin`: `User`}
+                {userInfo.authorization}
               </span>
             </p>
             <p className="font-bold">
               Registration Date:
               <span className="text-base leading-relaxed text-gray-500 ">
                 {" "}
-                20 Jul 2022 {/* {userInfo.date? `${userInfo.date}`: `Unknow`} */}
+                {userInfo.createdAt.slice(0,10)}
               </span>
             </p>
 
             <p className="font-bold">
               State:{" "}
+              {userInfo.state? 
               <span className="px-2 rounded-full text-sm uppercase tracking-wide font-semibold bg-green-200 text-green-800">
-              {userInfo.state? `Active`: `Bloked`}
-              </span>
+              Active
+              </span>:<span className="px-2 rounded-full text-sm uppercase tracking-wide font-semibold bg-red-200 text-red-800">
+              Blocked
+              </span> }
             </p>
 
             <p className="font-bold">
