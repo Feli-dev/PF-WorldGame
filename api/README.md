@@ -21,26 +21,13 @@
 
 > _GET:_ *localhost:3001/User/*
 -   Al enviar como datos `all` se omiten los filtros y trae todos los usuarios sin filtrar.
--   No se filtrara si lo buscas por id.
+-   No se filtrara si lo buscas por id
 -   Si se desea filtrar solo ciertos campos, se ingresan los datos respectivos y los que no se usaran se puede colocar por el dato `all` por defecto.
 *Todos los datos omitidos*
-```json
-{
-    "country": "all",
-    "premium": "all",
-    "state": "all",
-    "authorization": "all"
-}
-```
+1.  Ruta: `localhost:3001/User?country=all&premium=all&state=all&authorization=all`
 *Filtrando datos*
-```json
-{
-    "country": "peru",
-    "premium": "all",
-    "state": "all",
-    "authorization": "user"
-}
-```
+1.  Ruta: `localhost:3001/User?country=peru`
+
 
 > _POST:_ *localhost:3001/User/*
 - Los datos `username, password y email` no pueden estar vacios.

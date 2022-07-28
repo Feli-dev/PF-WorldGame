@@ -64,7 +64,11 @@ module.exports = (sequelize) => {
             values: ['Pro-Admin', 'Community-Admin', 'Enterprise-Admin', 'User'],
             defaultValue: 'User',
             allowNull: false
-        }
+        },
+        avatar: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
     },{
         timestamps: true,
     });
