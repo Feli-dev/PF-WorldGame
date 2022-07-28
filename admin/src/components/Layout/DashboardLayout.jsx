@@ -19,20 +19,18 @@ const DashboardLayout = (props) => {
 
   return (
     <>
-      {profile?.authorization ? (
-        profile?.authorization !== "User" && (
-          <section className="antialiased bg-gray-200">
-            <div className="h-screen flex ">
-              <SideBar />
+      {profile?.id ? (
+        <section className="antialiased bg-gray-200">
+          <div className="h-screen flex ">
+            <SideBar />
 
-              <div className="flex-1 flex-col relative z-0 overflow-y-auto">
-                <NavBar />
+            <div className="flex-1 flex-col relative z-0 overflow-y-auto">
+              <NavBar />
 
-                <Route exact path={props.path} component={props.component} />
-              </div>
+              <Route exact path={props.path} component={props.component} />
             </div>
-          </section>
-        )
+          </div>
+        </section>
       ) : (
         <Redirect to="/" />
       )}

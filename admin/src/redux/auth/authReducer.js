@@ -6,7 +6,6 @@ import {
   LOGIN_USER,
   LOGOUT_USER,
   LOADING_USER_AUTH,
-  UPDATE_USER_ADMIN,
 } from "../../types";
 
 let initState = {
@@ -62,12 +61,6 @@ function authReducer(state = initState, action) {
         error: "",
         cargando: false,
         cargandoAuth: false,
-      };
-    case UPDATE_USER_ADMIN:
-      return {
-        ...state,
-        profile: action.payload,
-        error: "",
       };
     default:
       return state;
