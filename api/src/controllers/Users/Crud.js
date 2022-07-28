@@ -39,9 +39,9 @@ module.exports = {
             return { Error: error.parent.detail, Request: "Fallo la función select", Path: path, Function: "select" };
         }
     },
-    insert: async (name = "",username = "", password = "", country = "", email = "", points = 0, premium = false, state = true, authorization = "User") => {
+    insert: async (name = "",username = "", password = "", country = "", email = "", points = 0, premium = false, state = true, authorization = "User", avatar = "") => {
         try {
-            return await User.create({ name, username, password, country, email, points, premium, state, authorization })
+            return await User.create({ name, username, password, country, email, points, premium, state, authorization, avatar })
             .then(result => {
                 let user = parseObject(result);
                 return { Request: `El usuario ${user.username} creado exitosamente` };

@@ -29,6 +29,7 @@ async function filter(id = 0, body = {}){
             if(parseFloat(result.Value.points) !== points && body.points !== undefined) obj.points = points;
             if(result.Value.premium !== body.premium && body.premium !== undefined) obj.premium = body.premium;
             if(result.Value.authorization !== body.authorization && body.authorization !== undefined) obj.authorization = body.authorization;
+            if(result.Value.avatar !== body.avatar && body.avatar !== undefined) obj.avatar = body.avatar;
             const message = Object.entries(obj).length === 0 ? { Request: "Los campos no necesitan actualizarse" } : obj
             return Object.entries(result).length === 0 ? { Request: "No hay datos del usuario" } : message;
         })
@@ -42,11 +43,11 @@ async function filter(id = 0, body = {}){
 
 router.post('/', async(req, res) =>{
     try {
-        const { name, username, password, country, email, points, premium, authorization } = req.body;
+        const { name, username, password, country, email, points, premium, authorization, avatar } = req.body;
         const message = field(username, password, email);
         if(!message.length){
             const passEncrypt = bitHash.encrypt(password);
-            return await user.create(name, username, passEncrypt.toString(), country, email, points || 0, premium, true, authorization)
+            return await user.create(name, username, passEncrypt.toString(), country, email, points || 0, premium, true, authorization, avatar)
             .then(result => {
                 if(result.hasOwnProperty("Error")) return res.status(404).json(result);
                 return e.send(email, username, 0, "")
@@ -133,8 +134,8 @@ router.get('/:id', async(req, res) =>{
 
 router.get('/', async(req, res) =>{
     try{
-        const { country, premium, state, authorization } = req.body;
-        return await user.select(0, country, premium, state, authorization)
+        const { country, premium, state, authorization } = req.query;
+        return await user.select(0, country || "all", premium || "all", state || "all", authorization || "all")
         .then(result => {
             if(result.hasOwnProperty("Error")) return res.status(404).json(result);
             return res.status(200).json(result);

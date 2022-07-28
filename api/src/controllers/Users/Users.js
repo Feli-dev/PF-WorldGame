@@ -20,9 +20,9 @@ module.exports = new class {
         }
     }
 
-    async create(name = "", username = "", password = "", country = "", email = "", points = 0, premium = false, state = true, authorization = "User") {
+    async create(name = "", username = "", password = "", country = "", email = "", points = 0, premium = false, state = true, authorization = "User", avatar = "") {
         try {
-            return await insert(name, username, password, country, email, points, premium, state, authorization)
+            return await insert(name, username, password, country, email, points, premium, state, authorization, avatar)
             .then(result => result)
             .catch(error => {
                 return { Error: error, Request: "No se ingreso los usuarios", Path: this.#path, Function: "create" };
