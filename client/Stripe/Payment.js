@@ -1,40 +1,76 @@
 import { useStripe } from '@stripe/stripe-react-native';
 import React, { useState } from "react";
+import { PutUser } from "../redux/actions/index";
+import { useDispatch } from "react-redux";
 import { View, TextInput, Button, Alert } from 'react-native';
-import axios from 'axios';
 
+const Payment = (
+    {
+        name,
+        id,
+        country,
+        email,
+        userName,
+        password,
+    }
 
-const Payment = () => {
+) => {
+   
     const [premiumLevel, setPremiumLevel] = useState('');
     const stripe = useStripe();
-
+    const dispatch = useDispatch();
+    const clientData = {
+        id: id,
+        username: userName,
+        name: name,
+        country: country,
+        email: email,
+        premium: true,
+        password: password,
+    }
+  
     const subscribe = async () => {
-        try{
+        try {
             //sending request
-            const response = await fetch('http://192.168.0.179:3001/payment', 
-                        {
-                method: 'POST',
-                body: JSON.stringify({premiumLevel}) ,
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            });
+            const response = await fetch('http://192.168.0.179:3001/payment',
+                {
+                    method: 'POST',
+                    body: JSON.stringify({ premiumLevel }),
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                });
+            //-------------------------------------------------------------------------->CONSOLEO stripe
+            console.log('esto es stripe-->', stripe)
 
             const data = await response.json();
-            if (!response.ok) {return Alert.alert(data.message)};
+            //-------------------------------------------------------------------------->CONSOLEO DATA 
+           
+            if (!response.ok) { return Alert.alert(data.message) };
             const clientSecret = data.clientSecret;
+            //-------------------------------------------------------------------------->initSheet 
             const initSheet = await stripe.initPaymentSheet({
                 paymentIntentClientSecret: clientSecret,
-                merchantDisplayName : 'Premium Service',
+                merchantDisplayName: 'Premium Service',
             });
-            if(initSheet.error){return Alert.alert(initSheet.error.message)};
+            
+          
+            if (initSheet.error) { return Alert.alert(initSheet.error.message) };
             const presentSheet = await stripe.presentPaymentSheet({
                 clientSecret
             });
-            if(presentSheet.error){return Alert.alert(presentSheet.error.message)};
-            Alert.alert("Payment complete!");
+            
+            //-------------------------------------------------------------------------->presentSheet Me indica si el pago fue concretado o no
+            
+            if (presentSheet.error) { return Alert.alert(presentSheet.error.message) };
+            Alert.alert("Payment complete!");            
+            dispatch(PutUser(clientData))
 
-        } catch (error){
+            //ID Y BOOLEANO TRUE FALSE SI SE CONFIRMO EL PAGO
+           
+            // y tengo que mandar data extra del cliente
+
+        } catch (error) {
             console.error(error);
             Alert.alert("Something went wrong, try again later!")
         }
@@ -42,7 +78,7 @@ const Payment = () => {
 
     return (
         <View>
-            <TextInput 
+            <TextInput
                 value={premiumLevel}
                 onChangeText={(text) => setPremiumLevel(text)}//VER SI AGREGO VARIAS OPCIONES DE PREMIUM O UNA SOLA
                 placeholder="Premium Option"
@@ -53,7 +89,7 @@ const Payment = () => {
                     borderWidth: 1,
                 }}
             />
-            <Button title='Subscribe - $5' onPress={subscribe}/>
+            <Button title='Subscribe - $5' onPress={subscribe} />
         </View>
     );
 };
