@@ -89,6 +89,11 @@ export const rootReducer = (state = initialState, action) => {
         ...state,
         countries: action.payload,
       };
+    case type.SET_COUNTRIE:
+      return {
+        ...state,
+        countrie: action.payload,
+      };
     case type.CALL_GAME_ACTIONS:
       return {
         ...state,

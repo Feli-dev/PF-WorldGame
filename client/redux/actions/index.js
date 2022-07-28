@@ -220,6 +220,13 @@ export function getCountrie(name) {
   };
 }
 
+export function setCountrie(countrie) {
+  return {
+    type: type.SET_COUNTRIE,
+      payload: countrie,
+    };
+}
+
 export function getAllCountries(form = false) {
   return async function (dispatch) {
     try {
