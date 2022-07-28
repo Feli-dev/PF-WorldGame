@@ -128,7 +128,6 @@ module.exports = {
             });
         } catch (error) {
             return { Error: error.parent.detail, Request: "Fallo la función ranking", Path: path, Function: "ranking" };
-
         }
     }
 }

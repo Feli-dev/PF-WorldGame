@@ -17,17 +17,28 @@
 -   Añadiendo la clase `Email` para el envio de correos.
 ## Others
 ### User
--   Modifcado el index: añadiendo un parametro `Pro-Admin` al crear el administrador.
+-   Modificado el index: añadiendo un parametro `Pro-Admin` al crear el administrador.
 
 > _GET:_ *localhost:3001/User/*
 -   Al enviar como datos `all` se omiten los filtros y trae todos los usuarios sin filtrar.
 -   No se filtrara si lo buscas por id.
+-   Si se desea filtrar solo ciertos campos, se ingresan los datos respectivos y los que no se usaran se puede colocar por el dato `all` por defecto.
+*Todos los datos omitidos*
 ```json
 {
     "country": "all",
     "premium": "all",
     "state": "all",
     "authorization": "all"
+}
+```
+*Filtrando datos*
+```json
+{
+    "country": "peru",
+    "premium": "all",
+    "state": "all",
+    "authorization": "user"
 }
 ```
 
@@ -98,6 +109,7 @@ _*Correcto*_
 ```json
 {
     "id": "1",
-    "password": "1234"
+    "password": "1234",
+    "email": "qrow.studio2021@gmail.com"
 }
 ```
