@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 // Components
 import Alerta from "../components/Alerta";
 import capitalized from "../helpers/capitalized";
-import { updateUserAdmin } from "../redux/auth/authActions";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -14,7 +13,7 @@ const Profile = () => {
   const { error, profile } = useSelector((state) => state.authReducer);
 
   const [user, setUser] = useState({
-    email: profile.email,
+    email: "",
     username: profile.username,
     name: profile.name,
   });
@@ -24,8 +23,6 @@ const Profile = () => {
     usernameError: false,
     nameError: false,
   });
-
-  const [infoForm, setInfoForm] = useState("");
 
   const { email, username, name } = user;
 
@@ -37,6 +34,7 @@ const Profile = () => {
   };
 
   const handleSubmit = async (e) => {
+    console.log("aqui");
     e.preventDefault();
     if (email === "" && username === "" && name === "") {
       setErrorForm({
@@ -74,21 +72,10 @@ const Profile = () => {
       usernameError: false,
     });
 
-    const error = await dispatch(updateUserAdmin({ ...user, password: "1" }));
-
-    if (!error) {
-      setInfoForm({ message: "User updated successfully", error: false });
-
-      setTimeout(() => {
-        setInfoForm({ message: "", error: false });
-      }, 3000);
-
-      return;
-    }
+    //const error = await dispatch(loginAction(user));
   };
 
   const { msg } = error;
-  const { message } = infoForm;
 
   return (
     <>
@@ -101,6 +88,8 @@ const Profile = () => {
           </div>
 
           <form onSubmit={handleSubmit}>
+            {msg && <Alerta alerta={error} />}
+
             <div className="w-full bg-white rounded-lg mx-auto mt-8 flex overflow-hidden rounded-b-none">
               <div className="w-1/3 bg-gray-100 p-8 hidden md:inline-block">
                 <h2 className="font-medium text-md text-gray-700 mb-4 tracking-wide text-center">
@@ -124,10 +113,6 @@ const Profile = () => {
                 </div>
               </div>
               <div className="md:w-2/3 w-full flex flex-col p-4">
-                {msg && <Alerta alerta={error} />}
-                {message && (
-                  <Alerta alerta={{ ...infoForm, msg: infoForm.message }} />
-                )}
                 <div className="py-3 px-16">
                   <label
                     htmlFor="name"
@@ -198,7 +183,7 @@ const Profile = () => {
                   </label>
                   <input
                     type="email"
-                    value={email}
+                    value={capitalized(email)}
                     name="email"
                     onChange={handleChange}
                     className={
