@@ -6,11 +6,12 @@ import alertReducer from "./alert/alertReducer";
 import authReducer from "./auth/authReducer";
 import userReducer from "./users/userReducer";
 import countriesReducer from "./contries/countriesReducer";
+import gamesReducer from "./games/gamesReducer";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
-  combineReducers({ alertReducer, authReducer, userReducer, countriesReducer }),
+  combineReducers({ alertReducer, authReducer, userReducer, countriesReducer, gamesReducer }),
   composeEnhancers(applyMiddleware(thunk))
 );
 
