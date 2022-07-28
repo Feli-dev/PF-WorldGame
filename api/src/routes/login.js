@@ -1,9 +1,9 @@
 const { Router } = require('express');
 const { bitHash } = require('../db');
-const User = require('../controllers/Users/Users');
+const user = require('../controllers/Users/Users');
 
 const router = Router();
-const user = new User();
+const path = "api/src/routes/login.js"
 
 router.post('/', async(req, res, next) =>{
     try{
@@ -11,13 +11,15 @@ router.post('/', async(req, res, next) =>{
         const passEncrypt = bitHash.encrypt(password);
         return await user.login(username, passEncrypt.toString())
         .then(result => {
-            if(result.hasOwnProperty("name")) return res.status(200).json({ Request: result });
-            return res.status(400).json({ Request: result })
+            if(result.hasOwnProperty("Error")) return res.status(400).json(result);
+            return res.status(200).json(result);
+        })
+        .catch(error => {
+            return res.status(404).json({ Error: error, Request: "Fallo el logueo", Path: path, Router: "post" });
         });
     }
     catch(error){
-        console.log(`Error: ${error}`);
-        return res.status(400).json({ Request: error })
+        return res.status(404).json({ Error: error, Request: "Fallo la ruta post", Path: path, Router: "post" });
     }
     finally{
         next();
