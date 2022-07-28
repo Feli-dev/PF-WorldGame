@@ -9,7 +9,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import tw from "twrnc";
 import Svg, { Path } from "react-native-svg";
-import { gameAction, getAllCountries, PostGame, newGame } from "../../redux/actions/index";
+import { gameAction, getAllCountries, PostGame, newGame, setCountrie } from "../../redux/actions/index";
 import { setTestDeviceIDAsync, AdMobInterstitial } from "expo-ads-admob";
 //onpress white flag render confirm message
 
@@ -28,7 +28,9 @@ export default function Footer() {
   }, []);
 
   useEffect(() => {
-    setCountryOfDay(countries[Math.floor(Math.random() * 249)]);
+    let countrie = countries[Math.floor(Math.random() * 249)];
+    setCountryOfDay(countrie);
+    setCountrie(countrie);
   }, [win]);
 
   async function chargeAds(){
