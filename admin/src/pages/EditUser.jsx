@@ -80,7 +80,7 @@ const EditUser = () => {
   }
 
   function handleSelectType(event) {
-    setInput({
+     setInput({
       ...input,
       authorization: event.target.value,
     });

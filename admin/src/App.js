@@ -45,7 +45,7 @@ function App() {
         <DashboardLayout path="/users" component={Users} />
         <DashboardLayout path="/update-password" component={UpdatePassword} />
         <DashboardLayout path="/add-user" component={AddUser} />
-        <DashboardLayout path="/edit-user/:id" component={EditUser} />
+         <DashboardLayout path="/edit-user/:id" component={EditUser} />
         <Route exact path="/*" component={NoFound} />
       </Switch>
     </BrowserRouter>

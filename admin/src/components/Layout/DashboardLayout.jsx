@@ -19,7 +19,7 @@ const DashboardLayout = (props) => {
 
   return (
     <>
-      {profile?.authorization ? (
+       {profile?.authorization ? (
         profile?.authorization !== "User" && (
           <section className="antialiased bg-gray-200">
             <div className="h-screen flex ">
