@@ -1,16 +1,18 @@
-import clienteAxios from "../../config/axios";
+import clienteAxios from '../../config/axios'
 
-import { GET_ALL_USERS } from "../../types";
 
-export function getAllUsers() {
-  return async function (dispatch) {
-    let allUsers = (await clienteAxios.get("/User/")).data;
-    // console.log('Action', allUsers)
-    dispatch({
-      type: GET_ALL_USERS,
-      payload: allUsers,
-    });
-  };
+import { GET_ALL_USERS, GET_BY_COUNTRIES } from '../../types' 
+
+export function getAllUsers(){
+    
+    return async function(dispatch){
+        let allUsers = (await clienteAxios.get('/User/')).data
+        // console.log('Action', allUsers)
+        dispatch({
+          type: GET_ALL_USERS,
+          payload: allUsers
+        })
+    }
 }
 
 export function deactivateUser(id) {
@@ -44,3 +46,12 @@ export function getUser(id) {
   };
 }
 
+// export function getByCountries(country){
+//     return async function(dispatch){
+//         let usersByCountries = await clienteAxios.get(`/User?countrie=${country}`)
+//         dispatch({
+//             type: GET_BY_COUNTRIES,
+//             payload: usersByCountries
+//         })
+//     }
+// }

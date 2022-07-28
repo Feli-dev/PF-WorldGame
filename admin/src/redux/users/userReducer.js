@@ -1,8 +1,9 @@
-import {GET_ALL_USERS } from "../../types";
+import {GET_ALL_USERS, GET_BY_COUNTRIES } from "../../types";
 
 let initialState = {
   users: [],
   last: [],
+  filterUsers: []
 
 };
 
@@ -14,9 +15,17 @@ function userReducer(state = initialState, action) {
       return {
         ...state,
         users: action.payload.Request,
-        last: action.payload.Request.length>5? action.payload.Request.slice(action.payload.Request.length-5):action.payload.Request
+        last: action.payload.Request.length>5? action.payload.Request.slice(action.payload.Request.length-5):action.payload.Request,
+        filterUsers: action.payload.Request
         
       };
+
+    case GET_BY_COUNTRIES:
+
+    return{
+      ...state,
+      filterUsers: action.payload.Request
+    }
     
       
     

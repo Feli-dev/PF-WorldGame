@@ -74,7 +74,7 @@ function handleSelectCountry(event){
   const handleSubmit = (event) => {
     event.preventDefault()
       dispatch(postUser(input))
-      alert('personaje creado')
+      alert('Usuario creado')
       setInput({
         name:'',
         username: '',
@@ -119,19 +119,9 @@ function handleSelectCountry(event){
                   placeholder="Name"
                   onChange={handleChange}
                 />
-                {error.name && <span>  {error.name}</span>}
+                {error.name && <span className="px-2 rounded-full text-sm uppercase tracking-wide font-semibold bg-red-200 text-red-800">  {error.name}</span>}
               </div>
-              {/* <div className="p-2 w-1/2 inline-block">
-                <label htmlFor="name" className="text-sm text-gray-600">
-                  Last Name
-                </label>
-                <input
-                  className="mt-2 border-2 border-gray-200 px-3 py-2 block w-full rounded-lg text-base text-gray-900 focus:outline-none "
-                  type="text"
-                  name="name"
-                  placeholder="Guerrero"
-                />
-              </div> */}
+              
               <div className="p-2">
                 <label htmlFor="name" className="text-sm text-gray-600">
                  * Username
@@ -144,7 +134,7 @@ function handleSelectCountry(event){
                   placeholder="UserName"
                   onChange={handleChange}
                 />
-                {error.username && <span>  {error.username}</span>}
+                {error.username && <span className="px-2 rounded-full text-sm uppercase tracking-wide font-semibold bg-red-200 text-red-800">  {error.username}</span>}
               </div>
               <div className="p-2">
                 <label htmlFor="name" className="text-sm text-gray-600">
@@ -158,7 +148,7 @@ function handleSelectCountry(event){
                   placeholder="example@correo.com"
                   onChange={handleChange}
                 />
-                {error.email && <span>  {error.email}</span>}
+                {error.email && <span className="px-2 rounded-full text-sm uppercase tracking-wide font-semibold bg-red-200 text-red-800">  {error.email}</span>}
               </div>
               <div className="p-2">
                 <label htmlFor="countries" className="block mb-2  text-gray-600 ">
@@ -177,7 +167,7 @@ function handleSelectCountry(event){
                     </option>
                   ))} 
                 </select>
-                {error.country && <span>{error.country}</span>}
+                {error.country && <span className="px-2 rounded-full text-sm uppercase tracking-wide font-semibold bg-red-200 text-red-800">{error.country}</span>}
               </div>
               <div className="p-2">
                 <label htmlFor="countries" className="block mb-2  text-gray-600 ">
@@ -196,7 +186,7 @@ function handleSelectCountry(event){
                   <option value='User'>User</option>
                   
                 </select>
-                {error.authorization && <span>{error.authorization}</span>}
+                {error.authorization && <span className="px-2 rounded-full text-sm uppercase tracking-wide font-semibold bg-red-200 text-red-800">{error.authorization}</span>}
               </div>
               
               <div className="p-2">
@@ -211,7 +201,7 @@ function handleSelectCountry(event){
                   placeholder="1234567"
                   onChange={handleChange}
                 />
-                {error.password && <span>{error.password}</span>}
+                {error.password && <span className="px-2 rounded-full text-sm uppercase tracking-wide font-semibold bg-red-200 text-red-800">{error.password}</span>}
               </div>
               <div className="p-2">
                 <label htmlFor="email" className="text-sm text-gray-600">
@@ -225,7 +215,7 @@ function handleSelectCountry(event){
                   placeholder="1234567"
                   onChange={handleChange}
                 />
-                {error.repeatPassword && <span>{error.repeatPassword}</span>}
+                {error.repeatPassword && <span className="px-2 rounded-full text-sm uppercase tracking-wide font-semibold bg-red-200 text-red-800">{error.repeatPassword}</span>}
               </div>
               {Object.keys(error).length === 0 && 
               <div className="flex flex-col justify-center">

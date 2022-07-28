@@ -2,7 +2,7 @@ export default function validateAdd(input) {
   let errors = {};
   
   
-  if (!/[a-zA-Z\s]+$/.test(input.name)) {
+  if (!/^[a-zA-Z\s]+$/.test(input.name)) {
     errors.name = "Only letters are accepted";
   }
 
@@ -11,7 +11,7 @@ export default function validateAdd(input) {
   if (!/^[a-zA-Z\s0-9._]+$/.test(input.username)) {
     errors.username = "Invalid username";
   }
-  if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(input.email)) {
+  if (!/^[\w-]+@([\w-]+\.)+[\w-]{2,4}$/g.test(input.email)) {
     errors.email = "A valid email is required";
   }
   if (input.email.length > 80) {
