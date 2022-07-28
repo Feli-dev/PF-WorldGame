@@ -1,4 +1,5 @@
 import React from 'react'
+import { useHistory } from "react-router-dom"
 import { useDispatch } from 'react-redux'
 import { deactivateUser, getAllUsers, reactivateUser } from "../../../redux/users/userActions"
 //Icons
@@ -9,8 +10,10 @@ import ReplayIcon from '@mui/icons-material/Replay';
 const User = ({user, setModalUser, setUserInfo}) => {
   // console.log('user', user)
   const dispatch = useDispatch()
-  const getUserEdit = () => {
-    alert("Usuario Editado");
+  const navigate = useHistory()
+
+  const getUserEdit = (id) => {
+      navigate.push(`/edit-user/${id}`)
   };
 
   const deleteUser = (id) => {
@@ -73,7 +76,7 @@ const activateUser = (id) => {
                 <div className="text-gray-700  flex w-2.5 gap-3 text-center">
                   <EditIcon
                     className="text-yellow-500 z-50 cursor-pointer"
-                    onClick={getUserEdit}
+                    onClick={()=>getUserEdit(user.id)}
                   />
                   {user.state === true ?
                   <DeleteIcon
