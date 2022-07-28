@@ -7,10 +7,11 @@ import Login from "./views/Login";
 import Home from "./views/Home/Home";
 import Instructions from "./views/Instructions";
 import Ranking from "./views/Ranking";
-import Profile from "./views/Profile";
+import EditProfile from "./views/Profile/EditProfile";
 import Configuration from "./views/Configuration";
 import Info from "./views/Info";
 import Stripe from "./Stripe/Stripe";
+import Profile from "./views/Profile/Profile";
 
 const Stack = createNativeStackNavigator();
 
@@ -30,6 +31,7 @@ export default function App() {
           <Stack.Screen name="Instructions" component={Instructions} />
           <Stack.Screen name="Ranking" component={Ranking} />
           <Stack.Screen name="Profile" component={Profile} />
+          <Stack.Screen name="EditProfile" component={EditProfile} />          
           <Stack.Screen name="Configuration" component={Configuration} />
           <Stack.Screen name="Info" component={Info} />
           <Stack.Screen name="Payment" component={Stripe} />

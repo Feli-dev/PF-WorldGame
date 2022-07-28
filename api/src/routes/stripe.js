@@ -8,16 +8,16 @@ const stripe = Stripe(STRIPE_SECRET_KEY);
 router.post('/', async (req, res) => {
     try {
         const { premiumLevel } = req.body;
-        console.log("premiumCategory ", premiumLevel);
         if (!premiumLevel) {
             return res.status(400).json({ message: 'Please enter the level of your premium service.' });
         }
         const paymentIntent = await stripe.paymentIntents.create({
-            amount: Math.round(5 *100),
+            amount: 500,
             currency: 'usd',
             payment_method_types: ["card"],
             metadata: { premiumLevel }
         });
+
         const clientSecret = paymentIntent.client_secret;
         res.json({ msg: "Successful payment", clientSecret })
     } catch (error) {
