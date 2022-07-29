@@ -70,11 +70,24 @@ function loginAction(user) {
         }, 3000);
 
         return;
-      }
-      
-      const {password,...dataUser} = data.Request 
+      } else if (data.Request === "No se inicio sessión") {
+        dispatch({
+          type: ERROR,
+          payload: { msg: "Wrong credentials", error: true },
+        });
 
-      localStorage.setItem("profile", JSON.stringify(dataUser));
+        setTimeout(() => {
+          dispatch({
+            type: ERROR,
+            payload: "",
+          });
+        }, 3000);
+        return;
+      }
+
+      //const {password,...dataUser} = data.Request
+
+      localStorage.setItem("profile", JSON.stringify(data.Request));
 
       dispatch({
         type: LOGIN_USER,
@@ -112,15 +125,19 @@ function logoutUser() {
 function updateUserAdmin(updateUser) {
   return async function (dispatch) {
     try {
-      await clienteAxios.put(`/User`, { ...updateUser });
-
       const userActual = JSON.parse(localStorage.getItem("profile"));
 
-      const { password, ...user } = updateUser;
+      await clienteAxios.put(`/User`, {
+        ...updateUser,
+        password: userActual.password,
+        id: userActual.id,
+      });
+
+      //const { password, ...user } = updateUser;
 
       localStorage.setItem(
         "profile",
-        JSON.stringify({ ...userActual, ...user })
+        JSON.stringify({ ...userActual, ...updateUser })
       );
 
       dispatch({
@@ -128,11 +145,18 @@ function updateUserAdmin(updateUser) {
         payload: JSON.parse(localStorage.getItem("profile")),
       });
     } catch (err) {
-      console.log(err);
-      dispatch({
-        type: ERROR,
-        payload: { msg: err.response.data.Request, error: true },
-      });
+      console.log(err.response.data);
+      if (err.response.data.Request.indexOf("(email)")) {
+        dispatch({
+          type: ERROR,
+          payload: { msg: "Email already registered", error: true },
+        });
+      } else {
+        dispatch({
+          type: ERROR,
+          payload: { msg: "Username already registered", error: true },
+        });
+      }
 
       setTimeout(() => {
         dispatch({
