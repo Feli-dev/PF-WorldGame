@@ -1,13 +1,13 @@
 const { averageScore } = require('../../Tools/AverageScore');
 const { showUsers } = require('../../Tools/filterShow');
-const { Game, User } = require('../../db');
+const { Game, User, Friend } = require('../../db');
 const parseObject = require('../../Tools/ParseObject');
 const path = "api/src/controllers/Users/Crud.js";
 
 module.exports = {
     select: async (id = 0, country = "", premium = false, state = true, authorization = "User") => {
         try {
-            const include = Game;
+            const include = [ Game, Friend ];
             const order = [['id','ASC']];
             const where = id > 0 ? { id } : { country, premium, state, authorization };
             if(country === "all") delete where.country;
@@ -18,7 +18,7 @@ module.exports = {
             if(Object.entries(where).length === 0) delete obj.where;
             return await await User.findAll(obj)
             .then(result => {
-                let user = parseObject(result);
+                const user = parseObject(result);
                 if(user.length) {
                     if(id > 0){
                         const stats = averageScore(user[0].games);
@@ -39,9 +39,9 @@ module.exports = {
             return { Error: error.parent.detail, Request: "Fallo la función select", Path: path, Function: "select" };
         }
     },
-    insert: async (name = "",username = "", password = "", country = "", email = "", points = 0, premium = false, state = true, authorization = "User", avatar = "") => {
+    insert: async (name = "",username = "", password = "", country = "", email = "", points = 0, premium = false, state = true, authorization = "User", avatar = "", connect = false) => {
         try {
-            return await User.create({ name, username, password, country, email, points, premium, state, authorization, avatar })
+            return await User.create({ name, username, password, country, email, points, premium, state, authorization, avatar, connect})
             .then(result => {
                 let user = parseObject(result);
                 return { Request: `El usuario ${user.username} creado exitosamente` };
@@ -65,6 +65,20 @@ module.exports = {
             });
         } catch (error) {
             return { Error: error.parent.detail, Request: "Fallo la función update", Path: path, Function: "update" };
+        }
+    },
+    online: async (id = 0, connect = true) => {
+        try {
+            return await User.update({ connect },{ where: { id } } )
+            .then(result => {
+                parseObject(result);
+                return connect ? { Request: "En linea"} : { Request: "Desconectado" };
+            })
+            .catch(error => {
+                return { Error: error, Request: "Fallo el estado online", Path: path, Function: "online" };
+            });
+        } catch (error) {
+            return { Error: error, Request: "Fallo la función online", Path: path, Function: "online" };
         }
     },
     stateUser: async (id = 0, state = true) => {

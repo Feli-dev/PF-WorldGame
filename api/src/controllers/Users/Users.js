@@ -1,5 +1,5 @@
 const { auth } = require('./Validate');
-const { select, insert, update, stateUser, remove, ranking, statePass } = require('./Crud');
+const { select, insert, update, stateUser, remove, ranking, statePass, online } = require('./Crud');
 
 module.exports = new class {
 
@@ -20,9 +20,9 @@ module.exports = new class {
         }
     }
 
-    async create(name = "", username = "", password = "", country = "", email = "", points = 0, premium = false, state = true, authorization = "User", avatar = "") {
+    async create(name = "", username = "", password = "", country = "", email = "", points = 0, premium = false, state = true, authorization = "User", avatar = "", connect = true) {
         try {
-            return await insert(name, username, password, country, email, points, premium, state, authorization, avatar)
+            return await insert(name, username, password, country, email, points, premium, state, authorization, avatar, connect)
             .then(result => result)
             .catch(error => {
                 return { Error: error, Request: "No se ingreso los usuarios", Path: this.#path, Function: "create" };
@@ -41,6 +41,18 @@ module.exports = new class {
             });
         } catch (error) {
             return { Error: error, Request: "Fallo la función update", Path: this.#path, Function: "update" };
+        }
+    }
+
+    async online(id = 0, connect = true) {
+        try {
+            return await online(id, connect)
+            .then(result => result)
+            .catch(error => {
+                return { Error: error, Request: "No se cambio el estado online", Path: this.#path, Function: "online" };
+            });
+        } catch (error) {
+            return { Error: error, Request: "Fallo la función online", Path: this.#path, Function: "online" };
         }
     }
 

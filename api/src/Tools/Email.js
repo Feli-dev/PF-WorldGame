@@ -1,4 +1,5 @@
 const nodemailer = require("nodemailer");
+require('dotenv').config();
 
 module.exports = new class {
 
@@ -23,9 +24,9 @@ module.exports = new class {
         }
     }
 
-    async send(email = "", name = "", index = 0, token = "") {
+    async send(email = "", name = "", index = 0, id = 0) {
         try {
-            this.#description(name, index, token);
+            this.#description(name, index, id);
             return await this.#transport().sendMail({
                 from: `Proyecto Final Mercadito <${process.env.TOOLS_EMAIL}>`, // sender address
                 to: `${email}`, // list of receivers
@@ -71,7 +72,7 @@ module.exports = new class {
                 </small>`
     }
 
-    #description(name = "", index = 0, token = ""){
+    #description(name = "", index = 0, id = 0){
         if(index === 0) {
             this.#caption = `Bienvenido ${name}`;
             this.#message = `tu registro fue existo, esperamos que tu estancia sea excelente.</p>`;
@@ -83,8 +84,7 @@ module.exports = new class {
         if(index === 2) {
             this.#caption = "Olvido su contraseña";
             this.#message = `se realizó la solicitud de cambio de contraseña, para seguir con el proceso,
-                                        por favor haga click en el siguiente enlace:
-                                        <a href="${process.env.FRONTEND_URL}/new-password/${token}" target="_blank">Link</a></p>`;
+                                por favor haga click en el siguiente enlace: http://${process.env.FRONTEND_URL}/new-password/${id}`;
         }
         if(index === 3) {
             this.#caption = "Contraseña Modificada";
