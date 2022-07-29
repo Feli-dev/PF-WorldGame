@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 
 //Components
 import ModalUser from "./ModalUser/ModalUser";
-import User from './user/DashUser'
-import { getAllGames } from "../../redux/games/gamesAction";
 
+import DashUser from './user/DashUser'
+import { getAllGames } from "../../redux/games/gamesAction";
 
 
 const TableUser = () => {
@@ -61,7 +61,7 @@ const TableUser = () => {
           </thead>
 
           {lastUsers.length > 0 && <tbody className = " max-h-max border-solid border-2 overflow-y-auto">
-          {lastUsers.map(user => <User key={user.id} user={user} setModalUser={setModalUser} setUserInfo={setUserInfo}/>)}
+          {lastUsers.map(user => <DashUser key={user.id} user={user} setModalUser={setModalUser} setUserInfo={setUserInfo}/>)}
           </tbody>}
           
           
