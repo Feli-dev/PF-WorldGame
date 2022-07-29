@@ -64,7 +64,7 @@ const Payment = (
             
             if (presentSheet.error) { return Alert.alert(presentSheet.error.message) };
             Alert.alert("Payment complete!");            
-            dispatch(PutUser(clientData))
+            //dispatch(PutUser(clientData))
 
             //ID Y BOOLEANO TRUE FALSE SI SE CONFIRMO EL PAGO
            
