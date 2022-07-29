@@ -11,6 +11,11 @@ module.exports = (sequelize) => {
             type: DataTypes.INTEGER,
             defaultValue: 5,
         },
+        username:{
+            type: DataTypes.STRING,
+            allowNull: true
+
+        }
         
     },{
         timestamps: true,
