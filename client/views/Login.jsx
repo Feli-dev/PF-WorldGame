@@ -1,7 +1,7 @@
 import { Text, View, TouchableOpacity, TextInput, TouchableWithoutFeedback, Keyboard } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState, useEffect } from "react";
-import { useDispatch, connect } from "react-redux";
+import { useDispatch, connect, useSelector } from "react-redux";
 import { postLogin, setLogin, getAllCountries } from "../redux/actions/index";
 import tw from "twrnc";
 import Svg, { Path } from "react-native-svg";
@@ -9,6 +9,7 @@ import validate from "../utils/validateL";
 
 function Login({ navigation, user, postLogin }) {
   const dispatch = useDispatch();
+  const allUser = useSelector((state) => state.users)
   const [input, setInput] = useState({
     username: "",
     password: "",
@@ -20,9 +21,11 @@ function Login({ navigation, user, postLogin }) {
   });
 
   const [pressed, setPressed] = useState(false);
+  const [banned, setBanned] = useState(false);
   const [logErr, setLogErr] = useState("");
+  const login = useSelector(state => state.login);
   
-  const setLogin = async (value) => {
+  const setLogin_ = async (value) => {
     try {
         return await AsyncStorage.setItem('User', JSON.stringify(value))
     } catch (error) {
@@ -47,12 +50,16 @@ function Login({ navigation, user, postLogin }) {
       }
     }
 
-    if (
-      validate("username", _input.username) === "" &&
-      validate("password", _input.password) === ""
-    ) {
-      postLogin(_input);
-      setLogin(_input);
+    if (validate("username", _input.username) === "" &&validate("password", _input.password) === "") {
+      const User = (allUser.Request.find((e) => (e.username.toLowerCase() === input.username.toLowerCase() && e.password === input.password)))
+      if(User && User.state === false){
+        setLogErr("User banned");
+        setBanned(true);
+      } else if(User && User.state === true) {
+        postLogin(_input);
+        setLogin(_input);
+        setLogin_(_input);
+      }
     }
   };
 
@@ -68,20 +75,26 @@ function Login({ navigation, user, postLogin }) {
   }
 
   useEffect(() => {
-    if (pressed === true && user.Request) {
+    if (pressed === true && user.Request && banned === false) {
       setInput({
         username: "",
         password: "",
       });
       navigation.navigate("Instructions");
     } else if (pressed === true && !user.Request) {
-      setLogErr("invalid user or password");
+      setTimeout(()=>{
+        setLogErr("invalid user or password");
+      }, 500)
     }
   }, [user, pressed]);
 
   useEffect(() => {
     dispatch(getAllCountries());
+    console.log(login);
   }, [dispatch]);
+
+// si baneado, no se ppuede
+// sino todo bien
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
