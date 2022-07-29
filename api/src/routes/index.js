@@ -10,6 +10,7 @@ const friend = require('./friend.js');
 const countries = require("./countries.js");
 const payment = require("./stripe.js");
 const email = require("./email");
+const review = require("./review");
 
 router.use('/pays', pays)
 router.use('/User', user);
@@ -19,5 +20,6 @@ router.use('/games', games);
 router.use("/countries", countries);
 router.use("/payment", payment);
 router.use("/Email", email);
+router.use('/review', review);
 
 module.exports = router;
