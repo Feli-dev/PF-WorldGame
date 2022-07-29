@@ -297,7 +297,7 @@ const Users = () => {
 
               <td className="border-t">
                 <span className="text-gray-700 px-6 py-4 flex items-center ml-3">
-                  {user.points}
+                  {user.stats.averageScore}
                 </span>
               </td>
 
