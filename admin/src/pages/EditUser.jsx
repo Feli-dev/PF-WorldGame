@@ -6,7 +6,7 @@ import { useHistory, useParams } from "react-router-dom";
 import validateEdit from "../utils/ValidateEdit";
 //Actions
 import { getAllCountries } from "../redux/contries/countriesActions";
-import { getUser, postUser } from "../redux/users/userActions";
+import { getUser, postUser, updateUser } from "../redux/users/userActions";
 import capitalized from "../helpers/capitalized";
 
 const EditUser = () => {
@@ -94,8 +94,8 @@ const EditUser = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(postUser(input));
-    alert("personaje creado");
+    dispatch(updateUser(input));
+    alert("User edited");
     setInput({
       name: "",
       username: "",

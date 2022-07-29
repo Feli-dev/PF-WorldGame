@@ -16,7 +16,7 @@ module.exports = {
             if(authorization === "all") delete where.authorization;
             const obj = { where, include, order};
             if(Object.entries(where).length === 0) delete obj.where;
-            return await await User.findAll(obj)
+            return await User.findAll(obj)
             .then(result => {
                 const user = parseObject(result);
                 if(user.length) {
@@ -125,7 +125,7 @@ module.exports = {
     },
     ranking: async (total = 10) => {
         try {
-            return await await User.findAll({ include: Game, order: [['points','DESC']], limit: total.toString() })
+            return await User.findAll({ include: Game, order: [['points','DESC']], limit: total.toString() })
             .then(result => {
                 let user = parseObject(result);
                 if(user.length) {
