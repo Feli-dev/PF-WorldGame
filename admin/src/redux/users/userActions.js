@@ -37,6 +37,13 @@ export function postUser(data) {
   };
 }
 
+export function updateUser(updateUser) {
+  return async function () {
+    let updated = await clienteAxios.put("/User", updateUser);
+    return updated;
+  };
+}
+
 export function getUser(id) {
   return async function () {
     let { data } = await clienteAxios.get(`/User/${id}`);
