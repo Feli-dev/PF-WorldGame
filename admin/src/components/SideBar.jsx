@@ -41,7 +41,7 @@ const SideBar = () => {
 
           <li>
             <Link
-              to="users"
+              to="games"
               className="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200"
             >
               <SportsEsportsIcon className="mr-4 opacity-50" />
@@ -60,13 +60,13 @@ const SideBar = () => {
           </li>
 
           <li>
-            <Link
+            {/* <Link
               to="/profile"
               className="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200"
             >
               <SettingsIcon className="mr-4 opacity-50" />
               Settings
-            </Link>
+            </Link> */}
           </li>
         </ul>
       </div>

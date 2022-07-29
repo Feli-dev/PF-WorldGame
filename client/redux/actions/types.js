@@ -18,4 +18,5 @@ export const type = {
   SET_COUNTRIE: "SET_COUNTRIE",
   SET_LOGIN: "SET_LOGIN",
   NEW_GAME: "NEW_GAME",
+  LOG_OUT: "LOG_OUT",
 };

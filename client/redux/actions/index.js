@@ -71,6 +71,12 @@ export function setLogin(payload) {
   });
 }
 
+export function logOut() {
+  return({
+    type: type.LOG_OUT,
+  });
+}
+
 //------------------------user--------------------------//
 
 export function getRank(payload) {
