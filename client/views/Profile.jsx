@@ -2,8 +2,6 @@ import {
   View,
   Text,
   TouchableOpacity,
-  TouchableWithoutFeedback,
-  Keyboard,
   TextInput,
   Image,
   Button,
@@ -77,8 +75,7 @@ export default function Profile({ navigation }) {
 
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <View
+    <View
         style={tw`bg-gray-900 h-full flex justify-start items-center flex-col`}
       >
 
@@ -191,6 +188,5 @@ export default function Profile({ navigation }) {
 
 
       </View>
-    </TouchableWithoutFeedback>
   );
 }
