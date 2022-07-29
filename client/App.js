@@ -31,7 +31,7 @@ export default function App() {
           <Stack.Screen name="Register" component={Register} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Instructions" component={Instructions} />
-          <Stack.Screen name="Ranking" component={Ranking} />
+          <Stack.Screen name="Ranking" component={Ranking} /> 
           <Stack.Screen name="Profile" component={Profile} />
           <Stack.Screen name="EditProfile" component={EditProfile} />
           <Stack.Screen name="Configuration" component={Configuration} />
