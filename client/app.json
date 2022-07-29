@@ -31,7 +31,7 @@
       "config": {
         "googleMobileAdsAppId": "ca-app-pub-1226297636360832~6984373180"
       },
-      "package": "com.matimazzia.WorldGame",
+      "package": "com.matimazzia.WorldGame"
     },
     "web": {
       "favicon": "./assets/favicon.png"
