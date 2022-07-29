@@ -5,8 +5,10 @@ import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import PaymentIcon from '@mui/icons-material/Payment';
 import GamesIcon from '@mui/icons-material/Games';
 import PublicIcon from '@mui/icons-material/Public';
+import { useSelector } from "react-redux";
 
 const CardsDashboard = () => {
+  let allUsers = useSelector(state => state.userReducer.users)
   return (
     <div className="grid grid-cols-4 gap-6 m-4">
       <div className="p-5  flex flex-col bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100">
@@ -15,7 +17,7 @@ const CardsDashboard = () => {
           <PeopleAltIcon />
         </div>
         <div className="mt-8">
-          <h3 className="text-2xl">0</h3>
+          <h3 className="text-2xl">{allUsers.length}</h3>
           <p className="text-gray-400">Registered</p>
         </div>
       </div>
@@ -48,7 +50,7 @@ const CardsDashboard = () => {
           <PublicIcon />
         </div>
         <div className="mt-8">
-          <h3 className="text-2xl">0</h3>
+          <h3 className="text-2xl">250</h3>
           <p className="text-gray-400">Registered</p>
         </div>
       </div>

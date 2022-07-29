@@ -111,6 +111,17 @@ export const rootReducer = (state = initialState, action) => {
         rank: action.payload,
         rank_filter: action.payload,
       };
+    case type.LOG_OUT:
+      return {
+        ...state,
+        game: [],
+        countrie: {},
+        login: [],
+        attemps: [],
+        userdetail: {},
+        rank: [],
+        rank_filter: [],
+      };
     default: {
       return state;
     }

@@ -1,13 +1,19 @@
 import { View, Text, Platform, TouchableOpacity } from "react-native";
 import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import tw from "twrnc";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { logOut } from "../redux/actions";
 
 export default function Configuration({navigation}) {
+  const dispatch = useDispatch()
+
   async function logout(){
     await AsyncStorage.removeItem("User")
+    dispatch(logOut())
     navigation.navigate("Login")
   }
+  
   return (
     <View style={tw`h-full bg-gray-900 flex justify-center items-center`}>
       <TouchableOpacity 
