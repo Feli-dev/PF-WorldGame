@@ -10,6 +10,7 @@ import TableUser from "../components/TableUser/TableUser";
 import { Link } from "react-router-dom";
 import { getAllCountries } from "../redux/contries/countriesActions";
 import { useDispatch } from "react-redux";
+import { getPays } from "../redux/pay/payActions";
 
 // Components
 import CardsDashboard from "../components/CardsDashboard";
@@ -19,6 +20,7 @@ const Dashboard = () => {
   
   useEffect(()=>{
     dispatch(getAllCountries())
+    // dispatch(getPays())
   },[dispatch])
 
   return (

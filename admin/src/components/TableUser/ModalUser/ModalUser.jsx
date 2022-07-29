@@ -93,7 +93,7 @@ const ModalUser = ({ setModalUser, userInfo }) => {
               Points:
               <span className="text-base leading-relaxed text-gray-500 ">
                 {" "}
-                {userInfo.points? `${userInfo.points}`: '0'}
+                {userInfo.stats.averageScore? `${userInfo.stats.averageScore}`: '0'}
               </span>
             </p>
           </div>

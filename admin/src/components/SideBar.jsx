@@ -51,7 +51,7 @@ const SideBar = () => {
 
           <li>
             <Link
-              to="pays"
+              to="/pays"
               className="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200"
             >
               <PaidIcon className="mr-4 opacity-50" />

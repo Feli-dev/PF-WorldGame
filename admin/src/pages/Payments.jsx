@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ModalUser from "../components/TableUser/ModalUser/ModalUser";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllGames } from "../redux/games/gamesAction";
-import { getAllUsers } from "../redux/users/userActions";
+
 
 // Icons
 
@@ -10,8 +9,8 @@ import { getAllUsers } from "../redux/users/userActions";
 
 
 const Payment = () => {
-    const dispatch = useDispatch()
-    // let allPays = useSelector((state) => state.paysReducer.allPays)
+  
+    let allPays = useSelector((state) => state.payReducer.pays)
     
     // useEffect(() => {
     //     //console.log('entro')
@@ -40,7 +39,7 @@ const Payment = () => {
                 Amount
               </th>
               <th className="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">
-                Id Usuario
+                Id User
               </th>   
             </tr>
           </thead>
