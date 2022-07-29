@@ -7,7 +7,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ReplayIcon from '@mui/icons-material/Replay';
 
-const User = ({user, setModalUser, setUserInfo}) => {
+const DashUser = ({user, setModalUser, setUserInfo}) => {
   // console.log('user', user)
   const dispatch = useDispatch()
   const navigate = useHistory()
@@ -94,4 +94,4 @@ const activateUser = (id) => {
   )
 }
 
-export default User
+export default DashUser
