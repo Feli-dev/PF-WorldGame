@@ -41,6 +41,8 @@ const ForgotPassword = () => {
 
       await clienteAxios.post("/Email", { email });
 
+      localStorage.setItem("email", email);
+
       setAlert({ msg: "Instructions have been emailed to you.", error: false });
 
       setEmail("");

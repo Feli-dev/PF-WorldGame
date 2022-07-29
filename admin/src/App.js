@@ -39,7 +39,7 @@ function App() {
       <Switch>
         <AuthLayout exact path="/" component={Login} />
         <AuthLayout exact path="/forgot-password" component={ForgotPassword} />
-        <AuthLayout exact path="/new-password/:token" component={NewPassword} />
+        <AuthLayout exact path="/new-password/:id" component={NewPassword} />
         <DashboardLayout path="/dashboard" component={Dashboard} />
         <DashboardLayout path="/profile" component={Profile} />
         <DashboardLayout path="/users" component={Users} />
