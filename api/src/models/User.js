@@ -55,6 +55,10 @@ module.exports = (sequelize) => {
             type: DataTypes.BOOLEAN,
             allowNull: false
         },
+        connect: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false
+        },
         state: {
             type: DataTypes.BOOLEAN,
             allowNull: false
