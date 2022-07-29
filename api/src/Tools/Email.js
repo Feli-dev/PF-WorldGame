@@ -75,7 +75,7 @@ module.exports = new class {
         }
         if(index === 1) {
             this.#caption = "Data update";
-            this.#message = `your data update was successfully modified.</p>`;
+            this.#message = `Your data update was successfully modified.</p>`;
         }
         if(index === 2) {
             this.#caption = "Forgot your password";
@@ -88,7 +88,7 @@ module.exports = new class {
         }
         if(index === 4){
             this.#caption = "Premium activated";
-            this.#message = `your switch to premium account was successfully activated.</p>`;
+            this.#message = `Your switch to premium account was successfully activated.</p>`;
         }
     }
 }
