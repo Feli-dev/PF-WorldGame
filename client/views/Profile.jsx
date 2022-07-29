@@ -99,7 +99,6 @@ export default function Profile({ navigation }) {
           </View>
         </View>
       </View>
-
       <View
         style={tw`flex justify-center items-center bg-gray-700 rounded-md w-90 h-6/9 mt-12 mb-6`}
       >
@@ -186,8 +185,6 @@ export default function Profile({ navigation }) {
 
         </TouchableOpacity> */}
       </View>
-
-
     </View>
   );
 }
