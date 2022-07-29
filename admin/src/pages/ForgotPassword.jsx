@@ -39,7 +39,7 @@ const ForgotPassword = () => {
         errorEmail: false,
       });
 
-      //await clienteAxios("/", email);
+      await clienteAxios.post("/Email", { email });
 
       setAlert({ msg: "Instructions have been emailed to you.", error: false });
 
@@ -49,7 +49,14 @@ const ForgotPassword = () => {
         setAlert({ msg: "", error: false });
       }, 3000);
     } catch (err) {
-      setAlert({ msg: err.response.data.Request, error: true });
+      console.log(err);
+      if (err.response.data.Request) {
+        setAlert({ msg: "Email not found", error: true });
+
+        setTimeout(() => {
+          setAlert({ msg: "", error: false });
+        }, 3000);
+      }
     }
   };
 
