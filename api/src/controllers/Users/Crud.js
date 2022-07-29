@@ -5,63 +5,66 @@ const parseObject = require('../../Tools/ParseObject');
 const path = "api/src/controllers/Users/Crud.js";
 
 module.exports = {
-    select: async (id = 0) => {
+    select: async (id = 0, country = "", premium = false, state = true, authorization = "User") => {
         try {
-            const where = id === 0 ? { include: Game, order: [['id','ASC']] } : { where:{ id }, include: Game,  order: [['id','ASC']] };
-            return await await User.findAll(where)
+            const include = Game;
+            const order = [['id','ASC']];
+            const where = id > 0 ? { id } : { country, premium, state, authorization };
+            if(country === "all") delete where.country;
+            if(premium === "all") delete where.premium;
+            if(state === "all") delete where.state;
+            if(authorization === "all") delete where.authorization;
+            const obj = { where, include, order};
+            if(Object.entries(where).length === 0) delete obj.where;
+            return await User.findAll(obj)
             .then(result => {
                 let user = parseObject(result);
                 if(user.length) {
                     if(id > 0){
                         const stats = averageScore(user[0].games);
-                        return showUsers(user[0], stats) || "No hay usuarios";
+                        return { Request: showUsers(user[0], stats) || "No hay usuarios" };
                     }
-                    return user.map(e => {
+                    const allUsers = user.map(e => {
                         const stats = averageScore(e.games);
-                        return showUsers(e, stats) || "No hay usuarios";
+                        return showUsers(e, stats);
                     });
+                    return { Request: allUsers.length ? allUsers : "No hay usuarios" };
                 };
-                return "No hay usuarios";
+                return { Request: "No hay usuarios" };
             })
             .catch(error => {
-                console.log(`Error: ${error}\nRuta: ${path}\nFunción: select`);
-                return "Error al mostrar usuarios";
+                return { Error: error.parent.detail, Request: "Fallo al mostrar los usuarios", Path: path, Function: "select" };
             });
         } catch (error) {
-            console.log(`Error: ${error}\nRuta: ${path}\nFunción: select`);
-            return "Error al mostrar usuarios";
+            return { Error: error.parent.detail, Request: "Fallo la función select", Path: path, Function: "select" };
         }
     },
-    insert: async (name = "",username = "", password = "", country = "", email = "", points = 0, premium = false, state = true, authorization = "User") => {
+    insert: async (name = "",username = "", password = "", country = "", email = "", points = 0, premium = false, state = true, authorization = "User", avatar = "") => {
         try {
-            return await User.create({ name, username, password, country, email, points, premium, state, authorization })
+            return await User.create({ name, username, password, country, email, points, premium, state, authorization, avatar })
             .then(result => {
                 let user = parseObject(result);
-                return `El usuario ${user.username} creado exitosamente`;
+                return { Request: `El usuario ${user.username} creado exitosamente` };
             })
             .catch(error => {
-                console.log(`Error: ${error}\nRuta: ${path}\nFunción: insert`);
-                return "El usuario no se creo";
+                return { Error: error.parent.detail, Request: "Fallo al crear los usuarios", Path: path, Function: "insert" };
             });
         } catch (error) {
-            console.log(`Error: ${error}\nRuta: ${path}\nFunción: insert`);
-            return "El usuario no se creo";
+            return { Error: error.parent.detail, Request: "Fallo la función insert", Path: path, Function: "insert" };
         }
     },
-    update: async (id = 0, name = "",username = "", password = "", country = "", email = "", points = 0, premium = false, authorization = "User") => {
+    update: async (id = 0, field = {}) => {
         try {
-            return await User.update({ name, username, password, country, email, points, premium, authorization },{ where: { id } } )
+            return await User.update(field,{ where: { id } } )
             .then(result => {
                 parseObject(result);
-                return `El usuario se actualizado exitosamente`;
+                return { Request: `El usuario se actualizado exitosamente` };
             })
             .catch(error => {
-                console.log(`Error: ${error}\nRuta: ${path}\nFunción: update`);
-                return "El usuario no se actualizo";
+                return { Error: error.parent.detail, Request: "Fallo al actualizar los usuarios", Path: path, Function: "update" };
             });
         } catch (error) {
-            console.log(`Error: ${error}\nRuta: ${path}\nFunción: update`);
-            return "El usuario no se actualizo";
+            return { Error: error.parent.detail, Request: "Fallo la función update", Path: path, Function: "update" };
         }
     },
     stateUser: async (id = 0, state = true) => {
@@ -69,15 +72,27 @@ module.exports = {
             return await User.update({ state },{ where: { id } } )
             .then(result => {
                 parseObject(result);
-                return state ? "El usuario se habilito" : "El usuario se deshabilito";
+                return state ? { Request: "El usuario se habilito"} : { Request: "El usuario se deshabilito" };
             })
             .catch(error => {
-                console.log(`Error: ${error}\nRuta: ${path}\nFunción: update`);
-                return "Error al deshabilitar al usuario";
+                return { Error: error.parent.detail, Request: "Fallo al cambiar el estado del usuario", Path: path, Function: "stateUser" };
             });
         } catch (error) {
-            console.log(`Error: ${error}\nRuta: ${path}\nFunción: update`);
-            return "Error al deshabilitar al usuario";
+            return { Error: error.parent.detail, Request: "Fallo la función stateUser", Path: path, Function: "stateUser" };
+        }
+    },
+    statePass: async (id = 0, password = "") => {
+        try {
+            return await User.update({ password },{ where: { id } } )
+            .then(result => {
+                parseObject(result);
+                return { Request: "La contraseña se modifico" };
+            })
+            .catch(error => {
+                return { Error: error.parent.detail, Request: "Fallo al cambiar la contraseña del usuario", Path: path, Function: "statePass" };
+            });
+        } catch (error) {
+            return { Error: error.parent.detail, Request: "Fallo la función statePass", Path: path, Function: "statePass" };
         }
     },
     remove: async(id = 0) => {
@@ -85,37 +100,34 @@ module.exports = {
             return await User.destroy({ where: { id } })
             .then(result => {
                 parseObject(result);
-                return "El usuario se elimino definitivamente";
+                return { Request: "El usuario se elimino definitivamente" };
             })
             .catch(error => {
-                console.log(`Error: ${error}\nRuta: ${path}\nFunción: delete`);
-                return "El usuario no se elimino";
+                return { Error: error.parent.detail, Request: "Fallo al eliminar al usuario", Path: path, Function: "remove" };
             });
         } catch (error) {
-            console.log(`Error: ${error}\nRuta: ${path}\nFunción: delete`);
-            return "El usuario no se elimino";
+            return { Error: error.parent.detail, Request: "Fallo la función remove", Path: path, Function: "remove" };
         }
     },
     ranking: async (total = 10) => {
         try {
-            return await await User.findAll({ include: Game, order: [['points','DESC']], limit: total.toString() })
+            return await User.findAll({ include: Game, order: [['points','DESC']], limit: total.toString() })
             .then(result => {
                 let user = parseObject(result);
                 if(user.length) {
-                    return user.map(e => {
-                        const _averageScore = averageScore(e.games);
-                        return show(e, _averageScore) || "No hay usuarios";
+                    const allUsers = user.map(e => {
+                        const stats = averageScore(e.games);
+                        return showUsers(e, stats);
                     });
+                    return { Request: allUsers.length ? allUsers : "No hay usuarios" };
                 };
-                return "No hay usuarios";
+                return { Request: "No hay usuarios" };
             })
             .catch(error => {
-                console.log(`Error: ${error}\nRuta: ${path}\nFunción: rank`);
-                return "Error al mostrar usuarios";
+                return { Error: error.parent.detail, Request: "Fallo al mostrar el ranking", Path: path, Function: "ranking" };
             });
         } catch (error) {
-            console.log(`Error: ${error}\nRuta: ${path}\nFunción: rank`);
-            return "Error al mostrar usuarios";
+            return { Error: error.parent.detail, Request: "Fallo la función ranking", Path: path, Function: "ranking" };
         }
     }
 }

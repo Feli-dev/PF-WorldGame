@@ -12,13 +12,14 @@ import AddUser from "./pages/AddUser";
 import NewPassword from "./pages/NewPassword";
 import ForgotPassword from "./pages/ForgotPassword";
 import Users from "./pages/Users";
-
+import Games from "./pages/Games";
 // Layout
 import DashboardLayout from "./components/Layout/DashboardLayout";
 import AuthLayout from "./components/Layout/AuthLayout";
 
 // Actions
 import { authenticateAction } from "./redux/auth/authActions";
+import EditUser from "./pages/EditUser";
 
 function App() {
   const dispatch = useDispatch();
@@ -42,8 +43,10 @@ function App() {
         <DashboardLayout path="/dashboard" component={Dashboard} />
         <DashboardLayout path="/profile" component={Profile} />
         <DashboardLayout path="/users" component={Users} />
+        <DashboardLayout path="/games" component={Games} />
         <DashboardLayout path="/update-password" component={UpdatePassword} />
         <DashboardLayout path="/add-user" component={AddUser} />
+        <DashboardLayout path="/edit-user/:id" component={EditUser} />
         <Route exact path="/*" component={NoFound} />
       </Switch>
     </BrowserRouter>

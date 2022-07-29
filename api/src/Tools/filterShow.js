@@ -13,6 +13,7 @@ module.exports = {
             premium: user.premium,
             state: user.state,
             authorization: user.authorization,
+            avatar: user.avatar,
             games: user.games,
             stats: averageScore,
             createdAt: user.createdAt
