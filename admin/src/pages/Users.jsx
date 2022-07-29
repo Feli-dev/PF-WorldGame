@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ModalUser from "../components/TableUser/ModalUser/ModalUser";
+import { useHistory } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux";
 import { deactivateUser, getAllUsers, reactivateUser, getByFilter, orderUsername, orderPoints } from "../redux/users/userActions";
 import  validateCountry from "../utils/validateCountry";
@@ -28,17 +29,18 @@ const Users = () => {
   let [order, setOrder] = useState('')
   
   let allUsers = useSelector((state) => state.userReducer.filterUsers)
-  console.log('allUsers', allUsers)
+  const navigate = useHistory()
+  // console.log('allUsers', allUsers)
   
   // useEffect(() => {
   //     // console.log('entro')
   //     dispatch(getAllUsers())
   // },[dispatch])
    
-  console.log('input', inputFilter)
-  const getUserEdit = () => {
-      alert("Usuario Editado");
-    };
+  // console.log('input', inputFilter)
+  const getUserEdit = (id) => {
+    navigate.push(`/edit-user/${id}`)
+  };
   
   const deleteUser = (id) => {
       
@@ -334,7 +336,7 @@ const Users = () => {
                 <div className="text-gray-700  flex w-2.5 gap-3 text-center">
                   <EditIcon
                     className="text-yellow-500 z-50 cursor-pointer"
-                    onClick={getUserEdit}
+                    onClick={()=>getUserEdit(user.id)}
                   />
                   {user.state === true ?
                   <DeleteIcon
