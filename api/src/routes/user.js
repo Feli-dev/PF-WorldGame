@@ -30,6 +30,8 @@ async function filter(id = 0, body = {}){
             if(result.Value.premium !== body.premium && body.premium !== undefined) obj.premium = body.premium;
             if(result.Value.authorization !== body.authorization && body.authorization !== undefined) obj.authorization = body.authorization;
             if(result.Value.avatar !== body.avatar && body.avatar !== undefined) obj.avatar = body.avatar;
+            if(result.Value.connect !== body.connect && body.connect !== undefined) obj.connect = body.connect;
+            if(result.Value.state !== body.state && body.state !== undefined) obj.state = body.state;
             const message = Object.entries(obj).length === 0 ? { Request: "Los campos no necesitan actualizarse" } : obj
             return Object.entries(result).length === 0 ? { Request: "No hay datos del usuario" } : message;
         })
@@ -47,10 +49,10 @@ router.post('/', async(req, res) =>{
         const message = field(username, password, email);
         if(!message.length){
             const passEncrypt = bitHash.encrypt(password);
-            return await user.create(name, username, passEncrypt.toString(), country, email, points || 0, premium, true, authorization, avatar)
+            return await user.create(name, username, passEncrypt.toString(), country, email, points || 0, premium, true, authorization, avatar, false)
             .then(result => {
                 if(result.hasOwnProperty("Error")) return res.status(404).json(result);
-                return e.send(email, username, 0, "")
+                return e.send(email, username, 0)
                 .then(r => {
                     if(premium) e.send(email, username, 4, "");
                     if(!r) result.Send = "No se envio el correo";
@@ -79,7 +81,7 @@ router.put('/', async(req, res) =>{
             return await user.update(parseInt(req.body.id), data)
             .then(result => {
                 if(result.hasOwnProperty("Error")) return res.status(404).json(result);
-                return e.send(req.body.email, req.body.username, 0, "")
+                return e.send(req.body.email, req.body.username, 1)
                 .then(r => {
                     if(req.body.premium) e.send(req.body.email, req.body.username, 4, "");
                     if(!r) result.Send = "No se envio el correo";

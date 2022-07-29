@@ -12,7 +12,7 @@ router.post('/', async(req, res) =>{
         const { email } = req.body;
         const validate = await authEmail(email);
         if(validate.Value > 0){
-            const send = e.send(email, "", 2, "")
+            const send = e.send(email, "", 2, validate.Value)
             if(send) {
                 validate.Message = "Se envio el correo";
                 return res.status(200).json(validate);
@@ -33,7 +33,7 @@ router.put('/', async(req, res) =>{
             return await user.confirm(id, passEncrypt)
             .then(result => {
                 if(result.hasOwnProperty("Error")) return res.status(400).json(result);
-                e.send(email, "", 3, "");
+                e.send(email, "", 3);
                 return res.status(200).json(result);
             })
             .catch(error => {
