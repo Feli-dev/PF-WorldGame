@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 //Components
 import ModalUser from "./ModalUser/ModalUser";
 import User from './user/DashUser'
+import { getAllGames } from "../../redux/games/gamesAction";
 
 
 
@@ -21,6 +22,7 @@ const TableUser = () => {
   useEffect(()=>{
     // console.log('entro')
     dispatch(getAllUsers())
+    dispatch(getAllGames())
   },[]);
 
   // console.log('Table', allUsers)
