@@ -1,5 +1,4 @@
 // Config
-import { Redirect, useHistory } from "react-router-dom";
 import clienteAxios from "../../config/axios";
 
 // Types
@@ -170,4 +169,54 @@ function updateUserAdmin(updateUser) {
   };
 }
 
-export { loginAction, authenticateAction, logoutUser, updateUserAdmin };
+function updatePasswordAdmin(updatePassword) {
+  return async function (dispatch) {
+    try {
+      const userActual = JSON.parse(localStorage.getItem("profile"));
+
+      await clienteAxios.put(`/User`, {
+        username: userActual.username,
+        email: userActual.email,
+        ...updatePassword,
+        id: userActual.id,
+      });
+
+      //const { password, ...user } = updateUser;
+
+      localStorage.setItem(
+        "profile",
+        JSON.stringify({ ...userActual, ...updatePassword })
+      );
+
+      dispatch({
+        type: UPDATE_USER_ADMIN,
+        payload: JSON.parse(localStorage.getItem("profile")),
+      });
+    } catch (err) {
+      console.log(err.response.data);
+      if (err.response.data.Request.indexOf("(password)")) {
+        dispatch({
+          type: ERROR,
+          payload: { msg: "Password invalid", error: true },
+        });
+      }
+
+      setTimeout(() => {
+        dispatch({
+          type: ERROR,
+          payload: "",
+        });
+      }, 3000);
+
+      return true;
+    }
+  };
+}
+
+export {
+  loginAction,
+  authenticateAction,
+  logoutUser,
+  updateUserAdmin,
+  updatePasswordAdmin,
+};
