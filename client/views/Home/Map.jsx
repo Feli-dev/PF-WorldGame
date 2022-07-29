@@ -1,32 +1,20 @@
-import React from 'react'
-import MapView from 'react-native-maps';
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import React from "react";
+import MapView from "react-native-maps";
+import { View } from "react-native";
+import tw from "twrnc";
 
-export default function Map(lat, long) {
-    return (
-        <View style={styles.container}>
-          <MapView 
-          style={styles.map} 
-          initialRegion={{
-            latitude: lat,
-            longitude: long,
-            latitudeDelta: 9,
-            longitudeDelta: 10,
-          }}
-          />
-        </View>
-      );
-    }
-    
-    const styles = StyleSheet.create({
-      container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-      },
-      map: {
-        width: 345,
-        height: 180,
-      },
-    });
+export default function Map({lat, long}) {
+  return (
+    <View style={tw`mt-5 w-full flex items-center justify-center overflow-hidden rounded-lg`}>
+      <MapView
+        style={tw`w-75 h-50`}
+        initialRegion={{
+          latitude: parseFloat(lat),
+          longitude: parseFloat(long),
+          latitudeDelta: 2.3,
+          longitudeDelta: 2.3,
+        }}
+      />
+    </View>
+  );
+}

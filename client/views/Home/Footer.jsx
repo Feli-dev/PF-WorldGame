@@ -11,6 +11,7 @@ import tw from "twrnc";
 import Svg, { Path } from "react-native-svg";
 import { gameAction, getAllCountries, PostGame, newGame, setCountrie } from "../../redux/actions/index";
 import { setTestDeviceIDAsync, AdMobInterstitial } from "expo-ads-admob";
+import Autocomplete from 'react-native-autocomplete-input';
 //onpress white flag render confirm message
 
 export default function Footer() {
@@ -19,6 +20,8 @@ export default function Footer() {
   const [input, setInput] = useState("");
   const [countryOfDay, setCountryOfDay] = useState("");
   const countries = useSelector((state) => state.countries);
+  const [filteredCountries, setFilteredCountries] = useState([]);
+  const [selectedValue, setSelectedValue] = useState({});
   const login = useSelector((state) => state.login);
   const listOfAttemps = useSelector((state) => state.attemps);
   const [win, setWin] = useState(false)
@@ -26,24 +29,26 @@ export default function Footer() {
   useEffect(() => {
     dispatch(getAllCountries());
   }, []);
-
+  
   useEffect(() => {
-    let countrie = countries[Math.floor(Math.random() * 249)];
-    setCountryOfDay(countrie);
-    setCountrie(countrie);
+    if(win===false){
+      let countrie = countries[Math.floor(Math.random() * 249)];
+      setCountryOfDay(countrie);
+      dispatch(setCountrie(countrie));
+    }
   }, [win]);
 
   async function chargeAds(){
-    await setTestDeviceIDAsync('EMULATOR');
-    await AdMobInterstitial.setAdUnitID('ca-app-pub-3940256099942544/8691691433');
-    await AdMobInterstitial.requestAdAsync({ servePersonalizedAds: false});
+    await setTestDeviceIDAsync('EMULATOR').then(()=>{},()=>{});
+    await AdMobInterstitial.setAdUnitID('ca-app-pub-3940256099942544/8691691433').then(()=>{},()=>{});
+    await AdMobInterstitial.requestAdAsync({ servePersonalizedAds: false}).then(()=>{},()=>{});
   }
   
   async function showAds(){
-    await AdMobInterstitial.showAdAsync();
+    await AdMobInterstitial.showAdAsync().then(()=>{},()=>{});
   }
 
-  if(!(login.Request.premium)){
+  if(!(login?.Request?.premium)){
     chargeAds()
   }
   // const handleChange = (e)=>{
@@ -56,7 +61,7 @@ export default function Footer() {
     console.log(countryOfDay);
     if (
       countries.some((el) => {
-        if (el.name.toLowerCase() === input.toLowerCase()) {
+        if (el.name.toLowerCase() === input.trim().toLowerCase()) {
           attemp = el;
           return true;
         }
@@ -75,7 +80,8 @@ export default function Footer() {
           dispatch(PostGame({countrie: countryOfDay.name, winned: true, time: 120, attempts: listOfAttemps.length + 1, UserId: login.Request.id, points: 5000})) 
           setWin(true)
           if(!(login.Request.premium)){
-            setTimeout(()=>{showAds()}, 500)
+            console.log("a mostrar ads")
+            setTimeout(()=>{showAds()}, 1000)
           }
           console.log("Ya encontraste el país, felicitaciones!");
         }
@@ -108,7 +114,7 @@ export default function Footer() {
           </View>
         </TouchableOpacity>
         <TextInput
-          placeholder="Country..."
+          placeholder="Enter a country..."
           placeholderTextColor="#6f6f6f"
           style={tw`pl-3 mr-5 w-45 h-15 rounded-md bg-gray-800 text-white text-lg `}
           onChangeText={(text) => setInput(text)}
@@ -118,17 +124,18 @@ export default function Footer() {
           style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-md w-10 h-15`}
           onPress={!win ? (e) => handleSubmit(e) : () => {setWin(false); dispatch(newGame());}}
         >
-          {!win ? <View style={tw`w-10 h-10`}>
+          {win && listOfAttemps.length > 0 ? 
+          <View style={tw`w-10 h-10`}>
+            <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" >
+              <Path fill="#000" d="M496 48v144c0 17.69-14.31 32-32 32H320c-17.69 0-32-14.31-32-32s14.31-32 32-32h63.39c-29.97-39.7-77.25-63.78-127.6-63.78C167.7 96.22 96 167.9 96 256s71.69 159.8 159.8 159.8c34.88 0 68.03-11.03 95.88-31.94 14.22-10.53 34.22-7.75 44.81 6.375 10.59 14.16 7.75 34.22-6.375 44.81-39.03 29.28-85.36 44.86-134.2 44.86C132.5 479.9 32 379.4 32 256S132.5 32.1 255.9 32.1c69.15 0 134 32.47 176.1 86.12V48c0-17.69 14.31-32 32-32s32 14.31 32 32z" />
+            </Svg>
+          </View> :
+          <View style={tw`w-10 h-10`}>
             <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
               <Path
                 fill="#000"
                 d="M374.6 246.6c-6.2 6.3-14.4 9.4-22.6 9.4s-16.38-3.125-22.62-9.375L224 141.3V448c0 17.69-14.33 31.1-31.1 31.1S160 465.7 160 448V141.3L54.63 246.6c-12.5 12.5-32.75 12.5-45.25 0s-12.5-32.75 0-45.25l160-160c12.5-12.5 32.75-12.5 45.25 0l160 160c12.47 12.55 12.47 32.75-.03 45.25z"
               />
-            </Svg>
-          </View> :
-          <View style={tw`w-10 h-10`}>
-            <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" >
-              <Path fill="#000" d="M496 48v144c0 17.69-14.31 32-32 32H320c-17.69 0-32-14.31-32-32s14.31-32 32-32h63.39c-29.97-39.7-77.25-63.78-127.6-63.78C167.7 96.22 96 167.9 96 256s71.69 159.8 159.8 159.8c34.88 0 68.03-11.03 95.88-31.94 14.22-10.53 34.22-7.75 44.81 6.375 10.59 14.16 7.75 34.22-6.375 44.81-39.03 29.28-85.36 44.86-134.2 44.86C132.5 479.9 32 379.4 32 256S132.5 32.1 255.9 32.1c69.15 0 134 32.47 176.1 86.12V48c0-17.69 14.31-32 32-32s32 14.31 32 32z" />
             </Svg>
           </View>
           }

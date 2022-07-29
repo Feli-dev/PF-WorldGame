@@ -1,7 +1,8 @@
 import {
   Text,
   View,
-  TouchableOpacity,
+  TouchableWithoutFeedback,
+  Keyboard,
   ScrollView,
   TextInput,
   Image,
@@ -486,99 +487,101 @@ export default function Ranking() {
   const [items2, setItems2] = useState(rank);
 
   return (
-    <View style={tw`flex h-full items-center justify-center bg-gray-900`}>
-      <View style={tw`flex flex-row mt-50 mr-8`}>
-        <View style={tw`flex flex-col`}>
-          <View style={tw`ml-8 flex items-center justify-center`}>
-            <Text style={tw`text-white text-lg text-center font-bold mb-2`}>
-              Country
-            </Text>
-            <DropDownPicker
-              style={tw`border-solid border-0 w-7/7 h-8 m-0 flex justify-center items-center bg-gray-800 rounded-md z-0`}
-              textStyle={tw`text-gray-600`}
-              open={open}
-              value={value}
-              items={items}
-              min={1}
-              max={1}
-              setOpen={setOpen}
-              setValue={setValue}
-              setItems={setItems}
-              placeholder="All Countries"
-              arrowIconStyle={{ tintColor: "white" }}
-              containerStyle={tw`w-6/7`}
-              onChangeValue={(value) => {
-                dispatch(filterByCountry(value));
-              }}
-            />
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <View style={tw`flex h-full items-center justify-center bg-gray-900`}>
+        <View style={tw`flex flex-row mt-50 mr-8`}>
+          <View style={tw`flex flex-col`}>
+            <View style={tw`ml-8 flex items-center justify-center`}>
+              <Text style={tw`text-white text-lg text-center font-bold mb-2`}>
+                Country
+              </Text>
+              <DropDownPicker
+                style={tw`border-solid border-0 w-7/7 h-8 m-0 flex justify-center items-center bg-gray-800 rounded-md z-0`}
+                textStyle={tw`text-gray-600`}
+                open={open}
+                value={value}
+                items={items}
+                min={1}
+                max={1}
+                setOpen={setOpen}
+                setValue={setValue}
+                setItems={setItems}
+                placeholder="All Countries"
+                arrowIconStyle={{ tintColor: "white" }}
+                containerStyle={tw`w-6/7`}
+                onChangeValue={(value) => {
+                  dispatch(filterByCountry(value));
+                }}
+              />
+            </View>
+          </View>
+          <View style={tw`flex flex-col`}>
+            <View style={tw`flex items-center justify-center`}>
+              <Text style={tw`text-white text-lg text-center font-bold mb-2`}>
+                Top
+              </Text>
+              <DropDownPicker
+                style={tw`border-solid border-0 w-7/7 h-8 m-0 flex justify-center items-center bg-gray-800 rounded-md z-0`}
+                textStyle={tw`text-gray-600`}
+                open={open2}
+                value={value2}
+                items={items2}
+                min={1}
+                max={1}
+                setOpen={setOpen2}
+                setValue={setValue2}
+                setItems={setItems2}
+                arrowIconStyle={{ tintColor: "white" }}
+                containerStyle={tw`w-6/7`}
+              />
+            </View>
           </View>
         </View>
-        <View style={tw`flex flex-col`}>
-          <View style={tw`flex items-center justify-center`}>
-            <Text style={tw`text-white text-lg text-center font-bold mb-2`}>
-              Top
-            </Text>
-            <DropDownPicker
-              style={tw`border-solid border-0 w-7/7 h-8 m-0 flex justify-center items-center bg-gray-800 rounded-md z-0`}
-              textStyle={tw`text-gray-600`}
-              open={open2}
-              value={value2}
-              items={items2}
-              min={1}
-              max={1}
-              setOpen={setOpen2}
-              setValue={setValue2}
-              setItems={setItems2}
-              arrowIconStyle={{ tintColor: "white" }}
-              containerStyle={tw`w-6/7`}
-            />
-          </View>
-        </View>
-      </View>
-      <View
-        style={tw`w-70 mt-15 mb--10 border-b border-solid border-gray-400`}
-      ></View>
-      <View>
-        <ScrollView style={tw`mt-15 mb-45`}>
-          {ranked?.map((player) => {
-            return (
-              <View
-                key={
-                  ranked?.findIndex((e) => e.username === player.username) + 1
-                }
-                style={tw`flex flex-row justify-center items-center bg-gray-700 mt-5 rounded-md p-3`}
-              >
-                <View style={tw`w-1/6`}>
-                  <Text style={tw`mr-5 text-white text-center font-bold`}>
-                    {" "}
-                    {`#${
-                      ranked.findIndex((e) => e.username === player.username) +
-                      1
-                    }`}{" "}
-                  </Text>
-                </View>
-                <View style={tw`w-3/6`}>
-                  <Text style={tw`mr-5 text-white text-center font-bold`}>
-                    {" "}
-                    {player.username}{" "}
-                  </Text>
-                </View>
+        <View
+          style={tw`w-70 mt-15 mb--10 border-b border-solid border-gray-400`}
+        ></View>
+        <View>
+          <ScrollView style={tw`mt-15 mb-45`}>
+            {ranked?.map((player) => {
+              return (
                 <View
-                  style={tw`flex justify-center items-center text-center w-20 h-10`}
+                  key={
+                    ranked?.findIndex((e) => e.username === player.username) + 1
+                  }
+                  style={tw`flex flex-row justify-center items-center bg-gray-700 mt-5 rounded-md p-3`}
                 >
-                  <Image style={tw`h-7 w-9.33`}
-                    source={{
-                      uri:`${
-                        allCountries.find((e) =>e.name.toLowerCase() === player.country.toLowerCase()).flagSvg.replace("svg", "png").replace("//","").replace("/","/w2560/").replace("https:","https://")
-                      }`
-                    }}
-                  />
+                  <View style={tw`w-1/6`}>
+                    <Text style={tw`mr-5 text-white text-center font-bold`}>
+                      {" "}
+                      {`#${
+                        ranked.findIndex((e) => e.username === player.username) +
+                        1
+                      }`}{" "}
+                    </Text>
+                  </View>
+                  <View style={tw`w-3/6`}>
+                    <Text style={tw`mr-5 text-white text-center font-bold`}>
+                      {" "}
+                      {player.username}{" "}
+                    </Text>
+                  </View>
+                  <View
+                    style={tw`flex justify-center items-center text-center w-20 h-10`}
+                  >
+                    <Image style={tw`h-7 w-9.33`}
+                      source={{
+                        uri:`${
+                          allCountries.find((e) =>e.name.toLowerCase() === player.country.toLowerCase()).flagSvg.replace("svg", "png").replace("//","").replace("/","/w2560/").replace("https:","https://")
+                        }`
+                      }}
+                    />
+                  </View>
                 </View>
-              </View>
-            );
-          })}
-        </ScrollView>
+              );
+            })}
+          </ScrollView>
+        </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 }
