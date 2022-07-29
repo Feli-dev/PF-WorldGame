@@ -126,54 +126,25 @@ const EditUser = () => {
                 <label htmlFor="name" className="text-sm text-gray-600">
                   * Full Name
                 </label>
-                <input
-                  className="mt-2 border-2 border-gray-200 px-3 py-2 block w-full rounded-lg text-base text-gray-900 focus:outline-none "
-                  type="text"
-                  value={input.name}
-                  name="name"
-                  placeholder="Name"
-                  onChange={handleChange}
-                />
-                {error.name && <span> {error.name}</span>}
+                <p className="mt-2 px-3 py-2 block w-full rounded-lg text-base text-gray-900 focus:outline-none">
+                  {input.name}
+                </p>
               </div>
-              {/* <div className="p-2 w-1/2 inline-block">
-                <label htmlFor="name" className="text-sm text-gray-600">
-                  Last Name
-                </label>
-                <input
-                  className="mt-2 border-2 border-gray-200 px-3 py-2 block w-full rounded-lg text-base text-gray-900 focus:outline-none "
-                  type="text"
-                  name="name"
-                  placeholder="Guerrero"
-                />
-              </div> */}
               <div className="p-2">
                 <label htmlFor="name" className="text-sm text-gray-600">
                   * Username
                 </label>
-                <input
-                  className="mt-2 border-2 border-gray-200 px-3 py-2 block w-full rounded-lg text-base text-gray-900 focus:outline-none "
-                  type="text"
-                  value={input.username}
-                  name="username"
-                  placeholder="UserName"
-                  onChange={handleChange}
-                />
-                {error.username && <span> {error.username}</span>}
+                <p className="mt-2 px-3 py-2 block w-full rounded-lg text-base text-gray-900 focus:outline-none">
+                  {input.username}
+                </p>
               </div>
               <div className="p-2">
                 <label htmlFor="name" className="text-sm text-gray-600">
                   * Email
                 </label>
-                <input
-                  className="mt-2 border-2 border-gray-200 px-3 py-2 block w-full rounded-lg text-base text-gray-900 focus:outline-none "
-                  type="text"
-                  value={input.email}
-                  name="email"
-                  placeholder="example@correo.com"
-                  onChange={handleChange}
-                />
-                {error.email && <span> {error.email}</span>}
+                <p className="mt-2 px-3 py-2 block w-full rounded-lg text-base text-gray-900 focus:outline-none">
+                  {input.email}
+                </p>
               </div>
               <div className="p-2">
                 <label
@@ -182,22 +153,9 @@ const EditUser = () => {
                 >
                   * Country
                 </label>
-                <select
-                  id="countries"
-                  className=" border border-gray-300 text-base  rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                  onChange={(event) => handleSelectCountry(event)}
-                  defaultValue="Choose a country"
-                  value={input.country}
-                >
-                  <option disabled="Choose a country">Choose a country</option>
-                  {allCountries &&
-                    allCountries.map((country) => (
-                      <option key={country.id} value={country.name}>
-                        {country.name}
-                      </option>
-                    ))}
-                </select>
-                {error.country && <span>{error.country}</span>}
+                <p className="mt-2 px-3 py-2 block w-full rounded-lg text-base text-gray-900 focus:outline-none">
+                  {input.country}
+                </p>
               </div>
               <div className="p-2">
                 <label
