@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ModalUser from "../components/TableUser/ModalUser/ModalUser";
 import { useDispatch, useSelector } from "react-redux";
-import { deactivateUser, getAllUsers, reactivateUser, getByCountries } from "../redux/users/userActions";
+import { deactivateUser, getAllUsers, reactivateUser, getByFilter, orderUsername, orderPoints } from "../redux/users/userActions";
 import  validateCountry from "../utils/validateCountry";
 
 
@@ -19,18 +19,23 @@ const Users = () => {
   const [modalUser, setModalUser] = useState(false);
   const [userInfo, setUserInfo] = useState({});
   const [inputFilter, setInputFilter] = useState({
-        country:''
+    country:'', 
+    premium:'', 
+    state: '', 
+    authorization:''
   })
-  let [error, setError] = useState({active: true})
+  let allCountries = useSelector(state => state.countriesReducer.allCountries)
+  let [order, setOrder] = useState('')
   
   let allUsers = useSelector((state) => state.userReducer.filterUsers)
+  console.log('allUsers', allUsers)
   
   // useEffect(() => {
   //     // console.log('entro')
   //     dispatch(getAllUsers())
   // },[dispatch])
    
-  
+  console.log('input', inputFilter)
   const getUserEdit = () => {
       alert("Usuario Editado");
     };
@@ -40,7 +45,8 @@ const Users = () => {
       dispatch(deactivateUser(id))
       .then(result =>{ 
         alert(result.Request)
-        dispatch(getAllUsers())
+        // dispatch(getAllUsers())
+        dispatch(getByFilter(inputFilter))
       })
       .catch(result => alert(result.Error))
       
@@ -51,83 +57,137 @@ const Users = () => {
       dispatch(reactivateUser(id))
       .then(result =>{ 
         alert(result.Request)
-        dispatch(getAllUsers())
+        // dispatch(getAllUsers())
+        dispatch(getByFilter(inputFilter))
       })
       .catch(result => alert(result.Error))
     };
 
-  function handleChangeCountry(event){
-    setInputFilter(previus => {
-      return {
-          ...previus,[event.target.name]: event.target.value
-      }
+  function handleSelectPremium(event){
+    setInputFilter({
+        ...inputFilter,
+        premium: event.target.value
     })
-    setError(validateCountry({
-      ...inputFilter, [event.target.name]: event.target.value
-    })) 
+  }
+  function handleSelectState(event){
+    setInputFilter({
+        ...inputFilter,
+        state: event.target.value
+    })
+  }
+  function handleSelectAuthorization(event){
+    setInputFilter({
+        ...inputFilter,
+        authorization: event.target.value
+    })
+  }
+  function handleSelectCountry(event){
     
+    setInputFilter({
+        ...inputFilter,
+        country: event.target.value
+    })
   }
 
   const handleSubmit = (event) => {
     event.preventDefault()
-      // dispatch(getByCountries(inputFilter.country))
-      // setInputFilter({
-      //   country:'',
-      // })
-      alert('hola')
-    }
+      dispatch(getByFilter(inputFilter))
+      
+  }
+
+  function handleClick(){
+    dispatch(getAllUsers())
+  }
+
+  function handleOrderUser(event){
+    dispatch(orderUsername(event.target.value))
+    setOrder(event.target.value + 'user')
+  }
+
+  function handleOrderPoints(event){
+    dispatch(orderPoints(event.target.value))
+    setOrder(event.target.value + 'point')
+  }
+
   
   
     
     
   return (
     <div className="md:max-w-8xl md:mx-auto px-4 py-6">
-        <div className="flex items-center justify-between mb-4 ml-2">
-          <h2 className="text-xl font-bold text-gray-800">All Users</h2>
-          <div className="flex items-center justify-between flex-col mb-4 ml-2  ">
-          <form onSubmit={handleSubmit}> 
-            <div className="p-0 flex items-center m-0">
-              <input
-                className="mt-0 h-7 border-2 border-gray-200 px-3 py-2 block w-full rounded-lg text-base text-gray-900 focus:outline-none "
-                type="text"
-                value={inputFilter.country}
-                name="country"
-                placeholder="Search by country"
-                onChange={handleChangeCountry}
-              />
-              <button type="submit" className="pt-0 items-center"> 
-                <SearchOutlinedIcon/>
-              </button>
-            </div>
-              {error.country && <span className=" m-0 p-0 ml-1 rounded-full text-xs uppercase tracking-wide font-semibold bg-red-200 text-red-800">  {error.country}</span>}  
-          </form>
-          <div className="flex w-full items-center justify-evenly mt-4 ">
+        <div className="flex items-center justify-between mb-4">
+          <button className="ml-1 text-2xl font-bold text-black hover:text-blue-600"
+          onClick={handleClick}>
+            All Users
+          </button>
+          <div className="flex items-center justify-between flex-col  ">
+          <form onSubmit={handleSubmit}
+          className="flex items-center justify-between flex-col ">
           <select
-                  id="state"
-                  className="text-xs h-7 border border-gray-300 text-base  rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/3 w-fit"
-                  onChange={event => console.log('hola')}
-                  defaultValue='State'
+                  id="countries"
+                  className="text-xs mr-2 h-7 border border-gray-300 text-base  rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-3/3 w-fit "
+                  onChange={event => handleSelectCountry(event)}
+                  defaultValue='Choose a country'
                 >
-                  <option disabled='State'>State</option>
-                  <option value='Active'>Active</option>
-                  <option value='Blocked'>Blocked</option>
-                  
-                  
-          </select>
+                  <option disabled='Choose a country'>Choose a country</option>
+                  <option value='all'>All</option>
+                  {allCountries && allCountries.map((country) => (
+                    <option key={country.id} value={country.name}>
+                        {country.name}
+                    </option>
+                  ))} 
+          </select> 
+          <div className="flex items-center justify-evenly flex-row">
+
           <select
                   id="userType"
-                  className="text-xs mr-2 h-7 border border-gray-300 text-base  rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/3 w-fit "
-                  onChange={event => console.log('hola')}
+                  className="text-xs h-7 border border-gray-300 text-base  rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/3 w-fit "
+                  onChange={handleSelectPremium}
                   defaultValue='Type user'
                 >
                   <option disabled='Type user'>Type user</option>
-                  <option value='Premium'>Premium</option>
-                  <option value='Normal'>Normal</option>
-                  
-                  
+                  <option value='all'>All</option>
+                  <option value='true'>Premium</option>
+                  <option value='false'>Normal</option>
           </select>
-
+          <select
+                  id="state"
+                  className="text-xs h-7 border border-gray-300 text-base  rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/3 w-fit"
+                  onChange={handleSelectState}
+                  defaultValue='State'
+                >
+                  <option disabled='State'>State</option>
+                  <option value='all'>All</option>
+                  <option value='true'>Active</option>
+                  <option value='false'>Blocked</option>
+          </select>
+          <select
+                  id="Authorization"
+                  className="text-xs h-7 border border-gray-300 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/3 w-fit"
+                  onChange={handleSelectAuthorization}
+                  defaultValue='Authorization'
+                >
+                  <option disabled='Authorization'>Authorization</option>
+                  <option value='all'>All</option>
+                  <option value='Pro-Admin'>Pro-Admin</option>
+                  <option value='Community-Admin'>Community-Admin</option>
+                  <option value='Enterprise-Admin'>Enterprise-Admin</option>
+                  <option value='User'>User</option>
+                  
+            </select>
           </div>
+            
+            <div className="flex flex-row items-center mt-1 inline justify-center">
+                <input
+                  type="submit"
+                  className="bg-blue-500 items-center text-white h-7 text-xs font-medium px-6  w-fit mt-px rounded cursor-pointer"
+                  value="Search"
+                />
+             </div>
+            
+               
+          </form>
+          
           
           </div>
               
@@ -137,10 +197,19 @@ const Users = () => {
           <thead>
             <tr className="text-left">
             <th className="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">
-                Email
+            E-mail
               </th>
-            <th className="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">
-                Username
+            <th className="px-6 py-3 text-center text-gray-500 font-bold tracking-wider uppercase text-xs">
+            <select
+                  id="order"
+                  className="text-xs h-5 block "
+                  onChange={handleOrderUser}
+                  defaultValue='USERNAME'
+                >
+                  <option disabled='USERNAME'>USERNAME</option>
+                  <option value='asc'>USER (a-z)</option>
+                  <option value='des'>USER (z-a)</option>
+            </select>
               </th>
               <th className="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">
                 Name
@@ -152,7 +221,16 @@ const Users = () => {
                 Country
               </th>
               <th className="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">
-                Points
+              <select
+                  id="orderPoints"
+                  className="text-xs h-5 block "
+                  onChange={handleOrderPoints}
+                  defaultValue='POINTS'
+                >
+                  <option disabled='POINTS'>POINTS</option>
+                  <option value='asc'>POINTS (dsc)</option>
+                  <option value='des'>POINTS (asc)</option>
+            </select>
               </th>
               <th className="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">
                 Games
@@ -174,7 +252,7 @@ const Users = () => {
           <tbody>
 
 
-        {allUsers && allUsers.map((user) =>{
+        {allUsers.length>0 && allUsers.map((user) =>{
 
             const handleClickInfo = () => {
               setUserInfo(user)
@@ -272,10 +350,10 @@ const Users = () => {
               </td>
             </tr>
         )})}
-            
 
           </tbody>
         </table>
+           {allUsers.length<1 && <h1 className="text-center px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xl ">Sin coincidencias 🥶</h1> } 
       </div>
 
       {modalUser && <ModalUser userInfo={userInfo} setModalUser={setModalUser} />}

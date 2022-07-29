@@ -1,4 +1,4 @@
-import {GET_ALL_USERS, GET_BY_COUNTRIES } from "../../types";
+import {GET_ALL_USERS, GET_BY_FILTERED, ORDER_NAME, ORDER_POINTS } from "../../types";
 
 let initialState = {
   users: [],
@@ -7,10 +7,12 @@ let initialState = {
 
 };
 
+
+
 function userReducer(state = initialState, action) {
   switch (action.type) {
     case GET_ALL_USERS:
-      // console.log('reducer')
+      
       
       return {
         ...state,
@@ -20,12 +22,44 @@ function userReducer(state = initialState, action) {
         
       };
 
-    case GET_BY_COUNTRIES:
-
+    case GET_BY_FILTERED:
+      // console.log('reducer')
     return{
       ...state,
-      filterUsers: action.payload.Request
+      filterUsers: Array.isArray(action.payload.Request)? action.payload.Request : []
     }
+
+    case ORDER_NAME:
+      let orderName = action.payload === 'asc' ? 
+      state.filterUsers.sort(function (a, b){
+         if (a.username > b.username){return 1};
+         if (b.username > a.username){return -1};
+         return 0;
+     }) :
+     state.filterUsers.sort(function(a, b){
+         if (a.username > b.username){return -1};
+         if (b.username > a.username){return 1};
+         return 0;
+     })
+     return{
+      ...state,
+      filterUsers: orderName
+     }
+
+     case ORDER_POINTS:
+      let orderPoints = action.payload === 'asc' ? 
+           
+      state.filterUsers.sort(function (a, b){  
+       return b.points - a.points;
+      }) :
+      state.filterUsers.sort(function(a, b){
+        return a.points - b.points;
+      })
+      return {
+        ...state,
+      filterUsers: orderPoints
+      } 
+
     
       
     

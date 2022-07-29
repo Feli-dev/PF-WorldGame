@@ -1,7 +1,7 @@
 import clienteAxios from '../../config/axios'
 
 
-import { GET_ALL_USERS, GET_BY_COUNTRIES } from '../../types' 
+import { GET_ALL_USERS, GET_BY_FILTERED, ORDER_NAME, ORDER_POINTS } from '../../types' 
 
 export function getAllUsers(){
     
@@ -34,7 +34,7 @@ export function reactivateUser(id) {
 export function postUser(data) {
   return function (dispatch) {
     let created = clienteAxios.post("/User/", data);
-    console.log(created);
+    // console.log(created);
     return created;
   };
 }
@@ -46,12 +46,27 @@ export function getUser(id) {
   };
 }
 
-// export function getByCountries(country){
-//     return async function(dispatch){
-//         let usersByCountries = await clienteAxios.get(`/User?countrie=${country}`)
-//         dispatch({
-//             type: GET_BY_COUNTRIES,
-//             payload: usersByCountries
-//         })
-//     }
-// }
+export function getByFilter({country, premium, state, authorization}){
+    return async function(dispatch){
+      let {data}= await clienteAxios.get(`/User?country=${country}&premium=${premium}&state=${state}&authorization=${authorization}`)
+      // console.log('filter',data)
+        dispatch({
+            type: GET_BY_FILTERED,
+            payload: data
+        })
+    }
+}
+
+export function orderUsername(order){
+  return{
+      type: ORDER_NAME,
+      payload: order
+  }
+}
+
+export function orderPoints(order){
+  return{
+      type: ORDER_POINTS,
+      payload: order
+  }
+}
