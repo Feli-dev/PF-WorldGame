@@ -7,10 +7,10 @@ import Ionic from 'react-native-vector-icons/Ionicons';
 export const ProfileBody = ({
     name,
     userName,
-    profileImage,
+    userAvatar,
     games,
     friends,
-    following,
+    gamesWon,
     id,
     country,
     email,
@@ -18,8 +18,6 @@ export const ProfileBody = ({
 
 }) => {
     const navigation = useNavigation();
-    console.log('ProfileBody---->userName', userName)
-    console.log('ProfileBody---->password', password)
     return (
         <View>
             {userName ? (
@@ -56,12 +54,6 @@ export const ProfileBody = ({
                                 userName: userName,
                                 password: password,
                             })}
-                            // name,
-                            // id,
-                            // country,
-                            // email,
-                            // userName,
-                            // password,
                             name="card-outline"
                             style={{
                                 fontSize: 25,
@@ -92,7 +84,7 @@ export const ProfileBody = ({
                         alignItems: 'center',
                     }}>
                     <Image
-                        source={profileImage}
+                        source={userAvatar}
                         style={{
                             resizeMode: 'cover',
                             width: 80,
@@ -122,15 +114,15 @@ export const ProfileBody = ({
                 </View>
 
                 <View style={{ alignItems: 'center', marginRight: 35 }}>
-                    <Text style={{ fontWeight: 'bold', fontSize: 18, color: 'white' }}>{following}</Text>
+                    <Text style={{ fontWeight: 'bold', fontSize: 18, color: 'white' }}>{gamesWon}</Text>
                     <Text style={{ color: 'white' }}>Wins</Text>
                 </View>
 
 
 
                 {/* <View style={{ alignItems: 'center' }}>
-                    <Text style={{ fontWeight: 'bold', fontSize: 18 }}>{following}</Text>
-                    <Text>Following</Text>
+                    <Text style={{ fontWeight: 'bold', fontSize: 18 }}>{gamesWon}</Text>gamesWon            <Text>
+gamesWon</Text>
                 </View> */}
 
             </View>
@@ -143,7 +135,7 @@ export const ProfileButtons = ({
     id,
     name,
     userName,
-    profileImage,
+    userAvatar,
     premium,
     country,
     email,
@@ -166,7 +158,7 @@ export const ProfileButtons = ({
                             navigation.push('EditProfile', {
                                 id: id,
                                 name: name,
-                                profileImage: profileImage,
+                                userAvatar: userAvatar,
                                 premium: premium,
                                 country: country,
                                 email: email,
@@ -222,7 +214,7 @@ export const ProfileButtons = ({
                                 alignItems: 'center',
                             }}>
                             <Text style={{ color: follow ? 'black' : '#111827' }}>
-                                {follow ? 'Following' : 'Follow'}
+                                {follow ? 'gamesWon' : 'Follow'}
                             </Text>
                         </View>
                     </TouchableOpacity>

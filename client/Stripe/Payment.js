@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { PutUser } from "../redux/actions/index";
 import { useDispatch } from "react-redux";
 import { View, TextInput, Button, Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const Payment = (
     {
@@ -19,6 +20,7 @@ const Payment = (
     const [premiumLevel, setPremiumLevel] = useState('');
     const stripe = useStripe();
     const dispatch = useDispatch();
+    const navigation = useNavigation();
     const clientData = {
         id: id,
         username: userName,
@@ -41,8 +43,7 @@ const Payment = (
                     }
                 });
             //-------------------------------------------------------------------------->CONSOLEO stripe
-            console.log('esto es stripe-->', stripe)
-
+        
             const data = await response.json();
             //-------------------------------------------------------------------------->CONSOLEO DATA 
            
@@ -64,7 +65,8 @@ const Payment = (
             
             if (presentSheet.error) { return Alert.alert(presentSheet.error.message) };
             Alert.alert("Payment complete!");            
-            //dispatch(PutUser(clientData))
+            dispatch(PutUser(clientData))
+            navigation.navigate("Profile");
 
             //ID Y BOOLEANO TRUE FALSE SI SE CONFIRMO EL PAGO
            

@@ -16,7 +16,7 @@ import AvatarOptions from './AvatarsOptions'
 
 export default function EditProfile({ route, navigation }) {
 
-  const { id, name, profileImage, premium, country, email, userName, password } = route.params;
+  const { id, name, userAvatar, premium, country, email, userName, password } = route.params;
 
   const TostMessage = () => {
     ToastAndroid.show('Edited Sucessfully!', ToastAndroid.SHORT);
@@ -77,12 +77,12 @@ export default function EditProfile({ route, navigation }) {
           padding: 20, alignItems: 'center'
         }}>
         <Image
-          source={profileImage}
+          source={userAvatar}
           style={{ width: 100, height: 100, borderRadius: 100 }}
           onPress={
             <View>
               <AvatarOptions
-                profileImage={profileImage}
+                userAvatar={userAvatar}
                 isPremium={premium}
               />
             </View>

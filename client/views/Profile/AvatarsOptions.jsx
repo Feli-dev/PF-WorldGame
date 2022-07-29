@@ -8,7 +8,7 @@ import tw from "twrnc";
 
 export default function AvatarOptions({ route, navigation, }) {
 
-    const { profileImage, isPremium } = route.params;
+    const { userAvatar, isPremium } = route.params;
 
     return (
         <View style={{
