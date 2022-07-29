@@ -74,7 +74,7 @@ const Profile = () => {
       usernameError: false,
     });
 
-    const error = await dispatch(updateUserAdmin({ ...user, password: "1" }));
+    const error = await dispatch(updateUserAdmin(user));
 
     if (!error) {
       setInfoForm({ message: "User updated successfully", error: false });
@@ -141,7 +141,7 @@ const Profile = () => {
                   </label>
                   <input
                     type="text"
-                    value={capitalized(username)}
+                    value={username}
                     name="username"
                     onChange={handleChange}
                     className={

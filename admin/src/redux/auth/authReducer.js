@@ -37,12 +37,9 @@ function authReducer(state = initState, action) {
         error: "",
       };
     case ERROR:
-      localStorage.removeItem("profile");
       return {
         ...state,
-        profile: "",
         error: action.payload,
-        cargandoAuth: false,
       };
     case LOADING_USER:
       return {
