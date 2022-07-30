@@ -333,9 +333,10 @@ export function gameAction(country, attempt) {
 }
 //------------------------pay.action------------------//
 export function PostPayment(payload) {
+  console.log('payloadPostPays',payload)
   return async function (dispatch) {
     try {
-      const response = axios.post(
+      const response = await axios.post(
         "http://192.168.0.179:3001/pays",
         payload
       );
@@ -344,21 +345,4 @@ export function PostPayment(payload) {
       return e.message;
     }
   };
-}
-
-
-export function getPayments() {
-  return async function (dispatch) {
-    try {
-      var { data } = await axios.get(
-        "http://192.168.0.179:3001/countries"
-      );
-      return dispatch({
-        type: type.GET_PAYMENTS,
-        payload: aux,
-      });
-    } catch (e) {
-      return e.message;
-    }
-  }
-}
+};
