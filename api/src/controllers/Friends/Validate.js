@@ -6,7 +6,7 @@ const path = "api/src/Friends/Validate.js"
 module.exports = {
     filterUser: (id = 0) => {
         try {
-            return User.findAll({ attributes: ['username', 'name'], where: { id },  order: [['id','ASC']]})
+            return User.findAll({ attributes: ['id', 'username', 'name', 'connect'], where: { id },  order: [['id','ASC']]})
             .then(result => {
                 const user = parseObject(result);
                 if(user.length) return { Value: user[0] };
