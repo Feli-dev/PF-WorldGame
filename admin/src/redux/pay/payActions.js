@@ -6,8 +6,8 @@ import { GET_ALL_PAYS } from '../../types'
 export function getPays(){
     
     return async function(dispatch){
-        let {data} = (await clienteAxios.get('/Pays/'))
-        // console.log('Action', allUsers)
+        let {data} = (await clienteAxios.get('/pays/'))
+        // console.log('Action pays', data)
         dispatch({
           type: GET_ALL_PAYS,
           payload: data

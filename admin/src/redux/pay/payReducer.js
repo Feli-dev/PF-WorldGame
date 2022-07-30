@@ -11,11 +11,10 @@ let initialState = {
 function payReducer(state = initialState, action) {
   switch (action.type) {
     case GET_ALL_PAYS:
-      
-      
+     
     return{
         ...state,
-        pays: Array.isArray(action.payload.Request)? action.payload.Request : []
+        pays: Array.isArray(action.payload)? action.payload : []
     }
  
     

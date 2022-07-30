@@ -39,17 +39,17 @@ const Payment = () => {
                 Amount
               </th>
               <th className="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">
-                Id User
+                User
               </th>   
             </tr>
           </thead>
           <tbody>
 
-{/* {allPays.length>0 && allPays.map((pay) =>{
+{allPays.length>0 && allPays.map((pay) =>{
 
-            
+
             return (
-            <tr className="focus-within:bg-gray-200 overflow-hidden hover:bg-gray-100 ">
+            <tr key={pay.id} className="focus-within:bg-gray-200 overflow-hidden hover:bg-gray-100 ">
             
             <td className="border-t">
                 <span className="text-gray-700 px-6 py-4 flex items-center">
@@ -65,23 +65,23 @@ const Payment = () => {
               
               <td className="border-t">
                 <span className="text-gray-700 px-6 py-4 flex items-center">
-                {pay.amount}
+                {`$${pay.amount} USD` }
                 </span>
               </td>
 
               <td className="border-t">
                 <span className="text-gray-700 px-6 py-4 flex items-center ml-3">
-                  {pay.idUser}
+                  {pay.username}
                 </span>
               </td>
               
               
             </tr>
-        )})} */}
+        )})}
 
           </tbody>
         </table>
-           <h1 className="text-center px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xl ">Sin pagos 🥶</h1> 
+        {allPays.length<1 && <h1 className="text-center px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xl ">Sin pagos 🥶</h1> }
       </div>
 
       </div>

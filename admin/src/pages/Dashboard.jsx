@@ -20,7 +20,7 @@ const Dashboard = () => {
   
   useEffect(()=>{
     dispatch(getAllCountries())
-    // dispatch(getPays())
+    dispatch(getPays())
   },[dispatch])
 
   return (
