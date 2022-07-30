@@ -113,22 +113,24 @@ _*Correcto*_
 
 ```json
 {
-  "Request": [
-    {
-      "username": "qrow",
-      "id": 1,
-      "FriendId": 2,
-      "name": "",
-      "state": "Aceptado",
-      "UserId": 1
-    },
+   "Request": [
     {
       "username": "admin",
-      "id": 2,
+      "id": 1,
       "FriendId": 1,
       "name": "sebas",
       "state": "Aceptado",
+      "connect": false,
       "UserId": 2
+    },
+    {
+      "username": "qrow",
+      "id": 2,
+      "FriendId": 2,
+      "name": "qrow",
+      "state": "Aceptado",
+      "connect": true,
+      "UserId": 1
     }
   ]
 }
@@ -138,7 +140,8 @@ _*Correcto*_
 3.  FriendId -> Id del amigo agregado.
 4.  name -> Nombre del amigo agregado.
 5.  state -> Estado de solicitud de amistad (`Enviado, Recibido o Aceptado`).
-6.  UserId -> Tu id asociado con el modelo usuarios.
+6.  connect -> Estado que muestra si el amigo esta conectado o no.
+7.  UserId -> Tu id asociado con el modelo usuarios.
 
 > _POST_ *localhost:3001/Friend*
 
@@ -161,6 +164,7 @@ _*Correcto*_
       "FriendId": 2,
       "name": "",
       "state": "Enviado",
+      "connect": true,
       "UserId": 1
     },
     {
@@ -169,6 +173,7 @@ _*Correcto*_
       "FriendId": 1,
       "name": "sebas",
       "state": "Recibido",
+      "connect": true,
       "UserId": 2
     }
   ]
@@ -177,9 +182,19 @@ _*Correcto*_
 
 > _PUT_ *localhost:3001/Friend*
 - Este campo es para aceptar una solicitud.
-- Para rechazar esta en proceso (no funcional).
 - El usuario que recibe la solicitud que esta como estado `Recibido` debe usar esta ruta.
 - Envias el `UserId y FriendId`.
+
+```json
+{
+    "UserId": "2",
+    "FriendId": "1"
+}
+```
+
+> _DELETE_ *localhost:3001/Friend*
+- Para eliminar tanto el usuario como el amigo puede eliminar un amigo o rechazar un solicitud de amistad a traves de esta ruta.
+- Se debe enviar el `id` del usuario y del usuario amigo o que envia la solicitud.
 
 ```json
 {
