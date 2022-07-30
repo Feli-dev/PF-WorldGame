@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 const Payment = () => {
   
     let allPays = useSelector((state) => state.payReducer.pays)
-    
+    console.log(allPays)
     // useEffect(() => {
     //     //console.log('entro')
     //     dispatch(getAllPays())
@@ -53,19 +53,19 @@ const Payment = () => {
             
             <td className="border-t">
                 <span className="text-gray-700 px-6 py-4 flex items-center">
-                  {pay.id}
+                  {pay.payment.id}
                 </span>
               </td>  
               <td className="border-t">
                 <span className="text-gray-700 px-6 py-4 flex items-center">
-                {pay.createdAt.slice(0,10)}
+                {pay.payment.createdAt.slice(0,10)}
                 </span>
               </td>
               
               
               <td className="border-t">
                 <span className="text-gray-700 px-6 py-4 flex items-center">
-                {`$${pay.amount} USD` }
+                {`$${pay.payment.amount} USD` }
                 </span>
               </td>
 

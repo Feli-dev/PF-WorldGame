@@ -6,32 +6,40 @@ const router = Router();
 
 
 router.post('/', async(req, res, next) =>{
-
     try {
-        let { Userid } = req.body
-        let user = await User.findAll({where: {id: Userid}})
-        let username = user[0].username 
-        let payment = await Payment.create({amount:5, username });
-        payment.setUser(Userid);
-        return res.json(payment);
+        let { UserId } = req.body
+        let {dataValues} = await User.findByPk(UserId)
+        if(dataValues.premium) return res.json({msn : 'Este usuario ya es premium'})
+        let payment = await Payment.create({UserId});
+        payment.setUser(UserId);
+        await User.update(
+            {
+              premium: true
+            },
+            { where: { id : UserId } }
+          );
+          
+        return res.json({msn : 'Cambio a premium'});
     }catch(e){
         next(e)
     }
 });
 
 
-router.get('/', async(req, res, next) =>{
+router.get('/user', async(req, res, next) =>{
    try{
-        let allPays = await Payment.findAll();
+        let allPays = await User.findAll({
+            
+            attributes: ["username", "id"],
+            include: {
+                model: Payment,
+                attributes: ['amount', 'createdAt', 'id'],
+            }
+        });
          return res.json(allPays)
    }catch(e){
     next(e)
    }
-        
-         
-    
-
-   
 });
 
 module.exports = router;
