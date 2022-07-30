@@ -3,6 +3,7 @@ import { View, Text, Image, TouchableOpacity } from 'react-native';
 // import Feather from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
 import Ionic from 'react-native-vector-icons/Ionicons';
+import * as Animatable from 'react-native-animatable';
 
 export const ProfileBody = ({
     name,
@@ -15,6 +16,7 @@ export const ProfileBody = ({
     country,
     email,
     password,
+    premium,
 
 }) => {
     const navigation = useNavigation();
@@ -45,24 +47,39 @@ export const ProfileBody = ({
                         }} /> */}
                     </View>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <Ionic
-                            onPress={() => navigation.navigate('Payment', {
-                                id: id,
-                                name: name,
-                                country: country,
-                                email: email,
-                                userName: userName,
-                                password: password,
-                            })}
-                            name="card-outline"
-                            style={{
-                                fontSize: 25,
-                                color: 'white',
-                                paddingHorizontal: 15,
-                                marginTop: 10,
-                                marginRight: 20,
-                            }}
-                        />
+                        {premium
+                            ? <Ionic
+                                name="star"
+                                style={{
+                                    fontSize: 25,
+                                    color: 'yellow',
+                                    paddingHorizontal: 15,
+                                    marginTop: 10,
+                                    marginRight: 20,
+                                }}
+                            />
+                            : <Animatable.View
+                                animation="swing" iterationCount='infinite'  delay={1000}
+                            >
+                                <Ionic
+                                    onPress={() => navigation.navigate('Payment', {
+                                        id: id,
+                                        name: name,
+                                        country: country,
+                                        email: email,
+                                        userName: userName,
+                                        password: password,
+                                    })}
+                                    name="ribbon-sharp"
+                                    style={{
+                                        fontSize: 30,
+                                        color: 'white',
+                                        paddingHorizontal: 15,
+                                        marginTop: 5,
+                                        marginRight: 20,
+                                    }}
+                                />
+                            </Animatable.View>}
                         {/* <Feather
                             name="menu"
                             style={{

@@ -4,7 +4,7 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUser } from "../../redux/actions/index";
+import { getUser, GetFriends } from "../../redux/actions/index";
 import tw from "twrnc";
 import BottomTabView from "./BottomTabView";
 import { ProfileBody, ProfileButtons } from "./ProfileBody";
@@ -22,19 +22,21 @@ const Profile = () => {
     const stats = userInfo.Request.stats;
     const games = userInfo.Request.games;
     const userId = userlogin.Request?.id;
-    const asd = 'avatar_demo.png'
 
-    const avatar = data.avatar
-        ? data.premium
-            ? require('../../assets/avatars/premium_user/avatar_batman.png')
-            : require(`../../assets/avatars/normal_user/${asd}`)
-        : require(`../../assets/avatars/normal_user/avatar_default.png`)
+    
+    const avatar = require(`../../assets/avatars/normal_user/avatar_default.png`);
+    // const avatar = data.avatar
+    //     ? data.premium
+    //         ? require(`../../assets/avatars/premium_user/${data.avatar}`)
+    //         : require('../../assets/avatars/normal_user/' + data.avatar)
+    //     : require(`../../assets/avatars/normal_user/avatar_default.png`)
 
-    useEffect(() => {
+    useEffect(() => {//VER SI SEBA PUEDE HACER QUE ME TRAIGA UN GET FRIEND X ID
         dispatch(getUser(userId))
-    }, [dispatch, userId,data.premium,avatar])
+        dispatch(GetFriends())
+    }, [dispatch, userId])
 
-  
+    //navigation.goBack(); AGREGAR BOTON PARA IR ATRAS O HOME
 
     return (
         <View style={{ width: '100%', height: '100%', marginTop: 25, backgroundColor: '#111827' }}>
@@ -66,7 +68,17 @@ const Profile = () => {
                 />
             </View>
 
-            <BottomTabView />
+            <BottomTabView
+                id={data.id}
+                userName={data.username}
+                premium={data.premium}
+                averageScore={stats.averageScore}
+                games={stats.games}
+                losses={stats.losses}
+                timePaying={stats.timePaying}
+                wins={stats.wins}
+                gamesArr={games}
+            />
 
         </View>
 

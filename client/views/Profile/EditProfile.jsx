@@ -13,6 +13,7 @@ import tw from "twrnc";
 import { useDispatch } from "react-redux";
 import { PutUser } from "../../redux/actions/index";
 import AvatarOptions from './AvatarsOptions'
+import * as Animatable from 'react-native-animatable';
 
 export default function EditProfile({ route, navigation }) {
 
@@ -33,11 +34,10 @@ export default function EditProfile({ route, navigation }) {
     password: password,
   });
 
+
   const handleUpdate = () => {
-    console.log('EditProfile---->userData',userData)
     dispatch(PutUser(userData));
     navigation.navigate('Profile')
-    //navigation.goBack();
     TostMessage();
   };
   const handleOnChange = (type, e) => {
@@ -147,22 +147,38 @@ export default function EditProfile({ route, navigation }) {
 
       {premium
         ? null
-        : <View>
+        : <Animatable.View
+          animation="slideInDown" iterationCount={8} direction="alternate-reverse" duration={1000} delay={500}
+          style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
           <Text //ESTO TIENE QUE APARECER SI NO ES PREMIUM!
+
+            onPress={() => navigation.navigate('Payment', {
+              id: id,
+              name: name,
+              country: country,
+              email: email,
+              userName: userName,
+              password: password,
+            })}
             style={{
-              marginVertical: 10,
+              fontSize: 20,
+              marginVertical: 100,
               padding: 10,
               color: '#D97706',
-              borderTopWidth: 1,
-              borderBottomWidth: 1,
+              // borderTopWidth: 1,
+              // borderBottomWidth: 1,
               borderColor: '#EFEFEF',
             }}
-            onPress={() => navigation.navigate('Payment')}
+
           >
             Switch to Premium account
 
           </Text>
-        </View>
+        </Animatable.View>
       }
 
     </View>
