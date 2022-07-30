@@ -18,9 +18,6 @@ module.exports = (sequelize) => {
         username: {
             type: DataTypes.STRING,
             allowNull: false,
-            validate:{
-                len: [3,20]
-            },
             get() {
                 return this.getDataValue('username') ? this.getDataValue('username').toLowerCase() : "";
             }
@@ -29,6 +26,10 @@ module.exports = (sequelize) => {
             type: DataTypes.ENUM,
             values: ['Enviado', 'Recibido', 'Aceptado'],
             defaultValue: 'Aceptado',
+            allowNull: false
+        },
+        connect: {
+            type: DataTypes.BOOLEAN,
             allowNull: false
         }
     },{

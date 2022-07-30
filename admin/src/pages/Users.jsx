@@ -30,6 +30,12 @@ const Users = () => {
   
   let allUsers = useSelector((state) => state.userReducer.filterUsers)
   const navigate = useHistory()
+  let orderCountries = []
+  if(allUsers.length){
+    let countries = allUsers.map(user => user.country)
+    orderCountries = countries.filter( (ele,pos)=>countries.indexOf(ele) == pos).sort();
+    // console.log('country', orderCountries)
+  }
   // console.log('allUsers', allUsers)
   
   // useEffect(() => {
@@ -133,9 +139,9 @@ const Users = () => {
                 >
                   <option disabled='Choose a country'>Choose a country</option>
                   <option value='all'>All</option>
-                  {allCountries && allCountries.map((country) => (
-                    <option key={country.id} value={country.name}>
-                        {country.name}
+                  {orderCountries.length>0 && orderCountries.map((country) => (
+                    <option key={country} value={country}>
+                        {country}
                     </option>
                   ))} 
           </select> 
@@ -261,7 +267,7 @@ const Users = () => {
               setModalUser(true)
             }
             return (
-            <tr className="focus-within:bg-gray-200 overflow-hidden hover:bg-gray-100 ">
+            <tr key={user.id} className="focus-within:bg-gray-200 overflow-hidden hover:bg-gray-100 ">
             <td className="border-t">
                 <span className="text-gray-700 px-6 py-4 flex items-center  ">
                   <div
@@ -297,7 +303,7 @@ const Users = () => {
 
               <td className="border-t">
                 <span className="text-gray-700 px-6 py-4 flex items-center ml-3">
-                  {user.points}
+                  {user.stats.averageScore}
                 </span>
               </td>
 

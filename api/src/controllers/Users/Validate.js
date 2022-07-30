@@ -1,4 +1,4 @@
-const { Game, User } = require('../../db');
+const { Game, User, Friend } = require('../../db');
 const { averageScore } = require('../../Tools/AverageScore');
 const { showUsers } = require('../../Tools/filterShow');
 const parseObject = require('../../Tools/ParseObject');
@@ -7,7 +7,7 @@ const path = "api/src/controllers/Users/Validate";
 module.exports = {
     auth: async (username = "", password = "") => {
         try {
-            return await User.findAll({ where: { username, password }, include: Game,  order: [['id','ASC']]})
+            return await User.findAll({ where: { username, password }, include: [ Game, Friend ],  order: [['id','ASC']]})
             .then(result => {
                 let user = parseObject(result);
                 if(user.length){
