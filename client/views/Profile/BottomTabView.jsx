@@ -6,24 +6,34 @@ import Ionic from 'react-native-vector-icons/Ionicons'
 
 
 
-const BottomTabView = () => {
+const BottomTabView = ({
+    id,
+    userName,
+    premium,
+    averageScore,
+    games,
+    losses,
+    timePaying,
+    wins,
+    gamesArr,
+}) => {
 
     const Tab = createMaterialTopTabNavigator();
 
     let squares = [];
     let numberOfSquare = 2;
 
-    for(let i=0; i<numberOfSquare; i++){
+    for (let i = 0; i < numberOfSquare; i++) {//ACA MAPEARIA gamesArr CALCULO QUE TRAE UN ARREGLO CON TODA LA INFO DE LOS GAMES, ME TRAERIA LOS ULTIMOS 10 O 5 Y LOAS RENDERIZARIA EN UNA CARD CON COUNTRY/INTENTOS/PUNTOS/FECHA
         squares.push(
             <View key={i}>
-                <View 
-                style={{
-                    width:'99%',
-                    height:150,
-                    marginVertical:0.5,
-                    backgroundColor:"#9CA3AF",
-                    opacity:0.1,
-                }}>
+                <View
+                    style={{
+                        width: '99%',
+                        height: 150,
+                        marginVertical: 0.5,
+                        backgroundColor: "#9CA3AF",
+                        opacity: 0.1,
+                    }}>
 
                 </View>
             </View>,
@@ -37,9 +47,9 @@ const BottomTabView = () => {
                 style={{
                     width: "100%",
                     height: "100%",
-                    backgroundColor:'#111827',
+                    backgroundColor: '#111827',
                 }}>
-                    <Text style={{color:'grey', fontSize:30}}>Stats</Text>
+                <Text style={{ color: 'grey', fontSize: 30 }}>Stats</Text>
                 <View
                     style={{
                         width: "100%",
@@ -56,17 +66,31 @@ const BottomTabView = () => {
             </ScrollView>
         )
     }
-    const Information = () => {
+    const Chat = () => {
         return (
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 style={{
                     width: "100%",
                     height: "100%",
-                    backgroundColor:'#111827',
+                    backgroundColor: '#111827',
                 }}>
-                <Text style={{color:'grey', fontSize:30}}>Chat</Text>
-                
+                <Text style={{ color: 'grey', fontSize: 30 }}>Chat</Text>
+
+            </ScrollView>
+        )
+    }
+    const TopGames = () => {
+        return (
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+                style={{
+                    width: "100%",
+                    height: "100%",
+                    backgroundColor: '#111827',
+                }}>
+                <Text style={{ color: 'grey', fontSize: 30 }}>TopGames</Text>
+
             </ScrollView>
         )
     }
@@ -81,10 +105,13 @@ const BottomTabView = () => {
                 tabBarIcon: ({ focused, colour }) => {
                     let iconName;
                     if (route.name === "Stats") {
-                        iconName = focused ? "stats-chart-outline" : "stats-chart-outline";
+                        iconName = focused ? "stats-chart-sharp" : "stats-chart-outline";
                         colour = focused ? "black" : "gray";
-                    } else if (route.name === "Information") {
-                        iconName = focused ? "chatbubbles-outline" : "chatbubbles-outline";
+                    } else if (route.name === "Chat") {
+                        iconName = focused ? "chatbubbles-sharp" : "chatbubbles-outline";
+                        colour = focused ? "black" : "gray";
+                    } else if (route.name === "TopGames") {
+                        iconName = focused ? "trophy-sharp" : "trophy-outline";
                         colour = focused ? "black" : "gray";
                     }
                     return <Ionic name={iconName} color={colour} size={22} />
@@ -92,7 +119,8 @@ const BottomTabView = () => {
             })}>
 
             <Tab.Screen name="Stats" component={Stats} />
-            <Tab.Screen name="Information" component={Information} />
+            <Tab.Screen name="Chat" component={Chat} />
+            <Tab.Screen name="TopGames" component={TopGames} />
 
         </Tab.Navigator>
     );

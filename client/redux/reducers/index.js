@@ -10,6 +10,7 @@ const initialState = {
   userdetail: {},
   rank: [],
   rank_filter: [],
+  friends: [],
 };
 
 export const rootReducer = (state = initialState, action) => {
@@ -40,7 +41,7 @@ export const rootReducer = (state = initialState, action) => {
         login: action.payload,
       };
     case type.SET_LOGIN:
-      action.payload={Request:action.payload}
+      action.payload = { Request: action.payload }
       return {
         ...state,
         login: action.payload,
@@ -76,11 +77,11 @@ export const rootReducer = (state = initialState, action) => {
       const sortedpoints =
         action.payload === "asc"
           ? state.users.sort(function (a, b) {
-              return parseInt(a.points) - parseInt(b.points);
-            })
+            return parseInt(a.points) - parseInt(b.points);
+          })
           : state.users.sort(function (a, b) {
-              return parseInt(b.points) - parseInt(a.points);
-            });
+            return parseInt(b.points) - parseInt(a.points);
+          });
       return {
         ...state,
         users: sortedpoints,
@@ -121,6 +122,16 @@ export const rootReducer = (state = initialState, action) => {
         userdetail: {},
         rank: [],
         rank_filter: [],
+      };
+    case type.GET_FRIENDS:
+      return {
+        ...state,
+        friends: action.payload,
+      };
+    case type.PUT_FRIEND:
+      return {
+        ...state,
+        friends: action.payload,
       };
     default: {
       return state;

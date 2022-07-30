@@ -1,8 +1,9 @@
 import { useStripe } from '@stripe/stripe-react-native';
 import React, { useState } from "react";
-import { PutUser } from "../redux/actions/index";
+import { PostPayment } from "../redux/actions/index";
 import { useDispatch } from "react-redux";
 import { View, TextInput, Button, Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const Payment = (
     {
@@ -15,20 +16,13 @@ const Payment = (
     }
 
 ) => {
-   
+    const UserId = id;
+
     const [premiumLevel, setPremiumLevel] = useState('');
     const stripe = useStripe();
     const dispatch = useDispatch();
-    const clientData = {
-        id: id,
-        username: userName,
-        name: name,
-        country: country,
-        email: email,
-        premium: true,
-        password: password,
-    }
-  
+    const navigation = useNavigation();
+
     const subscribe = async () => {
         try {
             //sending request
@@ -41,11 +35,10 @@ const Payment = (
                     }
                 });
             //-------------------------------------------------------------------------->CONSOLEO stripe
-            console.log('esto es stripe-->', stripe)
 
             const data = await response.json();
             //-------------------------------------------------------------------------->CONSOLEO DATA 
-           
+
             if (!response.ok) { return Alert.alert(data.message) };
             const clientSecret = data.clientSecret;
             //-------------------------------------------------------------------------->initSheet 
@@ -53,21 +46,22 @@ const Payment = (
                 paymentIntentClientSecret: clientSecret,
                 merchantDisplayName: 'Premium Service',
             });
-            
-          
+
+
             if (initSheet.error) { return Alert.alert(initSheet.error.message) };
             const presentSheet = await stripe.presentPaymentSheet({
                 clientSecret
             });
-            
+
             //-------------------------------------------------------------------------->presentSheet Me indica si el pago fue concretado o no
-            
+
             if (presentSheet.error) { return Alert.alert(presentSheet.error.message) };
-            Alert.alert("Payment complete!");            
-            //dispatch(PutUser(clientData))
+            Alert.alert("Payment complete!");
+            dispatch(PostPayment({UserId}))
+            navigation.navigate("Home");
 
             //ID Y BOOLEANO TRUE FALSE SI SE CONFIRMO EL PAGO
-           
+
             // y tengo que mandar data extra del cliente
 
         } catch (error) {
