@@ -60,11 +60,8 @@ const Landing = ({ navigation }) => {
     
     useEffect(() => {
         dispatch(getAllCountries());
-    }, [dispatch]);
-
-    useEffect(() => {
         dispatch(getUser());
-    }, []);
+    }, [dispatch]);
 
     useEffect(() => {
         if(allUser.Request){
