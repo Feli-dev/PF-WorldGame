@@ -12,7 +12,7 @@ export function getGame(id) {
   return async function (dispatch) {
     try {
       var json = await axios.get(
-        "http://192.168.0.179:3001/games",
+        "https://world-game-v6.herokuapp.com/games",
         id
       );
       return dispatch({
@@ -29,7 +29,7 @@ export function PostGame(payload) {
   return async function (dispatch) {
     try {
       const response = axios.post(
-        "http://192.168.0.179:3001/games",
+        "https://world-game-v6.herokuapp.com/games",
         payload
       );
       return response;
@@ -51,7 +51,7 @@ export function postLogin(payload) {
   return async function (dispatch) {
     try {
       var json = await axios.post(
-        "http://192.168.0.179:3001/Login",
+        "https://world-game-v6.herokuapp.com/Login",
         payload
       );
       return dispatch({
@@ -83,7 +83,7 @@ export function getRank(payload) {
   return async function (dispatch) {
     try {
       var json = await axios.get(
-        "http://192.168.0.179:3001/User/rank",
+        "https://world-game-v6.herokuapp.com/User/rank",
         { total: payload }
       );
       return dispatch({
@@ -99,25 +99,23 @@ export function getRank(payload) {
 export function getUser(id) {
   return async function (dispatch) {
     try {
-      console.log("entre");
       if (id) {
         var json = await axios.get(
-          "http://192.168.0.179:3001/User/" + id
-        );
-        return dispatch({
-          type: type.GET_USER,
-          payload: json.data,
-        });
-      } else {
-        var json = await axios.get("https://world-game-v6.herokuapp.com/User/");
-        console.log(json.data)
-        var json = await axios.get("http://192.168.0.179:3001/User");
-        return dispatch({
-          type: type.GET_ALL_USER,
-          payload: json.data,
-        });
-      }
-    } catch (e) {
+          "https://world-game-v6.herokuapp.com/User/" + id
+          );
+          return dispatch({
+            type: type.GET_USER,
+            payload: json.data,
+          });
+        } else {
+          var json = await axios.get("https://world-game-v6.herokuapp.com/User/");
+          var json = await axios.get("https://world-game-v6.herokuapp.com/User");
+          return dispatch({
+            type: type.GET_ALL_USER,
+            payload: json.data,
+          });
+        }
+      } catch (e) {
       return e.message;
     }
   };
@@ -140,7 +138,7 @@ export function PostUser(payload) {
   return async function (dispatch) {
     try {
       var json = await axios.post(
-        "http://192.168.0.179:3001/User",
+        "https://world-game-v6.herokuapp.com/User",
         payload
       );
       //para que los métodos de axios funcionen bien en el emulador expo
@@ -163,7 +161,7 @@ export function PutUser(payload) {
   return async function (dispatch) {
     try {
       var json = await axios.put(
-        "http://192.168.0.179:3001/User",
+        "https://world-game-v6.herokuapp.com/User",
         payload
       );
       return dispatch({
@@ -180,7 +178,7 @@ export function deleteUser(payload) {
   return async function (dispatch) {
     try {
       const response = axios.delete(
-        `http://192.168.0.179:3001/User/delete/recycle/${payload}`
+        `https://world-game-v6.herokuapp.com/User/delete/recycle/${payload}`
       );
       return response;
     } catch (e) {
@@ -192,7 +190,7 @@ export function restoreUser(payload) {
   return async function (dispatch) {
     try {
       const response = axios.delete(
-        `http://192.168.0.179:3001/User/delete/restore/${payload}`
+        `https://world-game-v6.herokuapp.com/User/delete/restore/${payload}`
       );
       return response;
     } catch (e) {
@@ -220,7 +218,7 @@ export function PostFriend(payload) {
   return async function (dispatch) {
     try {
       const response = axios.post(
-        "http://192.168.0.179:3001/friend",
+        "https://world-game-v6.herokuapp.com/friend",
         payload
       );
       return response;
@@ -234,7 +232,7 @@ export function GetFriends() {
   return async function (dispatch) {
     try {
       var json = await axios.get(
-        "http://192.168.0.179:3001/friend"
+        "https://world-game-v6.herokuapp.com/friend"
       );
       return dispatch({
         type: type.GET_FRIENDS,
@@ -250,7 +248,7 @@ export function PutFriend(payload) {
   return async function (dispatch) {
     try {
       var json = await axios.put(
-        "http://192.168.0.179:3001/friend",
+        "https://world-game-v6.herokuapp.com/friend",
         payload
       );
       return dispatch({
@@ -267,7 +265,7 @@ export function getCountrie(name) {
   return async function (dispatch) {
     try {
       var json = await axios.get(
-        "http://192.168.0.179:3001/countries",
+        "https://world-game-v6.herokuapp.com/countries",
         name
       );
       return dispatch({
@@ -291,7 +289,7 @@ export function getAllCountries(form = false) {
   return async function (dispatch) {
     try {
       var { data } = await axios.get(
-        "http://192.168.0.179:3001/countries"
+        "https://world-game-v6.herokuapp.com/countries"
       );
       if (!form) {
         return dispatch({
@@ -341,7 +339,7 @@ export function PostPayment(payload) {
   return async function (dispatch) {
     try {
       const response = await axios.post(
-        "http://192.168.0.179:3001/pays",
+        "https://world-game-v6.herokuapp.com/pays",
         payload
       );
       return response;

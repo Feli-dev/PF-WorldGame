@@ -1,6 +1,6 @@
 import { View, Image, ActivityIndicator, Alert } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import img from "../assets/Worldgame.png"
 import { getUser, setLogin, getAllCountries } from '../redux/actions'
@@ -8,6 +8,7 @@ import tw from "twrnc";
 
 const Landing = ({ navigation }) => {
     const allUser = useSelector((state) => state.users)
+    const [al, setAl] = useState(true);
     const dispatch = useDispatch()
 
     const createAlert = () =>
@@ -29,10 +30,14 @@ const Landing = ({ navigation }) => {
             if (value !== null) {
                 value = JSON.parse(value);
                 const User = (allUser.Request.find((e) => (e.username.toLowerCase() === value.username.toLowerCase())))
+                console.log(User, value)
                 if (User) {
                     if(User.state === false){
                         dispatch(setLogin(User));
-                        createAlert();
+                        if(al === true){
+                            createAlert();
+                            setAl(false);
+                        } 
                     } else {
                         dispatch(setLogin(User));
                         setTimeout(()=>{
@@ -63,11 +68,11 @@ const Landing = ({ navigation }) => {
         dispatch(getUser());
     }, [dispatch]);
 
+
     useEffect(() => {
         if(allUser.Request){
             getLogin();
         }
-        console.log(allUser);
     }, [allUser]);
 
     return (

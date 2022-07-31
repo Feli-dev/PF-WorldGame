@@ -59,7 +59,7 @@ function Login({ navigation, user, postLogin }) {
         setBanned(true);
       } else if((User && User.state === true) || siLogin === true) {
         postLogin(_input);
-        setLogin(_input);
+        dispatch(setLogin(User));
         setLogin_(_input);
       }
     }
@@ -67,8 +67,7 @@ function Login({ navigation, user, postLogin }) {
   };
 
   function handleInputChange(type, text) {
-    console.log(login)
-    console.log(allUser)
+    console.log(login);
     setInput({
       ...input,
       [type]: text,
@@ -112,6 +111,7 @@ function Login({ navigation, user, postLogin }) {
           <Text style={tw`text-white text-lg text-left mb-2`}>User</Text>
           <TextInput
             placeholder="User..."
+            key={"user"}
             value={input.username}
             onChangeText={(e) => handleInputChange("username", e)}
             placeholderTextColor="#6f6f6f"
@@ -126,6 +126,7 @@ function Login({ navigation, user, postLogin }) {
           <TextInput
             secureTextEntry={true}
             placeholder="Password..."
+            key={"password"}
             value={input.password}
             onChangeText={(e) => handleInputChange("password", e)}
             placeholderTextColor="#6f6f6f"

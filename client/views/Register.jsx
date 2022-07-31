@@ -13,7 +13,7 @@ import { useDispatch } from "react-redux";
 import Svg, { Path } from "react-native-svg";
 import DropDownPicker from "react-native-dropdown-picker";
 import validateInput from "../utils/ValidateInput";
-import { PostUser, getUser, setLogin } from "../redux/actions";
+import { PostUser, getUser } from "../redux/actions";
 
 export default function Register({ navigation }) {
   const dispatch = useDispatch();
