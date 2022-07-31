@@ -3,6 +3,7 @@ const { bitHash } = require('../db');
 const user = require('../controllers/Users/Users');
 const e = require('../Tools/Email');
 const { session } = require('../controllers/Users/Validate')
+const f = require('../controllers/Friends/Friends');
 
 const router = Router();
 const path = "api/src/routes/user.js";
@@ -81,10 +82,11 @@ router.put('/', async(req, res) =>{
             return await user.update(parseInt(req.body.id), data)
             .then(result => {
                 if(result.hasOwnProperty("Error")) return res.status(404).json(result);
-                return e.send(req.body.email, req.body.username, 1)
+                return Promise.all([e.send(req.body.email, req.body.username, 1), f.notify(parseInt(req.body.id))])
                 .then(r => {
+                    result.friend = r[1];
                     if(req.body.premium) e.send(req.body.email, req.body.username, 4, "");
-                    if(!r) result.Send = "No se envio el correo";
+                    if(!r[0]) result.Send = "No se envio el correo";
                     result.Send = "Se envio el correo";
                     obj = null;
                     return res.status(200).json(result);

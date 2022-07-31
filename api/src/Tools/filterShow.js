@@ -12,7 +12,7 @@ module.exports = {
             points: user.points,
             premium: user.premium,
             state: user.state,
-            online: user.connect,
+            connect: user.connect,
             authorization: user.authorization,
             avatar: user.avatar,
             friends: user.Friends,

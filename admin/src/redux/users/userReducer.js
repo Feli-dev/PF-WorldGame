@@ -12,12 +12,12 @@ let initialState = {
 function userReducer(state = initialState, action) {
   switch (action.type) {
     case GET_ALL_USERS:
-      
-      
+      let lastFive = action.payload.Request.length>5? action.payload.Request.slice(action.payload.Request.length-5):action.payload.Request
+      // console.log('last', lastFive)
       return {
         ...state,
         users: action.payload.Request,
-        last: action.payload.Request.length>5? action.payload.Request.slice(action.payload.Request.length-5):action.payload.Request,
+        last: lastFive.reverse(),
         filterUsers: action.payload.Request
         
       };
@@ -50,10 +50,10 @@ function userReducer(state = initialState, action) {
       let orderPoints = action.payload === 'asc' ? 
            
       state.filterUsers.sort(function (a, b){  
-       return b.points - a.points;
+       return b.stats.averageScore - a.stats.averageScore;
       }) :
       state.filterUsers.sort(function(a, b){
-        return a.points - b.points;
+        return a.stats.averageScore - b.stats.averageScore;
       })
       return {
         ...state,

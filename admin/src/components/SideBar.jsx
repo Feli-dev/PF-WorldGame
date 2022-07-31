@@ -21,7 +21,7 @@ const SideBar = () => {
         <ul>
           <li>
             <Link
-              to="dashboard"
+              to="/dashboard"
               className="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200"
             >
               <GridViewIcon className="mr-4 opacity-50" />
@@ -31,7 +31,7 @@ const SideBar = () => {
 
           <li>
             <Link
-              to="users"
+              to="/users"
               className="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200"
             >
               <PersonIcon className="mr-4 opacity-50" />
@@ -41,7 +41,7 @@ const SideBar = () => {
 
           <li>
             <Link
-              to="games"
+              to="/games"
               className="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200"
             >
               <SportsEsportsIcon className="mr-4 opacity-50" />
@@ -51,7 +51,7 @@ const SideBar = () => {
 
           <li>
             <Link
-              to="users"
+              to="/pays"
               className="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200"
             >
               <PaidIcon className="mr-4 opacity-50" />
