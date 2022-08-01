@@ -13,7 +13,7 @@ import { useDispatch } from "react-redux";
 import Svg, { Path } from "react-native-svg";
 import DropDownPicker from "react-native-dropdown-picker";
 import validateInput from "../utils/ValidateInput";
-import { PostUser } from "../redux/actions";
+import { PostUser, getUser } from "../redux/actions";
 
 export default function Register({ navigation }) {
   const dispatch = useDispatch();
@@ -494,12 +494,7 @@ export default function Register({ navigation }) {
           country: input.country,
         })
       );
-      setLogin({
-        email: input.email,
-        username: input.username,
-        password: input.password,
-        country: input.country,
-      })
+      dispatch(getUser());
       navigation.navigate("Login");
     }
   }
