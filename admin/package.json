@@ -7,6 +7,7 @@
     "@emotion/styled": "^11.9.3",
     "@material-ui/utils": "^4.11.3",
     "@mui/icons-material": "^5.8.4",
+    "@mui/material": "^5.9.2",
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^13.1.1",

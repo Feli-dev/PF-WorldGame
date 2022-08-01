@@ -496,7 +496,7 @@ export default function Ranking() {
                 Country
               </Text>
               <DropDownPicker
-                style={tw`border-solid border-0 w-7/7 h-8 m-0 flex justify-center items-center bg-gray-800 rounded-md z-0`}
+                style={tw`border-solid border-0 w-7/7 h-8 m-0 flex justify-center items-center bg-gray-800 rounded-lg z-0`}
                 textStyle={tw`text-gray-600`}
                 open={open}
                 value={value}
@@ -521,7 +521,7 @@ export default function Ranking() {
                 Top
               </Text>
               <DropDownPicker
-                style={tw`border-solid border-0 w-7/7 h-8 m-0 flex justify-center items-center bg-gray-800 rounded-md z-0`}
+                style={tw`border-solid border-0 w-7/7 h-8 m-0 flex justify-center items-center bg-gray-800 rounded-lg z-0`}
                 textStyle={tw`text-gray-600`}
                 open={open2}
                 value={value2}
@@ -548,7 +548,7 @@ export default function Ranking() {
                   key={
                     ranked?.findIndex((e) => e.username === player.username) + 1
                   }
-                  style={tw`flex flex-row justify-center items-center bg-gray-700 mt-5 rounded-md p-3`}
+                  style={tw`flex flex-row justify-center items-center bg-gray-700 mt-5 rounded-lg p-3`}
                 >
                   <View style={tw`w-1/6`}>
                     <Text style={tw`mr-5 text-white text-center font-bold`}>
@@ -568,7 +568,7 @@ export default function Ranking() {
                   <View
                     style={tw`flex justify-center items-center text-center w-20 h-10`}
                   >
-                    <Image style={tw`h-7 w-9.33`}
+                    <Image style={tw`h-7 w-9.33 rounded-sm`}
                       source={{
                         uri:`${
                           allCountries.find((e) =>e.name.toLowerCase() === player.country.toLowerCase()).flagSvg.replace("svg", "png").replace("//","").replace("/","/w2560/").replace("https:","https://")

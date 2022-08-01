@@ -4,6 +4,7 @@ import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Ionic from 'react-native-vector-icons/Ionicons';
 import * as Animatable from 'react-native-animatable';
+import tw from "twrnc"
 
 export const ProfileBody = ({
     name,
@@ -17,21 +18,15 @@ export const ProfileBody = ({
     email,
     password,
     premium,
+    countries,
 
 }) => {
     const navigation = useNavigation();
     return (
         <View>
             {userName ? (
-                <View style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between'
-                }}>
-                    <View style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                    }}>
+                <View style={tw`flex flex-row items-center justify-between`}>
+                    <View style={tw`flex flex-row items-center`}>
                         <Text style={{
                             fontSize: 18,
                             fontWeight: 'bold',
@@ -54,12 +49,10 @@ export const ProfileBody = ({
                                     fontSize: 25,
                                     color: 'yellow',
                                     paddingHorizontal: 15,
-                                    marginTop: 10,
-                                    marginRight: 20,
                                 }}
                             />
                             : <Animatable.View
-                                animation="swing" iterationCount='infinite'  delay={1000}
+                                animation="swing" iterationCount='infinite' delay={2000}
                             >
                                 <Ionic
                                     onPress={() => navigation.navigate('Payment', {
@@ -156,12 +149,14 @@ export const ProfileButtons = ({
     premium,
     country,
     email,
-    password }) => {
+    password,
+    countries,
+}) => {
     const navigation = useNavigation();
     const [follow, setFollow] = useState(follow);
     return (
         <View>
-            {id === 2 ? (
+            {true ? (//ACA TENGO QUE COMPARAR EL ID DEL LOCALSTORAGE O LOGIN Y EL DEL USUARIO SELECCIONADO! (SPRINT 3)
                 <View
                     style={{
                         width: '100%',
@@ -181,28 +176,13 @@ export const ProfileButtons = ({
                                 email: email,
                                 password: password,
                                 userName: userName,
+                                countries: countries,
                             })}
-                        style={{
-                            width: '100%',
-                        }}>
+                        style={tw`w-9/10`}>
                         <View
-                            style={{
-                                width: '100%',
-                                height: 35,
-                                borderRadius: 5,
-                                borderColor: '#DEDEDE',
-                                borderWidth: 1,
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                            }}>
+                            style={tw`h-8 rounded-lg items-center justify-center border-white border-2`}>
                             <Text
-                                style={{
-                                    fontWeight: 'bold',
-                                    fontSize: 14,
-                                    letterSpacing: 1,
-                                    opacity: 0.8,
-                                    color: 'white',
-                                }}>
+                                style={tw`text-base text-white font-bold`}>
                                 Edit Profile
                             </Text>
                         </View>

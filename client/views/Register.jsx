@@ -518,13 +518,13 @@ export default function Register({ navigation }) {
       >
         <View style={tw`flex`}>
           <View style={tw`flex flex-col`}>
-            <Text style={tw`text-white text-lg text-left mb-1`}>Mail</Text>
+            <Text style={tw`text-white text-lg text-left mb-0.5`}>Mail</Text>
             <TextInput
               type="email"
               onChangeText={(e) => handleInputChange("email", e)}
               placeholder="Email..."
               placeholderTextColor="#6f6f6f"
-              style={tw`pl-3 mb-1 w-70 h-10 rounded-md bg-gray-800 text-white`}
+              style={tw`pl-3 mb-1 w-70 h-10 rounded-lg bg-gray-800 text-white`}
             ></TextInput>
             <Text style={tw`text-red-500 text-xs text-left mb-1`}>
               {err.email}
@@ -532,13 +532,13 @@ export default function Register({ navigation }) {
           </View>
 
           <View style={tw`flex flex-col`}>
-            <Text style={tw`text-white text-lg text-left mb-1`}>Username</Text>
+            <Text style={tw`text-white text-lg text-left mb-0.5`}>Username</Text>
             <TextInput
               type="username"
               onChangeText={(e) => handleInputChange("username", e)}
               placeholder="Username..."
               placeholderTextColor="#6f6f6f"
-              style={tw`pl-3 mb-1 w-70 h-10 rounded-md bg-gray-800 text-white`}
+              style={tw`pl-3 mb-1 w-70 h-10 rounded-lg bg-gray-800 text-white`}
             ></TextInput>
             <Text style={tw`text-red-500 text-xs text-left mb-1`}>
               {err.username}
@@ -546,14 +546,14 @@ export default function Register({ navigation }) {
           </View>
 
           <View style={tw`flex flex-col`}>
-            <Text style={tw`text-white text-lg text-left mb-1`}>Password</Text>
+            <Text style={tw`text-white text-lg text-left mb-0.5`}>Password</Text>
             <TextInput
               type="password"
               secureTextEntry={true}
               onChangeText={(e) => handleInputChange("password", e)}
               placeholder="Password..."
               placeholderTextColor="#6f6f6f"
-              style={tw`pl-3 mb-1 w-70 h-10 rounded-md bg-gray-800 text-white`}
+              style={tw`pl-3 mb-1 w-70 h-10 rounded-lg bg-gray-800 text-white`}
             ></TextInput>
             <Text style={tw`text-red-500 text-xs text-left mb-1`}>
               {err.password}
@@ -561,7 +561,7 @@ export default function Register({ navigation }) {
           </View>
 
           <View style={tw`flex flex-col`}>
-            <Text style={tw`text-white text-lg text-left mb-1`}>
+            <Text style={tw`text-white text-lg text-left mb-0.5`}>
               Repeat password
             </Text>
             <TextInput
@@ -570,7 +570,7 @@ export default function Register({ navigation }) {
               onChangeText={(e) => handleInputChange("repeatPassword", e)}
               placeholder="Repeat password..."
               placeholderTextColor="#6f6f6f"
-              style={tw`pl-3 mb-1 w-70 h-10 rounded-md bg-gray-800 text-white`}
+              style={tw`pl-3 mb-1 w-70 h-10 rounded-lg bg-gray-800 text-white`}
             ></TextInput>
             <Text style={tw`text-red-500 text-xs text-left mb-1`}>
               {err.repeatPassword}
@@ -578,9 +578,9 @@ export default function Register({ navigation }) {
           </View>
 
           <View style={tw`flex flex-col`}>
-            <Text style={tw`text-white text-lg text-left mb-1`}>Country</Text>
-            <DropDownPicker
-              style={tw`border-solid border-0 w-3/5 h-8 m-0 flex justify-center items-center bg-gray-800 rounded-md z-0`}
+            <Text style={tw`text-white text-lg text-left mb-0.5`}>Country</Text>
+            <DropDownPicker onPress={Keyboard.dismiss} accessible={false}
+              style={tw`border-solid border-0 w-3/5 h-8 m-0 flex justify-center items-center bg-gray-800 rounded-lg z-0`}
               textStyle={tw`text-gray-600`}
               open={open}
               value={value}
@@ -603,20 +603,20 @@ export default function Register({ navigation }) {
           <TouchableOpacity
             disabled
             onPress={(e) => handleSubmit(e)}
-            style={tw`bg-gray-600 px-8 py-2 rounded-md mt-5 w-50`}
+            style={tw`bg-gray-600 px-8 py-2 rounded-lg mt-5 w-50`}
           >
             <Text style={tw`text-gray-500 text-center font-bold`}>REGISTER</Text>
           </TouchableOpacity>
         ) : (
           <TouchableOpacity
             onPress={(e) => handleSubmit(e)}
-            style={tw`bg-gray-800 px-8 py-2 rounded-md mt-5 w-50`}
+            style={tw`bg-gray-800 px-8 py-2 rounded-lg mt-5 w-50`}
           >
             <Text style={tw`text-white text-center font-bold`}>REGISTER</Text>
           </TouchableOpacity>
         )}
 
-        <View style={tw`flex flex-row mt-8  justify-center items-center`}>
+        <View style={tw`flex flex-row mt-5 justify-center items-center`}>
           <View
             style={tw`w-30 mr-5 border-b border-solid border-gray-400`}
           ></View>
@@ -627,9 +627,9 @@ export default function Register({ navigation }) {
           ></View>
         </View>
 
-        <View style={tw`flex flex-row justify-center items-center mt-8`}>
+        <View style={tw`flex flex-row justify-center items-center mt-5`}>
           <TouchableOpacity
-            style={tw`flex justify-center items-center bg-[#4267B2] px-8 py-2 rounded-md mr-5 w-15 h-15`}
+            style={tw`flex justify-center items-center bg-[#4267B2] px-8 py-2 rounded-lg mr-5 w-15 h-15`}
           >
             <View style={tw`w-8 h-8`}>
               <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -641,7 +641,7 @@ export default function Register({ navigation }) {
             </View>
           </TouchableOpacity>
           <TouchableOpacity
-            style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-md w-15 h-15`}
+            style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-lg w-15 h-15`}
           >
             <View style={tw`w-8 h-8`}>
               <Svg
@@ -674,7 +674,7 @@ export default function Register({ navigation }) {
           </TouchableOpacity>
         </View>
 
-        <View style={tw`mt-10`}>
+        <View style={tw`mt-5`}>
           <Text style={tw`text-white text-center font-bold`}>
             If you have an account,
             <Text

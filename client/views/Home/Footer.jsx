@@ -58,7 +58,7 @@ export default function Footer() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(countryOfDay);
+    console.log('countryOfDay---->',countryOfDay);
     if (
       countries.some((el) => {
         if (el.name.toLowerCase() === input.trim().toLowerCase()) {
@@ -102,7 +102,7 @@ export default function Footer() {
       ></View>
       <View style={tw`flex flex-row justify-center items-center`}>
         <TouchableOpacity
-          style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-md mr-5 w-10 h-15`}
+          style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-lg mr-5 w-10 h-15`}
         >
           <View style={tw`w-10 h-10`}>
             <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -116,12 +116,12 @@ export default function Footer() {
         <TextInput
           placeholder="Enter a country..."
           placeholderTextColor="#6f6f6f"
-          style={tw`pl-3 mr-5 w-45 h-15 rounded-md bg-gray-800 text-white text-lg `}
+          style={tw`pl-3 mr-5 w-45 h-15 rounded-lg bg-gray-800 text-white text-lg`}
           onChangeText={(text) => setInput(text)}
           value={input}
         ></TextInput>
         <TouchableOpacity
-          style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-md w-10 h-15`}
+          style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-lg w-10 h-15`}
           onPress={!win ? (e) => handleSubmit(e) : () => {setWin(false); dispatch(newGame());}}
         >
           {win && listOfAttemps.length > 0 ? 

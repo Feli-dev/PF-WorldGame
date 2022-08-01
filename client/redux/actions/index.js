@@ -102,20 +102,19 @@ export function getUser(id) {
       if (id) {
         var json = await axios.get(
           "https://world-game-v6.herokuapp.com/User/" + id
-          );
-          return dispatch({
-            type: type.GET_USER,
-            payload: json.data,
-          });
-        } else {
-          var json = await axios.get("https://world-game-v6.herokuapp.com/User/");
-          var json = await axios.get("https://world-game-v6.herokuapp.com/User");
-          return dispatch({
-            type: type.GET_ALL_USER,
-            payload: json.data,
-          });
-        }
-      } catch (e) {
+        );
+        return dispatch({
+          type: type.GET_USER,
+          payload: json.data,
+        });
+      } else {
+        var json = await axios.get("https://world-game-v6.herokuapp.com/User");
+        return dispatch({
+          type: type.GET_ALL_USER,
+          payload: json.data,
+        });
+      }
+    } catch (e) {
       return e.message;
     }
   };
@@ -125,9 +124,8 @@ export function getUser(id) {
 //     return async function(dispatch){
 //         try{
 //             console.log("payload", payload)
-//             return await axios.post("http://192.168.0.179:3001/User", payload)
+//             return await axios.post("https://world-game-v6.herokuapp.com/User", payload)
 //             .catch(error =>  console.log(error))
-
 //         }catch(e){
 //             console.log("error en acción:", e)
 //             return e.message
@@ -143,8 +141,8 @@ export function PostUser(payload) {
       );
       //para que los métodos de axios funcionen bien en el emulador expo
       //teniendo el back corriendo en tu pc, es necesario que reemplaces lolcalhost
-      //en la url del método, con tu ipv4. Esta se encuentra yendo a configuración, red e internet,
-      //propiedades, y yendo hacia abajo aparece "ipv4".
+      //en la url del método, con tu ipv6. Esta se encuentra yendo a configuración, red e internet,
+      //propiedades, y yendo hacia abajo aparece "ipv6".
       return dispatch({
         type: type.POST_USER,
         payload: payload,
@@ -333,6 +331,26 @@ export function gameAction(country, attempt) {
     }
   };
 }
+
+//------------------------Reviews------------------//
+export function PostReview(payload) {
+  return async function (dispatch) {
+    try {
+      var json = await axios.post(
+        "https://world-game-v6.herokuapp.com/review",
+        payload
+      );
+      return dispatch({
+        type: type.POST_REVIEW,
+        payload: json.data,
+      });
+    } catch (e) {
+      console.log("Error en acción:", e);
+      return e.message;
+    }
+  };
+}
+
 //------------------------pay.action------------------//
 export function PostPayment(payload) {
   console.log('payloadPostPays',payload)

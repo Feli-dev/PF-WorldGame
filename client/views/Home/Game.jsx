@@ -25,7 +25,7 @@ export default function Game() {
           scrollViewRef.current.scrollToEnd({ animated: true })
         }
       >
-        <View style={tw`flex items-center justify-center rounded-md`}>
+        <View style={tw`flex items-center justify-center rounded-lg`}>
           <Modal
             animationType="none"
             transparent={true}
@@ -35,7 +35,7 @@ export default function Game() {
             }}
           >
             <View style={tw`flex items-center justify-center mt-35`}>
-              <View style={tw`flex items-center justify-center bg-gray-300 rounded-md w-80 h-90`}>
+              <View style={tw`flex items-center justify-center bg-gray-300 rounded-lg w-80 h-90`}>
                 <Text style={tw`text-base font-bold text-center mt-2 mb--2`}>{dataModal[0]?.name}</Text>
                 <View style={tw`h-4/10 w-8/10 flex flex-row items-center justify-evenly`}>
                   <View
@@ -129,7 +129,7 @@ export default function Game() {
                     style={tw`w-70 mb-2 mt-1 border-b border-solid border-gray-400`}
                   ></View>
                   <Pressable
-                    style={tw`w-35 pt-1 bg-none rounded-lg`}
+                    style={tw`w-35 pt-1 rounded-lg`}
                     onPress={() => setModalVisible(!modalVisible)}
                   >
                     <Text style={tw`text-center font-bold`}> Close </Text>
@@ -151,7 +151,7 @@ export default function Game() {
                   <View
                     style={tw`flex justify-center items-center ${
                       el.hemisphere.asserted ? "bg-green-600" : "bg-red-600"
-                    } h-10 w-10 rounded-md mr-5`}
+                    } h-10 w-10 rounded-lg mr-5`}
                   >
                     <View style={tw`h-7 w-7`}>
                       <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -165,7 +165,7 @@ export default function Game() {
                   <View
                     style={tw`flex justify-center items-center ${
                       el.continent.asserted ? "bg-green-600" : "bg-red-600"
-                    } h-10 w-10 rounded-md mr-5`}
+                    } h-10 w-10 rounded-lg mr-5`}
                   >
                     <View style={tw`h-7 w-7`}>
                       <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -183,7 +183,7 @@ export default function Game() {
                         : el.area.arrowdirection == "down"
                         ? "bg-red-600"
                         : "bg-green-600"
-                    } h-10 w-10 rounded-md mr-5`}
+                    } h-10 w-10 rounded-lg mr-5`}
                   >
                     <View style={tw`h-7 w-7`}>
                       <Svg
@@ -210,7 +210,7 @@ export default function Game() {
                         : el.population.arrowDirection == "down"
                         ? "bg-red-600"
                         : "bg-green-600"
-                    } h-10 w-10 rounded-md mr-5`}
+                    } h-10 w-10 rounded-lg mr-5`}
                   >
                     <View style={tw`h-7 w-7`}>
                       <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
@@ -226,7 +226,7 @@ export default function Game() {
                       el.coordinates.direction.length > 0
                         ? "bg-red-600"
                         : "bg-green-600"
-                    } h-10 w-10 rounded-md`}
+                    } h-10 w-10 rounded-lg`}
                   >
                     <View style={tw`h-7 w-7`}>
                       <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">

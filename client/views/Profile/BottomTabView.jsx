@@ -3,7 +3,7 @@ import { View, Text, ScrollView } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 // import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import Ionic from 'react-native-vector-icons/Ionicons'
-
+import tw from "twrnc";
 
 
 const BottomTabView = ({
@@ -27,14 +27,7 @@ const BottomTabView = ({
         squares.push(
             <View key={i}>
                 <View
-                    style={{
-                        width: '99%',
-                        height: 150,
-                        marginVertical: 0.5,
-                        backgroundColor: "#9CA3AF",
-                        opacity: 0.1,
-                    }}>
-
+                    style={tw``}>
                 </View>
             </View>,
         );
@@ -44,23 +37,10 @@ const BottomTabView = ({
         return (
             <ScrollView
                 showsVerticalScrollIndicator={false}
-                style={{
-                    width: "100%",
-                    height: "100%",
-                    backgroundColor: '#111827',
-                }}>
-                <Text style={{ color: 'grey', fontSize: 30 }}>Stats</Text>
+                style={tw`bg-gray-900`}>
+                <Text style={tw`text-gray-400 text-left text-2xl pl-3 pt-3`}>Stats</Text>
                 <View
-                    style={{
-                        width: "100%",
-                        height: "100%",
-                        backgroundColor: "grey",
-                        flexWrap: 'wrap',
-                        flexDirection: 'row',
-                        paddingVertical: 5,
-                        justifyContent: 'space-between',
-
-                    }}>
+                    style={tw`w-9/10 h-10/10 bg-gray-900 flex-row flex pt-3 pb-3 justify-between`}>
                     {squares}
                 </View>
             </ScrollView>
@@ -70,12 +50,8 @@ const BottomTabView = ({
         return (
             <ScrollView
                 showsVerticalScrollIndicator={false}
-                style={{
-                    width: "100%",
-                    height: "100%",
-                    backgroundColor: '#111827',
-                }}>
-                <Text style={{ color: 'grey', fontSize: 30 }}>Chat</Text>
+                style={tw`bg-gray-900`}>
+                <Text style={tw`text-gray-400 text-center text-2xl pl-3 pt-3`}>Chat</Text>
 
             </ScrollView>
         )
@@ -84,43 +60,49 @@ const BottomTabView = ({
         return (
             <ScrollView
                 showsVerticalScrollIndicator={false}
-                style={{
-                    width: "100%",
-                    height: "100%",
-                    backgroundColor: '#111827',
-                }}>
-                <Text style={{ color: 'grey', fontSize: 30 }}>TopGames</Text>
+                style={tw`bg-gray-900`}>
+                <Text style={tw`text-gray-400 text-right text-2xl pl-3 pt-3`}>Top Games</Text>
 
             </ScrollView>
         )
     }
     return (
         <Tab.Navigator
-            screenOptions={({ route }) => ({
-                tabBarShowLabel: false,
-                tabBarIndicatorStyle: {
-                    backgroundColor: 'grey',
-                    height: 1.5
-                },
-                tabBarIcon: ({ focused, colour }) => {
-                    let iconName;
-                    if (route.name === "Stats") {
-                        iconName = focused ? "stats-chart-sharp" : "stats-chart-outline";
-                        colour = focused ? "black" : "gray";
-                    } else if (route.name === "Chat") {
-                        iconName = focused ? "chatbubbles-sharp" : "chatbubbles-outline";
-                        colour = focused ? "black" : "gray";
-                    } else if (route.name === "TopGames") {
-                        iconName = focused ? "trophy-sharp" : "trophy-outline";
-                        colour = focused ? "black" : "gray";
+                style={tw`rounded-lg w-9/10`}
+                screenOptions={({ route }) => ({
+                    tabBarStyle: {
+                        borderTopLeftRadius: 15,
+                        borderTopRightRadius: 15,
+                        borderBottomLeftRadius: 15,
+                        borderBottomRightRadius: 15,
+                    },
+                    tabBarShowLabel: false,
+                    tabBarIndicatorStyle: {
+                        backgroundColor: 'grey',
+                        height: 2,
+                        width: 80,
+                        marginLeft:20,
+                        marginRight:20,
+                    },
+                    tabBarIcon: ({ focused, colour }) => {
+                        let iconName;
+                        if (route.name === "Stats") {
+                            iconName = focused ? "stats-chart-sharp" : "stats-chart-outline";
+                            colour = focused ? "black" : "gray";
+                        } else if (route.name === "Chat") {
+                            iconName = focused ? "chatbubbles-sharp" : "chatbubbles-outline";
+                            colour = focused ? "black" : "gray";
+                        } else if (route.name === "TopGames") {
+                            iconName = focused ? "trophy-sharp" : "trophy-outline";
+                            colour = focused ? "black" : "gray";
+                        }
+                        return <Ionic name={iconName} color={colour} size={22} />
                     }
-                    return <Ionic name={iconName} color={colour} size={22} />
-                }
-            })}>
+                })}>
 
-            <Tab.Screen name="Stats" component={Stats} />
-            <Tab.Screen name="Chat" component={Chat} />
-            <Tab.Screen name="TopGames" component={TopGames} />
+                <Tab.Screen name="Stats" component={Stats} />
+                <Tab.Screen name="Chat" component={Chat} />
+                <Tab.Screen name="TopGames" component={TopGames} />
 
         </Tab.Navigator>
     );

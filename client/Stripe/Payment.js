@@ -2,8 +2,11 @@ import { useStripe } from '@stripe/stripe-react-native';
 import React, { useState } from "react";
 import { PostPayment } from "../redux/actions/index";
 import { useDispatch } from "react-redux";
-import { View, TextInput, Button, Alert } from 'react-native';
+import { View, TextInput, Button, Alert, Text, Image, TouchableOpacity, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import Logo from "../assets/Worldgame.png"
+import worldImg from '../assets/Worldgame.png'
+import tw from "twrnc"
 
 const Payment = (
     {
@@ -18,11 +21,25 @@ const Payment = (
 ) => {
     const UserId = id;
 
-    const [premiumLevel, setPremiumLevel] = useState('');
+    const [premiumLevelAUX, setPremiumLevelAUX] = useState({
+        userId: id,
+        name: name,
+        email: email,
+    });
     const stripe = useStripe();
     const dispatch = useDispatch();
     const navigation = useNavigation();
 
+    const handleOnChange = (type, e) => {
+        setPremiumLevelAUX({
+            ...premiumLevelAUX,
+            [type]: e,
+        });
+    };
+    const premiumLevel =
+        premiumLevelAUX.name === "" || premiumLevelAUX.email === ""
+            ? ""
+            : `userID:${id}`;
     const subscribe = async () => {
         try {
             //sending request
@@ -57,7 +74,7 @@ const Payment = (
 
             if (presentSheet.error) { return Alert.alert(presentSheet.error.message) };
             Alert.alert("Payment complete!");
-            dispatch(PostPayment({UserId}))
+            dispatch(PostPayment({ UserId }))
             navigation.navigate("Home");
 
             //ID Y BOOLEANO TRUE FALSE SI SE CONFIRMO EL PAGO
@@ -71,20 +88,56 @@ const Payment = (
     }
 
     return (
-        <View>
-            <TextInput
-                value={premiumLevel}
-                onChangeText={(text) => setPremiumLevel(text)}//VER SI AGREGO VARIAS OPCIONES DE PREMIUM O UNA SOLA
-                placeholder="Premium Option"
-                style={{
-                    width: 300,
-                    fontSize: 20,
-                    padding: 10,
-                    borderWidth: 1,
-                }}
-            />
-            <Button title='Subscribe - $5' onPress={subscribe} />
-        </View>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+            <View
+                style={tw`bg-gray-900 items-center justify-center h-full w-full`}
+            >
+                <Image
+                    source={worldImg}
+                    style={tw`h-90 w-90`} />
+                <View
+                    style={tw`bg-gray-900 items-center justify-center mt-5`}>
+                    <Text style={tw`text-white font-bold text-base text-center p-5`}>Please enter the card owner's information.</Text>
+                    <View>
+                        <TextInput
+                            // value={premiumLevelAUX.name}
+                            onChangeText={(text) => handleOnChange("name", text)}//VER SI AGREGO VARIAS OPCIONES DE PREMIUM O UNA SOLA
+                            placeholder="Name"
+                            placeholderTextColor="white"
+                            type="name"
+                            defaultValue={premiumLevelAUX.name}
+                            required
+                            style={tw`w-70 text-lg text-white border-white border-2 rounded-lg p-3 mb-5`}
+                        />
+                    </View>
+                    <View>
+                        <TextInput
+                            // value={premiumLevelAUX.email}
+                            onChangeText={(text) => handleOnChange("email", text)}//VER SI AGREGO VARIAS OPCIONES DE PREMIUM O UNA SOLA
+                            placeholder="Email"
+                            placeholderTextColor="white"
+                            type="email"
+                            defaultValue={premiumLevelAUX.email}
+                            required
+                            style={tw`w-70 text-lg text-white border-white border-2 rounded-lg p-3 mb-5`}
+                        />
+                    </View>
+                    <View>
+                        {/* <TouchableOpacity
+                        onPress={subscribe} 
+                    onPress={subscribe} 
+                        onPress={subscribe} 
+                        style={{}}                    
+                    style={{}}                    
+                        style={{}}                    
+                        >
+                            <Text>Subscribe - $5</Text>
+                        </TouchableOpacity> */}
+                    <Button title='Subscribe - $5' onPress={subscribe} />
+                </View>
+                </View>
+            </View>
+        </TouchableWithoutFeedback>
     );
 };
 

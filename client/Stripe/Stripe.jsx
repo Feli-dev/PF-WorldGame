@@ -3,7 +3,6 @@ import {
     StatusBar,
     StyleSheet,
     View,
-
 } from "react-native";
 import { StripeProvider } from '@stripe/stripe-react-native'
 import Payment from "./Payment";

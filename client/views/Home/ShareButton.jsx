@@ -54,7 +54,7 @@ export default function ShareButton() {
     return (
         <View style={tw`flex justify-center items-center mt-8 mb-5`}>
             <TouchableOpacity 
-                style={tw`w-30 h-9 border-0 m-0 p-0 flex justify-center items-center rounded-md bg-white`}
+                style={tw`w-30 h-9 border-0 m-0 p-0 flex justify-center items-center rounded-lg bg-white`}
                 onPress={()=>{onShare()}}
             >
                 <View style={tw`w-22 h-10 m-0 p-0 flex flex-row justify-between items-center`}>
