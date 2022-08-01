@@ -1,4 +1,4 @@
-import { Text, View, TouchableOpacity, TextInput, TouchableWithoutFeedback, Keyboard } from "react-native";
+import { Text, View, TouchableOpacity, TextInput, TouchableWithoutFeedback, Keyboard, Image } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState, useEffect } from "react";
 import { useDispatch, connect, useSelector } from "react-redux";
@@ -6,6 +6,7 @@ import { postLogin, setLogin, getAllCountries } from "../redux/actions/index";
 import tw from "twrnc";
 import Svg, { Path } from "react-native-svg";
 import validate from "../utils/validateL";
+import img from "../assets/Worldgame.png"
 
 function Login({ navigation, user, postLogin }) {
   const dispatch = useDispatch();
@@ -51,7 +52,7 @@ function Login({ navigation, user, postLogin }) {
     }
 
     if (validate("username", _input.username) === "" &&validate("password", _input.password) === "") {
-      const User = (allUser.Request.find((e) => (e.username.toLowerCase() === input.username.toLowerCase() && e.password === input.password)))
+      const User = (allUser?.Request?.find((e) => (e.username.toLowerCase() === input.username.toLowerCase() && e.password === input.password)))
       if(User && User.state === false){
         setLogErr("User banned");
         setBanned(true);
@@ -99,28 +100,29 @@ function Login({ navigation, user, postLogin }) {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <View style={tw`flex h-full items-center justify-center bg-gray-900`}>
-        <View style={tw`flex flex-col mb-3`}>
-          <Text style={tw`text-white text-lg text-left mb-2`}>User</Text>
+        <Image style={tw`h-40 w-40`} source={img}/>
+        <View style={tw`flex flex-col mt-10`}>
+          <Text style={tw`text-white text-lg text-left mb-1`}>User</Text>
           <TextInput
             placeholder="User..."
             value={input.username}
             onChangeText={(e) => handleInputChange("username", e)}
             placeholderTextColor="#6f6f6f"
-            style={tw`pl-3 mb-1 w-70 h-10 rounded-md bg-gray-800 text-white`}
+            style={tw`pl-3 mb-1 w-70 h-10 rounded-lg bg-gray-800 text-white`}
           ></TextInput>
           <Text style={tw`text-red-500 text-xs text-left mb-1`}>
             {err.username}
           </Text>
         </View>
         <View>
-          <Text style={tw`text-white text-lg text-left mb-2`}>Password</Text>
+          <Text style={tw`text-white text-lg text-left mb-1`}>Password</Text>
           <TextInput
             secureTextEntry={true}
             placeholder="Password..."
             value={input.password}
             onChangeText={(e) => handleInputChange("password", e)}
             placeholderTextColor="#6f6f6f"
-            style={tw`pl-3 mb-1 w-70 h-10 rounded-md bg-gray-800 text-white`}
+            style={tw`pl-3 mb-1 w-70 h-10 rounded-lg bg-gray-800 text-white`}
           ></TextInput>
           <Text style={tw`text-red-500 text-xs text-left mb-1`}>
             {err.password}
@@ -130,26 +132,25 @@ function Login({ navigation, user, postLogin }) {
         <TouchableOpacity 
           disabled
           onPress={(e) => handleSubmit(e)}
-          style={tw`bg-gray-600 px-8 py-2 rounded-md mt-5 w-50`}
+          style={tw`bg-gray-600 px-8 py-2 rounded-lg mt-5 w-50`}
         >
           <Text style={tw`text-gray-500 text-center font-bold`}>REGISTER</Text>
         </TouchableOpacity> : <TouchableOpacity 
           onPress={(e) => handleSubmit(e)}
-          style={tw`bg-gray-800 px-8 py-2 rounded-md mt-5 w-50`}
+          style={tw`bg-gray-800 px-8 py-2 rounded-lg mt-5 w-50`}
         >
           <Text style={tw`text-white text-center font-bold`}>REGISTER</Text>
         </TouchableOpacity>} */}
         <TouchableOpacity
-          style={tw`bg-gray-600 px-8 py-2 rounded-md mt-10 w-50`}
+          style={tw`bg-gray-600 px-8 py-2 rounded-lg mt-10 w-50`}
           onPress={() => log(input)}
         >
           <Text style={tw`text-white text-center font-bold`}>LOGIN</Text>
         </TouchableOpacity>
-        <Text style={tw`text-white text-lg text-left mb-4`}></Text>
         <View>
           <Text style={tw`text-white text-xs text-left mb-1`}>{logErr}</Text>
         </View>
-        <View style={tw`flex flex-row mt-15 mb-5 justify-center items-center`}>
+        <View style={tw`flex flex-row mt-10 justify-center items-center`}>
           <View
             style={tw`w-30 mr-5 border-b border-solid border-gray-400`}
           ></View>
@@ -158,11 +159,11 @@ function Login({ navigation, user, postLogin }) {
             style={tw`w-30 ml-5 border-b border-solid border-gray-400`}
           ></View>
         </View>
-        <View style={tw`flex flex-row justify-center items-center`}>
+        <View style={tw`flex flex-row justify-center items-center mt-10`}>
           <TouchableOpacity
-            style={tw`flex justify-center items-center bg-[#4267B2] px-8 py-2 rounded-md mt-10 mr-5 w-20 h-20`}
+            style={tw`flex justify-center items-center bg-[#4267B2] px-8 py-2 rounded-lg mr-5 w-15 h-15`}
           >
-            <View style={tw`w-10 h-10`}>
+            <View style={tw`w-8 h-8`}>
               <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                 <Path
                   fill="#FFF"
@@ -172,9 +173,9 @@ function Login({ navigation, user, postLogin }) {
             </View>
           </TouchableOpacity>
           <TouchableOpacity
-            style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-md mt-10 w-20 h-20`}
+            style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-lg w-15 h-15`}
           >
-            <View style={tw`w-10 h-10`}>
+            <View style={tw`w-8 h-8`}>
               <Svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 326667 333333"
@@ -204,7 +205,7 @@ function Login({ navigation, user, postLogin }) {
             </View>
           </TouchableOpacity>
         </View>
-        <View style={tw`mt-15`}>
+        <View style={tw`mt-10`}>
           <Text style={tw`text-white text-center font-bold`}>
             If you don't have an account,
             <Text

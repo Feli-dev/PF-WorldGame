@@ -11,7 +11,7 @@ export default function Navbar({ navigation }) {
     <View
       style={tw`flex h-1/6 items-center justify-center bg-gray-900 mt-40 mb--8`}
     >
-      <View style={tw`flex items-center justify-center rounded-md`}>
+      <View style={tw`flex items-center justify-center rounded-lg`}>
       <Modal
             animationType="none"
             transparent={true}
@@ -21,7 +21,7 @@ export default function Navbar({ navigation }) {
             }}
           >
             <View style={tw`flex items-center justify-center mt-35`}>
-              <View style={tw`flex items-center justify-center bg-gray-300 rounded-md w-80 h-90`}>
+              <View style={tw`flex items-center justify-center bg-gray-300 rounded-lg w-80 h-90`}>
                 <Text style={tw`text-base font-bold text-center mt-2 mb--2`}>INFO</Text>
                 <View style={tw`h-3/10 w-8/10 flex flex-row items-center justify-evenly`}>
                   <View
@@ -136,7 +136,7 @@ export default function Navbar({ navigation }) {
       </View>
       <View style={tw`flex flex-row justify-center items-center`}>
         <TouchableOpacity
-          style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-md mr-5 w-10 h-15`}
+          style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-lg mr-5 w-10 h-15`}
           onPress={()=> setModalVisible(true)}
           // onPress={() => navigation.navigate("Info")}
         >
@@ -150,7 +150,7 @@ export default function Navbar({ navigation }) {
           </View>
         </TouchableOpacity>
         <TouchableOpacity
-          style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-md mr-5 w-10 h-15`}
+          style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-lg mr-5 w-10 h-15`}
           onPress={() => navigation.navigate("Configuration")}
         >
           <View style={tw`w-10 h-10`}>
@@ -163,7 +163,7 @@ export default function Navbar({ navigation }) {
           </View>
         </TouchableOpacity>
         <TouchableOpacity
-          style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-md mr-5 w-10 h-15`}
+          style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-lg mr-5 w-10 h-15`}
           onPress={() => navigation.navigate("Ranking")}
         >
           <View style={tw`w-10 h-10`}>
@@ -176,7 +176,7 @@ export default function Navbar({ navigation }) {
           </View>
         </TouchableOpacity>
         <TouchableOpacity
-          style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-md w-10 h-15`}
+          style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-lg w-10 h-15`}
           onPress={() => navigation.navigate("Profile")}
         >
           <View style={tw`w-10 h-10`}>

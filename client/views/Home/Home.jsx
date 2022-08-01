@@ -1,10 +1,11 @@
-import { Text, View, TouchableOpacity, TextInput, Keyboard, TouchableWithoutFeedback } from "react-native";
+import { ImageBackground, Text, View, TouchableOpacity, TextInput, Keyboard, TouchableWithoutFeedback } from "react-native";
 import tw from "twrnc";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import Game from "./Game";
 import { useSelector } from 'react-redux'
 import { useEffect } from "react";
+import img from "../../assets/Worldgame.png"
 
 
 export default function Home({ navigation }) {
@@ -15,6 +16,7 @@ export default function Home({ navigation }) {
           <Navbar navigation={navigation} />
         </View>
         <View>
+          {/* <ImageBackground source={img} resizeMode="cover" style={tw`flex justify-center h-30 w-30`}/> */}
           <Game />
         </View>
         <View>
