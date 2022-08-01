@@ -34,9 +34,7 @@ function Login({ navigation, user, postLogin }) {
     }
   }
 
-  let log = (_input) => {
-    setPressed(true);
-
+  let log = async (_input) => {
     if (_input.username.length < 3 && _input.password.length < 3) {
       setErr({
         username: "Enter your username",
@@ -50,29 +48,34 @@ function Login({ navigation, user, postLogin }) {
         setErr({ ...err, password: "Enter your password" });
       }
     }
-
+    
     if (validate("username", _input.username) === "" &&validate("password", _input.password) === "") {
-      const User = (allUser?.Request?.find((e) => (e.username.toLowerCase() === input.username.toLowerCase() && e.password === input.password)))
+      const User = (allUser.Request.find((e) => (e.username.toLowerCase() === input.username.toLowerCase() && e.password === input.password)))
+      let siLogin = false;
+      if(login.Request && login.Request.username.toLowerCase() === input.username.toLowerCase() && login.Request.password === input.password){
+        siLogin = true;
+      }
       if(User && User.state === false){
         setLogErr("Banned user, please contact the administrator.");
         setBanned(true);
-      } else if(User && User.state === true) {
+      } else if((User && User.state === true) || siLogin === true) {
         postLogin(_input);
-        setLogin(_input);
+        dispatch(setLogin(User));
         setLogin_(_input);
       }
     }
+    setPressed(true);
   };
 
   function handleInputChange(type, text) {
-    setPressed(false);
-
+    console.log(login);
     setInput({
       ...input,
       [type]: text,
     });
-
+    setLogErr("");
     setErr({ ...err, [type]: validate(type, text) });
+    setPressed(false);
   }
 
   useEffect(() => {
@@ -81,7 +84,9 @@ function Login({ navigation, user, postLogin }) {
         username: "",
         password: "",
       });
+      setLogErr("");
       navigation.navigate("Instructions");
+      setPressed(false);
     } else if (pressed === true && !user.Request) {
       if(logErr !== "Banned user, please contact the administrator."){
         setTimeout(()=>{
@@ -89,18 +94,18 @@ function Login({ navigation, user, postLogin }) {
         }, 1000)
       }
     }
+    if(input.password === "" || input.username === ""){
+      setLogErr("");
+    }
   }, [user, pressed]);
 
   useEffect(() => {
     dispatch(getAllCountries());
-    //console.log(login);
-  }, [dispatch]);
-
-  useEffect(() => {
     dispatch(getUser());
+    if(input.password === "" || input.username === ""){
+      setLogErr("");
+    }
   }, []);
-// si baneado, no se ppuede
-// sino todo bien
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -110,6 +115,7 @@ function Login({ navigation, user, postLogin }) {
           <Text style={tw`text-white text-lg text-left mb-1`}>User</Text>
           <TextInput
             placeholder="User..."
+            key={"user"}
             value={input.username}
             onChangeText={(e) => handleInputChange("username", e)}
             placeholderTextColor="#6f6f6f"
@@ -124,6 +130,7 @@ function Login({ navigation, user, postLogin }) {
           <TextInput
             secureTextEntry={true}
             placeholder="Password..."
+            key={"password"}
             value={input.password}
             onChangeText={(e) => handleInputChange("password", e)}
             placeholderTextColor="#6f6f6f"

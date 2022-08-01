@@ -145,8 +145,9 @@ export function PostUser(payload) {
       //propiedades, y yendo hacia abajo aparece "ipv6".
       return dispatch({
         type: type.POST_USER,
-        payload: json.data,
+        payload: payload,
       });
+      
     } catch (e) {
       console.log("error en acción:", e);
       return e.message;
@@ -215,7 +216,7 @@ export function PostFriend(payload) {
   return async function (dispatch) {
     try {
       const response = axios.post(
-        "https://world-game-v6.herokuapp.com/friends",
+        "https://world-game-v6.herokuapp.com/friend",
         payload
       );
       return response;
@@ -229,7 +230,7 @@ export function GetFriends() {
   return async function (dispatch) {
     try {
       var json = await axios.get(
-        "http://192.168.0.179:3001/friend"
+        "https://world-game-v6.herokuapp.com/friend"
       );
       return dispatch({
         type: type.GET_FRIENDS,
@@ -245,7 +246,7 @@ export function PutFriend(payload) {
   return async function (dispatch) {
     try {
       var json = await axios.put(
-        "http://192.168.0.179:3001/friend",
+        "https://world-game-v6.herokuapp.com/friend",
         payload
       );
       return dispatch({
