@@ -129,7 +129,7 @@ export default function Game() {
                     style={tw`w-70 mb-2 mt-1 border-b border-solid border-gray-400`}
                   ></View>
                   <Pressable
-                    style={tw`w-35 pt-1 bg-none rounded-lg`}
+                    style={tw`w-35 pt-1 rounded-lg`}
                     onPress={() => setModalVisible(!modalVisible)}
                   >
                     <Text style={tw`text-center font-bold`}> Close </Text>
