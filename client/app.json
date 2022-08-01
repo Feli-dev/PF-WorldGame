@@ -21,7 +21,8 @@
       "supportsTablet": true,
       "config": {
         "googleMobileAdsAppId": "ca-app-pub-1226297636360832~2347958321"
-      }
+      },
+      "bundleIdentifier":"com.matimazzia.WorldGame"
     },
     "android": {
       "adaptiveIcon": {

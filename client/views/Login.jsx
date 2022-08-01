@@ -6,9 +6,39 @@ import { postLogin, setLogin, getAllCountries, getUser } from "../redux/actions/
 import tw from "twrnc";
 import Svg, { Path } from "react-native-svg";
 import validate from "../utils/validateL";
+import * as WebBrowser from 'expo-web-browser';
+import * as Google from 'expo-auth-session/providers/google';
+import { fetchUserInfoAsync } from "expo-auth-session";
 import img from "../assets/Worldgame.png"
 
+
 function Login({ navigation, user, postLogin }) {
+  const [accessToken, setAccessToken] = useState(null);
+  const [userA, setUserA] = useState(null);
+  const [request, response, promptAsync] = Google.useAuthRequest({
+    expoClientId: '1070907696300-0qdljeqakdv1kl2719q67qrrppo9fufi.apps.googleusercontent.com',
+    iosClientId: '1070907696300-lqbno53dfsfriamdtv1nbdenijssv5jn.apps.googleusercontent.com',
+    androidClientId: '1070907696300-lqbno53dfsfriamdtv1nbdenijssv5jn.apps.googleusercontent.com',
+  });
+  useEffect(() => {
+    if (response?.type === 'success') {
+      const { authentication } = response;
+      setAccessToken(authentication.accessToken)
+      accessToken && fetchUserInfo()
+      }
+  }, [response,accessToken]);
+  async function fetchUserInfo() {
+    let response = await fetch("https://www.googleapis.com/userinfo/v2/me", {
+      headers: { Authorization: `Bearer ${accessToken}` }
+    });
+    const useInfo = await response.json();
+    setUserA(useInfo);
+    let inputauth ={
+      username: `${useInfo.given_name}${useInfo.family_name}`,
+      password: `P${useInfo.id}`
+    }
+    log(inputauth)
+  }
   const dispatch = useDispatch();
   const allUser = useSelector((state) => state.users)
   const [input, setInput] = useState({
@@ -34,7 +64,9 @@ function Login({ navigation, user, postLogin }) {
     }
   }
 
-  let log = async (_input) => {
+  let log = (_input) => {
+    setPressed(true);
+
     if (_input.username.length < 3 && _input.password.length < 3) {
       setErr({
         username: "Enter your username",
@@ -50,7 +82,7 @@ function Login({ navigation, user, postLogin }) {
     }
     
     if (validate("username", _input.username) === "" &&validate("password", _input.password) === "") {
-      const User = (allUser.Request.find((e) => (e.username.toLowerCase() === input.username.toLowerCase() && e.password === input.password)))
+      const User = (allUser.Request.find((e) => (e.username.toLowerCase() === _input.username.toLowerCase() && e.password === _input.password)))
       let siLogin = false;
       if(login.Request && login.Request.username.toLowerCase() === input.username.toLowerCase() && login.Request.password === input.password){
         siLogin = true;
@@ -186,6 +218,10 @@ function Login({ navigation, user, postLogin }) {
           </TouchableOpacity>
           <TouchableOpacity
             style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-lg w-15 h-15`}
+            disabled={!request}
+            onPress={() => {
+              promptAsync();
+              }}
           >
             <View style={tw`w-8 h-8`}>
               <Svg
