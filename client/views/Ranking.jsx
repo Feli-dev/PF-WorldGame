@@ -571,7 +571,7 @@ export default function Ranking() {
                     <Image style={tw`h-7 w-9.33 rounded-sm`}
                       source={{
                         uri:`${
-                          allCountries.find((e) =>e.name.toLowerCase() === player.country.toLowerCase()).flagSvg.replace("svg", "png").replace("//","").replace("/","/w2560/").replace("https:","https://")
+                          allCountries.find((e) =>e?.name?.toLowerCase() === player?.country?.toLowerCase())?.flagSvg?.replace("svg", "png").replace("//","").replace("/","/w2560/").replace("https:","https://")
                         }`
                       }}
                     />

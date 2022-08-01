@@ -2,7 +2,7 @@ import { Text, View, TouchableOpacity, TextInput, TouchableWithoutFeedback, Keyb
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState, useEffect } from "react";
 import { useDispatch, connect, useSelector } from "react-redux";
-import { postLogin, setLogin, getAllCountries } from "../redux/actions/index";
+import { postLogin, setLogin, getAllCountries, getUser } from "../redux/actions/index";
 import tw from "twrnc";
 import Svg, { Path } from "react-native-svg";
 import validate from "../utils/validateL";
@@ -34,9 +34,7 @@ function Login({ navigation, user, postLogin }) {
     }
   }
 
-  let log = (_input) => {
-    setPressed(true);
-
+  let log = async (_input) => {
     if (_input.username.length < 3 && _input.password.length < 3) {
       setErr({
         username: "Enter your username",
@@ -50,29 +48,34 @@ function Login({ navigation, user, postLogin }) {
         setErr({ ...err, password: "Enter your password" });
       }
     }
-
+    
     if (validate("username", _input.username) === "" &&validate("password", _input.password) === "") {
-      const User = (allUser?.Request?.find((e) => (e.username.toLowerCase() === input.username.toLowerCase() && e.password === input.password)))
+      const User = (allUser.Request.find((e) => (e.username.toLowerCase() === input.username.toLowerCase() && e.password === input.password)))
+      let siLogin = false;
+      if(login.Request && login.Request.username.toLowerCase() === input.username.toLowerCase() && login.Request.password === input.password){
+        siLogin = true;
+      }
       if(User && User.state === false){
-        setLogErr("User banned");
+        setLogErr("Banned user, please contact the administrator.");
         setBanned(true);
-      } else if(User && User.state === true) {
+      } else if((User && User.state === true) || siLogin === true) {
         postLogin(_input);
-        setLogin(_input);
+        dispatch(setLogin(User));
         setLogin_(_input);
       }
     }
+    setPressed(true);
   };
 
   function handleInputChange(type, text) {
-    setPressed(false);
-
+    console.log(login);
     setInput({
       ...input,
       [type]: text,
     });
-
+    setLogErr("");
     setErr({ ...err, [type]: validate(type, text) });
+    setPressed(false);
   }
 
   useEffect(() => {
@@ -81,21 +84,28 @@ function Login({ navigation, user, postLogin }) {
         username: "",
         password: "",
       });
+      setLogErr("");
       navigation.navigate("Instructions");
+      setPressed(false);
     } else if (pressed === true && !user.Request) {
-      setTimeout(()=>{
-        setLogErr("invalid user or password");
-      }, 500)
+      if(logErr !== "Banned user, please contact the administrator."){
+        setTimeout(()=>{
+          setLogErr("invalid user or password");
+        }, 1000)
+      }
+    }
+    if(input.password === "" || input.username === ""){
+      setLogErr("");
     }
   }, [user, pressed]);
 
   useEffect(() => {
     dispatch(getAllCountries());
-    //console.log(login);
-  }, [dispatch]);
-
-// si baneado, no se ppuede
-// sino todo bien
+    dispatch(getUser());
+    if(input.password === "" || input.username === ""){
+      setLogErr("");
+    }
+  }, []);
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -105,12 +115,13 @@ function Login({ navigation, user, postLogin }) {
           <Text style={tw`text-white text-lg text-left mb-1`}>User</Text>
           <TextInput
             placeholder="User..."
+            key={"user"}
             value={input.username}
             onChangeText={(e) => handleInputChange("username", e)}
             placeholderTextColor="#6f6f6f"
             style={tw`pl-3 mb-1 w-70 h-10 rounded-lg bg-gray-800 text-white`}
           ></TextInput>
-          <Text style={tw`text-red-500 text-xs text-left mb-1`}>
+          <Text style={tw`text-red-500 text-xs text-left mt-1 mb-1`}>
             {err.username}
           </Text>
         </View>
@@ -119,12 +130,13 @@ function Login({ navigation, user, postLogin }) {
           <TextInput
             secureTextEntry={true}
             placeholder="Password..."
+            key={"password"}
             value={input.password}
             onChangeText={(e) => handleInputChange("password", e)}
             placeholderTextColor="#6f6f6f"
             style={tw`pl-3 mb-1 w-70 h-10 rounded-lg bg-gray-800 text-white`}
           ></TextInput>
-          <Text style={tw`text-red-500 text-xs text-left mb-1`}>
+          <Text style={tw`text-red-500 text-xs text-left mt-1 mb-1`}>
             {err.password}
           </Text>
         </View>
@@ -142,13 +154,13 @@ function Login({ navigation, user, postLogin }) {
           <Text style={tw`text-white text-center font-bold`}>REGISTER</Text>
         </TouchableOpacity>} */}
         <TouchableOpacity
-          style={tw`bg-gray-600 px-8 py-2 rounded-lg mt-10 w-50`}
+          style={tw`bg-gray-600 px-8 py-2 rounded-lg mt-3 w-50`}
           onPress={() => log(input)}
         >
           <Text style={tw`text-white text-center font-bold`}>LOGIN</Text>
         </TouchableOpacity>
         <View>
-          <Text style={tw`text-white text-xs text-left mb-1`}>{logErr}</Text>
+          <Text style={tw`text-red-500 text-xs text-left mt-2 mb-1`}>{logErr}</Text>
         </View>
         <View style={tw`flex flex-row mt-10 justify-center items-center`}>
           <View
