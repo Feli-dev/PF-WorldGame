@@ -90,7 +90,7 @@ function Login({ navigation, user, postLogin }) {
 
   useEffect(() => {
     dispatch(getAllCountries());
-    console.log(login);
+    //console.log(login);
   }, [dispatch]);
 
 // si baneado, no se ppuede
