@@ -8,7 +8,6 @@ const router = Router();
 router.post('/', async(req, res, next) =>{
     try {
         let { UserId } = req.body
-        console.log('UserId',UserId)
         let {dataValues} = await User.findByPk(UserId)
         if(dataValues.premium) return res.json({msn : 'Este usuario ya es premium'})
         let payment = await Payment.create({UserId});

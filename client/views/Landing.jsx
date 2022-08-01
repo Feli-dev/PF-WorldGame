@@ -70,7 +70,7 @@ const Landing = ({ navigation }) => {
         if(allUser.Request){
             getLogin();
         }
-        console.log(allUser);
+        //console.log(allUser);
     }, [allUser]);
 
     return (

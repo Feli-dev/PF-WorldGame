@@ -80,7 +80,7 @@ module.exports = new class {
         if(index === 2) {
             this.#caption = "Forgot your password";
             this.#message = `the password change request was made, to continue with the process,
-            please click on the following link: <a href="http://${process.env.FRONTEND_URL}/new-password/${id}">Link</a>`
+            please click on the following link: <a href="${process.env.FRONTEND_URL}/new-password/${id}">Link</a>`
         }
         if(index === 3) {
             this.#caption = "Modified Password";
