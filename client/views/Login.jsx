@@ -2,7 +2,7 @@ import { Text, View, TouchableOpacity, TextInput, TouchableWithoutFeedback, Keyb
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState, useEffect } from "react";
 import { useDispatch, connect, useSelector } from "react-redux";
-import { postLogin, setLogin, getAllCountries } from "../redux/actions/index";
+import { postLogin, setLogin, getAllCountries, getUser } from "../redux/actions/index";
 import tw from "twrnc";
 import Svg, { Path } from "react-native-svg";
 import validate from "../utils/validateL";
@@ -54,7 +54,7 @@ function Login({ navigation, user, postLogin }) {
     if (validate("username", _input.username) === "" &&validate("password", _input.password) === "") {
       const User = (allUser?.Request?.find((e) => (e.username.toLowerCase() === input.username.toLowerCase() && e.password === input.password)))
       if(User && User.state === false){
-        setLogErr("User banned");
+        setLogErr("Banned user, please contact the administrator.");
         setBanned(true);
       } else if(User && User.state === true) {
         postLogin(_input);
@@ -83,9 +83,11 @@ function Login({ navigation, user, postLogin }) {
       });
       navigation.navigate("Instructions");
     } else if (pressed === true && !user.Request) {
-      setTimeout(()=>{
-        setLogErr("invalid user or password");
-      }, 500)
+      if(logErr !== "Banned user, please contact the administrator."){
+        setTimeout(()=>{
+          setLogErr("invalid user or password");
+        }, 1000)
+      }
     }
   }, [user, pressed]);
 
@@ -94,6 +96,9 @@ function Login({ navigation, user, postLogin }) {
     //console.log(login);
   }, [dispatch]);
 
+  useEffect(() => {
+    dispatch(getUser());
+  }, []);
 // si baneado, no se ppuede
 // sino todo bien
 
@@ -110,7 +115,7 @@ function Login({ navigation, user, postLogin }) {
             placeholderTextColor="#6f6f6f"
             style={tw`pl-3 mb-1 w-70 h-10 rounded-lg bg-gray-800 text-white`}
           ></TextInput>
-          <Text style={tw`text-red-500 text-xs text-left mb-1`}>
+          <Text style={tw`text-red-500 text-xs text-left mt-1 mb-1`}>
             {err.username}
           </Text>
         </View>
@@ -124,7 +129,7 @@ function Login({ navigation, user, postLogin }) {
             placeholderTextColor="#6f6f6f"
             style={tw`pl-3 mb-1 w-70 h-10 rounded-lg bg-gray-800 text-white`}
           ></TextInput>
-          <Text style={tw`text-red-500 text-xs text-left mb-1`}>
+          <Text style={tw`text-red-500 text-xs text-left mt-1 mb-1`}>
             {err.password}
           </Text>
         </View>
@@ -142,13 +147,13 @@ function Login({ navigation, user, postLogin }) {
           <Text style={tw`text-white text-center font-bold`}>REGISTER</Text>
         </TouchableOpacity>} */}
         <TouchableOpacity
-          style={tw`bg-gray-600 px-8 py-2 rounded-lg mt-10 w-50`}
+          style={tw`bg-gray-600 px-8 py-2 rounded-lg mt-3 w-50`}
           onPress={() => log(input)}
         >
           <Text style={tw`text-white text-center font-bold`}>LOGIN</Text>
         </TouchableOpacity>
         <View>
-          <Text style={tw`text-white text-xs text-left mb-1`}>{logErr}</Text>
+          <Text style={tw`text-red-500 text-xs text-left mt-2 mb-1`}>{logErr}</Text>
         </View>
         <View style={tw`flex flex-row mt-10 justify-center items-center`}>
           <View
