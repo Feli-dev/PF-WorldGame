@@ -20,13 +20,15 @@ function Login({ navigation, user, postLogin }) {
     iosClientId: '1070907696300-lqbno53dfsfriamdtv1nbdenijssv5jn.apps.googleusercontent.com',
     androidClientId: '1070907696300-lqbno53dfsfriamdtv1nbdenijssv5jn.apps.googleusercontent.com',
   });
+
   useEffect(() => {
     if (response?.type === 'success') {
       const { authentication } = response;
       setAccessToken(authentication.accessToken)
       accessToken && fetchUserInfo()
       }
-  }, [response,accessToken]);
+  }, [response, accessToken]);
+
   async function fetchUserInfo() {
     let response = await fetch("https://www.googleapis.com/userinfo/v2/me", {
       headers: { Authorization: `Bearer ${accessToken}` }
@@ -39,6 +41,7 @@ function Login({ navigation, user, postLogin }) {
     }
     log(inputauth)
   }
+
   const dispatch = useDispatch();
   const allUser = useSelector((state) => state.users)
   const [input, setInput] = useState({
@@ -81,7 +84,7 @@ function Login({ navigation, user, postLogin }) {
       }
     }
     
-    if (validate("username", _input.username) === "" &&validate("password", _input.password) === "") {
+    if (validate("username", _input.username) === "" && validate("password", _input.password) === "") {
       const User = (allUser.Request.find((e) => (e.username.toLowerCase() === _input.username.toLowerCase() && e.password === _input.password)))
       let siLogin = false;
       if(login.Request && login.Request.username.toLowerCase() === input.username.toLowerCase() && login.Request.password === input.password){
@@ -204,7 +207,7 @@ function Login({ navigation, user, postLogin }) {
           ></View>
         </View>
         <View style={tw`flex flex-row justify-center items-center mt-10`}>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={tw`flex justify-center items-center bg-[#4267B2] px-8 py-2 rounded-lg mr-5 w-15 h-15`}
           >
             <View style={tw`w-8 h-8`}>
@@ -215,15 +218,15 @@ function Login({ navigation, user, postLogin }) {
                 />
               </Svg>
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <TouchableOpacity
-            style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-lg w-15 h-15`}
+            style={tw`flex flex-row justify-around items-center bg-[#FFFFFF] px-8 py-2 rounded-xl w-60 h-12`}
             disabled={!request}
             onPress={() => {
               promptAsync();
               }}
           >
-            <View style={tw`w-8 h-8`}>
+            <View style={tw`w-6 h-6 mr-5`}>
               <Svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 326667 333333"
@@ -251,6 +254,7 @@ function Login({ navigation, user, postLogin }) {
                 />
               </Svg>
             </View>
+            <Text style={tw`text-base font-bold`}>Sign in with Google</Text>
           </TouchableOpacity>
         </View>
         <View style={tw`mt-10`}>

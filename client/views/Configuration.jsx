@@ -70,7 +70,7 @@ export default function Configuration({navigation}) {
                 />
                 <TouchableOpacity
                   style={tw`rounded-lg bg-blue-400 pt-1 pb-1 pr-2 pl-2`}
-                  onPress={() => {setModalVisible(!modalVisible); dispatch(PostReview({message: reviewMessage, userId: login?.Request?.id})); setReviewMessage("")}}
+                  onPress={() => {setModalVisible(!modalVisible); if(reviewMessage !== ""){ dispatch(PostReview({message: reviewMessage, userId: login?.Request?.id})); setReviewMessage("")}}}
                 >
                   <Text style={tw`text-base font-bold text-white`}>Send</Text>
                 </TouchableOpacity>
