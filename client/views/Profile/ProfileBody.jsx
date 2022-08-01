@@ -17,6 +17,7 @@ export const ProfileBody = ({
     email,
     password,
     premium,
+    countries,
 
 }) => {
     const navigation = useNavigation();
@@ -59,7 +60,7 @@ export const ProfileBody = ({
                                 }}
                             />
                             : <Animatable.View
-                                animation="swing" iterationCount='infinite'  delay={1000}
+                                animation="swing" iterationCount='infinite' delay={1000}
                             >
                                 <Ionic
                                     onPress={() => navigation.navigate('Payment', {
@@ -156,12 +157,14 @@ export const ProfileButtons = ({
     premium,
     country,
     email,
-    password }) => {
+    password,
+    countries,
+}) => {
     const navigation = useNavigation();
     const [follow, setFollow] = useState(follow);
     return (
         <View>
-            {id === 2 ? (
+            {true ? (//ACA TENGO QUE COMPARAR EL ID DEL LOCALSTORAGE O LOGIN Y EL DEL USUARIO SELECCIONADO! (SPRINT 3)
                 <View
                     style={{
                         width: '100%',
@@ -181,6 +184,7 @@ export const ProfileButtons = ({
                                 email: email,
                                 password: password,
                                 userName: userName,
+                                countries: countries,
                             })}
                         style={{
                             width: '100%',

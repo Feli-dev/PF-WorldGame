@@ -123,6 +123,10 @@ export const rootReducer = (state = initialState, action) => {
         rank: [],
         rank_filter: [],
       };
+    case type.POST_REVIEW:
+      return {
+        ...state,
+      };
     case type.GET_FRIENDS:
       return {
         ...state,

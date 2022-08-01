@@ -58,7 +58,7 @@ export default function Footer() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(countryOfDay);
+    console.log('countryOfDay---->',countryOfDay);
     if (
       countries.some((el) => {
         if (el.name.toLowerCase() === input.trim().toLowerCase()) {
