@@ -19,4 +19,5 @@ export const type = {
   SET_LOGIN: "SET_LOGIN",
   NEW_GAME: "NEW_GAME",
   LOG_OUT: "LOG_OUT",
+  POST_REVIEW: "POST_REVIEW",
 };

@@ -122,6 +122,10 @@ export const rootReducer = (state = initialState, action) => {
         rank: [],
         rank_filter: [],
       };
+    case type.POST_REVIEW:
+      return {
+        ...state,
+      };
     default: {
       return state;
     }

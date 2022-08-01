@@ -28,7 +28,7 @@ const Profile = () => {
             <View style={{ width: '100%', padding: 10 }}>
 
                 <ProfileBody
-                    profileImage={require('../../assets/avatar_demo.png')}
+                    profileImage={require('../../assets/Worldgame.png')}
                     friends="100"
                     following='8'
                     games="458"
@@ -45,7 +45,7 @@ const Profile = () => {
                     id={2}
                     name="Rafa Carreno"
                     userName="rafacar93"
-                    profileImage={require('../../assets/avatar_demo.png')}
+                    profileImage={require('../../assets/Worldgame.png')}
                     premium={false}
                     country='Argentina'
                     email='rafacarreno93@gmail.com'
