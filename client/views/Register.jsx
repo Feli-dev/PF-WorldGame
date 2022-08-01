@@ -14,8 +14,51 @@ import Svg, { Path } from "react-native-svg";
 import DropDownPicker from "react-native-dropdown-picker";
 import validateInput from "../utils/ValidateInput";
 import { PostUser } from "../redux/actions";
+import { useEffect } from "react";
+import * as WebBrowser from 'expo-web-browser';
+import * as Google from 'expo-auth-session/providers/google';
+import { fetchUserInfoAsync } from "expo-auth-session";
+
 
 export default function Register({ navigation }) {
+  const [accessToken, setAccessToken] = useState(null);
+  const [userA, setUserA] = useState(null);
+  const [request, response, promptAsync] = Google.useAuthRequest({
+    expoClientId: '1070907696300-0qdljeqakdv1kl2719q67qrrppo9fufi.apps.googleusercontent.com',
+    iosClientId: '1070907696300-lqbno53dfsfriamdtv1nbdenijssv5jn.apps.googleusercontent.com',
+    androidClientId: '1070907696300-lqbno53dfsfriamdtv1nbdenijssv5jn.apps.googleusercontent.com',
+  });
+  useEffect(() => {
+    if (response?.type === 'success') {
+      const { authentication } = response;
+      setAccessToken(authentication.accessToken)
+      accessToken && fetchUserInfo()
+      }
+  }, [response,accessToken]);
+  async function fetchUserInfo() {
+    let response = await fetch("https://www.googleapis.com/userinfo/v2/me", {
+      headers: { Authorization: `Bearer ${accessToken}` }
+    });
+    const useInfo = await response.json();
+    dispatch(
+      PostUser({
+        email: useInfo.email,
+        username: `${useInfo.given_name}${useInfo.family_name}`,
+        password: `P${useInfo.id}`,
+        country: "Not Defined"
+      })
+    );
+    setLogin({
+      email: input.email,
+      username: input.username,
+      password: input.password,
+      country: input.country,
+    })
+    navigation.navigate("Login");
+  }
+
+
+
   const dispatch = useDispatch();
   const countries = [
     { label: "Afghanistan", value: "Afghanistan" },
@@ -647,6 +690,10 @@ export default function Register({ navigation }) {
           </TouchableOpacity>
           <TouchableOpacity
             style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-md w-15 h-15`}
+            disabled={!request}
+            onPress={() => {
+              promptAsync();
+              }}
           >
             <View style={tw`w-8 h-8`}>
               <Svg

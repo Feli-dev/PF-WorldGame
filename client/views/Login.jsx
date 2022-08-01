@@ -6,8 +6,38 @@ import { postLogin, setLogin, getAllCountries } from "../redux/actions/index";
 import tw from "twrnc";
 import Svg, { Path } from "react-native-svg";
 import validate from "../utils/validateL";
+import * as WebBrowser from 'expo-web-browser';
+import * as Google from 'expo-auth-session/providers/google';
+import { fetchUserInfoAsync } from "expo-auth-session";
+
 
 function Login({ navigation, user, postLogin }) {
+  const [accessToken, setAccessToken] = useState(null);
+  const [userA, setUserA] = useState(null);
+  const [request, response, promptAsync] = Google.useAuthRequest({
+    expoClientId: '1070907696300-0qdljeqakdv1kl2719q67qrrppo9fufi.apps.googleusercontent.com',
+    iosClientId: '1070907696300-lqbno53dfsfriamdtv1nbdenijssv5jn.apps.googleusercontent.com',
+    androidClientId: '1070907696300-lqbno53dfsfriamdtv1nbdenijssv5jn.apps.googleusercontent.com',
+  });
+  useEffect(() => {
+    if (response?.type === 'success') {
+      const { authentication } = response;
+      setAccessToken(authentication.accessToken)
+      accessToken && fetchUserInfo()
+      }
+  }, [response,accessToken]);
+  async function fetchUserInfo() {
+    let response = await fetch("https://www.googleapis.com/userinfo/v2/me", {
+      headers: { Authorization: `Bearer ${accessToken}` }
+    });
+    const useInfo = await response.json();
+    setUserA(useInfo);
+    let inputauth ={
+      username: `${useInfo.given_name}${useInfo.family_name}`,
+      password: `P${useInfo.id}`
+    }
+    log(inputauth)
+  }
   const dispatch = useDispatch();
   const allUser = useSelector((state) => state.users)
   const [input, setInput] = useState({
@@ -35,7 +65,6 @@ function Login({ navigation, user, postLogin }) {
 
   let log = (_input) => {
     setPressed(true);
-
     if (_input.username.length < 3 && _input.password.length < 3) {
       setErr({
         username: "Enter your username",
@@ -51,11 +80,13 @@ function Login({ navigation, user, postLogin }) {
     }
 
     if (validate("username", _input.username) === "" &&validate("password", _input.password) === "") {
-      const User = (allUser.Request.find((e) => (e.username.toLowerCase() === input.username.toLowerCase() && e.password === input.password)))
+      const User = (allUser.Request.find((e) => (e.username.toLowerCase() === _input.username.toLowerCase() && e.password === _input.password)))
       if(User && User.state === false){
+        console.log('entra al if ')
         setLogErr("User banned");
         setBanned(true);
       } else if(User && User.state === true) {
+        console.log('entra al else if ')
         postLogin(_input);
         setLogin(_input);
         setLogin_(_input);
@@ -173,6 +204,10 @@ function Login({ navigation, user, postLogin }) {
           </TouchableOpacity>
           <TouchableOpacity
             style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-md mt-10 w-20 h-20`}
+            disabled={!request}
+            onPress={() => {
+              promptAsync();
+              }}
           >
             <View style={tw`w-10 h-10`}>
               <Svg
