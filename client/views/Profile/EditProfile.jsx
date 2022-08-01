@@ -13,10 +13,13 @@ import tw from "twrnc";
 import { useDispatch } from "react-redux";
 import { PutUser } from "../../redux/actions/index";
 import AvatarOptions from './AvatarsOptions'
+import * as Animatable from 'react-native-animatable';
+//-----------------select
+import DropDownPicker from "react-native-dropdown-picker";
 
 export default function EditProfile({ route, navigation }) {
 
-  const { id, name, profileImage, premium, country, email, userName, password } = route.params;
+  const { id, name, userAvatar, premium, country, email, userName, password, countries } = route.params;
 
   const TostMessage = () => {
     ToastAndroid.show('Edited Sucessfully!', ToastAndroid.SHORT);
@@ -33,11 +36,17 @@ export default function EditProfile({ route, navigation }) {
     password: password,
   });
 
+  //---------------------------------selectCountry
+  const [open, setOpen] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(true);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState(countries);
+
+
+
   const handleUpdate = () => {
-    console.log('EditProfile---->userData',userData)
     dispatch(PutUser(userData));
-    navigation.navigate('Profile')
-    //navigation.goBack();
+    navigation.navigate('Home')
     TostMessage();
   };
   const handleOnChange = (type, e) => {
@@ -77,12 +86,12 @@ export default function EditProfile({ route, navigation }) {
           padding: 20, alignItems: 'center'
         }}>
         <Image
-          source={profileImage}
+          source={userAvatar}
           style={{ width: 100, height: 100, borderRadius: 100 }}
           onPress={
             <View>
               <AvatarOptions
-                profileImage={profileImage}
+                userAvatar={userAvatar}
                 isPremium={premium}
               />
             </View>
@@ -93,13 +102,13 @@ export default function EditProfile({ route, navigation }) {
 
       <View style={{ padding: 10 }}>
         <View>
-          <Text style={{ opacity: 0.5, color: '#D1D5DB' }}>Name</Text>
+          <Text style={{ opacity: 0.5, color: '#D1D5DB',fontSize: 20, }}>Name</Text>
           <TextInput
             placeholder="name"
             placeholderTextColor="#6B7280"
             defaultValue={name}
             style={{
-              fontSize: 16,
+              fontSize: 25,
               borderBottomWidth: 1,
               borderColor: '#CDCDCD',
               color: '#D1D5DB',
@@ -111,13 +120,13 @@ export default function EditProfile({ route, navigation }) {
 
       <View style={{ padding: 10 }}>
         <View>
-          <Text style={{ opacity: 0.5, color: '#D1D5DB' }}>Email</Text>
+          <Text style={{ opacity: 0.5, color: '#D1D5DB',fontSize: 20, }}>Email</Text>
           <TextInput
             placeholder="email"
             placeholderTextColor="#6B7280"
             defaultValue={email}
             style={{
-              fontSize: 16,
+              fontSize: 25,
               borderBottomWidth: 1,
               borderColor: '#CDCDCD',
               color: '#D1D5DB',
@@ -127,42 +136,81 @@ export default function EditProfile({ route, navigation }) {
         </View>
       </View>
 
-      <View style={{ padding: 10 }}>
-        <View>
-          <Text style={{ opacity: 0.5, color: '#D1D5DB' }}>Country</Text>
-          <TextInput
-            placeholder="country"
-            placeholderTextColor="#6B7280"
-            defaultValue={country}
+      <View style={{ padding: 10, alignItems: 'center', justifyContent: 'center', }}>
+        <View style={{justifyContent:'center', alignItems:'center', }}>
+          <Text style={{ opacity: 0.5, color: '#D1D5DB',fontSize: 20, }}>Country</Text>
+          <Text
             style={{
-              fontSize: 16,
+              fontSize: 25,
               borderBottomWidth: 1,
               borderColor: '#CDCDCD',
               color: '#D1D5DB',
+              
             }}
-            onChangeText={(event) => handleOnChange("country", event)}
+          >
+            {userData.country}
+          </Text>
+          <DropDownPicker
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: '50%',
+              height: 8,
+              margin: 0,
+              backgroundColor: '#1F2937',
+              display: 'flex',
+              borderRadius: 6,
+            }}
+            // style={tw`border-solid border-0 w-3/5 h-8 m-0 flex justify-center items-center bg-gray-800 rounded-md z-0`}
+            textStyle={tw`text-gray-600`}
+            open={open}
+            items={items}
+            min={1}
+            max={1}
+            setOpen={setOpen}
+            setValue={setValue}
+            setItems={setItems}
+            arrowIconStyle={{ tintColor: "white" }}
+            onSelectItem={(event) => handleOnChange("country", event.value)}
           />
+
         </View>
       </View>
 
       {premium
         ? null
-        : <View>
+        : <Animatable.View
+          animation="slideInDown" iterationCount={8} direction="alternate-reverse" duration={1000} delay={500}
+          style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
           <Text //ESTO TIENE QUE APARECER SI NO ES PREMIUM!
+
+            onPress={() => navigation.navigate('Payment', {
+              id: id,
+              name: name,
+              country: country,
+              email: email,
+              userName: userName,
+              password: password,
+            })}
             style={{
-              marginVertical: 10,
+              fontSize: 20,
+              marginVertical: 100,
               padding: 10,
               color: '#D97706',
-              borderTopWidth: 1,
-              borderBottomWidth: 1,
+              // borderTopWidth: 1,
+              // borderBottomWidth: 1,
               borderColor: '#EFEFEF',
             }}
-            onPress={() => navigation.navigate('Payment')}
+
           >
             Switch to Premium account
 
           </Text>
-        </View>
+        </Animatable.View>
       }
 
     </View>

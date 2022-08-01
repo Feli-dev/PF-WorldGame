@@ -42,7 +42,7 @@ export function PostGame(payload) {
 export function newGame() {
   return {
     type: type.NEW_GAME,
-  } 
+  }
 }
 
 //-------------------------login----------------------------//
@@ -65,14 +65,14 @@ export function postLogin(payload) {
 }
 
 export function setLogin(payload) {
-  return({
+  return ({
     type: type.SET_LOGIN,
     payload,
   });
 }
 
 export function logOut() {
-  return({
+  return ({
     type: type.LOG_OUT,
   });
 }
@@ -126,7 +126,6 @@ export function getUser(id) {
 //             console.log("payload", payload)
 //             return await axios.post("https://world-game-v6.herokuapp.com/User", payload)
 //             .catch(error =>  console.log(error))
-
 //         }catch(e){
 //             console.log("error en acción:", e)
 //             return e.message
@@ -225,6 +224,39 @@ export function PostFriend(payload) {
     }
   };
 }
+
+export function GetFriends() {
+  return async function (dispatch) {
+    try {
+      var json = await axios.get(
+        "http://192.168.0.179:3001/friend"
+      );
+      return dispatch({
+        type: type.GET_FRIENDS,
+        payload: json.data,
+      });
+    } catch (e) {
+      return e.message;
+    }
+  };
+}
+
+export function PutFriend(payload) {
+  return async function (dispatch) {
+    try {
+      var json = await axios.put(
+        "http://192.168.0.179:3001/friend",
+        payload
+      );
+      return dispatch({
+        type: type.PUT_FRIEND,
+        payload: json.data,
+      });
+    } catch (e) {
+      return e.message;
+    }
+  };
+}
 //--------------------countries----------------------//
 export function getCountrie(name) {
   return async function (dispatch) {
@@ -246,8 +278,8 @@ export function getCountrie(name) {
 export function setCountrie(countrie) {
   return {
     type: type.SET_COUNTRIE,
-      payload: countrie,
-    };
+    payload: countrie,
+  };
 }
 
 export function getAllCountries(form = false) {
@@ -317,3 +349,19 @@ export function PostReview(payload) {
     }
   };
 }
+
+//------------------------pay.action------------------//
+export function PostPayment(payload) {
+  console.log('payloadPostPays',payload)
+  return async function (dispatch) {
+    try {
+      const response = await axios.post(
+        "http://192.168.0.179:3001/pays",
+        payload
+      );
+      return response;
+    } catch (e) {
+      return e.message;
+    }
+  };
+};

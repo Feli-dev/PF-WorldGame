@@ -1,6 +1,6 @@
-import { View, Image, ActivityIndicator } from 'react-native'
+import { View, Image, ActivityIndicator, Alert } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import img from "../assets/Worldgame.png"
 import { getUser, setLogin, getAllCountries } from '../redux/actions'
@@ -10,6 +10,19 @@ const Landing = ({ navigation }) => {
     const allUser = useSelector((state) => state.users)
     const dispatch = useDispatch()
 
+    const createAlert = () =>
+    Alert.alert(
+      "You have been banned",
+      "For more information, contact support",
+      [
+        {
+          text: "Register",
+          onPress: () => navigation.navigate("Register")
+        },
+        { text: "Login", onPress: () => navigation.navigate("Login") }
+      ]
+    );
+
     const getLogin = async () => {
         if (allUser.Request?.length > 0) {
             var value = await AsyncStorage.getItem("User")
@@ -17,10 +30,15 @@ const Landing = ({ navigation }) => {
                 value = JSON.parse(value);
                 const User = (allUser.Request.find((e) => (e.username.toLowerCase() === value.username.toLowerCase())))
                 if (User) {
-                    dispatch(setLogin(User));
-                    setTimeout(()=>{
-                        navigation.navigate("Home");
-                    }, 1200)
+                    if(User.state === false){
+                        dispatch(setLogin(User));
+                        createAlert();
+                    } else {
+                        dispatch(setLogin(User));
+                        setTimeout(()=>{
+                            navigation.navigate("Home");
+                        }, 1200)
+                    }
                 } else {
                     setTimeout(()=>{
                         navigation.navigate("Login");
@@ -52,7 +70,7 @@ const Landing = ({ navigation }) => {
         if(allUser.Request){
             getLogin();
         }
-        console.log(allUser);
+        //console.log(allUser);
     }, [allUser]);
 
     return (

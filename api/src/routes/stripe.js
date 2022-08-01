@@ -16,7 +16,6 @@ router.post('/', async (req, res) => {
             currency: 'usd',
             payment_method_types: ["card"],
             metadata: { premiumLevel },
-            billing_details:{"email":"rafa@hotmail.com"},
         });
 
         const clientSecret = paymentIntent.client_secret;

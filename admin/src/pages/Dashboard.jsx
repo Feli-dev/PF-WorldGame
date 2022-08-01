@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 // Components
 import NavBar from "../components/NavBar";
@@ -8,11 +8,21 @@ import SideBar from "../components/SideBar";
 import AddIcon from "@mui/icons-material/Add";
 import TableUser from "../components/TableUser/TableUser";
 import { Link } from "react-router-dom";
+import { getAllCountries } from "../redux/contries/countriesActions";
+import { useDispatch } from "react-redux";
+import { getPays } from "../redux/pay/payActions";
 
 // Components
 import CardsDashboard from "../components/CardsDashboard";
 
 const Dashboard = () => {
+  let dispatch = useDispatch()
+  
+  useEffect(()=>{
+    dispatch(getAllCountries())
+    dispatch(getPays())
+  },[dispatch])
+
   return (
     <>
       <div className="md:max-w-6xl md:mx-auto px-4 py-8">

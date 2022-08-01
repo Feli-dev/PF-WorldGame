@@ -3,23 +3,24 @@ import { View, Text, Image, TouchableOpacity } from 'react-native';
 // import Feather from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
 import Ionic from 'react-native-vector-icons/Ionicons';
+import * as Animatable from 'react-native-animatable';
 
 export const ProfileBody = ({
     name,
     userName,
-    profileImage,
+    userAvatar,
     games,
     friends,
-    following,
+    gamesWon,
     id,
     country,
     email,
     password,
+    premium,
+    countries,
 
 }) => {
     const navigation = useNavigation();
-    console.log('ProfileBody---->userName', userName)
-    console.log('ProfileBody---->password', password)
     return (
         <View>
             {userName ? (
@@ -47,30 +48,39 @@ export const ProfileBody = ({
                         }} /> */}
                     </View>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <Ionic
-                            onPress={() => navigation.navigate('Payment', {
-                                id: id,
-                                name: name,
-                                country: country,
-                                email: email,
-                                userName: userName,
-                                password: password,
-                            })}
-                            // name,
-                            // id,
-                            // country,
-                            // email,
-                            // userName,
-                            // password,
-                            name="card-outline"
-                            style={{
-                                fontSize: 25,
-                                color: 'white',
-                                paddingHorizontal: 15,
-                                marginTop: 10,
-                                marginRight: 20,
-                            }}
-                        />
+                        {premium
+                            ? <Ionic
+                                name="star"
+                                style={{
+                                    fontSize: 25,
+                                    color: 'yellow',
+                                    paddingHorizontal: 15,
+                                    marginTop: 10,
+                                    marginRight: 20,
+                                }}
+                            />
+                            : <Animatable.View
+                                animation="swing" iterationCount='infinite' delay={1000}
+                            >
+                                <Ionic
+                                    onPress={() => navigation.navigate('Payment', {
+                                        id: id,
+                                        name: name,
+                                        country: country,
+                                        email: email,
+                                        userName: userName,
+                                        password: password,
+                                    })}
+                                    name="ribbon-sharp"
+                                    style={{
+                                        fontSize: 30,
+                                        color: 'white',
+                                        paddingHorizontal: 15,
+                                        marginTop: 5,
+                                        marginRight: 20,
+                                    }}
+                                />
+                            </Animatable.View>}
                         {/* <Feather
                             name="menu"
                             style={{
@@ -92,7 +102,7 @@ export const ProfileBody = ({
                         alignItems: 'center',
                     }}>
                     <Image
-                        source={profileImage}
+                        source={userAvatar}
                         style={{
                             resizeMode: 'cover',
                             width: 80,
@@ -122,15 +132,15 @@ export const ProfileBody = ({
                 </View>
 
                 <View style={{ alignItems: 'center', marginRight: 35 }}>
-                    <Text style={{ fontWeight: 'bold', fontSize: 18, color: 'white' }}>{following}</Text>
+                    <Text style={{ fontWeight: 'bold', fontSize: 18, color: 'white' }}>{gamesWon}</Text>
                     <Text style={{ color: 'white' }}>Wins</Text>
                 </View>
 
 
 
                 {/* <View style={{ alignItems: 'center' }}>
-                    <Text style={{ fontWeight: 'bold', fontSize: 18 }}>{following}</Text>
-                    <Text>Following</Text>
+                    <Text style={{ fontWeight: 'bold', fontSize: 18 }}>{gamesWon}</Text>gamesWon            <Text>
+gamesWon</Text>
                 </View> */}
 
             </View>
@@ -143,16 +153,18 @@ export const ProfileButtons = ({
     id,
     name,
     userName,
-    profileImage,
+    userAvatar,
     premium,
     country,
     email,
-    password }) => {
+    password,
+    countries,
+}) => {
     const navigation = useNavigation();
     const [follow, setFollow] = useState(follow);
     return (
         <View>
-            {id === 2 ? (
+            {true ? (//ACA TENGO QUE COMPARAR EL ID DEL LOCALSTORAGE O LOGIN Y EL DEL USUARIO SELECCIONADO! (SPRINT 3)
                 <View
                     style={{
                         width: '100%',
@@ -166,12 +178,13 @@ export const ProfileButtons = ({
                             navigation.push('EditProfile', {
                                 id: id,
                                 name: name,
-                                profileImage: profileImage,
+                                userAvatar: userAvatar,
                                 premium: premium,
                                 country: country,
                                 email: email,
                                 password: password,
                                 userName: userName,
+                                countries: countries,
                             })}
                         style={{
                             width: '100%',
@@ -222,7 +235,7 @@ export const ProfileButtons = ({
                                 alignItems: 'center',
                             }}>
                             <Text style={{ color: follow ? 'black' : '#111827' }}>
-                                {follow ? 'Following' : 'Follow'}
+                                {follow ? 'gamesWon' : 'Follow'}
                             </Text>
                         </View>
                     </TouchableOpacity>
