@@ -356,7 +356,7 @@ export function PostPayment(payload) {
   return async function (dispatch) {
     try {
       const response = await axios.post(
-        "http://192.168.0.179:3001/pays",
+        "https://world-game-v6.herokuapp.com/pays",
         payload
       );
       return response;
