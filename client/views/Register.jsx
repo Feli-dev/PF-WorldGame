@@ -670,7 +670,7 @@ export default function Register({ navigation }) {
         </View>
 
         <View style={tw`flex flex-row justify-center items-center mt-5`}>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={tw`flex justify-center items-center bg-[#4267B2] px-8 py-2 rounded-lg mr-5 w-15 h-15`}
           >
             <View style={tw`w-8 h-8`}>
@@ -681,15 +681,15 @@ export default function Register({ navigation }) {
                 />
               </Svg>
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <TouchableOpacity
-            style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-lg w-15 h-15`}
+            style={tw`flex flex-row justify-around items-center bg-[#FFFFFF] px-8 py-2 rounded-xl w-60 h-12`}
             disabled={!request}
             onPress={() => {
               promptAsync();
               }}
           >
-            <View style={tw`w-8 h-8`}>
+            <View style={tw`w-6 h-6 mr-5`}>
               <Svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 326667 333333"
@@ -717,6 +717,7 @@ export default function Register({ navigation }) {
                 />
               </Svg>
             </View>
+            <Text style={tw`text-base font-bold`}>Sign in with Google</Text>
           </TouchableOpacity>
         </View>
 
