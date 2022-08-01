@@ -20,10 +20,10 @@ const Profile = () => {
 
     const userlogin = useSelector((state) => state.login);
     const userInfo = useSelector((state) => state.userdetail);
-    const data = userInfo.Request;
-    const stats = userInfo.Request.stats;
-    const games = userInfo.Request.games;
-    const userId = userlogin.Request?.id;
+    const data = userInfo?.Request;
+    const stats = userInfo?.Request?.stats;
+    const games = userInfo?.Request?.games;
+    const userId = userlogin?.Request?.id;
 
     const avatarFinal = require(`../../assets/avatars/normal_user/avatar_default.png`);
 
@@ -497,8 +497,8 @@ const Profile = () => {
                         <Text>Wait...</Text>
                     </View>
                     :
-                    <View style={{ width: '100%', height: '100%', marginTop: 25, backgroundColor: '#111827' }}>
-                        <View style={{ width: '100%', padding: 10 }}>
+                    <View style={tw`h-full bg-gray-900 flex justify-center items-center`}>
+                        <View style={tw`mt-10 p-5`}>
 
                             <ProfileBody
                                 userAvatar={avatarFinal}

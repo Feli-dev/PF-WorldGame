@@ -11,12 +11,13 @@ export default function Configuration({navigation}) {
   const [err, setErr] = useState({})
   const [isEnabled, setIsEnabled] = useState(false);
   const [reviewMessage, setReviewMessage] = useState("");
-  const toggleSwitch = () => {setIsEnabled(previousState => !previousState); navigation.navigate("Payment",{id:login?.Request?.id})};
+  const toggleSwitch = () => {setIsEnabled(previousState => !previousState); navigation.navigate("Payment",{id:login?.Request?.id, email: login?.Request?.email, name: login?.Request?.name})};
   const [modalVisible, setModalVisible] = useState(false);
+  const userInfo = useSelector((state) => state.userdetail);
 
   useEffect(()=>{
     if(login?.Request?.premium)setIsEnabled(true)
-  },[])
+  },[login])
 
   async function logout(){
     await AsyncStorage.removeItem("User")
@@ -69,7 +70,7 @@ export default function Configuration({navigation}) {
                 />
                 <TouchableOpacity
                   style={tw`rounded-lg bg-blue-400 pt-1 pb-1 pr-2 pl-2`}
-                  onPress={() => {setModalVisible(!modalVisible); dispatch(PostReview({message: reviewMessage, userId: login?.Request?.id})); setReviewMessage("")}}
+                  onPress={() => {setModalVisible(!modalVisible); if(reviewMessage !== ""){ dispatch(PostReview({message: reviewMessage, userId: login?.Request?.id})); setReviewMessage("")}}}
                 >
                   <Text style={tw`text-base font-bold text-white`}>Send</Text>
                 </TouchableOpacity>
