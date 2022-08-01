@@ -38,9 +38,10 @@ export default function Instructions({ navigation }) {
             }}
             style={tw`w-80 h-80`}
           />
-          <View>
+          <View style={tw`flex items-center justify-center`}>
             <Text style={styleText}>I already know how to play:</Text>
             <TouchableHighlight
+              style={tw`w-50`}
               onPress={() => navigation.navigate("Home")}
               underlayColor="withe"
               activeOpacity={0.7}
