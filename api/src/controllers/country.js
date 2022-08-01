@@ -65,7 +65,22 @@ async function getCountries (){
             //flagEmoji: country.flag
         }
     } )
+    
+    
     await Country.bulkCreate(formatedCountries)
+    // formatedCountries.forEach(country => {
+    //   Country.findOrCreate({where : {
+    //     name: country.name,
+    //     continent: country.continent,
+    //     population: country.population,
+    //     latitud: country.latitud,
+    //     longitud: country.longitud,
+    //     googleMap: country.googleMap,
+    //     area: country.area,
+    //     flagSvg: country.flagSvg,
+        
+    // }})
+    // })
     
     console.log('listo')
 }
