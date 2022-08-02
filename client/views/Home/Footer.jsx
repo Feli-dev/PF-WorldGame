@@ -12,6 +12,7 @@ import Svg, { Path } from "react-native-svg";
 import { gameAction, getAllCountries, PostGame, newGame, setCountrie } from "../../redux/actions/index";
 import { setTestDeviceIDAsync, AdMobInterstitial } from "expo-ads-admob";
 import Autocomplete from 'react-native-autocomplete-input';
+import { touchSound } from "../../utils/sound";
 //onpress white flag render confirm message
 
 export default function Footer() {
@@ -122,7 +123,7 @@ export default function Footer() {
         ></TextInput>
         <TouchableOpacity
           style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-lg w-10 h-15`}
-          onPress={!win ? (e) => handleSubmit(e) : () => {setWin(false); dispatch(newGame());}}
+          onPress={!win ? (e) => {handleSubmit(e); touchSound();} : () => {setWin(false); touchSound(); dispatch(newGame());}}
         >
           {win && listOfAttemps.length > 0 ? 
           <View style={tw`w-10 h-10`}>

@@ -18,6 +18,7 @@ import { useEffect } from "react";
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
 import { fetchUserInfoAsync } from "expo-auth-session";
+import { touchSound } from "../utils/sound";
 
 export default function Register({ navigation }) {
   const [accessToken, setAccessToken] = useState(null);
@@ -652,7 +653,11 @@ export default function Register({ navigation }) {
           </TouchableOpacity>
         ) : (
           <TouchableOpacity
-            onPress={(e) => handleSubmit(e)}
+            onPress={(e) => {
+                handleSubmit(e);
+                touchSound();
+              }
+            }
             style={tw`bg-gray-800 px-8 py-2 rounded-lg mt-5 w-50`}
           >
             <Text style={tw`text-white text-center font-bold`}>REGISTER</Text>
@@ -687,6 +692,7 @@ export default function Register({ navigation }) {
             style={tw`flex flex-row justify-around items-center bg-[#FFFFFF] px-8 py-2 rounded-xl w-60 h-12`}
             disabled={!request}
             onPress={() => {
+              touchSound();
               promptAsync();
               }}
           >

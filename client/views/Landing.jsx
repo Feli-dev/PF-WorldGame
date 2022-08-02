@@ -4,11 +4,25 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import img from "../assets/Worldgame.png"
 import { getUser, setLogin, getAllCountries } from '../redux/actions'
+import { Audio } from 'expo-av';
 import tw from "twrnc";
 
 const Landing = ({ navigation }) => {
     const allUser = useSelector((state) => state.users)
     const [al, setAl] = useState(true);
+    const [sound, setSound] = useState();
+
+    async function playSound() {
+        console.log('Loading Sound');
+        const { sound } = await Audio.Sound.createAsync(
+            require('../assets/sounds/a.mp3')
+        );
+        setSound(sound);
+
+        console.log('Playing Sound');
+        await sound.playAsync();
+    }
+
     const dispatch = useDispatch()
 
     const createAlert = () =>
@@ -64,6 +78,7 @@ const Landing = ({ navigation }) => {
     }
     
     useEffect(() => {
+        playSound();
         dispatch(getAllCountries());
         dispatch(getUser());
     }, [dispatch]);

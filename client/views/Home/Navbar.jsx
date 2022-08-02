@@ -4,6 +4,7 @@ import Svg, { Path } from "react-native-svg";
 import { useState } from "react";
 import red from "../../assets/viewInfo/red.png";
 import green from "../../assets/viewInfo/green.png";
+import { touchSound } from "../../utils/sound";
 
 export default function Navbar({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
@@ -125,7 +126,7 @@ export default function Navbar({ navigation }) {
                   ></View>
                   <TouchableOpacity
                     style={tw`w-35 pt-1 rounded-lg`}
-                    onPress={() => setModalVisible(!modalVisible)}
+                    onPress={() => {setModalVisible(!modalVisible); touchSound();}}
                   >
                     <Text style={tw`text-center font-bold`}> Close </Text>
                   </TouchableOpacity>
@@ -137,7 +138,7 @@ export default function Navbar({ navigation }) {
       <View style={tw`flex flex-row justify-center items-center`}>
         <TouchableOpacity
           style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-lg mr-5 w-10 h-15`}
-          onPress={()=> setModalVisible(true)}
+          onPress={()=> {setModalVisible(true); touchSound();}}
           // onPress={() => navigation.navigate("Info")}
         >
           <View style={tw`w-10 h-10`}>
@@ -151,7 +152,7 @@ export default function Navbar({ navigation }) {
         </TouchableOpacity>
         <TouchableOpacity
           style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-lg mr-5 w-10 h-15`}
-          onPress={() => navigation.navigate("Configuration")}
+          onPress={() => {navigation.navigate("Configuration"); touchSound();}}
         >
           <View style={tw`w-10 h-10`}>
             <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -164,7 +165,7 @@ export default function Navbar({ navigation }) {
         </TouchableOpacity>
         <TouchableOpacity
           style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-lg mr-5 w-10 h-15`}
-          onPress={() => navigation.navigate("Ranking")}
+          onPress={() => {navigation.navigate("Ranking"); touchSound();}}
         >
           <View style={tw`w-10 h-10`}>
             <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
@@ -177,7 +178,7 @@ export default function Navbar({ navigation }) {
         </TouchableOpacity>
         <TouchableOpacity
           style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-lg w-10 h-15`}
-          onPress={() => navigation.navigate("Profile")}
+          onPress={() => {touchSound();navigation.navigate("Profile");}}
         >
           <View style={tw`w-10 h-10`}>
             <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">

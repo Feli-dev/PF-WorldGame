@@ -10,7 +10,7 @@ import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
 import { fetchUserInfoAsync } from "expo-auth-session";
 import img from "../assets/Worldgame.png"
-
+import { touchSound } from "../utils/sound";
 
 function Login({ navigation, user, postLogin }) {
   const [accessToken, setAccessToken] = useState(null);
@@ -198,7 +198,11 @@ function Login({ navigation, user, postLogin }) {
         </TouchableOpacity>} */}
         <TouchableOpacity
           style={tw`bg-gray-600 px-8 py-2 rounded-lg mt-3 w-50`}
-          onPress={() => log(input)}
+            onPress={() => {
+              log(input)
+              touchSound();
+            }
+          }
         >
           <Text style={tw`text-white text-center font-bold`}>LOGIN</Text>
         </TouchableOpacity>
@@ -230,7 +234,11 @@ function Login({ navigation, user, postLogin }) {
           <TouchableOpacity
             style={tw`flex flex-row justify-around items-center bg-[#FFFFFF] px-8 py-2 rounded-xl w-60 h-12`}
             disabled={!request}
-            onPress={() => promptAsync()}
+                onPress={() => {
+                  promptAsync()
+                  touchSound();
+                }
+              }
           >
             <View style={tw`w-6 h-6 mr-5`}>
               <Svg
