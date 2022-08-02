@@ -46,6 +46,7 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         login: action.payload,
+        userdetail: action.payload,
       };
     case type.SET_LOGIN:
       action.payload = { Request: action.payload }
