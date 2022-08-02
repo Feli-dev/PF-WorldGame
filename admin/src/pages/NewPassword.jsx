@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 // Router
-import { Link, useHistory, useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import Alerta from "../components/Alerta";
 
 // Config
@@ -29,6 +29,13 @@ const NewPassword = () => {
   const { id } = useParams();
   const navigate = useHistory();
 
+  const handleChange = (e) => {
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   useEffect(() => {
     const authParams = async () => {
       const userActual = localStorage.getItem("email");
@@ -54,14 +61,7 @@ const NewPassword = () => {
       setUser({ ...user, idUser: id });
     };
     authParams();
-  }, [id]);
-
-  const handleChange = (e) => {
-    setUser({
-      ...user,
-      [e.target.name]: e.target.value,
-    });
-  };
+  }, [id]); //eslint-disable-line
 
   const handleSubmit = async (e) => {
     e.preventDefault();

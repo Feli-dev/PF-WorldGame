@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ModalUser from "../components/TableUser/ModalUser/ModalUser";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllGames } from "../redux/games/gamesAction";
@@ -130,7 +130,7 @@ const Games = () => {
           >
             Search
           </button>
-      {/*     <button
+          {/*     <button
             type="reset"
             onClick={() => resetFilters()}
             className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white px-4 mx-2 border border-blue-500 hover:border-transparent rounded"

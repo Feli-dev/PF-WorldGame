@@ -22,7 +22,7 @@ const ForgotPassword = () => {
         });
         return;
       }
-      if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email)) {
+      if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email)) {//eslint-disable-line
         setErrorForm({
           emailError: { msg: "A valid email is required" },
         });

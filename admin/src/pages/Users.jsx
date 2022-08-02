@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ModalUser from "../components/TableUser/ModalUser/ModalUser";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,13 +10,11 @@ import {
   orderUsername,
   orderPoints,
 } from "../redux/users/userActions";
-import validateCountry from "../utils/validateCountry";
 
 // Icons
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ReplayIcon from "@mui/icons-material/Replay";
-import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 
 const Users = () => {
   const dispatch = useDispatch();
@@ -28,10 +26,10 @@ const Users = () => {
     state: "",
     authorization: "",
   });
-  let allCountries = useSelector(
+/*   let allCountries = useSelector(
     (state) => state.countriesReducer.allCountries
-  );
-  let [order, setOrder] = useState("");
+  ); */
+  let [order, setOrder] = useState(""); //eslint-disable-line
 
   let allUsers = useSelector((state) => state.userReducer.filterUsers);
   const navigate = useHistory();
@@ -39,7 +37,7 @@ const Users = () => {
   if (allUsers.length) {
     let countries = allUsers.map((user) => user.country);
     orderCountries = countries
-      .filter((ele, pos) => countries.indexOf(ele) == pos)
+      .filter((ele, pos) => countries.indexOf(ele) === pos)
       .sort();
     // console.log('country', orderCountries)
   }

@@ -1,21 +1,19 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 //utils
 import validateEdit from "../utils/ValidateEdit";
 //Actions
 import { getAllCountries } from "../redux/contries/countriesActions";
-import { getUser, postUser, updateUser } from "../redux/users/userActions";
+import { getUser, updateUser } from "../redux/users/userActions";
 import capitalized from "../utils/capitalized";
 
 const EditUser = () => {
   let dispatch = useDispatch();
   let history = useHistory();
   let { id } = useParams();
-  let allCountries = useSelector(
-    (state) => state.countriesReducer.allCountries
-  );
+
   let [input, setInput] = useState({
     name: "",
     username: "",
@@ -42,7 +40,7 @@ const EditUser = () => {
       }
     };
     getUserById();
-  }, [id]);
+  }, [id, dispatch]);
 
   // console.log('input', input)
   // console.log('error', error)
@@ -50,34 +48,6 @@ const EditUser = () => {
   useEffect(() => {
     dispatch(getAllCountries());
   }, [dispatch]);
-
-  function handleChange(event) {
-    setInput((previus) => {
-      return {
-        ...previus,
-        [event.target.name]: event.target.value,
-      };
-    });
-    setError(
-      validateEdit({
-        ...input,
-        [event.target.name]: event.target.value,
-      })
-    );
-  }
-
-  function handleSelectCountry(event) {
-    setInput({
-      ...input,
-      country: event.target.value,
-    });
-    setError(
-      validateEdit({
-        ...input,
-        country: event.target.value,
-      })
-    );
-  }
 
   function handleSelectType(event) {
     setInput({

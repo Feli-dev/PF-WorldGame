@@ -35,6 +35,8 @@ function authReducer(state = initState, action) {
         ...state,
         profile: "",
         error: "",
+        cargando: false,
+        cargandoAuth: false,
       };
     case ERROR:
       return {
@@ -50,14 +52,6 @@ function authReducer(state = initState, action) {
     case LOADING_USER_AUTH:
       return {
         ...state,
-        cargandoAuth: false,
-      };
-    case LOGOUT_USER:
-      return {
-        ...state,
-        profile: "",
-        error: "",
-        cargando: false,
         cargandoAuth: false,
       };
     case UPDATE_USER_ADMIN:

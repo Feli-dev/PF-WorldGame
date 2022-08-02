@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
-import ModalUser from "../components/TableUser/ModalUser/ModalUser";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+
+import { useSelector } from "react-redux";
 
 // Icons
 
 const Payment = () => {
   let allPays = useSelector((state) => state.payReducer.pays);
-  console.log(allPays);
   // useEffect(() => {
   //     //console.log('entro')
   //     dispatch(getAllPays())

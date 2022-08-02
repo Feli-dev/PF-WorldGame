@@ -8,9 +8,6 @@ import Alerta from "../components/Alerta";
 import capitalized from "../utils/capitalized";
 import { updateUserAdmin } from "../redux/auth/authActions";
 
-// Logo
-import logo from "../assets/logo.png";
-
 const Profile = () => {
   const dispatch = useDispatch();
 
