@@ -93,6 +93,7 @@ function Login({ navigation, user, postLogin }) {
         setBanned(true);
       } else if((User && User.state === true) || siLogin === true) {
         postLogin(_input);
+        dispatch(setLogin(User));
         setLogin_(_input);
       }
     }
@@ -100,6 +101,7 @@ function Login({ navigation, user, postLogin }) {
   };
 
   function handleInputChange(type, text) {
+    
     setInput({
       ...input,
       [type]: text,
