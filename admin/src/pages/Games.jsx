@@ -64,7 +64,12 @@ const Games = () => {
   return (
     <div className="md:max-w-7xl md:mx-auto px-4 py-6">
       <div className="flex items-center justify-between mb-4 ml-2">
-        <h2 className="text-2xl font-bold text-gray-800">Games</h2>
+        <button
+          className="text-2xl font-bold text-black hover:text-blue-600"
+          onClick={() => resetFilters()}
+        >
+          Games
+        </button>
       </div>
       <div className="flex mb-4 ml-2 max-w-2x1">
         <label className="font-semibold">Filters:</label>
@@ -125,13 +130,13 @@ const Games = () => {
           >
             Filter
           </button>
-          <button
+      {/*     <button
             type="reset"
             onClick={() => resetFilters()}
             className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white px-4 mx-2 border border-blue-500 hover:border-transparent rounded"
           >
             Reset filters
-          </button>
+          </button> */}
         </form>
       </div>
       <div className="overflow-x-auto bg-white rounded-lg shadow">
