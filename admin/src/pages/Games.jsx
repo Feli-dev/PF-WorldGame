@@ -59,7 +59,7 @@ const Games = () => {
     //console.log("aber", input)
   }
 
-  let claseSelect = "mx-2 px-3 rounded";
+  let claseSelect = "mx-2 p-1 rounded";
 
   return (
     <div className="md:max-w-7xl md:mx-auto px-4 py-6">
@@ -71,8 +71,8 @@ const Games = () => {
           Games
         </button>
       </div>
-      <div className="flex mb-4 ml-2 max-w-2x1">
-        <label className="font-semibold">Filters:</label>
+      <div className="flex mb-4 ml-2 max-w-2x1 items-center">
+        <label className="font-semibold py-1">Filters:</label>
         <form>
           <select
             name="winned"

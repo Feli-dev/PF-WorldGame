@@ -131,7 +131,7 @@ const Users = () => {
         </button>
       </div>
       <div className="flex mb-4 ml-2 w-full items-center">
-        <label className="font-semibold">Filters:</label>
+        <label className="font-semibold p-1">Filters:</label>
         <form onSubmit={handleSubmit}>
           <select
             id="countries"
