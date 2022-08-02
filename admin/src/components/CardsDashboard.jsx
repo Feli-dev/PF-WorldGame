@@ -8,7 +8,7 @@ import PublicIcon from "@mui/icons-material/Public";
 import { useSelector } from "react-redux";
 
 const CardsDashboard = () => {
-  let allUsers = useSelector((state) => state.userReducer.users);
+  let totalUsers = useSelector((state) => state.userReducer.totalUsers);
   let payments = useSelector((state) => state.payReducer.pays);
   let allGames = useSelector((state) => state.gamesReducer.allGames);
 
@@ -20,7 +20,7 @@ const CardsDashboard = () => {
           <PeopleAltIcon />
         </div>
         <div className="mt-8">
-          <h3 className="text-2xl">{allUsers?.length}</h3>
+          <h3 className="text-2xl">{totalUsers}</h3>
           <p className="text-gray-400">Registered</p>
         </div>
       </div>

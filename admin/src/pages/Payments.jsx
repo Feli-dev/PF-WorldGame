@@ -37,8 +37,8 @@ const Payment = () => {
             </tr>
           </thead>
           <tbody>
-            {allPays.length > 0 &&
-              allPays.map((pay) => {
+            {allPays?.length > 0 &&
+              allPays?.map((pay) => {
                 return (
                   <tr
                     key={pay.id}
