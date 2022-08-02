@@ -128,7 +128,7 @@ const Games = () => {
             onClick={(e) => handleSubmit(e)}
             className="bg-transparent hover:bg-green-700 text-blue-700 font-semibold hover:text-white px-4 mx-2 border border-blue-500 hover:border-transparent rounded"
           >
-            Filter
+            Search
           </button>
       {/*     <button
             type="reset"
