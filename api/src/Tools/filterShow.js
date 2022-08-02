@@ -16,7 +16,7 @@ module.exports = {
             authorization: user.authorization,
             avatar: user.avatar,
             friends: user.Friends,
-            reviews: user. reviews,
+            reviews: user.reviews,
             payment: user.payment,
             games: user.games,
             stats: averageScore,
