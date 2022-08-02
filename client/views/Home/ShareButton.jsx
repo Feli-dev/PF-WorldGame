@@ -5,10 +5,19 @@ import Svg, { Path } from "react-native-svg";
 import { useSelector } from 'react-redux';
 
 export default function ShareButton() {
-    const listOfAttemps = useSelector((state) => state.attemps);
+    let listOfAttemps = useSelector((state) => state.attemps);
     const countryOfGame = useSelector((state) => state.countrie);
     const login = useSelector((state) => state.login);
-    
+    const GV = useSelector((state) => state.giveUp);
+    if(GV === true){
+        let x = listOfAttemps;
+        x[x.length-1].hemisphere.asserted = false;
+        x[x.length-1].continent.asserted = false;
+        x[x.length-1].area.arrowdirection = "up";
+        x[x.length-1].population.arrowDirection = "up";
+        x[x.length-1].coordinates.direction = "1234";
+        listOfAttemps = x;
+    }
     const createMessage = ()=>{
         console.log(login)
         let message = ""
