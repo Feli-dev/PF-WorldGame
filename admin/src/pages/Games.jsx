@@ -25,16 +25,9 @@ const Games = () => {
   });
   let allGames = useSelector((state) => state.gamesReducer.allGames);
 
-  // useEffect(() => {
-  //     console.log('entro')
-  //     dispatch(getAllGames())
-  //     dispatch(getAllUsers())
-  //   },[])
-
   let numeritos = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
   function handleSubmit(event) {
-    //console.log("aber", input)
     event.preventDefault();
     dispatch(filterGamesWin(input.winned));
     dispatch(filterGamesAttempts(input.attempts));
@@ -56,7 +49,6 @@ const Games = () => {
       ...input,
       [event.target.name]: event.target.value,
     });
-    //console.log("aber", input)
   }
 
   let claseSelect = "mx-2 p-1 rounded";

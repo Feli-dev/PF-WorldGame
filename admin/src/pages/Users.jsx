@@ -39,16 +39,8 @@ const Users = () => {
     orderCountries = countries
       .filter((ele, pos) => countries.indexOf(ele) === pos)
       .sort();
-    // console.log('country', orderCountries)
   }
-  // console.log('allUsers', allUsers)
 
-  // useEffect(() => {
-  //     // console.log('entro')
-  //     dispatch(getAllUsers())
-  // },[dispatch])
-
-  // console.log('input', inputFilter)
   const getUserEdit = (id) => {
     navigate.push(`/edit-user/${id}`);
   };
@@ -64,7 +56,6 @@ const Users = () => {
   };
 
   const activateUser = (id) => {
-    //console.log("id", id)
     dispatch(reactivateUser(id))
       .then((result) => {
         alert(result.Request);

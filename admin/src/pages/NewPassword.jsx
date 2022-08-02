@@ -136,7 +136,6 @@ const NewPassword = () => {
         navigate.push("/");
       }, 2000);
     } catch (err) {
-      console.log(err);
       if (err.response.data.Request) {
         setAlert({ msg: "Please try again later", error: true });
 

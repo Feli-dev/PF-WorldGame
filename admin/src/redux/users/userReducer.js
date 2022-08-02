@@ -21,7 +21,7 @@ function userReducer(state = initialState, action) {
       );
       let lastFive =
         allUsers.length > 5 ? allUsers.slice(allUsers.length - 5) : allUsers;
-      console.log("last", actualUser);
+
       return {
         ...state,
         users: allUsers,
@@ -31,7 +31,6 @@ function userReducer(state = initialState, action) {
       };
 
     case GET_BY_FILTERED:
-      // console.log('reducer')
       return {
         ...state,
         filterUsers: Array.isArray(action.payload.Request)

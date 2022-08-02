@@ -51,7 +51,6 @@ const ForgotPassword = () => {
         setAlert({ msg: "", error: false });
       }, 3000);
     } catch (err) {
-      console.log(err);
       if (err.response.data.Request) {
         setAlert({ msg: "Email not found", error: true });
 

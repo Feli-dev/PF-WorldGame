@@ -42,9 +42,6 @@ const EditUser = () => {
     getUserById();
   }, [id, dispatch]);
 
-  // console.log('input', input)
-  // console.log('error', error)
-  // console.log('contires', allCountries)
   useEffect(() => {
     dispatch(getAllCountries());
   }, [dispatch]);

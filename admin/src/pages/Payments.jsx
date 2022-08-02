@@ -6,12 +6,7 @@ import { useSelector } from "react-redux";
 
 const Payment = () => {
   let allPays = useSelector((state) => state.payReducer.pays);
-  // useEffect(() => {
-  //     //console.log('entro')
-  //     dispatch(getAllPays())
-  //
-  //   },[dispatch])
-
+  
   return (
     <div className="md:max-w-7xl md:mx-auto px-4 py-6">
       <div className="flex items-center justify-between mb-4 ml-2">

@@ -18,7 +18,6 @@ import CloseIcon from "@mui/icons-material/Close";
 // }
 
 const ModalUser = ({ setModalUser, userInfo }) => {
-  console.log("Modeluser", userInfo);
   return (
     <div
       id="small-modal"

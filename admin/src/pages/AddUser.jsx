@@ -27,9 +27,6 @@ const AddUser = () => {
 
   let [error, setError] = useState({active: true})
 
-  // console.log('input', input)
-  // console.log('error', error)
-  // console.log('contires', allCountries)
   useEffect(()=>{
     dispatch(getAllCountries())
   },[dispatch])
