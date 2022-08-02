@@ -5,7 +5,7 @@ import Svg, { Path } from "react-native-svg";
 import { useSelector } from 'react-redux';
 
 export default function ShareButton() {
-    let listOfAttemps = useSelector((state) => state.attemps);
+    const listOfAttemps = useSelector((state) => state.attemps);
     const countryOfGame = useSelector((state) => state.countrie);
     const login = useSelector((state) => state.login);
     const GV = useSelector((state) => state.giveUp);
