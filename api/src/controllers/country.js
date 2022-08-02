@@ -17,21 +17,10 @@ async function getCountries() {
     };
   });
 
-  // await Country.bulkCreate(formatedCountries)
-  formatedCountries.forEach((country) => {
-    Country.findOrCreate({
-      where: {
-        name: country.name,
-        continent: country.continent,
-        population: country.population,
-        latitud: country.latitud,
-        longitud: country.longitud,
-        googleMap: country.googleMap,
-        area: country.area,
-        flagSvg: country.flagSvg,
-      },
-    });
-  });
+  let full = await Country.findAll()
+  
+  full.length ===  0 && await Country.bulkCreate(formatedCountries)
+  
 
   console.log("listo");
 }
