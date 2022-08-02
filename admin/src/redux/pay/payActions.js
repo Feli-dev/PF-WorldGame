@@ -1,7 +1,7 @@
 import clienteAxios from '../../config/axios'
 
 
-import { GET_ALL_PAYS } from '../../types' 
+import { GET_ALL_PAYS } from '../types' 
 
 export function getPays(){
     

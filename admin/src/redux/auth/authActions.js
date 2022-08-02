@@ -10,7 +10,7 @@ import {
   LOGIN_USER,
   LOGOUT_USER,
   UPDATE_USER_ADMIN,
-} from "../../types";
+} from "../types";
 
 function authenticateAction() {
   return async function (dispatch) {

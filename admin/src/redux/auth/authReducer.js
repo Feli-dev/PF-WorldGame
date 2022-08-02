@@ -7,7 +7,7 @@ import {
   LOGOUT_USER,
   LOADING_USER_AUTH,
   UPDATE_USER_ADMIN,
-} from "../../types";
+} from "../types";
 
 let initState = {
   profile: "",

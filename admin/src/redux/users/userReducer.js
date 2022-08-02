@@ -3,7 +3,7 @@ import {
   GET_BY_FILTERED,
   ORDER_NAME,
   ORDER_POINTS,
-} from "../../types";
+} from "../types";
 
 let initialState = {
   users: [],

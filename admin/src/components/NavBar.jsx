@@ -5,7 +5,7 @@ import { Link, useHistory } from "react-router-dom";
 import { logoutUser } from "../redux/auth/authActions";
 
 // Helper
-import capitalized from "../helpers/capitalized";
+import capitalized from "../utils/capitalized";
 
 const NavBar = () => {
   const dispatch = useDispatch();

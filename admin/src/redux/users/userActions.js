@@ -1,7 +1,7 @@
 import clienteAxios from '../../config/axios'
 
 
-import { GET_ALL_USERS, GET_BY_FILTERED, ORDER_NAME, ORDER_POINTS } from '../../types' 
+import { GET_ALL_USERS, GET_BY_FILTERED, ORDER_NAME, ORDER_POINTS } from '../types' 
 
 export function getAllUsers(){
     

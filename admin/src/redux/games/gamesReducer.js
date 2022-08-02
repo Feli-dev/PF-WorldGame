@@ -1,4 +1,4 @@
-import {GET_ALL_GAMES } from "../../types";
+import {GET_ALL_GAMES } from "../types";
 
 let initialState = {
   allGames: [],

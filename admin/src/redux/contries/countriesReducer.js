@@ -1,4 +1,4 @@
-import {GET_ALL_COUNTRIES } from "../../types";
+import {GET_ALL_COUNTRIES } from "../types";
 
 let initialState = {
   allCountries: [],

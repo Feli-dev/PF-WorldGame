@@ -7,7 +7,7 @@ import validateEdit from "../utils/ValidateEdit";
 //Actions
 import { getAllCountries } from "../redux/contries/countriesActions";
 import { getUser, postUser, updateUser } from "../redux/users/userActions";
-import capitalized from "../helpers/capitalized";
+import capitalized from "../utils/capitalized";
 
 const EditUser = () => {
   let dispatch = useDispatch();

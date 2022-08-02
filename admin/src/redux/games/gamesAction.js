@@ -1,7 +1,7 @@
 import clienteAxios from '../../config/axios'
 
 
-import { GET_ALL_GAMES } from '../../types' 
+import { GET_ALL_GAMES } from '../types' 
 
 export function getAllGames(){
     

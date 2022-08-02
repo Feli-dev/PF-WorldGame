@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 // Components
 import Alerta from "../components/Alerta";
-import capitalized from "../helpers/capitalized";
+import capitalized from "../utils/capitalized";
 import { updateUserAdmin } from "../redux/auth/authActions";
 
 // Logo
