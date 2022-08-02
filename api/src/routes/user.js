@@ -24,7 +24,7 @@ async function filter(id = 0, body = {}){
         .then(result => {
             if(result.Value.name !== body.name && body.name !== undefined) obj.name = body.name;
             if(result.Value.username !== body.username && body.username !== undefined) obj.username = body.username;
-            if(bitHash.decrypt(result.Value.password) !== body.password && body.password !== undefined) obj.password = bitHash.encrypt(body.password).toString();
+            if(result.Value.password !== bitHash.encrypt(body.password)&& body.password !== undefined) obj.password = bitHash.encrypt(body.password).toString();
             if(result.Value.country !== body.country && body.country !== undefined) obj.country = body.country;
             if(result.Value.email !== body.email && body.email !== undefined) obj.email = body.email;
             if(parseFloat(result.Value.points) !== points && body.points !== undefined) obj.points = points;
