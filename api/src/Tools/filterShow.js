@@ -16,9 +16,12 @@ module.exports = {
             authorization: user.authorization,
             avatar: user.avatar,
             friends: user.Friends,
+            reviews: user. reviews,
+            payment: user.payment,
             games: user.games,
             stats: averageScore,
-            createdAt: user.createdAt
+            createdAt: user.createdAt,
+            updatedAt: user.updatedAt
         };
     }
 }
