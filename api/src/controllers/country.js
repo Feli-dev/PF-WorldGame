@@ -17,8 +17,9 @@ async function getCountries() {
     };
   });
 
-  // await Country.bulkCreate(formatedCountries)
-  formatedCountries.forEach((country) => {
+  let full = await Country.findAll()
+  // console.log('full', full)
+  full.length ===  0 && formatedCountries.forEach((country) => {
     Country.findOrCreate({
       where: {
         name: country.name,

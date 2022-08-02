@@ -13,7 +13,8 @@ function userReducer(state = initialState, action) {
   switch (action.type) {
     case GET_ALL_USERS:
       let lastFive = action.payload.Request.length>5? action.payload.Request.slice(action.payload.Request.length-5):action.payload.Request
-      // console.log('last', lastFive)
+      let actualUser = JSON.parse(localStorage.getItem("profile"))
+      console.log('last', actualUser)
       return {
         ...state,
         users: action.payload.Request,
