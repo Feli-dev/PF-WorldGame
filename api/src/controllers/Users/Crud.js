@@ -1,3 +1,4 @@
+const { averageScore } = require('../../Tools/AverageScore');
 const { showUsers } = require('../../Tools/filterShow');
 const { Game, User, Friend, Review, Payment  } = require('../../db');
 const parseObject = require('../../Tools/ParseObject');
