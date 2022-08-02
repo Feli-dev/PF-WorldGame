@@ -162,7 +162,7 @@ const Games = () => {
             </tr>
           </thead>
           <tbody>
-            {allGames.length > 0 &&
+            {allGames?.length > 0 &&
               allGames?.map((game) => (
                 <Game
                   game={game}
@@ -172,6 +172,11 @@ const Games = () => {
               ))}
           </tbody>
         </table>
+        {allGames?.length < 1 && (
+          <h1 className="text-center px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xl ">
+            Sin Games 🥶
+          </h1>
+        )}
       </div>
 
       {modalUser && (
