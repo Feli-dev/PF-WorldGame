@@ -43,6 +43,7 @@ export const rootReducer = (state = initialState, action) => {
         users: action.payload,
       };
     case type.POST_LOGIN:
+      
       return {
         ...state,
         login: action.payload,
