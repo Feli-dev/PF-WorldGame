@@ -1,6 +1,8 @@
 import React from "react";
-
 import { useSelector } from "react-redux";
+
+import PaysGraph from "../components/Graphs/PaysGraph";
+
 
 // Icons
 
@@ -8,11 +10,11 @@ const Payment = () => {
   let allPays = useSelector((state) => state.payReducer.pays);
   
   return (
-    <div className="md:max-w-7xl md:mx-auto px-4 py-6">
-      <div className="flex items-center justify-between mb-4 ml-2">
-        <h2 className="text-xl font-bold text-gray-800">All Payments</h2>
-      </div>
-      <div className="overflow-x-auto bg-white rounded-lg shadow">
+    <div className="md:max-w-7xl md:mx-auto px-4 py-6 h-screen ">
+        <div className="flex items-center justify-between mb-4 ml-2 h-1/8">
+            <h2 className="text-xl font-bold text-gray-800">All Payments</h2>
+        </div>
+        <div className="overflow-x-auto bg-white rounded-lg shadow h-4/8">
         <table className="w-full whitespace-no-wrap bg-white overflow-hidden table-striped">
           <thead>
             <tr className="text-left">
@@ -65,12 +67,13 @@ const Payment = () => {
               })}
           </tbody>
         </table>
-        {allPays.length < 1 && (
-          <h1 className="text-center px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xl ">
-            Sin pagos 🥶
-          </h1>
-        )}
+        {allPays.length<1 && (<h1 className="text-center px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xl ">
+          Sin pagos 🥶</h1>) }
       </div>
+      <h1 className="text-center px-6 pt-3 mb-0 text-gray-500 font-bold tracking-wider uppercase text-xl ">
+          Users premium vs normal</h1>
+      <div className="bg-white p-15 m-5 h-5/6"><PaysGraph/></div>       
+      
     </div>
   );
 };
