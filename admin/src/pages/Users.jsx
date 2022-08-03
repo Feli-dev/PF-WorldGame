@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ModalUser from "../components/TableUser/ModalUser/ModalUser";
+import UserGraph from "../components/Graphs/UserGraph";
 import { useHistory } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux";
 import { deactivateUser, getAllUsers, reactivateUser, getByFilter, orderUsername, orderPoints } from "../redux/users/userActions";
@@ -122,8 +123,8 @@ const Users = () => {
     
     
   return (
-    <div className="md:max-w-8xl md:mx-auto px-4 py-6">
-        <div className="flex items-center justify-between mb-4">
+    <div className="md:max-w-8xl md:mx-auto px-4 py-6 h-screen">
+        <div className="flex items-center justify-between mb-4 h-1/8">
           <button className="ml-1 text-2xl font-bold text-black hover:text-blue-600"
           onClick={handleClick}>
             All Users
@@ -200,7 +201,7 @@ const Users = () => {
           </div>
               
         </div>
-        <div className="overflow-x-auto bg-white rounded-lg shadow">
+        <div className="overflow-x-auto bg-white rounded-lg shadow h-4/6">
         <table className="w-full whitespace-no-wrap bg-white overflow-hidden table-striped">
           <thead>
             <tr className="text-left">
@@ -365,6 +366,7 @@ const Users = () => {
       </div>
 
       {modalUser && <ModalUser userInfo={userInfo} setModalUser={setModalUser} />}
+      <div className="bg-white m-10 p-10 h-4/6"><UserGraph/></div>
     </div>
   );
 };

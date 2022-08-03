@@ -15,7 +15,7 @@ function userReducer(state = initialState, action) {
       let actualUser = JSON.parse(localStorage.getItem("profile"))
       let allUsers = action.payload.Request.filter(user => user.id !== actualUser.id)
       let lastFive = allUsers.length>5? allUsers.slice(allUsers.length-5):allUsers
-      console.log('last', actualUser)
+      // console.log('last', actualUser)
       return {
         ...state,
         users: allUsers,

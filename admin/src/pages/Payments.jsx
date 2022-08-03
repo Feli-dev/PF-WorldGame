@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ModalUser from "../components/TableUser/ModalUser/ModalUser";
 import { useDispatch, useSelector } from "react-redux";
+import PaysGraph from "../components/Graphs/PaysGraph";
 
 
 // Icons
@@ -21,11 +22,11 @@ const Payment = () => {
       
       
   return (
-    <div className="md:max-w-7xl md:mx-auto px-4 py-6">
-        <div className="flex items-center justify-between mb-4 ml-2">
+    <div className="md:max-w-7xl md:mx-auto px-4 py-6 h-screen ">
+        <div className="flex items-center justify-between mb-4 ml-2 h-1/8">
             <h2 className="text-xl font-bold text-gray-800">All Payments</h2>
         </div>
-        <div className="overflow-x-auto bg-white rounded-lg shadow">
+        <div className="overflow-x-auto bg-white rounded-lg shadow h-4/8">
         <table className="w-full whitespace-no-wrap bg-white overflow-hidden table-striped">
           <thead>
             <tr className="text-left">
@@ -83,7 +84,7 @@ const Payment = () => {
         </table>
         {allPays.length<1 && <h1 className="text-center px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xl ">Sin pagos 🥶</h1> }
       </div>
-
+      <div className="bg-white m-10 "><PaysGraph/></div>       
       </div>
   );
 };
