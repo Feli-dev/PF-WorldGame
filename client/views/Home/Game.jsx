@@ -10,6 +10,7 @@ export default function Game() {
   let listOfAttemps = useSelector((state) => state.attemps);
   const countryOfGame = useSelector((state) => state.countrie);
   const GV = useSelector((state) => state.giveUp);
+  let [display, setDisplay] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [dataModal, setDataModal] = useState([{}]);
   const scrollViewRef = useRef();
@@ -17,6 +18,10 @@ export default function Game() {
   const onModal = (namep)=>{
     setDataModal(listOfAttemps.filter((el) => el.name.toLowerCase() === namep.toLowerCase()))
   }
+
+  useEffect(()=>{
+    setDisplay(GV);
+  },[GV])
 
 
   return (
@@ -244,13 +249,13 @@ export default function Game() {
             </View>
           );
         })}
-        { GV === true ? <Text style={tw`mt-2 text-center text-white font-bold text-xl`}>{
+        { display === true ? <Text style={tw`mt-2 text-center text-white font-bold text-xl`}>{
                         `The country was:
 ${countryOfGame.name}`}
                         </Text>
         : <></>}
-        {(listOfAttemps.find((e)=> countryOfGame?.name?.toLowerCase() === e.name.toLowerCase())||GV === true) ? <Map lat={parseInt(countryOfGame.latitud)} long={parseInt(countryOfGame.longitud)} /> : <></>}
-        {(listOfAttemps.find((e)=> countryOfGame?.name?.toLowerCase() === e.name.toLowerCase())||GV === true) ? <ShareButton/> : <></>}
+        {(listOfAttemps.find((e)=> countryOfGame?.name?.toLowerCase() === e.name.toLowerCase())||display === true) ? <Map lat={parseInt(countryOfGame.latitud)} long={parseInt(countryOfGame.longitud)} /> : <></>}
+        {(listOfAttemps.find((e)=> countryOfGame?.name?.toLowerCase() === e.name.toLowerCase())||display === true) ? <ShareButton/> : <></>}
       </ScrollView>
     </View>
   );
