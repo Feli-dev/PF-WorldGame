@@ -95,7 +95,7 @@ const Users = () => {
     dispatch(getByFilter(inputFilter));
   };
 
-  function handleClick() {
+  function handleReset() {
     dispatch(getAllUsers());
   }
 
@@ -114,7 +114,7 @@ const Users = () => {
       <div className="flex items-center justify-between mb-4">
         <button
           className="ml-1 text-2xl font-bold text-black hover:text-blue-600"
-          onClick={handleClick}
+          onClick={handleReset}
         >
           All Users
         </button>
@@ -176,9 +176,16 @@ const Users = () => {
 
           <input
             type="submit"
-            className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white px-4 mx-2 border border-blue-500 hover:border-transparent rounded"
+            className="bg-transparent hover:bg-green-700 text-blue-700 font-semibold hover:text-white px-4 mx-2 border border-blue-500 hover:border-transparent rounded"
             value="Search"
           />
+          <button
+            type="reset"
+            onClick={handleReset}
+            className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white px-4 mx-2 border border-blue-500 hover:border-transparent rounded"
+          >
+            Reset filters
+          </button>
         </form>
       </div>
 

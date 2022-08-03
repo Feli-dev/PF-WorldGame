@@ -122,13 +122,13 @@ const Games = () => {
           >
             Search
           </button>
-          {/*     <button
+          <button
             type="reset"
             onClick={() => resetFilters()}
             className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white px-4 mx-2 border border-blue-500 hover:border-transparent rounded"
           >
             Reset filters
-          </button> */}
+          </button>
         </form>
       </div>
       <div className="overflow-x-auto bg-white rounded-lg shadow">
