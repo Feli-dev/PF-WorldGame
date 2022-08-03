@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import img from "../assets/Worldgame.png"
 import { getUser, setLogin, getAllCountries } from '../redux/actions'
+import { Audio } from 'expo-av';
 import tw from "twrnc";
 
 const Landing = ({ navigation }) => {
@@ -11,6 +12,16 @@ const Landing = ({ navigation }) => {
     const [al, setAl] = useState(true);
     const dispatch = useDispatch()
 
+
+    async function playSound() {
+        console.log('Loading Sound');
+        const { sound } = await Audio.Sound.createAsync(
+            require('../assets/sounds/a.mp3')
+        );
+
+        console.log('Playing Sound');
+        await sound.playAsync();
+    }
     const createAlert = () =>
     Alert.alert(
       "You have been banned",
@@ -64,6 +75,7 @@ const Landing = ({ navigation }) => {
     }
     
     useEffect(() => {
+        playSound();
         dispatch(getAllCountries());
         dispatch(getUser());
     }, [dispatch]);
