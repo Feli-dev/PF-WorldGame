@@ -18,10 +18,43 @@ import AvatarOptions from './AvatarsOptions'
 import * as Animatable from 'react-native-animatable';
 //-----------------select
 import DropDownPicker from "react-native-dropdown-picker";
+import * as ImagePicker from 'expo-image-picker'
+import * as Permissions from 'expo-permissions';
 
 export default function EditProfile({ route, navigation }) {
-
+  const [image,setImage]= useState()
   const { id, name, userAvatar, premium, country, email, userName, password, countries } = route.params;
+
+  const pickFromGalary = async ()=>{ 
+    const {granted} = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    if(granted){
+        let data = await ImagePicker.launchImageLibraryAsync({
+            allowsEditing:false,
+            aspect:[4,4],
+        });
+        if(!data.cancelled){
+            let newFile = {
+                uri:data.uri,
+                type:`test/${data.uri.split(".")[1]}`,
+                name:`test.${data.uri.split(".")[1]}`};
+            handleUpload(newFile);
+        }
+    }else{  Alert.alert('no se pudo seleccionar'); }
+}
+
+  const handleUpload = (image)=>{
+    const data = new FormData(); 
+    data.append('file',image); 
+    data.append('upload_preset','World_game'); 
+    data.append('cloud_name','dunhnh8mv'); 
+    fetch("https://api.cloudinary.com/v1_1/dunhnh8mv/image/upload",{  method:'post',body:data})
+      .then(res=>res.json())
+      .then(data=>{
+        setImage(data.url);
+        console.log(data);
+       });
+
+}
 
   const TostMessage = () => {
     ToastAndroid.show('Edited Sucessfully!', ToastAndroid.SHORT);
@@ -89,18 +122,15 @@ export default function EditProfile({ route, navigation }) {
             padding: 20, alignItems: 'center'
           }}>
           <Image
-            source={userAvatar}
+           source={{uri: image}}
             style={{ width: 100, height: 100, borderRadius: 100 }}
-            onPress={
-              <View>
-                <AvatarOptions
-                  userAvatar={userAvatar}
-                  isPremium={premium}
-                />
-              </View>
-            }
           />
-          <Text style={tw`text-[#D1D5DB] text-center text-xs`}>Change avatar</Text>
+         <TouchableOpacity
+          style={tw`bg-gray-600 px-8 py-2 rounded-lg mt-3 w-50`}
+          onPress={()=>pickFromGalary()}
+        >
+          <Text style={tw`text-white text-center font-bold`}>Change Image</Text>
+        </TouchableOpacity>
         </View>
 
         <View style={{ padding: 10 }}>
@@ -143,7 +173,7 @@ export default function EditProfile({ route, navigation }) {
           <View style={{justifyContent:'center', alignItems:'center', }}>
             <Text style={{ opacity: 0.5, color: '#D1D5DB',fontSize: 20, }}>Country</Text>
             <Text
-              style={tw`text-center text-2xl underlined text-white mb-5`}
+              style={tw`text-center text-2xl  text-white mb-5`}
             >
               {userData.country}
             </Text>
