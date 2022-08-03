@@ -501,7 +501,7 @@ const Profile = () => {
                         <View style={tw`mt-10 p-5`}>
 
                             <ProfileBody
-                                userAvatar={avatarFinal}
+                                avatar={data.avatar}
                                 friends="0"
                                 gamesWon={stats.wins}
                                 games={games.length}
@@ -513,7 +513,6 @@ const Profile = () => {
                                 password={data.password}
                                 premium={data.premium}
                                 countries={countries}
-
                             />
                             <ProfileButtons
                                 id={data.id}
