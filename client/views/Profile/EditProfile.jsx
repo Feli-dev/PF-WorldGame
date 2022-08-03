@@ -23,7 +23,7 @@ import * as Permissions from 'expo-permissions';
 
 export default function EditProfile({ route, navigation }) {
   const [image,setImage]= useState()
-  const { id, name, userAvatar, premium, country, email, userName, password, countries } = route.params;
+  const { id, name, avatar, premium, country, email, userName, password, countries } = route.params;
 
   const pickFromGalary = async ()=>{ 
     const {granted} = await Permissions.askAsync(Permissions.CAMERA_ROLL);
@@ -50,8 +50,13 @@ export default function EditProfile({ route, navigation }) {
     fetch("https://api.cloudinary.com/v1_1/dunhnh8mv/image/upload",{  method:'post',body:data})
       .then(res=>res.json())
       .then(data=>{
-        setImage(data.url);
-        console.log(data);
+        dispatch(PutUser({
+          id: id,
+          username: userName,
+          email: email,
+          password: password,
+          avatar: data.url,
+        }))
        });
 
 }
@@ -122,7 +127,7 @@ export default function EditProfile({ route, navigation }) {
             padding: 20, alignItems: 'center'
           }}>
           <Image
-           source={{uri: image}}
+           source={{uri: avatar}}
             style={{ width: 100, height: 100, borderRadius: 100 }}
           />
          <TouchableOpacity
