@@ -1,7 +1,6 @@
 import React from "react";
 
 // Icons
-import ErrorIcon from "@mui/icons-material/Error";
 import InfoIcon from "@mui/icons-material/Info";
 
 const Alerta = ({ alerta }) => {

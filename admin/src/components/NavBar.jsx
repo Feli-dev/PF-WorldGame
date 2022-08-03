@@ -1,11 +1,10 @@
-import { Button } from "@mui/material";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { logoutUser } from "../redux/auth/authActions";
 
 // Helper
-import capitalized from "../helpers/capitalized";
+import capitalized from "../utils/capitalized";
 
 const NavBar = () => {
   const dispatch = useDispatch();

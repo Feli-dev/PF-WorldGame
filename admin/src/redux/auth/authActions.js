@@ -10,7 +10,7 @@ import {
   LOGIN_USER,
   LOGOUT_USER,
   UPDATE_USER_ADMIN,
-} from "../../types";
+} from "../types";
 
 function authenticateAction() {
   return async function (dispatch) {
@@ -34,7 +34,6 @@ function authenticateAction() {
         type: LOADING_USER_AUTH,
       });
     } catch (err) {
-      console.log(err);
       return dispatch({
         type: ERROR,
         payload: err.response.data.msg,
@@ -97,7 +96,6 @@ function loginAction(user) {
         type: LOADING_USER_AUTH,
       });
     } catch (err) {
-      console.log(err);
       dispatch({
         type: ERROR,
         payload: { msg: err.response.data.Request, error: true },
@@ -144,7 +142,6 @@ function updateUserAdmin(updateUser) {
         payload: JSON.parse(localStorage.getItem("profile")),
       });
     } catch (err) {
-      console.log(err.response.data);
       if (err.response.data.Request.indexOf("(email)")) {
         dispatch({
           type: ERROR,
@@ -193,7 +190,6 @@ function updatePasswordAdmin(updatePassword) {
         payload: JSON.parse(localStorage.getItem("profile")),
       });
     } catch (err) {
-      console.log(err.response.data);
       if (err.response.data.Request.indexOf("(password)")) {
         dispatch({
           type: ERROR,

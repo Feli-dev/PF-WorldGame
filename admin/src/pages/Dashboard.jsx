@@ -1,9 +1,5 @@
 import React, { useEffect } from "react";
 
-// Components
-import NavBar from "../components/NavBar";
-import SideBar from "../components/SideBar";
-
 // Icons
 import AddIcon from "@mui/icons-material/Add";
 import TableUser from "../components/TableUser/TableUser";

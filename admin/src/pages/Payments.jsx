@@ -3,24 +3,13 @@ import ModalUser from "../components/TableUser/ModalUser/ModalUser";
 import { useDispatch, useSelector } from "react-redux";
 import PaysGraph from "../components/Graphs/PaysGraph";
 
+import { useSelector } from "react-redux";
 
 // Icons
 
-
-
-
 const Payment = () => {
+  let allPays = useSelector((state) => state.payReducer.pays);
   
-    let allPays = useSelector((state) => state.payReducer.pays)
-    console.log(allPays)
-    // useEffect(() => {
-    //     //console.log('entro')
-    //     dispatch(getAllPays())
-    //     
-    //   },[dispatch])
-
-      
-      
   return (
     <div className="md:max-w-7xl md:mx-auto px-4 py-6 h-screen ">
         <div className="flex items-center justify-between mb-4 ml-2 h-1/8">
@@ -30,10 +19,10 @@ const Payment = () => {
         <table className="w-full whitespace-no-wrap bg-white overflow-hidden table-striped">
           <thead>
             <tr className="text-left">
-            <th className="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">
+              <th className="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">
                 Payments ID
               </th>
-            <th className="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">
+              <th className="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">
                 Payment Date
               </th>
               <th className="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">
@@ -41,52 +30,50 @@ const Payment = () => {
               </th>
               <th className="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">
                 User
-              </th>   
+              </th>
             </tr>
           </thead>
           <tbody>
+            {allPays?.length > 0 &&
+              allPays?.map((pay) => {
+                return (
+                  <tr
+                    key={pay.id}
+                    className="focus-within:bg-gray-200 overflow-hidden hover:bg-gray-100 "
+                  >
+                    <td className="border-t">
+                      <span className="text-gray-700 px-6 py-4 flex items-center">
+                        {pay.payment.id}
+                      </span>
+                    </td>
+                    <td className="border-t">
+                      <span className="text-gray-700 px-6 py-4 flex items-center">
+                        {pay.payment.createdAt.slice(0, 10)}
+                      </span>
+                    </td>
 
-{allPays.length>0 && allPays.map((pay) =>{
+                    <td className="border-t">
+                      <span className="text-gray-700 px-6 py-4 flex items-center">
+                        {`$${pay.payment.amount} USD`}
+                      </span>
+                    </td>
 
-
-            return (
-            <tr key={pay.id} className="focus-within:bg-gray-200 overflow-hidden hover:bg-gray-100 ">
-            
-            <td className="border-t">
-                <span className="text-gray-700 px-6 py-4 flex items-center">
-                  {pay.payment.id}
-                </span>
-              </td>  
-              <td className="border-t">
-                <span className="text-gray-700 px-6 py-4 flex items-center">
-                {pay.payment.createdAt.slice(0,10)}
-                </span>
-              </td>
-              
-              
-              <td className="border-t">
-                <span className="text-gray-700 px-6 py-4 flex items-center">
-                {`$${pay.payment.amount} USD` }
-                </span>
-              </td>
-
-              <td className="border-t">
-                <span className="text-gray-700 px-6 py-4 flex items-center ml-3">
-                  {pay.username}
-                </span>
-              </td>
-              
-              
-            </tr>
-        )})}
-
+                    <td className="border-t">
+                      <span className="text-gray-700 px-6 py-4 flex items-center ml-3">
+                        {pay.username}
+                      </span>
+                    </td>
+                  </tr>
+                );
+              })}
           </tbody>
         </table>
         {allPays.length<1 && <h1 className="text-center px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xl ">Sin pagos 🥶</h1> }
       </div>
       <div className="bg-white m-10 "><PaysGraph/></div>       
-      </div>
+      
+    </div>
   );
 };
 
-export default Payment
+export default Payment;

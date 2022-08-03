@@ -1,4 +1,4 @@
-import {GET_ALL_PAYS } from "../../types";
+import {GET_ALL_PAYS } from "../types";
 
 let initialState = {
   pays: [],
