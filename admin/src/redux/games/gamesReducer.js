@@ -24,14 +24,14 @@ function gamesReducer(state = initialState, action) {
       return {
         ...state,
         allGames: action.payload
-          ? state.allGames.filter((el) => el.attempts === action.payload)
+          ? state.allGames.filter((el) => el.attempts == action.payload)
           : state.allGames,
       };
     case "FILTER_GAMES_BY_TIME":
       return {
         ...state,
         allGames: action.payload
-          ? state.allGames.filter((el) => el.time === action.payload)
+          ? state.allGames.filter((el) => el.time == action.payload)
           : state.allGames,
       };
     case "FILTER_GAMES_BY_POINTS":
@@ -39,7 +39,7 @@ function gamesReducer(state = initialState, action) {
         ...state,
         allGames: action.payload
           ? state.allGames.filter(
-              (el) => Math.floor(el.points) === action.payload
+              (el) => Math.floor(el.points) == action.payload
             )
           : state.allGames,
       };
