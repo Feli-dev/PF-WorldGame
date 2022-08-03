@@ -10,6 +10,7 @@ let initialState = {
   last: [],
   filterUsers: [],
   totalUsers: 0,
+  totalPremium: 0
 };
 
 function userReducer(state = initialState, action) {
@@ -21,13 +22,17 @@ function userReducer(state = initialState, action) {
       );
       let lastFive =
         allUsers.length > 5 ? allUsers.slice(allUsers.length - 5) : allUsers;
-
+      let premium = action.payload.Request.filter(
+        (user) => user.premium 
+      ).length;
+      
       return {
         ...state,
         users: allUsers,
         last: lastFive.reverse(),
         filterUsers: allUsers,
         totalUsers: action.payload.Request.length,
+        totalPremium: premium
       };
 
     case GET_BY_FILTERED:

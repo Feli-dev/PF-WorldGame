@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
-import ModalUser from "../components/TableUser/ModalUser/ModalUser";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
+
 import PaysGraph from "../components/Graphs/PaysGraph";
 
-import { useSelector } from "react-redux";
 
 // Icons
 
@@ -68,9 +67,12 @@ const Payment = () => {
               })}
           </tbody>
         </table>
-        {allPays.length<1 && <h1 className="text-center px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xl ">Sin pagos 🥶</h1> }
+        {allPays.length<1 && (<h1 className="text-center px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xl ">
+          Sin pagos 🥶</h1>) }
       </div>
-      <div className="bg-white m-10 "><PaysGraph/></div>       
+      <h1 className="text-center px-6 pt-3 mb-0 text-gray-500 font-bold tracking-wider uppercase text-xl ">
+          Users premium vs normal</h1>
+      <div className="bg-white p-15 m-5 h-5/6"><PaysGraph/></div>       
       
     </div>
   );

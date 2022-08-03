@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import {useSelector } from "react-redux";
 import {
   Chart,
   ArcElement,
@@ -65,15 +65,15 @@ const options = {
 }
 
 function PaysGraph() {
+    let {totalUsers, totalPremium} = useSelector(state => state.userReducer) 
     
-
     let data = useMemo(() => {
         return{
-            labels: ['premium', 'normal'],
+            labels: ['Premium', 'Normal'],
             datasets: [
               {
-                label: 'hola',
-                data: [12, 19],
+                label: `Total users: ${totalUsers}`,
+                data: [totalPremium, totalUsers-totalPremium],
                 backgroundColor: [
                   'rgb(23, 158, 230)',
                   'rgba(133, 139, 133 , 0.5)',
@@ -87,7 +87,7 @@ function PaysGraph() {
               },
             ],
           };
-    },[])
+    },[totalUsers, totalPremium])
   return (
     
         <Pie data={data} options={options}/>

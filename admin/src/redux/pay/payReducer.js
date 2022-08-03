@@ -12,7 +12,7 @@ function payReducer(state = initialState, action) {
   switch (action.type) {
     case GET_ALL_PAYS:
     let allPays = action.payload.filter(user => user.payment !== null)
-    console.log(action.payload, 'pays') 
+     
     return{
         ...state,
         pays: allPays,
