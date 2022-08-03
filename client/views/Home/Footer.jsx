@@ -97,7 +97,6 @@ export default function Footer() {
 
   const handleGiveUp = () =>{
     dispatch(giveUp(true));
-    dispatch(gameAction(countryOfDay, countryOfDay))
     dispatch(
       PostGame({countrie: countryOfDay.name, winned: false, time: 120, attempts: listOfAttemps.length , UserId: login.Request.id, points:5000})
       );
