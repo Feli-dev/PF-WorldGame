@@ -8,7 +8,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ReplayIcon from '@mui/icons-material/Replay';
 
 const DashUser = ({user, setModalUser, setUserInfo}) => {
-  // console.log('user', user)
   const dispatch = useDispatch()
   const navigate = useHistory()
 
@@ -28,7 +27,6 @@ const DashUser = ({user, setModalUser, setUserInfo}) => {
   };
 
 const activateUser = (id) => {
-    //console.log("id", id)
     dispatch(reactivateUser(id))
     .then(result =>{ 
       alert(result.Request)

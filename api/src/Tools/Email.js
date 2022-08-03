@@ -60,7 +60,7 @@ module.exports = new class {
         return `
                 <h1>Final Project WorldGame</h1>
                 <br>
-                <p>Hola ${name}, ${this.#message}
+                <p>Hello ${name}, ${this.#message}
                 <br>
                 <small>
                     WorldGame

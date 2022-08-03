@@ -1,5 +1,5 @@
 // Types
-import { HIDE_ALERT, SHOW_ALERT } from "../../types";
+import { HIDE_ALERT, SHOW_ALERT } from "../types";
 
 let initialState = {
   alert: "",

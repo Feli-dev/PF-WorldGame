@@ -6,7 +6,6 @@ import GridViewIcon from "@mui/icons-material/GridView";
 import PersonIcon from "@mui/icons-material/Person";
 import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
 import PaidIcon from "@mui/icons-material/Paid";
-import SettingsIcon from "@mui/icons-material/Settings";
 
 const SideBar = () => {
   return (
