@@ -131,12 +131,13 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         game: [],
-        countrie: {},
         login: [],
         attemps: [],
         userdetail: {},
         rank: [],
         rank_filter: [],
+        friends: [],
+        giveUp : false,
       };
     case type.POST_REVIEW:
       return {

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ModalUser from "../components/TableUser/ModalUser/ModalUser";
-import { useHistory } from "react-router-dom";
+import UserGraph from "../components/Graphs/UserGraph";
+import { useHistory } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux";
 import {
   deactivateUser,
@@ -118,8 +119,8 @@ const Users = () => {
   }
 
   return (
-    <div className="md:max-w-8xl md:mx-auto px-4 py-6">
-      <div className="flex items-center justify-between mb-4">
+    <div className="md:max-w-8xl md:mx-auto px-4 py-6 h-screen">
+      <div className="flex items-center justify-between mb-4 h-1/6">
         <button
           className="ml-1 text-2xl font-bold text-black hover:text-blue-600"
           onClick={handleReset}
@@ -197,7 +198,7 @@ const Users = () => {
         </form>
       </div>
 
-      <div className="overflow-x-auto bg-white rounded-lg shadow">
+      <div className="overflow-x-auto bg-white rounded-lg shadow h-3/6">
         <table className="w-full whitespace-no-wrap bg-white overflow-hidden table-striped">
           <thead>
             <tr className="text-left">
@@ -375,6 +376,9 @@ const Users = () => {
       {modalUser && (
         <ModalUser userInfo={userInfo} setModalUser={setModalUser} />
       )}
+      <h1 className="text-center px-6 pt-3 mb-0 text-gray-500 font-bold tracking-wider uppercase text-xl ">
+        Monthly new users</h1>
+      <div className="bg-white m-10 p-10 h-4/6"><UserGraph/></div>
     </div>
   );
 };
