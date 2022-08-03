@@ -30,6 +30,8 @@ const Users = () => {
     (state) => state.countriesReducer.allCountries
   ); */
   let [order, setOrder] = useState(""); //eslint-disable-line
+  let actualUser = JSON.parse(localStorage.getItem("profile"))
+  //console.log("chee", actualUser)
 
   let allUsers = useSelector((state) => state.userReducer.filterUsers);
   const navigate = useHistory();
@@ -97,6 +99,12 @@ const Users = () => {
 
   function handleReset() {
     dispatch(getAllUsers());
+    setInputFilter({
+      country: "",
+      premium: "",
+      state: "",
+      authorization: "",
+    })
   }
 
   function handleOrderUser(event) {
@@ -330,7 +338,9 @@ const Users = () => {
                     </td>
 
                     <td className="border-t">
-                      <div className="text-gray-700  flex w-2.5 gap-3 text-center">
+                    {user.id !== actualUser.id? (
+                    <div className="text-gray-700  flex w-2.5 gap-3 text-center">
+                        
                         <EditIcon
                           className="text-yellow-500 z-50 cursor-pointer"
                           onClick={() => getUserEdit(user.id)}
@@ -347,6 +357,8 @@ const Users = () => {
                           />
                         )}
                       </div>
+                    ) : "..."}
+                     
                     </td>
                   </tr>
                 );
