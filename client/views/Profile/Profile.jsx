@@ -20,19 +20,18 @@ const Profile = () => {
 
     const userlogin = useSelector((state) => state.login);
     const userInfo = useSelector((state) => state.userdetail);
-    const data = userInfo?.Request;
-    const stats = userInfo?.Request?.stats;
-    const games = userInfo?.Request?.games;
-    const userId = userlogin?.Request?.id;
+    const data = userInfo.hasOwnProperty("Request") ? userInfo.Request : false;
+
+    const userId = userlogin.hasOwnProperty("Request") ? userlogin.Request.id : 0;
 
     const avatarFinal = require(`../../assets/avatars/normal_user/avatar_default.png`);
 
 
     // userInfo?.Request? HACER FUNCION PARA LEVANTAR LA VARIABLE
-    // const avatarFinal = data.avatar
-    //     ? data.premium
-    //         ? require(`../../assets/avatars/premium_user/${data.avatar}`)
-    //         : require('../../assets/avatars/normal_user/' + data.avatar)
+    // const avatarFinal = data !== false?.avatar
+    //     ? data !== false?.premium
+    //         ? require(`../../assets/avatars/premium_user/${data !== false?.avatar}`)
+    //         : require('../../assets/avatars/normal_user/' + data !== false?.avatar)
     //     : require(`../../assets/avatars/normal_user/avatar_default.png`)
     //ver con path, paquete path
 
@@ -492,7 +491,7 @@ const Profile = () => {
     return (//userInfo
         <View>
             {
-                Object.keys(userInfo).length === 0 ?
+                Object.keys(data).length === 0 && Object.keys(userlogin).length === 0 && Object.keys(data.stats).length === 0 ?
                     <View>
                         <Text>Wait...</Text>
                     </View>
@@ -503,41 +502,42 @@ const Profile = () => {
                             <ProfileBody
                                 userAvatar={avatarFinal}
                                 friends="0"
-                                gamesWon={stats.wins}
-                                games={games.length}
-                                id={data.id}
-                                name={data.name}
-                                userName={data.username}
-                                country={data.country}
-                                email={data.email}
-                                password={data.password}
-                                premium={data.premium}
+                                gamesWon={data !== false && Object.keys(data.stats).length > 0 ? data.stats.wins : 0}
+                                games={data !== false && Object.keys(data.stats).length > 0 ? data.stats.games : 0}
+                                id={data !== false ? data.id : 0}
+                                name={data !== false ? data.name : ""}
+                                userName={data !== false ? data.username : ""}
+                                country={data !== false ? data.country : ""}
+                                email={data !== false ? data.email : ""}
+                                password={data !== false ? data.password : ""}
+                                premium={data !== false ? data.premium : false}
                                 countries={countries}
 
                             />
                             <ProfileButtons
-                                id={data.id}
-                                name={data.name}
-                                userName={data.username}
+
+                                id={data !== false ? data.id : 0}
+                                name={data !== false ? data.name : ""}
+                                userName={data !== false ? data.username : ""}
+                                country={data !== false ? data.country : ""}
+                                email={data !== false ? data.email : ""}
+                                password={data !== false ? data.password : ""}
+                                premium={data !== false ? data.premium : false}
+
                                 userAvatar={avatarFinal}
-                                premium={data.premium}
-                                country={data.country}
-                                email={data.email}
-                                password={data.password}
                                 countries={countries}
                             />
                         </View>
 
                         <BottomTabView
-                            id={data.id}
-                            userName={data.username}
-                            premium={data.premium}
-                            averageScore={stats.averageScore}
-                            games={stats.games}
-                            losses={stats.losses}
-                            timePaying={stats.timePaying}
-                            wins={stats.wins}
-                            gamesArr={games}
+                            id={data !== false ? data.id : 0}
+                            premium={data !== false ? data.premium : false}
+                            averageScore={data !== false ? data.stats.averageScore : 0}
+                            games={data !== false && Object.keys(data.stats).length > 0 ? data.stats.games : 0}
+                            losses={data !== false ? data.stats.losses : 0}
+                            timePaying={data !== false ? data.stats.timePaying : 0}
+                            wins={data !== false ? data.stats.wins : 0}
+                            gamesArr={data !== false ? data.games : false}
                         />
 
                     </View>
