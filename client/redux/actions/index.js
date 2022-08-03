@@ -45,6 +45,13 @@ export function newGame() {
   }
 }
 
+export function giveUp(payload) {
+  return {
+    type: type.GIVE_UP,
+    payload
+  }
+}
+
 //-------------------------login----------------------------//
 
 export function postLogin(payload) {

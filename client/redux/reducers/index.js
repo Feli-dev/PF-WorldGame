@@ -11,6 +11,7 @@ const initialState = {
   rank: [],
   rank_filter: [],
   friends: [],
+  giveUp : false,
 };
 
 export const rootReducer = (state = initialState, action) => {
@@ -19,6 +20,11 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         game: action.payload,
+      };
+    case type.GIVE_UP:
+      return {
+        ...state,
+        giveUp: action.payload,
       };
     case type.NEW_GAME:
       return {
