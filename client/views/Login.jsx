@@ -85,7 +85,7 @@ function Login({ navigation, user, postLogin }) {
     if (validate("username", _input.username) === "" && validate("password", _input.password) === "") {
       const User = (allUser.Request.find((e) => (e.username.toLowerCase() === _input.username.toLowerCase() && e.password === _input.password)))
       let siLogin = false;
-      if(login.Request && login.Request.username.toLowerCase() === input.username.toLowerCase() && login.Request.password === input.password){
+      if(login.Request && login.Request?.username?.toLowerCase() === input.username.toLowerCase() && login?.Request?.password === input.password){
         siLogin = true;
       }
       if(User && User.state === false){
@@ -149,6 +149,7 @@ function Login({ navigation, user, postLogin }) {
       setLogErr("");
     }
   }, []);
+
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
