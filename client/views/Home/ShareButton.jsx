@@ -8,9 +8,7 @@ export default function ShareButton() {
     const listOfAttemps = useSelector((state) => state.attemps);
     const countryOfGame = useSelector((state) => state.countrie);
     const login = useSelector((state) => state.login);
-    
     const createMessage = ()=>{
-        console.log(login)
         let message = ""
         message += `--- *World Game* ---\n`
         message += `User: ${login.Request.username}\n`

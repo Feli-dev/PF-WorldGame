@@ -22,4 +22,5 @@ export const type = {
   NEW_GAME: "NEW_GAME",
   LOG_OUT: "LOG_OUT",
   POST_REVIEW: "POST_REVIEW",
+  GIVE_UP: "GIVE_UP",
 };
