@@ -65,7 +65,7 @@ const options = {
 }
 
 function PaysGraph() {
-    let allPays = useSelector((state) => state.payReducer.totalPays)
+    
 
     let data = useMemo(() => {
         return{
