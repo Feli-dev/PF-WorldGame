@@ -70,8 +70,8 @@ module.exports = (sequelize) => {
             allowNull: false
         },
         avatar: {
-            type: DataTypes.STRING,
-            allowNull: true
+            type: DataTypes.TEXT,
+            defaultValue: "https://countryle.com/assets/images/welcome-page/welcome-loading-image-5.png"
         },
     },{
         timestamps: true,

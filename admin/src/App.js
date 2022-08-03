@@ -33,7 +33,7 @@ function App() {
     if (redirect === "redirect") {
       navigate.push("/");
     }
-  }, []);
+  }, []);//eslint-disable-line
 
   return (
     <BrowserRouter>

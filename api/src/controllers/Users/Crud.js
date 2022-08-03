@@ -1,13 +1,13 @@
 const { averageScore } = require('../../Tools/AverageScore');
 const { showUsers } = require('../../Tools/filterShow');
-const { Game, User, Friend } = require('../../db');
+const { Game, User, Friend, Review, Payment  } = require('../../db');
 const parseObject = require('../../Tools/ParseObject');
 const path = "api/src/controllers/Users/Crud.js";
 
 module.exports = {
     select: async (id = 0, country = "", premium = false, state = true, authorization = "User") => {
         try {
-            const include = [ Game, Friend ];
+            const include = [ Game, Friend, Review, Payment ];
             const order = [['id','ASC']];
             const where = id > 0 ? { id } : { country, premium, state, authorization };
             if(country === "all") delete where.country;
@@ -33,10 +33,10 @@ module.exports = {
                 return { Request: "No hay usuarios" };
             })
             .catch(error => {
-                return { Error: error.parent.detail, Request: "Fallo al mostrar los usuarios", Path: path, Function: "select" };
+                return { Error: error, Request: "Fallo al mostrar los usuarios", Path: path, Function: "select" };
             });
         } catch (error) {
-            return { Error: error.parent.detail, Request: "Fallo la función select", Path: path, Function: "select" };
+            return { Error: error, Request: "Fallo la función select", Path: path, Function: "select" };
         }
     },
     insert: async (name = "",username = "", password = "", country = "", email = "", points = 0, premium = false, state = true, authorization = "User", avatar = "", connect = false) => {
@@ -47,10 +47,10 @@ module.exports = {
                 return { Request: `El usuario ${user.username} creado exitosamente` };
             })
             .catch(error => {
-                return { Error: error.parent.detail, Request: "Fallo al crear los usuarios", Path: path, Function: "insert" };
+                return { Error: error, Request: "Fallo al crear los usuarios", Path: path, Function: "insert" };
             });
         } catch (error) {
-            return { Error: error.parent.detail, Request: "Fallo la función insert", Path: path, Function: "insert" };
+            return { Error: error, Request: "Fallo la función insert", Path: path, Function: "insert" };
         }
     },
     update: async (id = 0, field = {}) => {
@@ -61,10 +61,10 @@ module.exports = {
                 return { Request: `El usuario se actualizado exitosamente` };
             })
             .catch(error => {
-                return { Error: error.parent.detail, Request: "Fallo al actualizar los usuarios", Path: path, Function: "update" };
+                return { Error: error, Request: "Fallo al actualizar los usuarios", Path: path, Function: "update" };
             });
         } catch (error) {
-            return { Error: error.parent.detail, Request: "Fallo la función update", Path: path, Function: "update" };
+            return { Error: error, Request: "Fallo la función update", Path: path, Function: "update" };
         }
     },
     online: async (id = 0, connect = true) => {
@@ -89,10 +89,10 @@ module.exports = {
                 return state ? { Request: "El usuario se habilito"} : { Request: "El usuario se deshabilito" };
             })
             .catch(error => {
-                return { Error: error.parent.detail, Request: "Fallo al cambiar el estado del usuario", Path: path, Function: "stateUser" };
+                return { Error: error, Request: "Fallo al cambiar el estado del usuario", Path: path, Function: "stateUser" };
             });
         } catch (error) {
-            return { Error: error.parent.detail, Request: "Fallo la función stateUser", Path: path, Function: "stateUser" };
+            return { Error: error, Request: "Fallo la función stateUser", Path: path, Function: "stateUser" };
         }
     },
     statePass: async (id = 0, password = "") => {
@@ -103,10 +103,10 @@ module.exports = {
                 return { Request: "La contraseña se modifico" };
             })
             .catch(error => {
-                return { Error: error.parent.detail, Request: "Fallo al cambiar la contraseña del usuario", Path: path, Function: "statePass" };
+                return { Error: error, Request: "Fallo al cambiar la contraseña del usuario", Path: path, Function: "statePass" };
             });
         } catch (error) {
-            return { Error: error.parent.detail, Request: "Fallo la función statePass", Path: path, Function: "statePass" };
+            return { Error: error, Request: "Fallo la función statePass", Path: path, Function: "statePass" };
         }
     },
     remove: async(id = 0) => {
@@ -117,10 +117,10 @@ module.exports = {
                 return { Request: "El usuario se elimino definitivamente" };
             })
             .catch(error => {
-                return { Error: error.parent.detail, Request: "Fallo al eliminar al usuario", Path: path, Function: "remove" };
+                return { Error: error, Request: "Fallo al eliminar al usuario", Path: path, Function: "remove" };
             });
         } catch (error) {
-            return { Error: error.parent.detail, Request: "Fallo la función remove", Path: path, Function: "remove" };
+            return { Error: error, Request: "Fallo la función remove", Path: path, Function: "remove" };
         }
     },
     ranking: async (total = 10) => {
@@ -138,10 +138,10 @@ module.exports = {
                 return { Request: "No hay usuarios" };
             })
             .catch(error => {
-                return { Error: error.parent.detail, Request: "Fallo al mostrar el ranking", Path: path, Function: "ranking" };
+                return { Error: error, Request: "Fallo al mostrar el ranking", Path: path, Function: "ranking" };
             });
         } catch (error) {
-            return { Error: error.parent.detail, Request: "Fallo la función ranking", Path: path, Function: "ranking" };
+            return { Error: error, Request: "Fallo la función ranking", Path: path, Function: "ranking" };
         }
     }
 }

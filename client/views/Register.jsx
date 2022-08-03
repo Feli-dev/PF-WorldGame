@@ -53,7 +53,7 @@ export default function Register({ navigation }) {
       password: input.password,
       country: input.country,
     })
-    navigation.navigate("Login");
+    navigation.navigate("Instructions");
   }
 
 
@@ -534,6 +534,7 @@ export default function Register({ navigation }) {
           username: input.username,
           password: input.password,
           country: input.country,
+          first: true,
         })
       );
       dispatch(getUser());

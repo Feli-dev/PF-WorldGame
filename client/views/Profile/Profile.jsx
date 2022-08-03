@@ -500,7 +500,7 @@ const Profile = () => {
                         <View style={tw`mt-10 p-5`}>
 
                             <ProfileBody
-                                userAvatar={avatarFinal}
+                                avatar={data.avatar}
                                 friends="0"
                                 gamesWon={data !== false && Object.keys(data.stats).length > 0 ? data.stats.wins : 0}
                                 games={data !== false && Object.keys(data.stats).length > 0 ? data.stats.games : 0}
@@ -512,7 +512,6 @@ const Profile = () => {
                                 password={data !== false ? data.password : ""}
                                 premium={data !== false ? data.premium : false}
                                 countries={countries}
-
                             />
                             <ProfileButtons
 

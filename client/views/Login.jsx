@@ -14,7 +14,6 @@ import img from "../assets/Worldgame.png"
 
 function Login({ navigation, user, postLogin }) {
   const [accessToken, setAccessToken] = useState(null);
-  const [userA, setUserA] = useState(null);
   const [request, response, promptAsync] = Google.useAuthRequest({
     expoClientId: '1070907696300-0qdljeqakdv1kl2719q67qrrppo9fufi.apps.googleusercontent.com',
     iosClientId: '1070907696300-lqbno53dfsfriamdtv1nbdenijssv5jn.apps.googleusercontent.com',
@@ -68,7 +67,6 @@ function Login({ navigation, user, postLogin }) {
   }
 
   let log = (_input) => {
-    setPressed(true);
 
     if (_input.username.length < 3 && _input.password.length < 3) {
       setErr({
@@ -87,7 +85,7 @@ function Login({ navigation, user, postLogin }) {
     if (validate("username", _input.username) === "" && validate("password", _input.password) === "") {
       const User = (allUser.Request.find((e) => (e.username.toLowerCase() === _input.username.toLowerCase() && e.password === _input.password)))
       let siLogin = false;
-      if(login.Request && login.Request.username.toLowerCase() === input.username.toLowerCase() && login.Request.password === input.password){
+      if(login.Request && login.Request?.username?.toLowerCase() === input.username.toLowerCase() && login?.Request?.password === input.password){
         siLogin = true;
       }
       if(User && User.state === false){
@@ -103,7 +101,7 @@ function Login({ navigation, user, postLogin }) {
   };
 
   function handleInputChange(type, text) {
-    console.log(login);
+    
     setInput({
       ...input,
       [type]: text,
@@ -120,14 +118,24 @@ function Login({ navigation, user, postLogin }) {
         password: "",
       });
       setLogErr("");
-      navigation.navigate("Instructions");
+      if(user.Request.first){
+        navigation.navigate("Instructions");
+        let logear = user.Request;
+        logear.first = false
+        dispatch(setLogin({
+          logear
+        }))
+      }else {
+        navigation.navigate("Home");
+      }
       setPressed(false);
     } else if (pressed === true && !user.Request) {
-      if(logErr !== "Banned user, please contact the administrator."){
-        setTimeout(()=>{
+      setTimeout(() =>{
+        if(logErr !== "Banned user, please contact the administrator."){
           setLogErr("invalid user or password");
-        }, 1000)
-      }
+        }
+      },700)
+
     }
     if(input.password === "" || input.username === ""){
       setLogErr("");
@@ -141,6 +149,7 @@ function Login({ navigation, user, postLogin }) {
       setLogErr("");
     }
   }, []);
+
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -222,9 +231,7 @@ function Login({ navigation, user, postLogin }) {
           <TouchableOpacity
             style={tw`flex flex-row justify-around items-center bg-[#FFFFFF] px-8 py-2 rounded-xl w-60 h-12`}
             disabled={!request}
-            onPress={() => {
-              promptAsync();
-              }}
+            onPress={() => promptAsync()}
           >
             <View style={tw`w-6 h-6 mr-5`}>
               <Svg

@@ -36,7 +36,7 @@ User.hasMany(Friend);
 Friend.belongsTo(User);
 User.hasMany(Game);
 Game.belongsTo(User);
-User.hasMany(Game);
+User.hasMany(Review);
 Review.belongsTo(User);
 
 module.exports = {

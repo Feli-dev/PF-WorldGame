@@ -22,7 +22,7 @@ const ForgotPassword = () => {
         });
         return;
       }
-      if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email)) {
+      if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email)) {//eslint-disable-line
         setErrorForm({
           emailError: { msg: "A valid email is required" },
         });
@@ -51,7 +51,6 @@ const ForgotPassword = () => {
         setAlert({ msg: "", error: false });
       }, 3000);
     } catch (err) {
-      console.log(err);
       if (err.response.data.Request) {
         setAlert({ msg: "Email not found", error: true });
 

@@ -6,7 +6,7 @@ module.exports = {
             id:user.id,
             name: user.name,
             username: user.username,
-            password: bitHash.decrypt(user.password),
+            password: user.password,
             country: user.country,
             email: user.email,
             points: user.points,
@@ -16,9 +16,12 @@ module.exports = {
             authorization: user.authorization,
             avatar: user.avatar,
             friends: user.Friends,
+            reviews: user.reviews,
+            payment: user.payment,
             games: user.games,
             stats: averageScore,
-            createdAt: user.createdAt
+            createdAt: user.createdAt,
+            updatedAt: user.updatedAt
         };
     }
 }

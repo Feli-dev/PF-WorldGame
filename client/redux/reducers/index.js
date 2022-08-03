@@ -11,6 +11,7 @@ const initialState = {
   rank: [],
   rank_filter: [],
   friends: [],
+  giveUp : false,
 };
 
 export const rootReducer = (state = initialState, action) => {
@@ -19,6 +20,11 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         game: action.payload,
+      };
+    case type.GIVE_UP:
+      return {
+        ...state,
+        giveUp: action.payload,
       };
     case type.NEW_GAME:
       return {
@@ -43,9 +49,11 @@ export const rootReducer = (state = initialState, action) => {
         users: action.payload,
       };
     case type.POST_LOGIN:
+      
       return {
         ...state,
         login: action.payload,
+        userdetail: action.payload,
       };
     case type.SET_LOGIN:
       action.payload = { Request: action.payload }
@@ -123,12 +131,13 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         game: [],
-        countrie: {},
         login: [],
         attemps: [],
         userdetail: {},
         rank: [],
         rank_filter: [],
+        friends: [],
+        giveUp : false,
       };
     case type.POST_REVIEW:
       return {

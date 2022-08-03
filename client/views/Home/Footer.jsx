@@ -9,7 +9,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import tw from "twrnc";
 import Svg, { Path } from "react-native-svg";
-import { gameAction, getAllCountries, PostGame, newGame, setCountrie } from "../../redux/actions/index";
+import { gameAction, getAllCountries, PostGame, giveUp,newGame, setCountrie } from "../../redux/actions/index";
 import { setTestDeviceIDAsync, AdMobInterstitial } from "expo-ads-admob";
 import Autocomplete from 'react-native-autocomplete-input';
 //onpress white flag render confirm message
@@ -29,6 +29,14 @@ export default function Footer() {
   useEffect(() => {
     dispatch(getAllCountries());
   }, []);
+
+  useEffect(() => {
+    if(login.length === 0){
+        setWin(false);
+        dispatch(newGame());
+        dispatch(giveUp(false));
+    }
+  }, [login]);
   
   useEffect(() => {
     if(win===false){
@@ -95,6 +103,19 @@ export default function Footer() {
     }
   };
 
+  const handleGiveUp = (e) =>{
+    e.preventDefault();
+    dispatch(
+      PostGame({countrie: countryOfDay.name, winned: false, time: 120, attempts: listOfAttemps.length , UserId: login.Request.id, points:5000})
+      );
+      setWin(true)
+      if(!(login.Request.premium)){
+        console.log("a mostrar ads")
+        setTimeout(()=>{showAds()}, 1000)
+      }
+      dispatch(giveUp(true));
+    }
+    
   return (
     <View style={tw`flex h-1/6 items-center justify-center bg-gray-900`}>
       <View
@@ -103,6 +124,7 @@ export default function Footer() {
       <View style={tw`flex flex-row justify-center items-center`}>
         <TouchableOpacity
           style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-lg mr-5 w-10 h-15`}
+          onPress={!win ? (e) => handleGiveUp(e) : () => {console.log(12);setWin(false); dispatch(newGame()); dispatch(giveUp(false));}}
         >
           <View style={tw`w-10 h-10`}>
             <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -122,7 +144,7 @@ export default function Footer() {
         ></TextInput>
         <TouchableOpacity
           style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-lg w-10 h-15`}
-          onPress={!win ? (e) => handleSubmit(e) : () => {setWin(false); dispatch(newGame());}}
+          onPress={!win ? (e) => handleSubmit(e) : () => {console.log(12);setWin(false); dispatch(newGame()); dispatch(giveUp(false));}}
         >
           {win && listOfAttemps.length > 0 ? 
           <View style={tw`w-10 h-10`}>

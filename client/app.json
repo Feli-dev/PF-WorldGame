@@ -34,6 +34,7 @@
       },
       "package": "com.matimazzia.WorldGame"
     },
+    "plugins": ["expo-image-picker"],
     "web": {
       "favicon": "./assets/favicon.png"
     }
