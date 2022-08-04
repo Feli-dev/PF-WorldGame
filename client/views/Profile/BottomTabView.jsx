@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { View, Text, ScrollView, Image, TextInput, TouchableOpacity } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 // import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
@@ -141,8 +141,8 @@ const BottomTabView = ({
     }
     const Chat = () => {
         const [chatMessage, setChatMessage] = useState("");
-        const [Messages, setMessages] = useState([]);
-
+        const [Messages, setMessages] = useState(["hola", "todo bien?"]);
+        const scrollViewRef = useRef();
         // useEffect(() => {
         //     socket = io("http://127.0.0.1:3000/%22")
         //     socket.on("chat message", msg => {
@@ -166,12 +166,16 @@ const BottomTabView = ({
                 <Text style={tw`text-gray-400 text-center text-2xl mt-3`}>Chat</Text>
                 <ScrollView
                     showsVerticalScrollIndicator={false}
+                    ref={scrollViewRef}
+                    onContentSizeChange={() =>
+                    scrollViewRef.current.scrollToEnd({ animated: true })
+                    }
                     style={tw`mb-5 mt-3 bg-gray-800 rounded-lg`}
                 >
                     {Messages.length > 0 ? Messages?.map(el => {
                         return (
-                            <View key={el} style={tw`mb-5`}>
-                                <Text style={tw`text-base font-bold text-white`}>{el}</Text>
+                            <View key={el} style={tw.style("ml-3 mt-3 flex items-start justify-center mb-2 bg-gray-100 rounded-lg pl-5 pr-5",{alignSelf: "flex-start" })}>
+                                <Text style={tw`text-base font-bold text-black`}>{el}</Text>
                             </View>
                         )
                     }) : <></>}
@@ -180,6 +184,7 @@ const BottomTabView = ({
                     <TextInput
                         placeholder="Enter a country..."
                         placeholderTextColor="#6f6f6f"
+                        autoCapitalize="sentences"
                         style={tw`pl-3 w-75 mr-1 h-12 rounded-lg bg-white text-black text-lg`}
                         onChangeText={text => setChatMessage(text)}
                         multiline={true}
