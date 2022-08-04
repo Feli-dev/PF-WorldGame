@@ -9,11 +9,11 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Ionic from 'react-native-vector-icons/Ionicons'
 import tw from "twrnc";
-import { useDispatch } from "react-redux";
-import { PutUser } from "../../redux/actions/index";
+import { useDispatch,useSelector } from "react-redux";
+import { getUser, PutUser } from "../../redux/actions/index";
 import AvatarOptions from './AvatarsOptions'
 import * as Animatable from 'react-native-animatable';
 //-----------------select
@@ -22,9 +22,11 @@ import * as ImagePicker from 'expo-image-picker'
 import * as Permissions from 'expo-permissions';
 
 export default function EditProfile({ route, navigation }) {
-  const [image,setImage]= useState()
   const { id, name, avatar, premium, country, email, userName, password, countries } = route.params;
-
+  const userInfo = useSelector((state) => state.userdetail);
+   useEffect(() => {
+    getUser(id)
+   },[])
   const pickFromGalary = async ()=>{ 
     const {granted} = await Permissions.askAsync(Permissions.CAMERA_ROLL);
     if(granted){
@@ -50,12 +52,14 @@ export default function EditProfile({ route, navigation }) {
     fetch("https://api.cloudinary.com/v1_1/dunhnh8mv/image/upload",{  method:'post',body:data})
       .then(res=>res.json())
       .then(data=>{
+        console.log(data)
+        
         dispatch(PutUser({
           id: id,
           username: userName,
           email: email,
           password: password,
-          avatar: data.url,
+          avatar: data.secure_url,
         }))
        });
 
@@ -85,7 +89,8 @@ export default function EditProfile({ route, navigation }) {
 
 
   const handleUpdate = () => {
-    dispatch(PutUser(userData));
+    dispatch(
+      PutUser(userData));
     navigation.navigate('Home')
     TostMessage();
   };
@@ -127,7 +132,7 @@ export default function EditProfile({ route, navigation }) {
             padding: 20, alignItems: 'center'
           }}>
           <Image
-           source={{uri: avatar}}
+           source={{uri:userInfo.Request.avatar}}
             style={{ width: 100, height: 100, borderRadius: 100 }}
           />
          <TouchableOpacity

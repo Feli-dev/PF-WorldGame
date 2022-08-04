@@ -9,7 +9,7 @@ import tw from "twrnc"
 export const ProfileBody = ({
     name,
     userName,
-    userAvatar,
+    avatar,
     games,
     friends,
     gamesWon,
@@ -94,7 +94,7 @@ export const ProfileBody = ({
                         alignItems: 'center',
                     }}>
                     <Image
-                        source={userAvatar}
+                        source={{uri:avatar}}
                         style={{
                             resizeMode: 'cover',
                             width: 80,
