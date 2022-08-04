@@ -14,6 +14,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import Users from "./pages/Users";
 import Games from "./pages/Games";
 import Payment from "./pages/Payments";
+import Reviews from "./pages/Reviews";
 // Layout
 import DashboardLayout from "./components/Layout/DashboardLayout";
 import AuthLayout from "./components/Layout/AuthLayout";
@@ -46,6 +47,7 @@ function App() {
         <DashboardLayout path="/users" component={Users} />
         <DashboardLayout path="/games" component={Games} />
         <DashboardLayout path="/pays" component={Payment} />
+        <DashboardLayout path="/reviews" component={Reviews} />
         <DashboardLayout path="/update-password" component={UpdatePassword} />
         <DashboardLayout path="/add-user" component={AddUser} />
         <DashboardLayout path="/edit-user/:id" component={EditUser} />
