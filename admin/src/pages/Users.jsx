@@ -27,9 +27,7 @@ const Users = () => {
     state: "",
     authorization: "",
   });
-/*   let allCountries = useSelector(
-    (state) => state.countriesReducer.allCountries
-  ); */
+
   let [order, setOrder] = useState(""); //eslint-disable-line
   let actualUser = JSON.parse(localStorage.getItem("profile"))
   //console.log("chee", actualUser)
@@ -120,7 +118,7 @@ const Users = () => {
 
   return (
     <div className="md:max-w-8xl md:mx-auto px-4 py-6 h-screen">
-      <div className="flex items-center justify-between mb-4 h-1/6">
+      <div className="flex items-center justify-between mb-4 ">
         <button
           className="ml-1 text-2xl font-bold text-black hover:text-blue-600"
           onClick={handleReset}
@@ -198,7 +196,7 @@ const Users = () => {
         </form>
       </div>
 
-      <div className="overflow-x-auto bg-white rounded-lg shadow h-3/6">
+      <div className="overflow-x-auto bg-white rounded-lg shadow max-h-96">
         <table className="w-full whitespace-no-wrap bg-white overflow-hidden table-striped">
           <thead>
             <tr className="text-left">
@@ -376,7 +374,7 @@ const Users = () => {
       {modalUser && (
         <ModalUser userInfo={userInfo} setModalUser={setModalUser} />
       )}
-      <h1 className="text-center px-6 pt-3 mb-0 text-gray-500 font-bold tracking-wider uppercase text-xl ">
+      <h1 className="text-center px-6 pt-3 mb-0 mt-5 text-gray-500 font-bold tracking-wider uppercase text-xl ">
         Monthly new users</h1>
       <div className="bg-white m-10 p-10 h-4/6"><UserGraph/></div>
     </div>
