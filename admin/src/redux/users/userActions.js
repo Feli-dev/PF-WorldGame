@@ -36,7 +36,7 @@ export function reactivateUser(id) {
 export function postUser(data) {
   return function (dispatch) {
     let created = clienteAxios.post("/User/", data);
-
+    console.log('action iser', created)
     return created;
   };
 }

@@ -71,19 +71,20 @@ function handleSelectCountry(event){
   const handleSubmit = (event) => {
     event.preventDefault()
       dispatch(postUser(input))
-      alert('Usuario creado')
-      setInput({
-        name:'',
-        username: '',
-        password: '',
-        repeatPassword: '',
-        email: '',
-        country:'',
-        premium: false,
-        state: true,
-        authorization:'', 
-      })
-      history.push("/dashboard")
+      .then(res => console.log(res))
+      .catch(err => console.log('Err',err.response.data))
+      // setInput({
+      //   name:'',
+      //   username: '',
+      //   password: '',
+      //   repeatPassword: '',
+      //   email: '',
+      //   country:'',
+      //   premium: false,
+      //   state: true,
+      //   authorization:'', 
+      // })
+      // history.push("/dashboard")
 
     }
 
