@@ -112,13 +112,20 @@ const Profile = () => {
                       {profile?.username.charAt(0).toUpperCase()}
                     </div>
                   </span>
-                  <div className="bg-gray-200 text-gray-500 text-xs  text-center mt-5 ml-3 font-bold px- py-2 rounded-lg float-left hover:bg-gray-300 hover:text-gray-600 relative overflow-hidden cursor-pointer">
-                    <input
+                  <div className="bg-gray-200  text-center mt-5 ml-3 font-bold  py-2 rounded-lg float-left hover:bg-gray-300 hover:text-gray-600 relative overflow-hidden">
+                    {/*   <input
                       type="file"
                       name="photo"
                       className="absolute w-full h-full opacity-0 cursor-pointer text-center"
                     />{" "}
-                    Chagen Image
+                    Chagen Image */}
+                    <p className="text-black">
+                      Rol:{" "}
+                      <span className="text-gray-500">
+                        {" "}
+                        {profile?.authorization}
+                      </span>
+                    </p>
                   </div>
                 </div>
               </div>
