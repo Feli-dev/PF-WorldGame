@@ -26,11 +26,11 @@ const Reviews = () => {
   const dispatch = useDispatch();
   const [modalMessage, setModalMessage] = useState(false);
   const [review, setReview] = useState({});
-  const [inputFilter, setInputFilter] = useState("all");
-  let [order, setOrder] = useState(""); //eslint-disable-line
+  const [inputFilter, setInputFilter] = useState("");
+  let [order, setOrder] = useState("review"); //eslint-disable-line
 
   let allReviews = useSelector((state) => state.reviewReducer.reviews);
-  // console.log('revs', allReviews)
+  // console.log('revs', inputFilter)
   
   useEffect(()=>{
     dispatch(getRevs())
@@ -39,21 +39,27 @@ const Reviews = () => {
 
   const setRead = (id) => {
     dispatch(readReview(id))
-    setOrder(id + 'read')
-    
+    .then(res => {
+      console.log(res)
+      dispatch(filterRev(inputFilter))
+    })
+    .catch(err => console.log('error'))
   };
 
   const setUnread = (id) => {
     dispatch(unreadReview(id))
-    setOrder(id + 'unread')
-      
+    .then(res => {
+      console.log(res)
+      dispatch(filterRev(inputFilter))
+    })
+    .catch(err => console.log('error'))
   };
 
   
   
   function filterRead(event) {
     setInputFilter(event.target.value);
-    dispatch(filterRev(inputFilter))
+    dispatch(filterRev(event.target.value))
     setOrder(event.target.value + 'select')
     
   }
@@ -85,9 +91,9 @@ const Reviews = () => {
             defaultValue="Read/Unread"
           >
             <option disabled="Read/Unread">Read/Unread</option>
-            <option value="all">All</option>
-            <option value="read">Read</option>
-            <option value="unread">Unread</option>
+            <option value="">All</option>
+            <option value="true">Read</option>
+            <option value="false">Unread</option>
             
           </select>
           
@@ -143,15 +149,16 @@ const Reviews = () => {
 
                     <td className="border-t">
                       <div className="text-gray-700  flex items-center ml-4 text-center">
-                        {true ? (
-                          <RadioButtonUncheckedIcon
-                            className="text-blue-500 cursor-pointer"
-                            onClick={() => setRead(rev.id)}
-                          />
-                        ) : (
+                        {rev.read ? (
+                          
                           <CheckCircleOutlineIcon
                             className="text-green-500 cursor-pointer"
                             onClick={() => setUnread(rev.id)}
+                          />
+                        ) : (
+                          <RadioButtonUncheckedIcon
+                            className="text-blue-500 cursor-pointer"
+                            onClick={() => setRead(rev.id)}
                           />
                         )}
                       </div>

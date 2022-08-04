@@ -20,7 +20,7 @@ function reviewReducer(state = initialState, action) {
     }
 
     case GET_BY_REVFILTER:
-      console.log('actions')
+      console.log('reduer', action.payload)
       return{
         ...state,
         reviews : action.payload

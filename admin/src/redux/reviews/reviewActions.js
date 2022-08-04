@@ -14,8 +14,9 @@ export function getRevs() {
 
 export function filterRev(filter) {
   return async function (dispatch) {
+    console.log('action', filter)
     let { data } = await clienteAxios.get(
-      `/review?filter=${filter}`
+      `/review?read=${filter}`
     );
       
     dispatch({
@@ -27,7 +28,7 @@ export function filterRev(filter) {
 
 export function unreadReview(id) {
   return async function () {
-    let accions = await clienteAxios.delete(``);
+    let accions = await clienteAxios.put(`/review/unread?id=${id}`);
 
     return accions.data;
   };
@@ -35,7 +36,7 @@ export function unreadReview(id) {
 
 export function readReview(id) {
   return async function () {
-    let deact = await clienteAxios.delete(``);
+    let deact = await clienteAxios.put(`/review/read?id=${id}`);
     return deact.data;
   };
 }
