@@ -22,6 +22,7 @@ function userReducer(state = initialState, action) {
       //   (user) => user.id !== actualUser.id
       // );
       let lastFive = action.payload.Request.length>5? action.payload.Request.slice(action.payload.Request.length-5):action.payload.Request
+      let premium = action.payload.Request.filter((user) => user.premium).length
       return {
         ...state,
         users: action.payload.Request,
