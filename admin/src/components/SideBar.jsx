@@ -6,17 +6,28 @@ import GridViewIcon from "@mui/icons-material/GridView";
 import PersonIcon from "@mui/icons-material/Person";
 import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
 import PaidIcon from "@mui/icons-material/Paid";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import GradingIcon from "@mui/icons-material/Grading";
+import { handleMenu } from "../redux/ui/uiActions";
 
 const SideBar = () => {
   let { profile } = useSelector((state) => state.authReducer);
+  let { menu } = useSelector((state) => state.uiReducer);
+
+  const dispatch = useDispatch();
 
   return (
-    <div className="bg-white w-64 min-h-screen overflow-y-auto hidden md:block shadow relative">
+    <div
+      className={
+        menu
+          ? "bg-white lg:w-64 w-screen min-h-screen overflow-y-auto block shadow relative"
+          : "bg-white w-64 min-h-screen overflow-y-auto hidden lg:block shadow relative"
+      }
+    >
       <div className="flex items-center px-6 py-3 h-16">
-        <div className="text-xl font-bold tracking-tight text-gray-800">
+        <div className="text-xl font-bold tracking-tight text-gray-800 flex justify-between w-full">
           <Link to="/dashboard">Dashboard Admin</Link>
+          {menu && <span onClick={()=>dispatch(handleMenu())}>X</span>}
         </div>
       </div>
 
