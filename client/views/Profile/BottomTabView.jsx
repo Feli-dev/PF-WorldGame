@@ -21,21 +21,6 @@ const BottomTabView = ({
 
     // const dispatch = useDispatch();
     const allcountries = useSelector((state) => state.countries);
-    const [chatMessage, setChatMessage] = useState("");
-    const [Messages, setMessages] = useState();
-
-    useEffect(() => {
-        // socket = io("http://127.0.0.1:3000/%22")
-        // socket.on("chat message", msg => {
-        //   setState({ chatMessages: [...state.chatMessages, msg]
-        // })})
-    },[])
-
-    function onSubmitChatMessage(message) {
-        socket.emit('chat message', message);
-        setChatMessage("");
-    }
-
     const countriesAux = [];
     const Tab = createMaterialTopTabNavigator();
     for (let i = 0; i < games; i++) {
@@ -155,26 +140,55 @@ const BottomTabView = ({
         )
     }
     const Chat = () => {
+        const [chatMessage, setChatMessage] = useState("");
+        const [Messages, setMessages] = useState([]);
+
+        // useEffect(() => {
+        //     socket = io("http://127.0.0.1:3000/%22")
+        //     socket.on("chat message", msg => {
+        //       setState({ chatMessages: [...state.chatMessages, msg]
+        //     })})
+        // },[])
+
+        // function onSubmitChatMessage(message) {
+        //     socket.emit('chat message', message);
+        //     setChatMessage("");
+        // }
+
+        useEffect(()=>{
+            setChatMessage("")
+            console.log(Messages)
+        }, [Messages])
+
         return (
             <View
-                showsVerticalScrollIndicator={false}
                 style={tw`bg-gray-900 h-full`}>
                 <Text style={tw`text-gray-400 text-center text-2xl mt-3`}>Chat</Text>
                 <ScrollView
+                    showsVerticalScrollIndicator={false}
                     style={tw`mb-5 mt-3 bg-gray-800 rounded-lg`}
-                />
+                >
+                    {Messages.length > 0 ? Messages?.map(el => {
+                        return (
+                            <View key={el} style={tw`mb-5`}>
+                                <Text style={tw`text-base font-bold text-white`}>{el}</Text>
+                            </View>
+                        )
+                    }) : <></>}
+                </ScrollView>
                 <View style={tw`flex flex-row items-center justify-center mb-5`}>
                     <TextInput
                         placeholder="Enter a country..."
                         placeholderTextColor="#6f6f6f"
-                        style={tw`pl-3 w-75 h-12 rounded-lg bg-white text-white text-lg`}
+                        style={tw`pl-3 w-75 mr-1 h-12 rounded-lg bg-white text-black text-lg`}
                         onChangeText={text => setChatMessage(text)}
                         multiline={true}
                         value={chatMessage}
+                        textAlignVertical="center"
                     ></TextInput>
                     <TouchableOpacity 
                         style={tw`flex items-center justify-center h-12 w-12 bg-white rounded-lg`}
-                        onPress={() => {onSubmitChatMessage(chatMessage)}}
+                        onPress={() => {setMessages([...Messages ,chatMessage]);}} //onSubmitChatMessage(chatMessage);
                     >
                         <Text style={tw`text-center`}>Send</Text>
                     </TouchableOpacity>

@@ -1,6 +1,8 @@
 import {
     View,
     Text,
+    Keyboard, 
+    TouchableWithoutFeedback,
 } from "react-native";
 import React, { useEffect } from "react";
 //import { useParams } from "react-router-dom";
@@ -39,60 +41,61 @@ const Profile = () => {
     //navigation.goBack(); AGREGAR BOTON PARA IR ATRAS O HOME
 
     return (//userInfo
-        <View>
-            {
-                data && Object.keys(userlogin.Request).length > 0 && data.hasOwnProperty('stats') && Object.keys(data?.stats).length > 0 ?
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+            <View>
+                {
+                    data && Object.keys(userlogin.Request).length > 0 && data.hasOwnProperty('stats') && Object.keys(data?.stats).length > 0 ?
 
-                    <View style={tw`h-full bg-gray-900 flex justify-center items-center`}>
-                        <View style={tw`mt-10 p-5`}>
+                        <View style={tw`h-full bg-gray-900 flex justify-center items-center`}>
+                            <View style={tw`mt-10 p-5`}>
 
-                            <ProfileBody
-                                avatar={data.avatar}
-                                friends="0"
-                                gamesWon={data !== false && Object.keys(data?.stats).length > 0 ? data?.stats.wins : 0}
-                                games={data !== false && Object.keys(data?.stats).length > 0 ? data?.stats.games : 0}
+                                <ProfileBody
+                                    avatar={data.avatar}
+                                    friends="0"
+                                    gamesWon={data !== false && Object.keys(data?.stats).length > 0 ? data?.stats.wins : 0}
+                                    games={data !== false && Object.keys(data?.stats).length > 0 ? data?.stats.games : 0}
+                                    id={data !== false ? data.id : 0}
+                                    name={data !== false ? data.name : ""}
+                                    userName={data !== false ? data.username : ""}
+                                    country={data !== false ? data.country : ""}
+                                    email={data !== false ? data.email : ""}
+                                    password={data !== false ? data.password : ""}
+                                    premium={data !== false ? data.premium : false}
+                                    averageScore={data !== false ? data?.stats.averageScore : 0}
+                                />
+                                <ProfileButtons
+                                    id={data !== false ? data.id : 0}
+                                    name={data !== false ? data.name : ""}
+                                    userName={data !== false ? data.username : ""}
+                                    country={data !== false ? data.country : ""}
+                                    email={data !== false ? data.email : ""}
+                                    password={data !== false ? data.password : ""}
+                                    premium={data !== false ? data.premium : false}
+                                    userAvatar={avatarFinal}
+                                    countries={countries}
+                                />
+                            </View>
+
+                            <BottomTabView
                                 id={data !== false ? data.id : 0}
-                                name={data !== false ? data.name : ""}
-                                userName={data !== false ? data.username : ""}
-                                country={data !== false ? data.country : ""}
-                                email={data !== false ? data.email : ""}
-                                password={data !== false ? data.password : ""}
                                 premium={data !== false ? data.premium : false}
                                 averageScore={data !== false ? data?.stats.averageScore : 0}
+                                games={data !== false && Object.keys(data?.stats).length > 0 ? data?.stats.games : 0}
+                                losses={data !== false ? data?.stats.losses : 0}
+                                timePaying={data !== false ? data?.stats.timePaying : 0}
+                                wins={data !== false && Object.keys(data?.stats).length > 0 ? data?.stats.wins : 0}
+                                gamesArr={data !== false ? data.games : false}
                             />
-                            <ProfileButtons
-                                id={data !== false ? data.id : 0}
-                                name={data !== false ? data.name : ""}
-                                userName={data !== false ? data.username : ""}
-                                country={data !== false ? data.country : ""}
-                                email={data !== false ? data.email : ""}
-                                password={data !== false ? data.password : ""}
-                                premium={data !== false ? data.premium : false}
-                                userAvatar={avatarFinal}
-                                countries={countries}
-                            />
+
+                        </View>
+                        :
+                        <View>
+                            <Text>Wait...</Text>
                         </View>
 
-                        <BottomTabView
-                            id={data !== false ? data.id : 0}
-                            premium={data !== false ? data.premium : false}
-                            averageScore={data !== false ? data?.stats.averageScore : 0}
-                            games={data !== false && Object.keys(data?.stats).length > 0 ? data?.stats.games : 0}
-                            losses={data !== false ? data?.stats.losses : 0}
-                            timePaying={data !== false ? data?.stats.timePaying : 0}
-                            wins={data !== false && Object.keys(data?.stats).length > 0 ? data?.stats.wins : 0}
-                            gamesArr={data !== false ? data.games : false}
-                        />
-
-                    </View>
-                    :
-                    <View>
-                        <Text>Wait...</Text>
-                    </View>
-
-            }
-        </View>
-
+                }
+            </View>
+        </TouchableWithoutFeedback>
     );
 };
 
