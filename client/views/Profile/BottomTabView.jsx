@@ -4,6 +4,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 // import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import Ionic from 'react-native-vector-icons/Ionicons'
 import tw from "twrnc";
+import io from "socket.io-client";
 
 import { useSelector } from "react-redux";
 
@@ -141,6 +142,7 @@ const BottomTabView = ({
     }
     const Chat = () => {
         const [chatMessage, setChatMessage] = useState("");
+<<<<<<< Updated upstream
         const [Messages, setMessages] = useState(["hola", "todo bien?"]);
         const scrollViewRef = useRef();
         // useEffect(() => {
@@ -159,6 +161,31 @@ const BottomTabView = ({
             setChatMessage("")
             console.log(Messages)
         }, [Messages])
+=======
+        const [Messages, setMessages] = useState([]);
+        const scrollViewRef = useRef();
+        const socket = io("http://192.168.1.4:5000");
+
+        useEffect(() => {
+            if(userName.length)socket.emit("conectado", userName);
+        }, []);
+
+        useEffect(() => {
+            socket.on("mensajes", (mensaje) => {
+                setMessages([...Messages, mensaje]);
+            });
+            return () => {
+                socket.off();
+            };
+        },[Messages]);
+
+        function onSubmitChatMessage() {
+            if(userName.length){
+                socket.emit("mensaje", userName, chatMessage);
+                setChatMessage("");
+            }
+        }
+>>>>>>> Stashed changes
 
         return (
             <View
@@ -172,10 +199,17 @@ const BottomTabView = ({
                     }
                     style={tw`mb-5 mt-3 bg-gray-800 rounded-lg`}
                 >
+<<<<<<< Updated upstream
                     {Messages.length > 0 ? Messages?.map(el => {
                         return (
                             <View key={el} style={tw.style("ml-3 mt-3 flex items-start justify-center mb-2 bg-gray-100 rounded-lg pl-5 pr-5",{alignSelf: "flex-start" })}>
                                 <Text style={tw`text-base font-bold text-black`}>{el}</Text>
+=======
+                    {Messages.length > 0 ? Messages?.map((el,i) => {
+                        return (
+                            <View key={i} style={tw.style("ml-3 mt-3 flex items-start justify-center mb-2 bg-gray-100 rounded-lg pl-5 pr-5",{alignSelf: "flex-start" })}>
+                                <Text style={tw`text-base font-bold text-black`}>{`${el.nombre}: ${el.mensaje}`}</Text>
+>>>>>>> Stashed changes
                             </View>
                         )
                     }) : <></>}
@@ -193,7 +227,11 @@ const BottomTabView = ({
                     ></TextInput>
                     <TouchableOpacity 
                         style={tw`flex items-center justify-center h-12 w-12 bg-white rounded-lg`}
+<<<<<<< Updated upstream
                         onPress={() => {setMessages([...Messages ,chatMessage]);}} //onSubmitChatMessage(chatMessage);
+=======
+                        onPress={() => {onSubmitChatMessage();}} //onSubmitChatMessage(chatMessage);
+>>>>>>> Stashed changes
                     >
                         <Text style={tw`text-center`}>Send</Text>
                     </TouchableOpacity>
@@ -201,7 +239,7 @@ const BottomTabView = ({
             </View>
         )
     }
-    // const TopGames = () => {
+     // const TopGames = () => {
     //     return (
     //         <ScrollView
     //             showsVerticalScrollIndicator={false}
