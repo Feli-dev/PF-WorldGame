@@ -1,5 +1,5 @@
-import React from "react";
-import { View, Text, ScrollView, Image } from 'react-native';
+import React, {useState, useEffect} from "react";
+import { View, Text, ScrollView, Image, TextInput, TouchableOpacity } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 // import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import Ionic from 'react-native-vector-icons/Ionicons'
@@ -21,6 +21,20 @@ const BottomTabView = ({
 
     // const dispatch = useDispatch();
     const allcountries = useSelector((state) => state.countries);
+    const [chatMessage, setChatMessage] = useState("");
+    const [Messages, setMessages] = useState();
+
+    useEffect(() => {
+        // socket = io("http://127.0.0.1:3000/%22")
+        // socket.on("chat message", msg => {
+        //   setState({ chatMessages: [...state.chatMessages, msg]
+        // })})
+    },[])
+
+    function onSubmitChatMessage(message) {
+        socket.emit('chat message', message);
+        setChatMessage("");
+    }
 
     const countriesAux = [];
     const Tab = createMaterialTopTabNavigator();
@@ -142,12 +156,30 @@ const BottomTabView = ({
     }
     const Chat = () => {
         return (
-            <ScrollView
+            <View
                 showsVerticalScrollIndicator={false}
-                style={tw`bg-gray-900`}>
-                <Text style={tw`text-gray-400 text-center text-2xl pl-3 pt-3`}>Chat</Text>
-
-            </ScrollView>
+                style={tw`bg-gray-900 h-full`}>
+                <Text style={tw`text-gray-400 text-center text-2xl mt-3`}>Chat</Text>
+                <ScrollView
+                    style={tw`mb-5 mt-3 bg-gray-800 rounded-lg`}
+                />
+                <View style={tw`flex flex-row items-center justify-center mb-5`}>
+                    <TextInput
+                        placeholder="Enter a country..."
+                        placeholderTextColor="#6f6f6f"
+                        style={tw`pl-3 w-75 h-12 rounded-lg bg-white text-white text-lg`}
+                        onChangeText={text => setChatMessage(text)}
+                        multiline={true}
+                        value={chatMessage}
+                    ></TextInput>
+                    <TouchableOpacity 
+                        style={tw`flex items-center justify-center h-12 w-12 bg-white rounded-lg`}
+                        onPress={() => {onSubmitChatMessage(chatMessage)}}
+                    >
+                        <Text style={tw`text-center`}>Send</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
         )
     }
     // const TopGames = () => {
