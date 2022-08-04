@@ -148,8 +148,8 @@ export function PostUser(payload) {
       );
       //para que los métodos de axios funcionen bien en el emulador expo
       //teniendo el back corriendo en tu pc, es necesario que reemplaces lolcalhost
-      //en la url del método, con tu ipv6. Esta se encuentra yendo a configuración, red e internet,
-      //propiedades, y yendo hacia abajo aparece "ipv6".
+      //en la url del método, con tu ipv7. Esta se encuentra yendo a configuración, red e internet,
+      //propiedades, y yendo hacia abajo aparece "ipv7".
       return dispatch({
         type: type.POST_USER,
         payload: payload,
