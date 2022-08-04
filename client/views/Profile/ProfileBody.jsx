@@ -9,7 +9,7 @@ import tw from "twrnc"
 export const ProfileBody = ({
     name,
     userName,
-    userAvatar,
+    avatar,
     games,
     friends,
     gamesWon,
@@ -18,7 +18,7 @@ export const ProfileBody = ({
     email,
     password,
     premium,
-    countries,
+    averageScore,
 
 }) => {
     const navigation = useNavigation();
@@ -34,14 +34,31 @@ export const ProfileBody = ({
                         }}>
                             {userName}
                         </Text>
-                        {/* <Feather name="chevron-down" style={{
-                            fontSize: 20,
-                            color: 'black',
-                            paddingHorizontal: 5,
-                            opacity: 0.5,
-                        }} /> */}
+                        <Ionic
+                            name="chevron-down"
+                            style={{
+                                fontSize: 20,
+                                color: 'white',
+                                paddingHorizontal: 5,
+                                opacity: 0.5,
+                            }} 
+                            onPress={() => navigation.navigate('Configuration')}
+                            />
                     </View>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+
+                        <Ionic
+                            name="trophy"
+                            style={{
+                                fontSize: 25,
+                                color: 'yellow',
+                                paddingHorizontal: 15,
+                                fontWeight: 'bold',
+                            }}
+                            onPress={() => navigation.navigate('Ranking')}
+                        />
+                        <Text style={{ color: 'white', fontSize: 18, marginRight: 10, }}>{averageScore}</Text>
+
                         {premium
                             ? <Ionic
                                 name="star"
@@ -73,12 +90,7 @@ export const ProfileBody = ({
                                     }}
                                 />
                             </Animatable.View>}
-                        {/* <Feather
-                            name="menu"
-                            style={{
-                                fontSize: 25,
-                            }}
-                        /> */}
+
                     </View>
                 </View>
             ) : null}
@@ -94,7 +106,7 @@ export const ProfileBody = ({
                         alignItems: 'center',
                     }}>
                     <Image
-                        source={userAvatar}
+                        source={{uri:avatar}}
                         style={{
                             resizeMode: 'cover',
                             width: 80,
