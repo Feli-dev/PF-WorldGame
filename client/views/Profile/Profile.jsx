@@ -20,20 +20,13 @@ const Profile = () => {
 
     const userlogin = useSelector((state) => state.login);
     const userInfo = useSelector((state) => state.userdetail);
-    const data = userInfo.hasOwnProperty("Request") ? userInfo.Request : false;
 
-    const userId = userlogin.hasOwnProperty("Request") ? userlogin.Request.id : 0;
+    const data = Object.keys(userInfo.Request).length > 0 ? userInfo.Request : false;//CAMBIAR PROP REQUEST
+
+    const userId = Object.keys(userlogin.Request).length > 0 ? userlogin.Request.id : 0;
 
     const avatarFinal = require(`../../assets/avatars/normal_user/avatar_default.png`);
 
-
-    // userInfo?.Request? HACER FUNCION PARA LEVANTAR LA VARIABLE
-    // const avatarFinal = data !== false?.avatar
-    //     ? data !== false?.premium
-    //         ? require(`../../assets/avatars/premium_user/${data !== false?.avatar}`)
-    //         : require('../../assets/avatars/normal_user/' + data !== false?.avatar)
-    //     : require(`../../assets/avatars/normal_user/avatar_default.png`)
-    //ver con path, paquete path
 
 
     const countries = [
@@ -491,19 +484,16 @@ const Profile = () => {
     return (//userInfo
         <View>
             {
-                Object.keys(data).length === 0 && Object.keys(userlogin).length === 0 && Object.keys(data.stats).length === 0 ?
-                    <View>
-                        <Text>Wait...</Text>
-                    </View>
-                    :
+                data && Object.keys(userlogin.Request).length > 0 && data.hasOwnProperty('stats') && Object.keys(data?.stats).length > 0 ?
+
                     <View style={tw`h-full bg-gray-900 flex justify-center items-center`}>
                         <View style={tw`mt-10 p-5`}>
 
                             <ProfileBody
                                 avatar={data.avatar}
                                 friends="0"
-                                gamesWon={data !== false && Object.keys(data.stats).length > 0 ? data.stats.wins : 0}
-                                games={data !== false && Object.keys(data.stats).length > 0 ? data.stats.games : 0}
+                                gamesWon={data !== false && Object.keys(data?.stats).length > 0 ? data?.stats.wins : 0}
+                                games={data !== false && Object.keys(data?.stats).length > 0 ? data?.stats.games : 0}
                                 id={data !== false ? data.id : 0}
                                 name={data !== false ? data.name : ""}
                                 userName={data !== false ? data.username : ""}
@@ -511,10 +501,9 @@ const Profile = () => {
                                 email={data !== false ? data.email : ""}
                                 password={data !== false ? data.password : ""}
                                 premium={data !== false ? data.premium : false}
-                                countries={countries}
+                                averageScore={data !== false ? data?.stats.averageScore : 0}
                             />
                             <ProfileButtons
-
                                 id={data !== false ? data.id : 0}
                                 name={data !== false ? data.name : ""}
                                 userName={data !== false ? data.username : ""}
@@ -522,7 +511,6 @@ const Profile = () => {
                                 email={data !== false ? data.email : ""}
                                 password={data !== false ? data.password : ""}
                                 premium={data !== false ? data.premium : false}
-
                                 userAvatar={avatarFinal}
                                 countries={countries}
                             />
@@ -531,15 +519,20 @@ const Profile = () => {
                         <BottomTabView
                             id={data !== false ? data.id : 0}
                             premium={data !== false ? data.premium : false}
-                            averageScore={data !== false ? data.stats.averageScore : 0}
-                            games={data !== false && Object.keys(data.stats).length > 0 ? data.stats.games : 0}
-                            losses={data !== false ? data.stats.losses : 0}
-                            timePaying={data !== false ? data.stats.timePaying : 0}
-                            wins={data !== false ? data.stats.wins : 0}
+                            averageScore={data !== false ? data?.stats.averageScore : 0}
+                            games={data !== false && Object.keys(data?.stats).length > 0 ? data?.stats.games : 0}
+                            losses={data !== false ? data?.stats.losses : 0}
+                            timePaying={data !== false ? data?.stats.timePaying : 0}
+                            wins={data !== false && Object.keys(data?.stats).length > 0 ? data?.stats.wins : 0}
                             gamesArr={data !== false ? data.games : false}
                         />
 
                     </View>
+                    :
+                    <View>
+                        <Text>Wait...</Text>
+                    </View>
+
             }
         </View>
 

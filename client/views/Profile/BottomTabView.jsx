@@ -46,10 +46,15 @@ const BottomTabView = ({
 
     const Games = () => {
         return (
-            <ScrollView showsVerticalScrollIndicator={false} style={{ backgroundColor: '#111827', }}
+            <ScrollView showsVerticalScrollIndicator={false} style={{ backgroundColor: '#111827',}}
             // style={tw`bg-gray-900`}
             >
-                <Text style={tw`text-gray-400 text-left text-2xl pl-3 pt-3`}>Games</Text>
+                <Text></Text>
+
+                {/* AGREGAR UN LOADING EN LO QUE SE CARGAN LAS CARDS  */}
+                
+                {/* <Text style={tw`text-gray-400 text-left text-2xl pl-3 pt-3`}>Games</Text> */}
+                
                 <View style={{ flexDirection: 'column', alignItems: 'center', }}>
                     {countriesAux.length > 0
                         ? countriesAux.map((perGame) => {
@@ -100,8 +105,8 @@ const BottomTabView = ({
                                                     Area
                                                 </Text>
                                                 <Text style={{ color: 'white', paddingVertical: 5, fontWeight: 'bold', fontSize: 15, }}>
-                                                    {perGame.area > 100000 ? (perGame.area / 100000).toFixed(2).concat(' m') : perGame.area}
-                                                    m2
+                                                    {perGame.area > 100000 ? (perGame.area / 100000).toFixed(2).concat(' m ') : perGame.area}
+                                                    {' km²'}
                                                 </Text>
                                             </View>
 
