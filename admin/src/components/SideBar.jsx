@@ -7,8 +7,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
 import PaidIcon from "@mui/icons-material/Paid";
 import { useSelector } from "react-redux";
-import GradingIcon from '@mui/icons-material/Grading';
-
+import GradingIcon from "@mui/icons-material/Grading";
 
 const SideBar = () => {
   let { profile } = useSelector((state) => state.authReducer);
@@ -67,15 +66,17 @@ const SideBar = () => {
             </li>
           )}
 
-          <li>
-            <Link
-              to="/reviews"
-              className="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200"
-            >
-              <GradingIcon className="mr-4 opacity-50" />
-              Reviews
-            </Link>
-          </li>
+          {profile?.authorization !== "Enterprise-Admin" && (
+            <li>
+              <Link
+                to="/reviews"
+                className="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200"
+              >
+                <GradingIcon className="mr-4 opacity-50" />
+                Reviews
+              </Link>
+            </li>
+          )}
         </ul>
       </div>
     </div>
