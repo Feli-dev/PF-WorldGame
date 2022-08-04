@@ -11,6 +11,7 @@ import tw from "twrnc";
 import Svg, { Path } from "react-native-svg";
 import { gameAction, getAllCountries, PostGame, giveUp,newGame, setCountrie } from "../../redux/actions/index";
 import { setTestDeviceIDAsync, AdMobInterstitial } from "expo-ads-admob";
+import { touchSound, backSound} from '../../utils/sounds';
 import Autocomplete from 'react-native-autocomplete-input';
 //onpress white flag render confirm message
 
@@ -20,6 +21,7 @@ export default function Footer() {
   const [input, setInput] = useState("");
   const [countryOfDay, setCountryOfDay] = useState("");
   const countries = useSelector((state) => state.countries);
+  const soundOn = useSelector((state) => state.soundOn);
   const [filteredCountries, setFilteredCountries] = useState([]);
   const [selectedValue, setSelectedValue] = useState({});
   const login = useSelector((state) => state.login);
@@ -124,7 +126,7 @@ export default function Footer() {
       <View style={tw`flex flex-row justify-center items-center`}>
         <TouchableOpacity
           style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-lg mr-5 w-10 h-15`}
-          onPress={!win ? (e) => handleGiveUp(e) : () => {console.log(12);setWin(false); dispatch(newGame()); dispatch(giveUp(false));}}
+          onPress={!win ? (e) => {handleGiveUp(e);touchSound(soundOn);} : () => {console.log(12);backSound(soundOn);setWin(false); dispatch(newGame()); dispatch(giveUp(false));}}
         >
           <View style={tw`w-10 h-10`}>
             <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -144,7 +146,7 @@ export default function Footer() {
         ></TextInput>
         <TouchableOpacity
           style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-lg w-10 h-15`}
-          onPress={!win ? (e) => handleSubmit(e) : () => {console.log(12);setWin(false); dispatch(newGame()); dispatch(giveUp(false));}}
+          onPress={!win ? (e) => {handleSubmit(e); touchSound(soundOn);}: () => {console.log(12);backSound(soundOn);setWin(false); dispatch(newGame()); dispatch(giveUp(false));}}
         >
           {win && listOfAttemps.length > 0 ? 
           <View style={tw`w-10 h-10`}>

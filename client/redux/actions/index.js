@@ -218,6 +218,23 @@ export function filterByTop(payload) {
     payload,
   };
 }
+//-----------------------sound---------------------//
+
+export function setStat(payload) {
+  return {
+    type: type.SET_SOUND,
+    payload,
+  };
+}
+
+export function soundOnOff(payload) {
+  console.log("sii");
+  return {
+    type: type.SOUND_ON,
+    payload,
+  };
+}
+
 //-----------------------friends---------------------//
 export function PostFriend(payload) {
   return async function (dispatch) {

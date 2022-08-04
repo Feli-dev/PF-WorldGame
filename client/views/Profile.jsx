@@ -13,6 +13,7 @@ import tw from "twrnc";
 import Svg, { Path } from "react-native-svg";
 import { useDispatch, useSelector } from "react-redux";
 import { PutUser, getUser } from "../redux/actions/index";
+
 import iconPremium from '../assets/calidad-premium.png'
 
 export default function Profile({ navigation }) {

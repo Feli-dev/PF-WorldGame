@@ -12,6 +12,8 @@ const initialState = {
   rank_filter: [],
   friends: [],
   giveUp : false,
+  stat : { optionModalVisible: false, playbackObj: null, soundObj: null, currentAudio : {}},
+  soundOn : true,
 };
 
 export const rootReducer = (state = initialState, action) => {
@@ -126,6 +128,17 @@ export const rootReducer = (state = initialState, action) => {
         ...state,
         rank: action.payload,
         rank_filter: action.payload,
+      };
+    case type.SET_SOUND:
+      return {
+        ...state,
+        stat: action.payload,
+      };
+    case type.SOUND_ON:
+      console.log(action.payload);
+      return {
+        ...state,
+        soundOn: action.payload,
       };
     case type.LOG_OUT:
       return {

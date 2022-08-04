@@ -9,7 +9,7 @@ import {
   Keyboard,
 } from "react-native";
 import tw from "twrnc";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Svg, { Path } from "react-native-svg";
 import DropDownPicker from "react-native-dropdown-picker";
 import validateInput from "../utils/ValidateInput";
@@ -17,11 +17,13 @@ import { PostUser,getUser } from "../redux/actions";
 import { useEffect } from "react";
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
+import { touchSound } from '../utils/sounds';
 import { fetchUserInfoAsync } from "expo-auth-session";
 
 export default function Register({ navigation }) {
   const [accessToken, setAccessToken] = useState(null);
   const [userA, setUserA] = useState(null);
+  const soundOn = useSelector((state) => state.soundOn);
   const [request, response, promptAsync] = Google.useAuthRequest({
     expoClientId: '1070907696300-0qdljeqakdv1kl2719q67qrrppo9fufi.apps.googleusercontent.com',
     iosClientId: '1070907696300-lqbno53dfsfriamdtv1nbdenijssv5jn.apps.googleusercontent.com',
@@ -652,7 +654,7 @@ export default function Register({ navigation }) {
           </TouchableOpacity>
         ) : (
           <TouchableOpacity
-            onPress={(e) => handleSubmit(e)}
+            onPress={(e) => {handleSubmit(e);touchSound(soundOn);}}
             style={tw`bg-gray-800 px-8 py-2 rounded-lg mt-5 w-50`}
           >
             <Text style={tw`text-white text-center font-bold`}>REGISTER</Text>
@@ -688,6 +690,7 @@ export default function Register({ navigation }) {
             disabled={!request}
             onPress={() => {
               promptAsync();
+              touchSound(soundOn);
               }}
           >
             <View style={tw`w-6 h-6 mr-5`}>
@@ -727,7 +730,7 @@ export default function Register({ navigation }) {
             If you have an account,
             <Text
               style={tw`text-blue-200 text-center font-bold`}
-              onPress={() => navigation.navigate("Login")}
+              onPress={() => {navigation.navigate("Login");touchSound(soundOn);}}
             >
               &nbsp;Log in
             </Text>

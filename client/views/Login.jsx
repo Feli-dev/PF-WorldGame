@@ -8,12 +8,14 @@ import Svg, { Path } from "react-native-svg";
 import validate from "../utils/validateL";
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
+import { touchSound } from '../utils/sounds';
 import { fetchUserInfoAsync } from "expo-auth-session";
-import img from "../assets/Worldgame.png"
+import img from "../assets/Worldgame.png";
 
 
 function Login({ navigation, user, postLogin }) {
   const [accessToken, setAccessToken] = useState(null);
+  const soundOn = useSelector((state) => state.soundOn);
   const [request, response, promptAsync] = Google.useAuthRequest({
     expoClientId: '1070907696300-0qdljeqakdv1kl2719q67qrrppo9fufi.apps.googleusercontent.com',
     iosClientId: '1070907696300-lqbno53dfsfriamdtv1nbdenijssv5jn.apps.googleusercontent.com',
@@ -38,7 +40,7 @@ function Login({ navigation, user, postLogin }) {
       username: `${useInfo.given_name}${useInfo.family_name}`,
       password: `P${useInfo.id}`
     }
-    log(inputauth)
+    log(inputauth);
   }
 
   const dispatch = useDispatch();
@@ -67,6 +69,7 @@ function Login({ navigation, user, postLogin }) {
   }
 
   let log = (_input) => {
+
 
     if (_input.username.length < 3 && _input.password.length < 3) {
       setErr({
@@ -149,6 +152,7 @@ function Login({ navigation, user, postLogin }) {
       setLogErr("");
     }
   }, []);
+  
 
 
   return (
@@ -199,7 +203,7 @@ function Login({ navigation, user, postLogin }) {
         </TouchableOpacity>} */}
         <TouchableOpacity
           style={tw`bg-gray-600 px-8 py-2 rounded-lg mt-3 w-50`}
-          onPress={() => log(input)}
+          onPress={() => {log(input);touchSound(soundOn);}}
         >
           <Text style={tw`text-white text-center font-bold`}>LOGIN</Text>
         </TouchableOpacity>
@@ -231,7 +235,7 @@ function Login({ navigation, user, postLogin }) {
           <TouchableOpacity
             style={tw`flex flex-row justify-around items-center bg-[#FFFFFF] px-8 py-2 rounded-xl w-60 h-12`}
             disabled={!request}
-            onPress={() => promptAsync()}
+            onPress={() => {promptAsync();touchSound(soundOn);}}
           >
             <View style={tw`w-6 h-6 mr-5`}>
               <Svg
@@ -269,7 +273,10 @@ function Login({ navigation, user, postLogin }) {
             If you don't have an account,
             <Text
               style={tw`text-blue-200 text-center font-bold`}
-              onPress={() => navigation.navigate("Register")}
+              onPress={() => {navigation.navigate("Register");setPressed(false);setInput({
+                username: "",
+                password: "",
+              });touchSound(soundOn);}}
             >
               &nbsp;register
             </Text>

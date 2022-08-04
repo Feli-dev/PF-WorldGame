@@ -1,8 +1,10 @@
 import React from "react";
 import { View, Text, ScrollView } from 'react-native';
+import { useSelector } from 'react-redux';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 // import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import Ionic from 'react-native-vector-icons/Ionicons'
+import { backSound } from '../../utils/sounds';
 import tw from "twrnc";
 
 
@@ -18,6 +20,7 @@ const BottomTabView = ({
     gamesArr,
 }) => {
 
+    const soundOn = useSelector((state) => state.soundOn);
     const Tab = createMaterialTopTabNavigator();
 
     let squares = [];
@@ -37,6 +40,7 @@ const BottomTabView = ({
         return (
             <ScrollView
                 showsVerticalScrollIndicator={false}
+
                 style={tw`bg-gray-900`}>
                 <Text style={tw`text-gray-400 text-left text-2xl pl-3 pt-3`}>Stats</Text>
                 <View
