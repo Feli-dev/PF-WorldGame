@@ -31,8 +31,10 @@ export const ProfileBody = ({
                             fontSize: 18,
                             fontWeight: 'bold',
                             color: 'white',
+                            paddingLeft: 5,
+
                         }}>
-                            {userName}
+                            {userName.length > 10 ? userName.slice(0, 11).concat('...') : userName}
                         </Text>
                         <Ionic
                             name="chevron-down"
@@ -41,33 +43,37 @@ export const ProfileBody = ({
                                 color: 'white',
                                 paddingHorizontal: 5,
                                 opacity: 0.5,
-                            }} 
+                            }}
                             onPress={() => navigation.navigate('Configuration')}
-                            />
+                        />
                     </View>
-                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-
+                    <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 23, }}>
                         <Ionic
                             name="trophy"
                             style={{
                                 fontSize: 25,
                                 color: 'yellow',
-                                paddingHorizontal: 15,
                                 fontWeight: 'bold',
+                                paddingRight: 5,
+
                             }}
                             onPress={() => navigation.navigate('Ranking')}
                         />
-                        <Text style={{ color: 'white', fontSize: 18, marginRight: 10, }}>{averageScore}</Text>
+                        <Text style={{ color: 'white', fontSize: 18, paddingRight: 20, }}>{averageScore}</Text>
 
                         {premium
-                            ? <Ionic
-                                name="star"
-                                style={{
-                                    fontSize: 25,
-                                    color: 'yellow',
-                                    paddingHorizontal: 15,
-                                }}
-                            />
+                            ? <Animatable.View
+                                animation="pulse" easing="ease-out" iterationCount="infinite"
+                            >
+                                <Ionic
+                                    name="star"
+                                    style={{
+                                        fontSize: 25,
+                                        color: 'yellow',
+                                        paddingHorizontal: 10,
+                                    }}
+                                />
+                            </Animatable.View>
                             : <Animatable.View
                                 animation="swing" iterationCount='infinite' delay={2000}
                             >
@@ -84,9 +90,8 @@ export const ProfileBody = ({
                                     style={{
                                         fontSize: 30,
                                         color: 'white',
-                                        paddingHorizontal: 15,
                                         marginTop: 5,
-                                        marginRight: 20,
+                                        paddingHorizontal: 10,
                                     }}
                                 />
                             </Animatable.View>}
@@ -106,7 +111,7 @@ export const ProfileBody = ({
                         alignItems: 'center',
                     }}>
                     <Image
-                        source={{uri:avatar}}
+                        source={{ uri: avatar }}
                         style={{
                             resizeMode: 'cover',
                             width: 80,
@@ -120,7 +125,7 @@ export const ProfileBody = ({
                             color: 'white',
                         }}>
 
-                        {name}
+                        {name.length > 10 ? name.slice(0, 11).concat('...') : name}
 
                     </Text>
                 </View>
