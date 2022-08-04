@@ -11,8 +11,7 @@ import tw from "twrnc";
 import Svg, { Path } from "react-native-svg";
 import { gameAction, getAllCountries, PostGame, giveUp,newGame, setCountrie } from "../../redux/actions/index";
 import { setTestDeviceIDAsync, AdMobInterstitial } from "expo-ads-admob";
-import Autocomplete from 'react-native-autocomplete-input';
-//onpress white flag render confirm message
+import {AutocompleteDropdown} from 'react-native-autocomplete-dropdown';
 
 export default function Footer() {
   const dispatch = useDispatch();
@@ -20,11 +19,261 @@ export default function Footer() {
   const [input, setInput] = useState("");
   const [countryOfDay, setCountryOfDay] = useState("");
   const countries = useSelector((state) => state.countries);
-  const [filteredCountries, setFilteredCountries] = useState([]);
-  const [selectedValue, setSelectedValue] = useState({});
   const login = useSelector((state) => state.login);
   const listOfAttemps = useSelector((state) => state.attemps);
   const [win, setWin] = useState(false)
+  const arrAutocomplete = [
+    { "id": 214, "title": "Argentina" },
+    { "id": 221, "title": "Uruguay" },
+    { "id": 1, "title": "Etiopía" },
+    { "id": 2, "title": "Montserrat" },
+    { "id": 3, "title": "Argelia" },
+    { "id": 4, "title": "Mayotte" },
+    { "id": 5, "title": "Perú" },
+    { "id": 6, "title": "Azerbaiyán" },
+    { "id": 7, "title": "Sudán del Sur" },
+    { "id": 8, "title": "Samoa" },
+    { "id": 9, "title": "Irlanda" },
+    { "id": 10, "title": "Camerún" },
+    { "id": 11, "title": "Vietnam" },
+    { "id": 12, "title": "Chipre" },
+    { "id": 13, "title": "Omán" },
+    { "id": 14, "title": "Lesotho" },
+    { "id": 15, "title": "Rumania" },
+    { "id": 16, "title": "Islas Ultramarinas Menores de Estados Unidos" },
+    { "id": 17, "title": "Bosnia y Herzegovina" },
+    { "id": 18, "title": "Santa Elena, Ascensión y Tristán de Acuña" },
+    { "id": 19, "title": "Islas Heard y McDonald" },
+    { "id": 20, "title": "Isla de Man" },
+    { "id": 21, "title": "Antártida" },
+    { "id": 22, "title": "Botswana" },
+    { "id": 23, "title": "Kenia" },
+    { "id": 24, "title": "Papúa Nueva Guinea" },
+    { "id": 25, "title": "Burkina Faso" },
+    { "id": 26, "title": "Burundi" },
+    { "id": 27, "title": "Siria" },
+    { "id": 28, "title": "Anguilla" },
+    { "id": 29, "title": "Benín" },
+    { "id": 30, "title": "Bután" },
+    { "id": 31, "title": "Guadalupe" },
+    { "id": 32, "title": "Libia" },
+    { "id": 33, "title": "República Eslovaca" },
+    { "id": 34, "title": "San Cristóbal y Nieves" },
+    { "id": 35, "title": "Dinamarca" },
+    { "id": 36, "title": "Groenlandia" },
+    { "id": 37, "title": "Corea del Sur" },
+    { "id": 38, "title": "Irak" },
+    { "id": 39, "title": "Alemania" },
+    { "id": 40, "title": "Islas Turks y Caicos" },
+    { "id": 41, "title": "Comoras" },
+    { "id": 42, "title": "Túnez" },
+    { "id": 43, "title": "Estonia" },
+    { "id": 44, "title": "Australia" },
+    { "id": 45, "title": "Francia" },
+    { "id": 46, "title": "Luxemburgo" },
+    { "id": 47, "title": "Macao" },
+    { "id": 48, "title": "Israel" },
+    { "id": 49, "title": "Reunión" },
+    { "id": 50, "title": "México" },
+    { "id": 51, "title": "Bermudas" },
+    { "id": 52, "title": "Aruba" },
+    { "id": 53, "title": "Mauricio" },
+    { "id": 54, "title": "Dominica" },
+    { "id": 55, "title": "Alandia" },
+    { "id": 56, "title": "Turquía" },
+    { "id": 57, "title": "Arabia Saudí" },
+    { "id": 58, "title": "Italia" },
+    { "id": 59, "title": "Sri Lanka" },
+    { "id": 60, "title": "Moldavia" },
+    { "id": 61, "title": "Islas Cook" },
+    { "id": 62, "title": "Nueva Caledonia" },
+    { "id": 63, "title": "San Pedro y Miquelón" },
+    { "id": 64, "title": "Puerto Rico" },
+    { "id": 65, "title": "Albania" },
+    { "id": 66, "title": "Santo Tomé y Príncipe" },
+    { "id": 67, "title": "Sierra Leone" },
+    { "id": 68, "title": "Wallis y Futuna" },
+    { "id": 69, "title": "Guyana" },
+    { "id": 70, "title": "Curazao" },
+    { "id": 71, "title": "Iran" },
+    { "id": 72, "title": "Suecia" },
+    { "id": 73, "title": "Estados Unidos" },
+    { "id": 74, "title": "Singapur" },
+    { "id": 75, "title": "San Vicente y Granadinas" },
+    { "id": 76, "title": "Islas Vírgenes del Reino Unido" },
+    { "id": 77, "title": "Vanuatu" },
+    { "id": 78, "title": "Gabón" },
+    { "id": 79, "title": "Isla Bouvet" },
+    { "id": 80, "title": "Islandia" },
+    { "id": 81, "title": "Kiribati" },
+    { "id": 82, "title": "Niue" },
+    { "id": 83, "title": "Seychelles" },
+    { "id": 84, "title": "Tayikistán" },
+    { "id": 85, "title": "Zambia" },
+    { "id": 86, "title": "Fiyi" },
+    { "id": 87, "title": "Kazajistán" },
+    { "id": 88, "title": "Bahamas" },
+    { "id": 89, "title": "Jersey" },
+    { "id": 90, "title": "Islas Malvinas" },
+    { "id": 91, "title": "Costa Rica" },
+    { "id": 92, "title": "Saint Martin" },
+    { "id": 93, "title": "Myanmar" },
+    { "id": 94, "title": "Canadá" },
+    { "id": 95, "title": "Marruecos" },
+    { "id": 96, "title": "Mongolia" },
+    { "id": 97, "title": "Suiza" },
+    { "id": 98, "title": "Guinea-Bisáu" },
+    { "id": 99, "title": "Liechtenstein" },
+    { "id": 100, "title": "Palau" },
+    { "id": 101, "title": "Kirguizistán" },
+    { "id": 102, "title": "Haití" },
+    { "id": 103, "title": "Bélgica" },
+    { "id": 104, "title": "Malawi" },
+    { "id": 105, "title": "India" },
+    { "id": 106, "title": "Zimbabue" },
+    { "id": 107, "title": "Suazilandia" },
+    { "id": 108, "title": "Hong Kong" },
+    { "id": 109, "title": "Uganda" },
+    { "id": 110, "title": "Pakistán" },
+    { "id": 111, "title": "Grecia" },
+    { "id": 112, "title": "Madagascar" },
+    { "id": 113, "title": "El Salvador" },
+    { "id": 114, "title": "Guayana Francesa" },
+    { "id": 115, "title": "Brasil" },
+    { "id": 116, "title": "Islas Caimán" },
+    { "id": 117, "title": "China" },
+    { "id": 118, "title": "Chequia" },
+    { "id": 119, "title": "Afganistán" },
+    { "id": 120, "title": "Antigua y Barbuda" },
+    { "id": 121, "title": "Congo" },
+    { "id": 122, "title": "Gambia" },
+    { "id": 123, "title": "Filipinas" },
+    { "id": 124, "title": "Austria" },
+    { "id": 125, "title": "Islas Svalbard y Jan Mayen" },
+    { "id": 126, "title": "Yemen" },
+    { "id": 127, "title": "Santa Lucía" },
+    { "id": 128, "title": "Islas Faroe" },
+    { "id": 129, "title": "Georgia" },
+    { "id": 130, "title": "Ruanda" },
+    { "id": 131, "title": "Djibouti" },
+    { "id": 132, "title": "Angola" },
+    { "id": 133, "title": "Países Bajos" },
+    { "id": 134, "title": "Bulgaria" },
+    { "id": 135, "title": "Paraguay" },
+    { "id": 136, "title": "Congo (Rep. Dem.)" },
+    { "id": 137, "title": "Sudán" },
+    { "id": 138, "title": "Somalia" },
+    { "id": 139, "title": "San Bartolomé" },
+    { "id": 140, "title": "Finlandia" },
+    { "id": 141, "title": "Bangladesh" },
+    { "id": 142, "title": "Palestina" },
+    { "id": 143, "title": "Togo" },
+    { "id": 144, "title": "Malasia" },
+    { "id": 145, "title": "Jordania" },
+    { "id": 146, "title": "Letonia" },
+    { "id": 147, "title": "Barbados" },
+    { "id": 148, "title": "República Dominicana" },
+    { "id": 149, "title": "Cabo Verde" },
+    { "id": 150, "title": "Tierras Australes y Antárticas Francesas" },
+    { "id": 151, "title": "Guatemala" },
+    { "id": 152, "title": "Sahara Occidental" },
+    { "id": 153, "title": "Malta" },
+    { "id": 154, "title": "Andorra" },
+    { "id": 155, "title": "Emiratos Árabes Unidos" },
+    { "id": 156, "title": "Maldivas" },
+    { "id": 157, "title": "Costa de Marfil" },
+    { "id": 158, "title": "Camboya" },
+    { "id": 159, "title": "Brunei" },
+    { "id": 160, "title": "Mónaco" },
+    { "id": 161, "title": "Guernsey" },
+    { "id": 162, "title": "Namibia" },
+    { "id": 163, "title": "Timor Oriental" },
+    { "id": 164, "title": "Nueva Zelanda" },
+    { "id": 165, "title": "Ciudad del Vaticano" },
+    { "id": 166, "title": "Ecuador" },
+    { "id": 167, "title": "Ghana" },
+    { "id": 168, "title": "Líbano" },
+    { "id": 169, "title": "Japón" },
+    { "id": 170, "title": "Chile" },
+    { "id": 171, "title": "Mali" },
+    { "id": 172, "title": "Macedonia del Norte" },
+    { "id": 173, "title": "Sint Maarten" },
+    { "id": 174, "title": "Polinesia Francesa" },
+    { "id": 175, "title": "Trinidad y Tobago" },
+    { "id": 176, "title": "Croacia" },
+    { "id": 177, "title": "Laos" },
+    { "id": 178, "title": "Níger" },
+    { "id": 179, "title": "Corea del Norte" },
+    { "id": 180, "title": "Indonesia" },
+    { "id": 181, "title": "Guinea Ecuatorial" },
+    { "id": 182, "title": "Noruega" },
+    { "id": 183, "title": "Catar" },
+    { "id": 184, "title": "Eritrea" },
+    { "id": 185, "title": "Islas Georgias del Sur y Sandwich del Sur" },
+    { "id": 186, "title": "Chad" },
+    { "id": 187, "title": "Hungría" },
+    { "id": 188, "title": "Bielorrusia" },
+    { "id": 189, "title": "Islas Vírgenes de los Estados Unidos" },
+    { "id": 190, "title": "Islas Marianas del Norte" },
+    { "id": 191, "title": "Venezuela" },
+    { "id": 192, "title": "San Marino" },
+    { "id": 193, "title": "Bolivia" },
+    { "id": 194, "title": "Serbia" },
+    { "id": 195, "title": "República de Sudáfrica" },
+    { "id": 196, "title": "Colombia" },
+    { "id": 197, "title": "Gibraltar" },
+    { "id": 198, "title": "Mozambique" },
+    { "id": 199, "title": "Nicaragua" },
+    { "id": 200, "title": "Rusia" },
+    { "id": 201, "title": "Panamá" },
+    { "id": 202, "title": "Tuvalu" },
+    { "id": 203, "title": "Montenegro" },
+    { "id": 204, "title": "Turkmenistán" },
+    { "id": 205, "title": "Kosovo" },
+    { "id": 206, "title": "Eslovenia" },
+    { "id": 207, "title": "Armenia" },
+    { "id": 208, "title": "Senegal" },
+    { "id": 209, "title": "Taiwán" },
+    { "id": 210, "title": "Portugal" },
+    { "id": 211, "title": "Martinica" },
+    { "id": 212, "title": "República Centroafricana" },
+    { "id": 213, "title": "Cuba" },
+    { "id": 215, "title": "Tonga" },
+    { "id": 216, "title": "Nepal" },
+    { "id": 217, "title": "Islas Tokelau" },
+    { "id": 218, "title": "Tanzania" },
+    { "id": 219, "title": "Nigeria" },
+    { "id": 220, "title": "Kuwait" },
+    { "id": 222, "title": "Islas Pitcairn" },
+    { "id": 223, "title": "Guam" },
+    { "id": 224, "title": "Reino Unido" },
+    { "id": 225, "title": "Mauritania" },
+    { "id": 226, "title": "Surinam" },
+    { "id": 227, "title": "España" },
+    { "id": 228, "title": "Liberia" },
+    { "id": 229, "title": "Egipto" },
+    { "id": 230, "title": "Belice" },
+    { "id": 231, "title": "Grenada" },
+    { "id": 232, "title": "Ucrania" },
+    { "id": 233, "title": "Lituania" },
+    { "id": 234, "title": "Micronesia" },
+    { "id": 235, "title": "Polonia" },
+    { "id": 236, "title": "Territorio Británico del Océano Índico" },
+    { "id": 237, "title": "Islas Salomón" },
+    { "id": 238, "title": "Tailandia" },
+    { "id": 239, "title": "Isla de Navidad" },
+    { "id": 240, "title": "Uzbekistán" },
+    { "id": 241, "title": "Islas Marshall" },
+    { "id": 242, "title": "Samoa Americana" },
+    { "id": 243, "title": "Islas Cocos o Islas Keeling" },
+    { "id": 244, "title": "Caribe Neerlandés" },
+    { "id": 245, "title": "Nauru" },
+    { "id": 246, "title": "Isla de Norfolk" },
+    { "id": 247, "title": "Guinea" },
+    { "id": 248, "title": "Jamaica" },
+    { "id": 249, "title": "Honduras" },
+    { "id": 250, "title": "Bahrein" }
+  ]
 
   useEffect(() => {
     dispatch(getAllCountries());
@@ -124,7 +373,7 @@ export default function Footer() {
       <View style={tw`flex flex-row justify-center items-center`}>
         <TouchableOpacity
           style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-lg mr-5 w-10 h-15`}
-          onPress={!win ? (e) => handleGiveUp(e) : () => {console.log(12);setWin(false); dispatch(newGame()); dispatch(giveUp(false));}}
+          onPress={!win ? (e) => handleGiveUp(e) : () => {setWin(false); dispatch(newGame()); dispatch(giveUp(false));}}
         >
           <View style={tw`w-10 h-10`}>
             <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -135,13 +384,31 @@ export default function Footer() {
             </Svg>
           </View>
         </TouchableOpacity>
-        <TextInput
+        {/* <TextInput
           placeholder="Enter a country..."
           placeholderTextColor="#6f6f6f"
           style={tw`pl-3 mr-5 w-45 h-15 rounded-lg bg-gray-800 text-white text-lg`}
           onChangeText={(text) => setInput(text)}
           value={input}
-        ></TextInput>
+        ></TextInput> */}
+        <AutocompleteDropdown
+            clearOnFocus={false}
+            closeOnBlur={true}
+            closeOnSubmit={true}
+            textInputProps={{
+              placeholder: 'Enter a country...',
+              style: {color: "#000"},
+            }}
+            direction={"up"}
+            onSelectItem={el => setInput(el?.title)}
+            onChangeText={text => setInput(text)}
+            suggestionsListMaxHeight={100}
+            debounce={200}
+            dataSet={arrAutocomplete}
+            showChevron={false}
+            emptyResultText={"Intenta nuevamente..."}
+            containerStyle={tw`mr-5 w-40 h-10 rounded-lg bg-white text-lg`}
+        />
         <TouchableOpacity
           style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-lg w-10 h-15`}
           onPress={!win ? (e) => handleSubmit(e) : () => {console.log(12);setWin(false); dispatch(newGame()); dispatch(giveUp(false));}}
