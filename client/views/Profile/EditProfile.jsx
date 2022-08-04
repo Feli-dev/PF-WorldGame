@@ -168,8 +168,9 @@ export default function EditProfile({ route, navigation }) {
 
         <View style={{ padding: 10 }}>
           <View>
-            <Text style={{ opacity: 0.5, color: '#D1D5DB',fontSize: 20, }}>Name</Text>
+            <Text style={{ opacity: 0.5, color: '#D1D5DB', fontSize: 20, }}>Name</Text>
             <TextInput
+              type='name'
               placeholder="name"
               placeholderTextColor="#6B7280"
               defaultValue={name}
@@ -186,8 +187,9 @@ export default function EditProfile({ route, navigation }) {
 
         <View style={{ padding: 10 }}>
           <View>
-            <Text style={{ opacity: 0.5, color: '#D1D5DB',fontSize: 20, }}>Email</Text>
+            <Text style={{ opacity: 0.5, color: '#D1D5DB', fontSize: 20, }}>Email</Text>
             <TextInput
+              type='email'
               placeholder="email"
               placeholderTextColor="#6B7280"
               defaultValue={email}
@@ -203,8 +205,8 @@ export default function EditProfile({ route, navigation }) {
         </View>
 
         <View style={{ padding: 10, alignItems: 'center', justifyContent: 'center', }}>
-          <View style={{justifyContent:'center', alignItems:'center', }}>
-            <Text style={{ opacity: 0.5, color: '#D1D5DB',fontSize: 20, }}>Country</Text>
+          <View style={{ justifyContent: 'center', alignItems: 'center', }}>
+            <Text style={{ opacity: 0.5, color: '#D1D5DB', fontSize: 20, }}>Country</Text>
             <Text
               style={tw`text-center text-2xl  text-white mb-5`}
             >
@@ -222,7 +224,8 @@ export default function EditProfile({ route, navigation }) {
               setValue={setValue}
               setItems={setItems}
               arrowIconStyle={{ tintColor: "white" }}
-              onSelectItem={(event) => {handleOnChange("country", event.value)}}
+              type='country'
+              onSelectItem={(event) => { handleOnChange("country", event.value) }}
               containerStyle={tw`w-6/12`}
             />
 
