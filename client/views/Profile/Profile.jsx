@@ -78,6 +78,7 @@ const Profile = () => {
 
                             <BottomTabView
                                 id={data !== false ? data.id : 0}
+                                userName={data !== false ? data.username : ""}
                                 premium={data !== false ? data.premium : false}
                                 averageScore={data !== false ? data?.stats.averageScore : 0}
                                 games={data !== false && Object.keys(data?.stats).length > 0 ? data?.stats.games : 0}
@@ -87,34 +88,11 @@ const Profile = () => {
                                 gamesArr={data !== false ? data.games : false}
                             />
 
-<<<<<<< Updated upstream
                         </View>
                         :
                         <View>
                             <Text>Wait...</Text>
                         </View>
-=======
-                        <BottomTabView
-                            id={data !== false ? data.id : 0}
-                            userName={data !== false ? data.username : ""}
-                            premium={data !== false ? data.premium : false}
-                            averageScore={data !== false ? data?.stats.averageScore : 0}
-                            games={data !== false && Object.keys(data?.stats).length > 0 ? data?.stats.games : 0}
-                            losses={data !== false ? data?.stats.losses : 0}
-                            timePaying={data !== false ? data?.stats.timePaying : 0}
-                            wins={data !== false && Object.keys(data?.stats).length > 0 ? data?.stats.wins : 0}
-                            gamesArr={data !== false ? data.games : false}
-                        />
-
-                    </View>
-                    :
-                    <View>
-                        <Text>Wait...</Text>
-                    </View>
-
-            }
-        </View>
->>>>>>> Stashed changes
 
                 }
             </View>
