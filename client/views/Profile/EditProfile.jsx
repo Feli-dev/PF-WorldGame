@@ -27,6 +27,23 @@ export default function EditProfile({ route, navigation }) {
    useEffect(() => {
     getUser(id)
    },[])
+  const pickFromCamera = async ()=>{ 
+    const {granted} = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    if(granted){ 
+        let data = await ImagePicker.launchCameraAsync({
+            mediaTypes:ImagePicker.MediaTypeOptions.Images,
+            allowsEditing:true,
+            aspect:[1,1],
+        });
+        if(!data.cancelled){ 
+            let newFile = {
+                uri:data.uri,
+                type:`test/${data.uri.split(".")[1]}`,
+                name:`test.${data.uri.split(".")[1]}`};
+            handleUpload(newFile);
+        }else{Alert.alert('');}
+    }else{  Alert.alert('not possible'); } 
+  }
   const pickFromGalary = async ()=>{ 
     const {granted} = await Permissions.askAsync(Permissions.CAMERA_ROLL);
     if(granted){
@@ -140,6 +157,12 @@ export default function EditProfile({ route, navigation }) {
           onPress={()=>pickFromGalary()}
         >
           <Text style={tw`text-white text-center font-bold`}>Change Image</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={tw`bg-gray-600 px-8 py-2 rounded-lg mt-3 w-50`}
+          onPress={()=>pickFromCamera()}
+        >
+          <Text style={tw`text-white text-center font-bold`}>Take photo</Text>
         </TouchableOpacity>
         </View>
 
