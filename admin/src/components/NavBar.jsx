@@ -38,7 +38,7 @@ const NavBar = () => {
                 </div>
                 <span className="text-gray-700 px-6 py-4 flex items-center  ">
                   <div className=" cursor-pointer font-semibold w-10 h-10 bg-blue-200 text-blue-600 flex items-center justify-center rounded-full">
-                    {profile?.username.charAt(0).toUpperCase()}
+                    {profile?.username?.charAt(0).toUpperCase()}
                   </div>
                 </span>
               </button>
