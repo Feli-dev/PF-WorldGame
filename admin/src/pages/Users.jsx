@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ModalUser from "../components/TableUser/ModalUser/ModalUser";
 import UserGraph from "../components/Graphs/UserGraph";
-import { useHistory } from "react-router-dom"
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   deactivateUser,
@@ -27,11 +27,11 @@ const Users = () => {
     state: "",
     authorization: "",
   });
-/*   let allCountries = useSelector(
+  /*   let allCountries = useSelector(
     (state) => state.countriesReducer.allCountries
   ); */
   let [order, setOrder] = useState(""); //eslint-disable-line
-  let actualUser = JSON.parse(localStorage.getItem("profile"))
+  let actualUser = JSON.parse(localStorage.getItem("profile"));
   //console.log("chee", actualUser)
 
   let allUsers = useSelector((state) => state.userReducer.filterUsers);
@@ -105,7 +105,7 @@ const Users = () => {
       premium: "",
       state: "",
       authorization: "",
-    })
+    });
   }
 
   function handleOrderUser(event) {
@@ -119,8 +119,8 @@ const Users = () => {
   }
 
   return (
-    <div className="md:max-w-8xl md:mx-auto px-4 py-6 h-screen">
-      <div className="flex items-center justify-between mb-4 h-1/6">
+    <div className="md:max-w-7xl md:mx-auto px-4 py-7 min-h-screen">
+      <div className="flex items-center justify-between mb-6 ml-2">
         <button
           className="ml-1 text-2xl font-bold text-black hover:text-blue-600"
           onClick={handleReset}
@@ -128,12 +128,15 @@ const Users = () => {
           All Users
         </button>
       </div>
-      <div className="flex mb-4 ml-2 w-full items-center">
-        <label className="font-semibold p-1">Filters:</label>
-        <form onSubmit={handleSubmit}>
+      <div className="flex mb-7 ml-2 w-full items-center flex-col lg:flex-row">
+        <label className="font-semibold p-1">Filters</label>
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col gap-2 lg:flex-none lg:flex-row"
+        >
           <select
             id="countries"
-            className="mx-2 p-1 border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+            className="mx-2 p-1 border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 "
             onChange={(event) => handleSelectCountry(event)}
             defaultValue="Choose a country"
           >
@@ -339,27 +342,27 @@ const Users = () => {
                     </td>
 
                     <td className="border-t">
-                    {user.id !== actualUser.id? (
-                    <div className="text-gray-700  flex w-2.5 gap-3 text-center">
-                        
-                        <EditIcon
-                          className="text-yellow-500 z-50 cursor-pointer"
-                          onClick={() => getUserEdit(user.id)}
-                        />
-                        {user.state === true ? (
-                          <DeleteIcon
-                            className="text-red-500 cursor-pointer"
-                            onClick={() => deleteUser(user.id)}
+                      {user.id !== actualUser.id ? (
+                        <div className="text-gray-700  flex w-2.5 gap-3 text-center">
+                          <EditIcon
+                            className="text-yellow-500 z-50 cursor-pointer"
+                            onClick={() => getUserEdit(user.id)}
                           />
-                        ) : (
-                          <ReplayIcon
-                            className="text-green-500 cursor-pointer"
-                            onClick={() => activateUser(user.id)}
-                          />
-                        )}
-                      </div>
-                    ) : "..."}
-                     
+                          {user.state === true ? (
+                            <DeleteIcon
+                              className="text-red-500 cursor-pointer"
+                              onClick={() => deleteUser(user.id)}
+                            />
+                          ) : (
+                            <ReplayIcon
+                              className="text-green-500 cursor-pointer"
+                              onClick={() => activateUser(user.id)}
+                            />
+                          )}
+                        </div>
+                      ) : (
+                        "..."
+                      )}
                     </td>
                   </tr>
                 );
@@ -376,9 +379,12 @@ const Users = () => {
       {modalUser && (
         <ModalUser userInfo={userInfo} setModalUser={setModalUser} />
       )}
-      <h1 className="text-center px-6 pt-3 mb-0 text-gray-500 font-bold tracking-wider uppercase text-xl ">
-        Monthly new users</h1>
-      <div className="bg-white m-10 p-10 h-4/6"><UserGraph/></div>
+      <h1 className="text-center px-6 pt-3 mb-4 mt-2 text-gray-500 font-bold tracking-wider uppercase text-xl ">
+        Monthly new users
+      </h1>
+      <div className="bg-white p-5 lg:p-10 h-96 rounded-lg">
+        <UserGraph />
+      </div>
     </div>
   );
 };

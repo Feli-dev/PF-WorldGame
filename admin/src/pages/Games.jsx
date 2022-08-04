@@ -55,12 +55,12 @@ const Games = () => {
 
   return (
     <div className="md:max-w-7xl md:mx-auto px-4 py-6">
-      <div className="flex items-center justify-between mb-4 ml-2">
+      <div className="flex items-center justify-between mb-6 ml-2">
         <button
           className="text-2xl font-bold text-black hover:text-blue-600"
           onClick={() => resetFilters()}
         >
-          Games
+          All Games
         </button>
       </div>
       <div className="flex mb-4 ml-2 max-w-2x1 items-center">
