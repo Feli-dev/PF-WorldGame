@@ -13,8 +13,8 @@ const CardsDashboard = () => {
   let allGames = useSelector((state) => state.gamesReducer.allGames);
 
   return (
-    <div className="grid grid-cols-4 gap-6 m-4">
-      <div className="p-5  flex flex-col bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100">
+    <div className="grid lg:grid-cols-4 gap-6 m-4">
+      <div className="p-5 flex flex-col bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100">
         <div className="flex flex-row justify-between items-center font-extrabold">
           Total users
           <PeopleAltIcon />
