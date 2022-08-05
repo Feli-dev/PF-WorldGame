@@ -45,12 +45,6 @@ const Game = ({ game, setModalUser, setUserInfo }) => {
       </td>
 
       <td className="border-t">
-        <span className="text-gray-700 px-8 py-4 flex items-center ">
-          {game?.time}
-        </span>
-      </td>
-
-      <td className="border-t">
         <span className="text-gray-700 px-11 py-4 flex items-center">
           {game?.attempts}
         </span>

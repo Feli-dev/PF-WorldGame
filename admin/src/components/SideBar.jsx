@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 // Icons
 import GridViewIcon from "@mui/icons-material/GridView";
@@ -13,8 +13,11 @@ import { handleMenu } from "../redux/ui/uiActions";
 const SideBar = () => {
   let { profile } = useSelector((state) => state.authReducer);
   let { menu } = useSelector((state) => state.uiReducer);
-
+  let url = useLocation().pathname
+  console.log(url)
   const dispatch = useDispatch();
+  let linksStyle = "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:bg-gray-200";
+  let activeStyle = "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 text-blue-600";
 
   return (
     <div
@@ -36,7 +39,7 @@ const SideBar = () => {
           <li>
             <Link
               to="/dashboard"
-              className="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200"
+              className={ url === "/dashboard"? activeStyle : linksStyle}
             >
               <GridViewIcon className="mr-4 opacity-50" />
               Dashboard
@@ -48,7 +51,7 @@ const SideBar = () => {
               <li>
                 <Link
                   to="/users"
-                  className="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200"
+                  className={ url === "/users"? activeStyle : linksStyle}
                 >
                   <PersonIcon className="mr-4 opacity-50" />
                   Users
@@ -57,7 +60,7 @@ const SideBar = () => {
               <li>
                 <Link
                   to="/games"
-                  className="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200"
+                  className={ url === "/games"? activeStyle : linksStyle}
                 >
                   <SportsEsportsIcon className="mr-4 opacity-50" />
                   Games
@@ -69,7 +72,7 @@ const SideBar = () => {
             <li>
               <Link
                 to="/pays"
-                className="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200"
+                className={ url === "/pays"? activeStyle : linksStyle}
               >
                 <PaidIcon className="mr-4 opacity-50" />
                 Payments
@@ -81,7 +84,7 @@ const SideBar = () => {
             <li>
               <Link
                 to="/reviews"
-                className="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200"
+                className={ url === "/reviews"? activeStyle : linksStyle}
               >
                 <GradingIcon className="mr-4 opacity-50" />
                 Reviews
