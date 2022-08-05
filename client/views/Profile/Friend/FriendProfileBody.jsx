@@ -5,8 +5,10 @@ import { useNavigation } from '@react-navigation/native';
 import Ionic from 'react-native-vector-icons/Ionicons';
 import * as Animatable from 'react-native-animatable';
 import tw from "twrnc"
+import { PostFriend, deleteFirend } from "../../../redux/actions/index";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const ProfileBody = ({
+export const FriendProfileBody = ({
     name,
     userName,
     avatar,
@@ -22,6 +24,10 @@ export const ProfileBody = ({
 
 }) => {
     const navigation = useNavigation();
+    // const storageUser = await AsyncStorage.getItem('User', JSON.stringify(value));
+    // const thisUser = JSON.parse(storageUser);
+    
+    console.log('this user --->', thisUser);
     return (
         <View>
             {userName ? (
@@ -74,28 +80,7 @@ export const ProfileBody = ({
                                     }}
                                 />
                             </Animatable.View>
-                            : <Animatable.View
-                                animation="swing" iterationCount='infinite' delay={2000}
-                            >
-                                <Ionic
-                                    onPress={() => navigation.navigate('Payment', {
-                                        id: id,
-                                        name: name,
-                                        country: country,
-                                        email: email,
-                                        userName: userName,
-                                        password: password,
-                                    })}
-                                    name="ribbon-sharp"
-                                    style={{
-                                        fontSize: 30,
-                                        color: 'white',
-                                        marginTop: 5,
-                                        paddingHorizontal: 10,
-                                    }}
-                                />
-                            </Animatable.View>}
-
+                            : null}
                     </View>
                 </View>
             ) : null}
@@ -173,39 +158,7 @@ export const ProfileButtons = ({
     const [follow, setFollow] = useState(follow);
     return (
         <View>
-            {id === 1 ? (//ACA TENGO QUE COMPARAR EL ID DEL LOCALSTORAGE O LOGIN Y EL DEL USUARIO SELECCIONADO! (SPRINT 3)
-                <View
-                    style={{
-                        width: '100%',
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'space-evenly',
-                        paddingVertical: 5,
-                    }}>
-                    <TouchableOpacity
-                        onPress={() =>
-                            navigation.push('EditProfile', {
-                                id: id,
-                                name: name,
-                                userAvatar: userAvatar,
-                                premium: premium,
-                                country: country,
-                                email: email,
-                                password: password,
-                                userName: userName,
-                                countries: countries,
-                            })}
-                        style={tw`w-9/10`}>
-                        <View
-                            style={tw`h-8 rounded-lg items-center justify-center border-white border-2`}>
-                            <Text
-                                style={tw`text-base text-white font-bold`}>
-                                Edit Profile
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
-                </View>
-            ) : (
+            {id === 1 ? (//ACA COMPARAR EL ID O USERNAME DEL PERFIL CON TU LISTA DE AMIGOS DEL USER LOGIN
                 <View
                     style={{
                         width: '100%',
@@ -239,8 +192,10 @@ export const ProfileButtons = ({
 
                     </View>
 
-                </View>
-            )}
+                </View>)
+                : (null)
+
+            }
         </View>
     );
 

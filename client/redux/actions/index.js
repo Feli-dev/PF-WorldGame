@@ -265,6 +265,20 @@ export function PutFriend(payload) {
     }
   };
 }
+
+export function deleteFirend(payload) {
+  return async function () {
+    try {
+      const response = axios.delete(
+        'https://world-game-v7.herokuapp.com/friend',
+        payload
+      );
+      return response;
+    } catch (e) {
+      return e.message;
+    }
+  };
+}
 //--------------------countries----------------------//
 export function getCountrie(name) {
   return async function (dispatch) {
