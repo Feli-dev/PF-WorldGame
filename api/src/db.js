@@ -7,7 +7,7 @@ const {DB_USER, DB_PASSWORD, DB_HOST} = process.env;
 
 const bitHash = new BitHash();
 
-const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/worldgame`, {
+const sequelize = new Sequelize(`postgres://postgres:12345@localhost:5432/worldgame`, {
   logging: false,
   native: false,
 });

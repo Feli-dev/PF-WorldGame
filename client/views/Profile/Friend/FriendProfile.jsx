@@ -5,32 +5,23 @@ import {
     TouchableWithoutFeedback,
 } from "react-native";
 import React, { useEffect } from "react";
-
 import { useDispatch, useSelector } from "react-redux";
-
 import { getUser } from "../../../redux/actions/index";
-
 import tw from "twrnc";
-
-import { FriendProfileBody, BottomTabViewFriend } from "./FriendProfileBody";
+import { FriendProfileBody } from "./FriendProfileBody";
+import BottomTabViewFriend from "./BottomTabViewFriend";
 
 //let lengthOfObject = Object.keys(obj).lengt
 //<BottomTabView />
 
 const FriendProfile = (params) => {
-
     const dispatch = useDispatch();
-
     const { freId } = params.route.params
-
     const userInfo = useSelector((state) => state.userdetail);
-
     const data = Object.keys(userInfo.Request).length > 0 && Object.keys(userInfo.Request.stats).length > 0 ? userInfo.Request : false;
-
     useEffect(() => {
         dispatch(getUser(freId))
     }, [dispatch])
-
 
     console.log('data---->', data)
     //navigation.goBack(); AGREGAR BOTON PARA IR ATRAS O HOME
@@ -59,9 +50,8 @@ const FriendProfile = (params) => {
                         </View>
 
                         <BottomTabViewFriend                            
-                            // games={data.stats.games}                            
-                            // gamesArr={data.games}
-
+                            games={data.stats.games}                            
+                            gamesArr={data.games}
                         />
 
                     </View>

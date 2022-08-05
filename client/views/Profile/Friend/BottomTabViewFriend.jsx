@@ -8,49 +8,39 @@ import io from "socket.io-client";
 
 import { useSelector } from "react-redux";
 
-const BottomTabViewFriend = ({
-    // games,   
-    // gamesArr,
-}) => {
-
-    console.log('games---->',games)
-    console.log('gamesArr---->',gamesArr)
-    const allcountries = useSelector((state) => state.countries);
-
-    const countriesAux = [];
+const BottomTabViewFriend = ({games, gamesArr}) => {
     const Tab = createMaterialTopTabNavigator();
-    // for (let i = 0; i < games; i++) {
-    //     allcountries?.map((country) => {
-    //         if (gamesArr[i].countrie === country.name) {
-    //             countriesAux.push({
-    //                 id: gamesArr[i].id,
-    //                 countrie: gamesArr[i].countrie,
-    //                 winned: gamesArr[i].winned,
-    //                 time: gamesArr[i].time,
-    //                 attempts: gamesArr[i].attempts,
-    //                 points: gamesArr[i].points,
-    //                 continent: country.continent,
-    //                 population: country.population,
-    //                 googleMap: country.googleMap,
-    //                 area: country.area,
-    //                 flagSvg: country.flagSvg,
-    //             })
-    //         }
-    //     })
-    // }
 
     const Games = () => {
+        const allcountries = useSelector((state) => state.countries);
+        const countriesAux = [];
+        for (let i = 0; i < games; i++) {
+            allcountries?.map((country) => {
+                if (gamesArr[i].countrie === country.name) {
+                    countriesAux.push({
+                        id: gamesArr[i].id,
+                        countrie: gamesArr[i].countrie,
+                        winned: gamesArr[i].winned,
+                        time: gamesArr[i].time,
+                        attempts: gamesArr[i].attempts,
+                        points: gamesArr[i].points,
+                        continent: country.continent,
+                        population: country.population,
+                        googleMap: country.googleMap,
+                        area: country.area,
+                        flagSvg: country.flagSvg,
+                    })
+                }
+            })
+        }
+
         return (
-            <ScrollView showsVerticalScrollIndicator={false} style={{ backgroundColor: '#111827', }}
+            <ScrollView showsVerticalScrollIndicator={false} style={{ backgroundColor: '#111827' }}
             // style={tw`bg-gray-900`}
             >
-                <Text></Text>
-
                 {/* AGREGAR UN LOADING EN LO QUE SE CARGAN LAS CARDS  */}
-
-                {/* <Text style={tw`text-gray-400 text-left text-2xl pl-3 pt-3`}>Games</Text> */}
-
-                <View style={{ flexDirection: 'column', alignItems: 'center', }}>
+                <Text style={tw`text-gray-400 text-left text-2xl pl-3 pt-3`}>Games</Text>
+                <View style={{ flexDirection: 'column', alignItems: 'center' }}>
                     {countriesAux.length > 0
                         ? countriesAux.map((perGame) => {
                             return (
@@ -70,7 +60,6 @@ const BottomTabViewFriend = ({
                                                     {perGame.countrie.length > 13 ? perGame.countrie.slice(0, 12).concat('...') : perGame.countrie}
                                                 </Text>
                                             </View>
-
                                             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                                                 {perGame.points ?
                                                     <View style={{ justifyContent: 'center', alignItems: 'center' }}>
@@ -104,7 +93,6 @@ const BottomTabViewFriend = ({
                                                     {' km²'}
                                                 </Text>
                                             </View>
-
                                             <View style={{ justifyContent: 'center', alignItems: 'center', }}>
                                                 <Text style={{ color: 'white', paddingVertical: 5, fontWeight: 'bold', fontSize: 16, }}>
                                                     Continent
@@ -113,9 +101,6 @@ const BottomTabViewFriend = ({
                                                     {perGame.continent.length > 13 ? perGame.continent.slice(0, 12).concat('...') : perGame.continent}
                                                 </Text>
                                             </View>
-
-
-
                                             <View style={{ justifyContent: 'center', alignItems: 'center', }}>
                                                 <Ionic name="earth" style={{ fontSize: 25, color: 'white', display: 'flex', marginRight: 0, }}
                                                 // VER DE AGREGAR UN LINK PARA GOOGLE MAPS                                               
@@ -163,9 +148,7 @@ const BottomTabViewFriend = ({
                     return <Ionic name={iconName} color={colour} size={22} />
                 }
             })}>
-
             <Tab.Screen name="Games" component={Games} />
-
         </Tab.Navigator>
     );
 };
