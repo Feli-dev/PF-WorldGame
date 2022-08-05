@@ -87,7 +87,7 @@ const BottomTabView = ({
                                                         </Text>
                                                     </View>
                                                     :
-                                                    <Ionic name="skull" style={{ fontSize: 25, color: 'white', display: 'flex', marginRight: 0, }} />
+                                                    <Ionic name="flag" style={{ fontSize: 25, color: 'white', display: 'flex', marginRight: 0, }} />
                                                 }
                                             </View>
                                         </View>
