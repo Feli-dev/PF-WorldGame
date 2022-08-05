@@ -27,9 +27,11 @@ const Users = () => {
     state: "",
     authorization: "",
   });
+
   /*   let allCountries = useSelector(
     (state) => state.countriesReducer.allCountries
   ); */
+
   let [order, setOrder] = useState(""); //eslint-disable-line
   let actualUser = JSON.parse(localStorage.getItem("profile"));
   //console.log("chee", actualUser)
@@ -201,7 +203,7 @@ const Users = () => {
         </form>
       </div>
 
-      <div className="overflow-x-auto bg-white rounded-lg shadow h-3/6">
+      <div className="overflow-x-auto bg-white rounded-lg shadow max-h-96">
         <table className="w-full whitespace-no-wrap bg-white overflow-hidden table-striped">
           <thead>
             <tr className="text-left">
@@ -379,12 +381,14 @@ const Users = () => {
       {modalUser && (
         <ModalUser userInfo={userInfo} setModalUser={setModalUser} />
       )}
+
       <h1 className="text-center px-6 pt-3 mb-4 mt-2 text-gray-500 font-bold tracking-wider uppercase text-xl ">
         Monthly new users
       </h1>
       <div className="bg-white p-5 lg:p-10 h-96 rounded-lg">
         <UserGraph />
       </div>
+
     </div>
   );
 };
