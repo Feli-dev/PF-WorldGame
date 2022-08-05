@@ -21,13 +21,13 @@ module.exports = {
             return { Error: error, Request: "Fallo la función select", Path: path, Function: "select" };
         }
     },
-    insert: async(UserId = 0, FriendId = 0, name = "", username = "", nameFriend = "", usernameFriend = "") => {
+    insert: async(UserId = 0, FriendId = 0, name = "", username = "", nameFriend = "", usernameFriend = "", avatar = "", avatarFriend = "") => {
         try {
             return await Friend.bulkCreate(
-                [ { FriendId, UserId, state: "Enviado", name: nameFriend, username: usernameFriend, connect: false },
-                { FriendId: UserId, UserId: FriendId, state: "Recibido", name, username, connect: false }] ,
+                [ { FriendId, UserId, state: "Enviado", name: nameFriend, username: usernameFriend, connect: false, avatar: avatarFriend },
+                { FriendId: UserId, UserId: FriendId, state: "Recibido", name, username, connect: false, avatar }] ,
                 { validate: true },
-                { fields: ['FriendId', 'UserId', 'state', 'name', 'username', 'connect'] }
+                { fields: ['FriendId', 'UserId', 'state', 'name', 'username', 'connect', 'avatar'] }
             )
             .then(result => {
                 result[0].setUser(UserId);
@@ -60,9 +60,9 @@ module.exports = {
             return { Error: error, Request: "Fallo la función update", Path: path, Function: "update" };
         }
     },
-    notify: async(UserId = 0, username = "", name="", connect = false) => {
+    notify: async(UserId = 0, username = "", name="", connect = false, avatar = "") => {
         try {
-            return await Friend.update({ username, name, connect }, { where: { FriendId: UserId } })
+            return await Friend.update({ username, name, connect, avatar }, { where: { FriendId: UserId } })
             .then(result => {
                 if(result[0] > 0) return { Request: "Amigos actualizados" };
                 return { Request: "No se actualizaron los amigos" };
