@@ -40,7 +40,8 @@ function Login({ navigation, user, postLogin }) {
       username: `${useInfo.given_name}${useInfo.family_name}`,
       password: `P${useInfo.id}`
     }
-    log(inputauth);
+    setUserA(inputauth);
+    log(userA)
   }
 
   const dispatch = useDispatch();
@@ -68,7 +69,7 @@ function Login({ navigation, user, postLogin }) {
     }
   }
 
-  let log = (_input) => {
+  let log = async (_input) => {
 
 
     if (_input.username.length < 3 && _input.password.length < 3) {
@@ -94,10 +95,19 @@ function Login({ navigation, user, postLogin }) {
       if(User && User.state === false){
         setLogErr("Banned user, please contact the administrator.");
         setBanned(true);
-      } else if((User && User.state === true) || siLogin === true) {
-        postLogin(_input);
-        dispatch(setLogin(User));
-        setLogin_(_input);
+      } else if((User && User.state === true)) {
+        let c = await postLogin(_input);
+        if(c.payload.Request !== "No se inicio sessión"){
+          dispatch(setLogin(User));
+          setLogin_(_input);
+          setPressed(true);
+        } else {
+          setTimeout(() =>{
+            if(logErr !== "Banned user, please contact the administrator."){
+              setLogErr("invalid user or password");
+            }
+          },700)
+        }
       }
     }
     setPressed(true);
@@ -121,15 +131,24 @@ function Login({ navigation, user, postLogin }) {
         password: "",
       });
       setLogErr("");
-      if(user.Request.first){
+      navigation.navigate("Home");
+    } else if (pressed === true && user.Request?.first === true ) {
+      const User = (allUser.Request.find((e) => (e.username.toLowerCase() === input.username.toLowerCase())))
+      console.log("donde es",allUser)
+      if(User){
         navigation.navigate("Instructions");
         let logear = user.Request;
         logear.first = false
         dispatch(setLogin({
           logear
         }))
-      }else {
-        navigation.navigate("Home");
+      } else {
+        setTimeout(() =>{
+          if(logErr !== "Banned user, please contact the administrator."){
+            setLogErr("invalid user or password");
+            console.log("creia", User)
+          }
+        },700)
       }
       setPressed(false);
     } else if (pressed === true && !user.Request) {
