@@ -9,41 +9,35 @@ import io from "socket.io-client";
 import { useSelector } from "react-redux";
 
 const BottomTabViewFriend = ({
-    id,
-    userName,
-    premium,
-    averageScore,
-    games,
-    losses,
-    timePaying,
-    wins,
-    gamesArr,
-    friends,
+    // games,   
+    // gamesArr,
 }) => {
 
-    // const dispatch = useDispatch();
+    console.log('games---->',games)
+    console.log('gamesArr---->',gamesArr)
     const allcountries = useSelector((state) => state.countries);
+
     const countriesAux = [];
     const Tab = createMaterialTopTabNavigator();
-    for (let i = 0; i < games; i++) {
-        allcountries?.map((country) => {
-            if (gamesArr[i].countrie === country.name) {
-                countriesAux.push({
-                    id: gamesArr[i].id,
-                    countrie: gamesArr[i].countrie,
-                    winned: gamesArr[i].winned,
-                    time: gamesArr[i].time,
-                    attempts: gamesArr[i].attempts,
-                    points: gamesArr[i].points,
-                    continent: country.continent,
-                    population: country.population,
-                    googleMap: country.googleMap,
-                    area: country.area,
-                    flagSvg: country.flagSvg,
-                })
-            }
-        })
-    }
+    // for (let i = 0; i < games; i++) {
+    //     allcountries?.map((country) => {
+    //         if (gamesArr[i].countrie === country.name) {
+    //             countriesAux.push({
+    //                 id: gamesArr[i].id,
+    //                 countrie: gamesArr[i].countrie,
+    //                 winned: gamesArr[i].winned,
+    //                 time: gamesArr[i].time,
+    //                 attempts: gamesArr[i].attempts,
+    //                 points: gamesArr[i].points,
+    //                 continent: country.continent,
+    //                 population: country.population,
+    //                 googleMap: country.googleMap,
+    //                 area: country.area,
+    //                 flagSvg: country.flagSvg,
+    //             })
+    //         }
+    //     })
+    // }
 
     const Games = () => {
         return (
@@ -141,121 +135,7 @@ const BottomTabViewFriend = ({
             </ScrollView>
         )
     }
-    const Chat = () => {
-        const [chatMessage, setChatMessage] = useState("");
-        const [Messages, setMessages] = useState([]);
-        const scrollViewRef = useRef();
-        const socket = io("https://chat-wg.herokuapp.com");
-
-        useEffect(() => {
-            if (userName.length) socket.emit("conectado", userName);
-            //console.log(socket);
-        }, []);
-
-        useEffect(() => {
-            socket.on("mensajes", (mensaje) => {
-                setMessages([...Messages, mensaje]);
-            });
-            return () => {
-                socket.off();
-            };
-        }, [Messages]);
-
-        function onSubmitChatMessage() {
-            if (userName.length) {
-                console.log("mensaje", userName, chatMessage);
-                socket.emit("mensaje", userName, chatMessage);
-                setChatMessage("");
-            }
-        }
-
-        return (
-            <View
-                style={tw`bg-gray-900 h-full`}>
-                <Text style={tw`text-gray-400 text-center text-2xl mt-3`}>Chat</Text>
-                <ScrollView
-                    showsVerticalScrollIndicator={false}
-                    ref={scrollViewRef}
-                    onContentSizeChange={() =>
-                        scrollViewRef.current.scrollToEnd({ animated: true })
-                    }
-                    style={tw`mb-5 mt-3 bg-gray-800 rounded-lg`}
-                >
-                    {Messages.length > 0 ? Messages?.map((el, i) => {
-                        return (el.nombre.toLowerCase() === userName.toLowerCase() ?
-                            <View key={i} style={tw.style("ml-3 mt-3 flex items-end justify-center mb-2 bg-gray-100 rounded-lg pl-5 pr-5", { alignSelf: "flex-end" })}>
-                                <Text style={tw`text-base font-bold text-black`}>{`${el.nombre}: ${el.mensaje}`}</Text>
-                            </View>
-                            :
-                            <View key={i} style={tw.style("ml-3 mt-3 flex items-start justify-center mb-2 bg-gray-100 rounded-lg pl-5 pr-5", { alignSelf: "flex-start" })}>
-                                <Text style={tw`text-base font-bold text-black`}>{`${el.nombre}: ${el.mensaje}`}</Text>
-                            </View>
-                        )
-                    }) : <></>}
-                </ScrollView>
-                <View style={tw`flex flex-row items-center justify-center mb-5`}>
-                    <TextInput
-                        placeholder="Enter a country..."
-                        placeholderTextColor="#6f6f6f"
-                        autoCapitalize="sentences"
-                        style={tw`pl-3 w-75 mr-1 h-12 rounded-lg bg-white text-black text-lg`}
-                        onChangeText={text => setChatMessage(text)}
-                        multiline={true}
-                        value={chatMessage}
-                        textAlignVertical="center"
-                    ></TextInput>
-                    <TouchableOpacity
-                        style={tw`flex items-center justify-center h-12 w-12 bg-white rounded-lg`}
-                        onPress={() => { onSubmitChatMessage(); }}
-                    >
-                        <Text style={tw`text-center`}>Send</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
-        )
-    }
-    const Friends = () => {
-        console.log('firend arr', friends)
-        return (
-            <ScrollView
-                showsVerticalScrollIndicator={false}
-                style={tw`bg-gray-900`}>
-                <Text style={tw`text-gray-400 text-center flex text-2xl pl-3 pt-3`}>Friends</Text>
-                <View style={{
-                                borderRadius:8,
-                            }}>
-                    {friends?.map((friend) => {
-                        return (
-                            <View  
-                            style={{
-                                borderRadius:8,
-                            }}>
-                                <View
-                                    key={friend.id}
-                                    style={{
-                                        backgroundColor: 'grey',
-                                        height: '100%',
-                                        padding: 20,
-                                        borderRadius:8,
-
-                                    }}
-                                >
-
-                                    <Text
-                                        style={{
-                                            color: 'white',
-                                            fontSize: 25,
-                                        }}>{friend.username ? friend.username : 'Not friends :('}</Text>
-                                </View>
-                            </View>
-                        )
-                    })}
-
-                </View>
-
-            </ScrollView>
-        )
-    }
+  
     return (
         <Tab.Navigator
             style={tw`rounded-lg w-9/10`}
@@ -279,20 +159,12 @@ const BottomTabViewFriend = ({
                     if (route.name === "Games") {
                         iconName = focused ? "stats-chart-sharp" : "stats-chart-outline";
                         colour = focused ? "black" : "gray";
-                    } else if (route.name === "Chat") {
-                        iconName = focused ? "chatbubbles-sharp" : "chatbubbles-outline";
-                        colour = focused ? "black" : "gray";
-                    } else if (route.name === "Friends") {
-                        iconName = focused ? "people" : "people-outline";
-                        colour = focused ? "black" : "gray";
                     }
                     return <Ionic name={iconName} color={colour} size={22} />
                 }
             })}>
 
             <Tab.Screen name="Games" component={Games} />
-            <Tab.Screen name="Chat" component={Chat} />
-            <Tab.Screen name="Friends" component={Friends} />
 
         </Tab.Navigator>
     );

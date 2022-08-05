@@ -26,7 +26,7 @@ const Profile = () => {
 
     const userId = Object.keys(userlogin?.Request).length > 0 ? userlogin.Request.id : 0;
 
-    const avatarFinal = require(`../../assets/avatars/normal_user/avatar_default.png`);
+    const avatarFinal = require(`../../assets/avatar_default.png`);
 
 
 

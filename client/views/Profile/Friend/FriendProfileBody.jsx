@@ -24,10 +24,7 @@ export const FriendProfileBody = ({
 
 }) => {
     const navigation = useNavigation();
-    // const storageUser = await AsyncStorage.getItem('User', JSON.stringify(value));
-    // const thisUser = JSON.parse(storageUser);
-    
-    console.log('this user --->', thisUser);
+        
     return (
         <View>
             {userName ? (

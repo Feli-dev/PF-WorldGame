@@ -5,6 +5,8 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import Ionic from 'react-native-vector-icons/Ionicons'
 import tw from "twrnc";
 import io from "socket.io-client";
+import avatarDefault from '../../assets/avatar_default.png';
+import { useNavigation } from '@react-navigation/native';
 
 import { useSelector } from "react-redux";
 
@@ -25,6 +27,8 @@ const BottomTabView = ({
     const allcountries = useSelector((state) => state.countries);
     const countriesAux = [];
     const Tab = createMaterialTopTabNavigator();
+    const navigation = useNavigation();
+
     for (let i = 0; i < games; i++) {
         allcountries?.map((country) => {
             if (gamesArr[i].countrie === country.name) {
@@ -148,7 +152,7 @@ const BottomTabView = ({
         const socket = io("https://chat-wg.herokuapp.com");
 
         useEffect(() => {
-            if(userName.length)socket.emit("conectado", userName);
+            if (userName.length) socket.emit("conectado", userName);
         }, []);
 
         useEffect(() => {
@@ -168,9 +172,9 @@ const BottomTabView = ({
             }
         }
 
-        function view(){
+        function view() {
             let obj = {}
-            const send =  Messages.length > 0 ? Messages.filter(e => obj[e.mensaje] ? false : obj[e.mensaje] = true) : [];
+            const send = Messages.length > 0 ? Messages.filter(e => obj[e.mensaje] ? false : obj[e.mensaje] = true) : [];
             return send;
         }
 
@@ -187,13 +191,13 @@ const BottomTabView = ({
                     style={tw`mb-5 mt-3 bg-gray-800 rounded-lg`}
                 >
                     {
-                        view().length > 0 ? view()?.map((el,i) => {
-                        return (el.nombre.toLowerCase() === userName.toLowerCase() ?
-                                <View key={i} style={tw.style("ml-3 mt-3 flex items-end justify-center mb-2 bg-gray-100 rounded-lg pl-5 pr-5",{alignSelf: "flex-end" })}>
+                        view().length > 0 ? view()?.map((el, i) => {
+                            return (el.nombre.toLowerCase() === userName.toLowerCase() ?
+                                <View key={i} style={tw.style("ml-3 mt-3 flex items-end justify-center mb-2 bg-gray-100 rounded-lg pl-5 pr-5", { alignSelf: "flex-end" })}>
                                     <Text style={tw`text-base font-bold text-black`}>{`${el.nombre}: ${el.mensaje}`}</Text>
-                                </View> 
+                                </View>
                                 :
-                                <View key={i} style={tw.style("ml-3 mt-3 flex items-start justify-center mb-2 bg-gray-100 rounded-lg pl-5 pr-5",{alignSelf: "flex-start" })}>
+                                <View key={i} style={tw.style("ml-3 mt-3 flex items-start justify-center mb-2 bg-gray-100 rounded-lg pl-5 pr-5", { alignSelf: "flex-start" })}>
                                     <Text style={tw`text-base font-bold text-black`}>{`${el.nombre}: ${el.mensaje}`}</Text>
                                 </View>
                             )
@@ -222,41 +226,76 @@ const BottomTabView = ({
         )
     }
     const Friends = () => {
-        console.log('firend arr', friends)
+        
+        //console.log('firend arr', friends)
         return (
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 style={tw`bg-gray-900`}>
                 <Text style={tw`text-gray-400 text-center flex text-2xl pl-3 pt-3`}>Friends</Text>
                 <View style={{
-                                borderRadius:8,
-                            }}>
+                    //agregar boton busqueda
+                }}>
                     {friends?.map((friend) => {
                         return (
-                            <View  
-                            style={{
-                                borderRadius:8,
-                            }}>
+                             
+
+                            <TouchableOpacity
+                            key={friend.id}
+                            onPress={() => navigation.navigate('FriendProfile', {freId:friend.FriendId})}
+                            >
+                                
                                 <View
-                                    key={friend.id}
                                     style={{
-                                        backgroundColor: 'grey',
-                                        height: '100%',
-                                        padding: 20,
-                                        borderRadius:8,
-
+                                        width: '100%',
+                                        marginBottom: 15,
                                     }}
-                                >
 
-                                    <Text
+                                >
+                                    <View
                                         style={{
-                                            color: 'white',
-                                            fontSize: 25,
-                                        }}>{friend.username ? friend.username : 'Not friends :('}</Text>
+                                            borderRadius: 8,
+                                            backgroundColor: 'grey',
+                                            padding: 15,
+                                            justifyContent: 'space-between',
+                                            alignItems: 'center',
+                                            display: 'flex',
+                                            flexDirection: 'row',
+                                        }}
+                                    >
+                                        <Image
+                                            style={{
+                                                width: 50,
+                                                height: 50,
+                                            }}
+                                            source={friend.avatar === "" ? avatarDefault : friend.avatar} />
+
+                                        <Text
+                                            style={{
+                                                color: 'white',
+                                                fontSize: 25,
+                                                textAlign: 'center',
+                                                paddingRight: 10,
+                                            }}>
+                                            {friend.username ? friend.username : 'Not friends :('}
+                                        </Text>
+
+                                        <Image
+                                            style={{
+                                                width: 50,
+                                                height: 50,
+                                            }}
+                                            source={friend.avatar === "" ? avatarDefault : friend.avatar} />
+                                    </View>
+
                                 </View>
-                            </View>
+                            </TouchableOpacity>
+
                         )
                     })}
+
+
+
 
                 </View>
 
