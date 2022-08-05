@@ -9,11 +9,11 @@ import {
   Keyboard,
 } from "react-native";
 import tw from "twrnc";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Svg, { Path } from "react-native-svg";
 import DropDownPicker from "react-native-dropdown-picker";
 import validateInput from "../utils/ValidateInput";
-import { PostUser,getUser } from "../redux/actions";
+import { PostUser,postLogin,getUser,_setLogin } from "../redux/actions";
 import { useEffect } from "react";
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
@@ -22,6 +22,8 @@ import { fetchUserInfoAsync } from "expo-auth-session";
 export default function Register({ navigation }) {
   const [accessToken, setAccessToken] = useState(null);
   const [userA, setUserA] = useState(null);
+  const user= useSelector(state => state.login);
+  const allUser = useSelector((state) => state.users)
   const [request, response, promptAsync] = Google.useAuthRequest({
     expoClientId: '1070907696300-0qdljeqakdv1kl2719q67qrrppo9fufi.apps.googleusercontent.com',
     iosClientId: '1070907696300-lqbno53dfsfriamdtv1nbdenijssv5jn.apps.googleusercontent.com',
@@ -95,7 +97,8 @@ export default function Register({ navigation }) {
         })
       );
       dispatch(getUser());
-      navigation.navigate("Login");
+      const User = allUser.Request.find((e) => (e.username.toLowerCase() === input.username.toLowerCase()))
+      dispatch(postLogin(User))
     }
   }
 

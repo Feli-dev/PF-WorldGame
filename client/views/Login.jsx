@@ -66,7 +66,7 @@ function Login({ navigation, user, postLogin }) {
     }
   }
 
-  let log = (_input) => {
+  let log = async(_input) => {
 
     if (_input.username.length < 3 && _input.password.length < 3) {
       setErr({
@@ -85,17 +85,26 @@ function Login({ navigation, user, postLogin }) {
     if (validate("username", _input.username) === "" && validate("password", _input.password) === "") {
       const User = (allUser.Request.find((e) => (e.username.toLowerCase() === _input.username.toLowerCase())))
       let siLogin = false;
-      if(login.Request && login.Request?.username?.toLowerCase() === input.username.toLowerCase() && login?.Request?.password === input.password && login?.Request?.first === false){
-        siLogin = true;
-      }
+      // if(login.Request && login.Request?.username?.toLowerCase() === input.username.toLowerCase() && login?.Request?.first === false){
+      //   siLogin = true;
+      // }
       if(User && User.state === false){
         setLogErr("Banned user, please contact the administrator.");
         setBanned(true);
-      } else if((User && User.state === true) || siLogin === true) {
-        console.log("corchea")
-        postLogin(_input);
-        dispatch(setLogin(User));
-        setLogin_(_input);
+      } else if((User && User.state === true)) {
+        let c = await postLogin(_input);
+        if(c.payload.Request !== "No se inicio sessión"){
+          console.log(c)
+          dispatch(setLogin(User));
+          setLogin_(_input);
+          setPressed(true);
+        } else {
+          setTimeout(() =>{
+            if(logErr !== "Banned user, please contact the administrator."){
+              setLogErr("invalid user or password");
+            }
+          },700)
+        }
       }
     }
     setPressed(true);
@@ -147,8 +156,6 @@ function Login({ navigation, user, postLogin }) {
     if(input.password === "" || input.username === ""){
       setLogErr("");
     }
-    console.log(pressed)
-    console.log("jaja")
     setPressed(false);
   }, [user, pressed]);
 
@@ -159,6 +166,7 @@ function Login({ navigation, user, postLogin }) {
     if(input.password === "" || input.username === ""){
       setLogErr("");
     }
+    console.log("useruseruseruseruseru",user)
   }, []);
 
 
