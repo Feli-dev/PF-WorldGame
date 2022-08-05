@@ -54,18 +54,18 @@ const Games = () => {
   let claseSelect = "mx-2 p-1 rounded";
 
   return (
-    <div className="md:max-w-7xl md:mx-auto px-4 py-6">
-      <div className="flex items-center justify-between mb-4 ml-2">
+    <div className="md:max-w-7xl md:mx-auto px-4 py-7 min-h-screen">
+      <div className="flex items-center justify-between mb-6 ml-2">
         <button
-          className="text-2xl font-bold text-black hover:text-blue-600"
+          className="ml-1 text-2xl font-bold text-black hover:text-blue-600"
           onClick={() => resetFilters()}
         >
-          Games
+          All Games
         </button>
       </div>
-      <div className="flex mb-4 ml-2 max-w-2x1 items-center">
-        <label className="font-semibold py-1">Filters:</label>
-        <form>
+      <div className="flex mb-7 ml-2 w-full items-center flex-col lg:flex-row">
+        <label className="font-semibold py-1">Filters</label>
+        <form className="flex flex-col gap-2 lg:flex-none lg:flex-row">
           <select
             name="winned"
             onChange={(e) => handleSelect(e)}

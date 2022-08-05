@@ -69,7 +69,7 @@ const TableUser = () => {
           )}
         </table>
         {lastUsers.length < 1 && (
-          <h1 className="text-center px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xl ">
+          <h1 className="text-center px-4 py-3 text-gray-500 font-bold tracking-wider uppercase text-xl">
             Sin usuarios registrados... aún 🥶
           </h1>
         )}

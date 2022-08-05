@@ -6,6 +6,9 @@ import { logoutUser } from "../redux/auth/authActions";
 // Helper
 import capitalized from "../utils/capitalized";
 
+import MenuIcon from "@mui/icons-material/Menu";
+import { handleMenu } from "../redux/ui/uiActions";
+
 const NavBar = () => {
   const dispatch = useDispatch();
   const navigate = useHistory();
@@ -21,10 +24,13 @@ const NavBar = () => {
   return (
     <>
       <div className="px-4 md:px-8 py-2 h-16 flex justify-between items-center shadow-sm bg-white">
-        <div className="flex items-center w-2/3">
-          {/* Si queremos search */}
+        <div className="flex items-center w-2/3 lg:hidden">
+          <MenuIcon
+            className="cursor-pointer"
+            onClick={() => dispatch(handleMenu())}
+          />
         </div>
-        <div className="flex items-center w-1/7">
+        <div className="flex items-center w-1/7 lg:w-full">
           <div className="flex flex-shrink-0 items-center ml-auto">
             <div className="dropdown inline-block relative">
               <button className="text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
@@ -38,7 +44,7 @@ const NavBar = () => {
                 </div>
                 <span className="text-gray-700 px-6 py-4 flex items-center  ">
                   <div className=" cursor-pointer font-semibold w-10 h-10 bg-blue-200 text-blue-600 flex items-center justify-center rounded-full">
-                    {profile?.username.charAt(0).toUpperCase()}
+                    {profile?.username?.charAt(0).toUpperCase()}
                   </div>
                 </span>
               </button>

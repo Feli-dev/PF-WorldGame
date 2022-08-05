@@ -94,3 +94,7 @@
         transform: rotate(360deg);
     }
 }
+
+.animation{
+    transition: hidden ease-out 0.3s;
+}

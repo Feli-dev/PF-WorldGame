@@ -139,7 +139,7 @@ const UpdatePassword = () => {
                 {message && (
                   <Alerta alerta={{ ...infoForm, msg: infoForm.message }} />
                 )}
-                <div className="py-2 px-16">
+                <div className="py-2 lg:px-16">
                   <label
                     htmlFor="password"
                     className={
@@ -173,7 +173,7 @@ const UpdatePassword = () => {
                     </p>
                   )}
                 </div>
-                <div className="py-2 px-16">
+                <div className="py-2 lg:px-16">
                   <label
                     htmlFor="newpassword"
                     className={
@@ -207,7 +207,7 @@ const UpdatePassword = () => {
                     </p>
                   )}
                 </div>
-                <div className="py-2 px-16">
+                <div className="py-2 lg:px-16">
                   <label
                     htmlFor="confpassword"
                     className={
