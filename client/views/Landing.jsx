@@ -30,7 +30,6 @@ const Landing = ({ navigation }) => {
             if (value !== null) {
                 value = JSON.parse(value);
                 const User = (allUser.Request.find((e) => (e.username.toLowerCase() === value.username.toLowerCase())))
-                console.log(User, value)
                 if (User) {
                     if(User.state === false){
                         dispatch(setLogin(User));
