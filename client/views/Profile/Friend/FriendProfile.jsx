@@ -6,7 +6,7 @@ import {
 } from "react-native";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUser } from "../../../redux/actions/index";
+import { getFriendDetail } from "../../../redux/actions/index";
 import tw from "twrnc";
 import { FriendProfileBody } from "./FriendProfileBody";
 import BottomTabViewFriend from "./BottomTabViewFriend";
@@ -17,11 +17,13 @@ import BottomTabViewFriend from "./BottomTabViewFriend";
 const FriendProfile = (params) => {
     const dispatch = useDispatch();
     const { freId } = params.route.params
-    const userInfo = useSelector((state) => state.userdetail);
-    const data = Object.keys(userInfo.Request).length > 0 && Object.keys(userInfo.Request.stats).length > 0 ? userInfo.Request : false;
+    const friendInfo = useSelector((state) => state.friendsDetail);
+    console.log('friendInfo',friendInfo)
+    const data = Object.keys(friendInfo.Request).length > 0 && Object.keys(friendInfo.Request.stats).length > 0 ? friendInfo.Request : false;
+   
     useEffect(() => {
-        dispatch(getUser(freId))
-    }, [dispatch])
+        dispatch(getFriendDetail(freId))
+    }, [dispatch,freId])
 
     console.log('data---->', data)
     //navigation.goBack(); AGREGAR BOTON PARA IR ATRAS O HOME

@@ -11,6 +11,7 @@ const initialState = {
   rank: [],
   rank_filter: [],
   friends: [],
+  friendsDetail: {},
   giveUp : false,
 };
 
@@ -152,6 +153,11 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         friends: action.payload,
+      };
+    case type.GET_FRIEND_DETAIL:
+      return {
+        ...state,
+        friendsDetail:action.payload,
       };
     default: {
       return state;
