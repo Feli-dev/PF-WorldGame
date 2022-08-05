@@ -22,9 +22,9 @@ const Profile = () => {
     const userlogin = useSelector((state) => state.login);
     const userInfo = useSelector((state) => state.userdetail);
 
-    const data = Object.keys(userInfo.Request).length > 0 ? userInfo.Request : false;//CAMBIAR PROP REQUEST
+    const data = Object.keys(userInfo?.Request).length > 0 ? userInfo.Request : false;//CAMBIAR PROP REQUEST
 
-    const userId = Object.keys(userlogin.Request).length > 0 ? userlogin.Request.id : 0;
+    const userId = Object.keys(userlogin?.Request).length > 0 ? userlogin.Request.id : 0;
 
     const avatarFinal = require(`../../assets/avatars/normal_user/avatar_default.png`);
 
