@@ -24,7 +24,7 @@ module.exports = new class {
         try {
             const user = await Promise.all([filterUser(UserId), filterUser(FriendId)]);
             if(user[0].hasOwnProperty("Value") && user[1].hasOwnProperty("Value")) return await insert(
-                UserId, FriendId, user[0].Value.name, user[0].Value.username, user[1].Value.name, user[1].Value.username, user[0].Value.avatar, user[1].Value.username)
+                UserId, FriendId, user[0].Value.name, user[0].Value.username, user[1].Value.name, user[1].Value.username, user[0].Value.avatar, user[1].Value.avatar)
                 .then(result => result)
                 .catch(error => {
                     return { Error: error, Request: "Fallo al agregar un amigo", Path: this.#path, Function: "create" };
