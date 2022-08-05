@@ -50,7 +50,7 @@ function App() {
         <CommunityLayout path="/users" component={Users} />
         <CommunityLayout path="/games" component={Games} />
         <EntrepriseLayout path="/pays" component={Payment} />
-        <DashboardLayout path="/reviews" component={Reviews} />
+        <CommunityLayout path="/reviews" component={Reviews} />
         <DashboardLayout path="/update-password" component={UpdatePassword} />
         <CommunityLayout path="/add-user" component={AddUser} />
         <CommunityLayout path="/edit-user/:id" component={EditUser} />

@@ -42,7 +42,7 @@ const Dashboard = () => {
         <CardsDashboard />
 
         {profile?.authorization !== "Enterprise-Admin" && <TableUser />}
-        {profile?.authorization !== "Community-Admin" && <TablePay />}
+        {profile?.authorization !== "Community-Admin" || profile?.authorization === "Pro-admin" && <TablePay />}
       </div>
     </>
   );
