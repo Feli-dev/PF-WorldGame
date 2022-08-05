@@ -48,6 +48,7 @@
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.1",
+    "socket.io-client": "^2.3.0",
     "twrnc": "^3.3.3"
   },
   "devDependencies": {

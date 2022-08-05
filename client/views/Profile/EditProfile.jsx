@@ -33,7 +33,8 @@ export default function EditProfile({ route, navigation }) {
         let data = await ImagePicker.launchCameraAsync({
             mediaTypes:ImagePicker.MediaTypeOptions.Images,
             allowsEditing:true,
-            aspect:[1,1],
+            aspect:[4,4],
+            quality:1,
         });
         if(!data.cancelled){ 
             let newFile = {
