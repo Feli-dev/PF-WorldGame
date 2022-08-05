@@ -20,14 +20,14 @@ const SideBar = () => {
     <div
       className={
         menu
-          ? "bg-white lg:w-64 w-screen min-h-screen overflow-y-auto block shadow relative"
-          : "bg-white w-64 min-h-screen overflow-y-auto hidden lg:block shadow relative"
+          ? "bg-white sm:w-60 lg:w-64 w-screen min-h-screen overflow-y-auto block shadow relative animation"
+          : "bg-white w-64 min-h-screen overflow-y-auto hidden lg:block shadow relative animation"
       }
     >
-      <div className="flex items-center px-6 py-3 h-16">
+      <div className="flex items-center px-6 py-3 h-16 sm:mt-4 lg:mt-2">
         <div className="text-xl font-bold tracking-tight text-gray-800 flex justify-between w-full">
           <Link to="/dashboard">Dashboard Admin</Link>
-          {menu && <span onClick={()=>dispatch(handleMenu())}>X</span>}
+          {menu && <span className="sm:hidden" onClick={()=>dispatch(handleMenu())}>X</span>}
         </div>
       </div>
 

@@ -21,11 +21,11 @@ const DashboardLayout = (props) => {
     <>
       {profile?.authorization ? (
         profile?.authorization !== "User" && (
-          <section className="antialiased bg-gray-200">
+          <section className="antialiased bg-gray-200 animation">
             <div className="h-screen flex ">
               <SideBar />
 
-              <div className="flex-1 flex-col relative z-0 overflow-y-auto">
+              <div className="flex-1 flex-col relative z-0 overflow-y-auto animation">
                 <NavBar />
 
                 <Route exact path={props.path} component={props.component} />
