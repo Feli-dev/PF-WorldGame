@@ -173,7 +173,7 @@ export const ProfileButtons = ({
     const [follow, setFollow] = useState(follow);
     return (
         <View>
-            {true ? (//ACA TENGO QUE COMPARAR EL ID DEL LOCALSTORAGE O LOGIN Y EL DEL USUARIO SELECCIONADO! (SPRINT 3)
+            {id === id ? (//ACA TENGO QUE COMPARAR EL ID DEL LOCALSTORAGE O LOGIN Y EL DEL USUARIO SELECCIONADO! (SPRINT 3)
                 <View
                     style={{
                         width: '100%',
@@ -227,8 +227,8 @@ export const ProfileButtons = ({
                                 justifyContent: 'center',
                                 alignItems: 'center',
                             }}>
-                            <Text style={{ color: follow ? 'black' : '#111827' }}>
-                                {follow ? 'gamesWon' : 'Follow'}
+                            <Text style={{ color: follow ? 'white' : '#111827' }}>
+                                {follow ? 'Following' : 'Follow'}
                             </Text>
                         </View>
                     </TouchableOpacity>
