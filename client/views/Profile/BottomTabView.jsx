@@ -144,10 +144,11 @@ const BottomTabView = ({
         const [chatMessage, setChatMessage] = useState("");
         const [Messages, setMessages] = useState([]);
         const scrollViewRef = useRef();
-        const socket = io("http://192.168.1.4:5000");
+        const socket = io("https://chat-wg.herokuapp.com");
 
         useEffect(() => {
             if(userName.length)socket.emit("conectado", userName);
+            console.log(socket);
         }, []);
 
         useEffect(() => {
@@ -161,6 +162,7 @@ const BottomTabView = ({
 
         function onSubmitChatMessage() {
             if(userName.length){
+                console.log("mensaje", userName, chatMessage);
                 socket.emit("mensaje", userName, chatMessage);
                 setChatMessage("");
             }
@@ -179,10 +181,14 @@ const BottomTabView = ({
                     style={tw`mb-5 mt-3 bg-gray-800 rounded-lg`}
                 >
                     {Messages.length > 0 ? Messages?.map((el,i) => {
-                        return (
+                        return (el.nombre.toLowerCase() === userName.toLowerCase() ?
+                            <View key={i} style={tw.style("ml-3 mt-3 flex items-end justify-center mb-2 bg-gray-100 rounded-lg pl-5 pr-5",{alignSelf: "flex-end" })}>
+                                <Text style={tw`text-base font-bold text-black`}>{`${el.nombre}: ${el.mensaje}`}</Text>
+                            </View> 
+                            :
                             <View key={i} style={tw.style("ml-3 mt-3 flex items-start justify-center mb-2 bg-gray-100 rounded-lg pl-5 pr-5",{alignSelf: "flex-start" })}>
                                 <Text style={tw`text-base font-bold text-black`}>{`${el.nombre}: ${el.mensaje}`}</Text>
-                            </View>
+                            </View> 
                         )
                     }) : <></>}
                 </ScrollView>
@@ -199,7 +205,7 @@ const BottomTabView = ({
                     ></TextInput>
                     <TouchableOpacity 
                         style={tw`flex items-center justify-center h-12 w-12 bg-white rounded-lg`}
-                        onPress={() => {onSubmitChatMessage();}} //onSubmitChatMessage(chatMessage);
+                        onPress={() => {onSubmitChatMessage();}}
                     >
                         <Text style={tw`text-center`}>Send</Text>
                     </TouchableOpacity>
