@@ -2,30 +2,32 @@ const axios = require("axios");
 const { Country } = require("../db");
 
 async function getCountries() {
-  let apiCountries = await axios.get("https://restcountries.com/v3/all");
-  // console.log(apiCountries.data[0])
-  let formatedCountries
-  if(apiCountries.length){
-    formatedCountries = apiCountries.data.map((country) => {
-      return {
-        name: country.translations.spa.common,
-        continent: country.continents[0],
-        population: country.population,
-        latitud: country.latlng[0],
-        longitud: country.latlng[1],
-        googleMap: country.maps.googleMaps,
-        area: country.area,
-        flagSvg: country.flags[0],
-      };
+  try {
+    const full = await Country.findAll().then(result => result).catch(()=>[]);
+    await axios.get("https://restcountries.com/v3/all")
+    .then(result => {
+      if(result.data.length){
+        const country = result.data.map((country) => {
+          return {
+            name: country.translations.spa.common,
+            continent: country.continents[0],
+            population: country.population,
+            latitud: country.latlng[0],
+            longitud: country.latlng[1],
+            googleMap: country.maps.googleMaps,
+            area: country.area,
+            flagSvg: country.flags[0],
+          };
+        });
+        full.length ===  0 && Country.bulkCreate(country)
+      }
+    })
+    .catch(error => {
+      console.log("country",error)
     });
+  } catch (error) {
+    console.log(error)
   }
-
-  let full = await Country.findAll()
-  
-  full.length ===  0 && await Country.bulkCreate(formatedCountries)
-  
-
-  console.log("listo");
 }
 
 module.exports = {
