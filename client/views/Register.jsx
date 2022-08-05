@@ -24,6 +24,7 @@ export default function Register({ navigation }) {
   const [userA, setUserA] = useState(null);
   const user= useSelector(state => state.login);
   const allUser = useSelector((state) => state.users)
+
   const [request, response, promptAsync] = Google.useAuthRequest({
     expoClientId: '1070907696300-0qdljeqakdv1kl2719q67qrrppo9fufi.apps.googleusercontent.com',
     iosClientId: '1070907696300-lqbno53dfsfriamdtv1nbdenijssv5jn.apps.googleusercontent.com',
@@ -46,7 +47,8 @@ export default function Register({ navigation }) {
         email: useInfo.email,
         username: `${useInfo.given_name}${useInfo.family_name}`,
         password: `P${useInfo.id}`,
-        country: "Not Defined"
+        country: "Not Defined",
+        avatar: useInfo.picture
       })
     );
     setLogin({

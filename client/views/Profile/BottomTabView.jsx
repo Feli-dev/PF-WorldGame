@@ -1,9 +1,10 @@
-import React from "react";
-import { View, Text, ScrollView, Image } from 'react-native';
+import React, { useState, useEffect, useRef } from "react";
+import { View, Text, ScrollView, Image, TextInput, TouchableOpacity } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 // import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import Ionic from 'react-native-vector-icons/Ionicons'
 import tw from "twrnc";
+import io from "socket.io-client";
 
 import { useSelector } from "react-redux";
 
@@ -21,7 +22,6 @@ const BottomTabView = ({
 
     // const dispatch = useDispatch();
     const allcountries = useSelector((state) => state.countries);
-
     const countriesAux = [];
     const Tab = createMaterialTopTabNavigator();
     for (let i = 0; i < games; i++) {
@@ -87,7 +87,7 @@ const BottomTabView = ({
                                                         </Text>
                                                     </View>
                                                     :
-                                                    <Ionic name="skull" style={{ fontSize: 25, color: 'white', display: 'flex', marginRight: 0, }} />
+                                                    <Ionic name="flag" style={{ fontSize: 25, color: 'white', display: 'flex', marginRight: 0, }} />
                                                 }
                                             </View>
                                         </View>
@@ -141,16 +141,79 @@ const BottomTabView = ({
         )
     }
     const Chat = () => {
-        return (
-            <ScrollView
-                showsVerticalScrollIndicator={false}
-                style={tw`bg-gray-900`}>
-                <Text style={tw`text-gray-400 text-center text-2xl pl-3 pt-3`}>Chat</Text>
+        const [chatMessage, setChatMessage] = useState("");
+        const [Messages, setMessages] = useState([]);
+        const scrollViewRef = useRef();
+        const socket = io("https://chat-wg.herokuapp.com");
 
-            </ScrollView>
+        useEffect(() => {
+            if(userName.length)socket.emit("conectado", userName);
+            console.log(socket);
+        }, []);
+
+        useEffect(() => {
+            socket.on("mensajes", (mensaje) => {
+                setMessages([...Messages, mensaje]);
+            });
+            return () => {
+                socket.off();
+            };
+        },[Messages]);
+
+        function onSubmitChatMessage() {
+            if(userName.length){
+                console.log("mensaje", userName, chatMessage);
+                socket.emit("mensaje", userName, chatMessage);
+                setChatMessage("");
+            }
+        }
+
+        return (
+            <View
+                style={tw`bg-gray-900 h-full`}>
+                <Text style={tw`text-gray-400 text-center text-2xl mt-3`}>Chat</Text>
+                <ScrollView
+                    showsVerticalScrollIndicator={false}
+                    ref={scrollViewRef}
+                    onContentSizeChange={() =>
+                    scrollViewRef.current.scrollToEnd({ animated: true })
+                    }
+                    style={tw`mb-5 mt-3 bg-gray-800 rounded-lg`}
+                >
+                    {Messages.length > 0 ? Messages?.map((el,i) => {
+                        return (el.nombre.toLowerCase() === userName.toLowerCase() ?
+                            <View key={i} style={tw.style("ml-3 mt-3 flex items-end justify-center mb-2 bg-gray-100 rounded-lg pl-5 pr-5",{alignSelf: "flex-end" })}>
+                                <Text style={tw`text-base font-bold text-black`}>{`${el.nombre}: ${el.mensaje}`}</Text>
+                            </View> 
+                            :
+                            <View key={i} style={tw.style("ml-3 mt-3 flex items-start justify-center mb-2 bg-gray-100 rounded-lg pl-5 pr-5",{alignSelf: "flex-start" })}>
+                                <Text style={tw`text-base font-bold text-black`}>{`${el.nombre}: ${el.mensaje}`}</Text>
+                            </View> 
+                        )
+                    }) : <></>}
+                </ScrollView>
+                <View style={tw`flex flex-row items-center justify-center mb-5`}>
+                    <TextInput
+                        placeholder="Enter a country..."
+                        placeholderTextColor="#6f6f6f"
+                        autoCapitalize="sentences"
+                        style={tw`pl-3 w-75 mr-1 h-12 rounded-lg bg-white text-black text-lg`}
+                        onChangeText={text => setChatMessage(text)}
+                        multiline={true}
+                        value={chatMessage}
+                        textAlignVertical="center"
+                    ></TextInput>
+                    <TouchableOpacity 
+                        style={tw`flex items-center justify-center h-12 w-12 bg-white rounded-lg`}
+                        onPress={() => {onSubmitChatMessage();}}
+                    >
+                        <Text style={tw`text-center`}>Send</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
         )
     }
-    // const TopGames = () => {
+     // const TopGames = () => {
     //     return (
     //         <ScrollView
     //             showsVerticalScrollIndicator={false}

@@ -14,6 +14,7 @@ import img from "../assets/Worldgame.png"
 
 function Login({ navigation, user, postLogin }) {
   const [accessToken, setAccessToken] = useState(null);
+  const [userA, setUserA] = useState(null);
   const [request, response, promptAsync] = Google.useAuthRequest({
     expoClientId: '1070907696300-0qdljeqakdv1kl2719q67qrrppo9fufi.apps.googleusercontent.com',
     iosClientId: '1070907696300-lqbno53dfsfriamdtv1nbdenijssv5jn.apps.googleusercontent.com',
@@ -29,16 +30,18 @@ function Login({ navigation, user, postLogin }) {
   }, [response, accessToken]);
 
   async function fetchUserInfo() {
-    let response = await fetch("https://www.googleapis.com/userinfo/v2/me", {
+    let res = await fetch("https://www.googleapis.com/userinfo/v2/me", {
       headers: { Authorization: `Bearer ${accessToken}` }
     });
-    const useInfo = await response.json();
-    setUserA(useInfo);
+    const useInfo = await res.json();
     let inputauth ={
       username: `${useInfo.given_name}${useInfo.family_name}`,
       password: `P${useInfo.id}`
     }
-    log(inputauth)
+    setUserA(inputauth);
+    console.log(inputauth);
+    log(userA)
+
   }
 
   const dispatch = useDispatch();

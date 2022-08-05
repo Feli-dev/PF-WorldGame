@@ -7,7 +7,7 @@ import NavBar from "../NavBar";
 import SideBar from "../SideBar";
 import Spinner from "../Spinner";
 
-const DashboardLayout = (props) => {
+const CommunityLayout = (props) => {
   let { profile, cargandoAuth } = useSelector((state) => state.authReducer);
 
   if (cargandoAuth)
@@ -19,20 +19,19 @@ const DashboardLayout = (props) => {
 
   return (
     <>
-      {profile?.authorization ? (
-        profile?.authorization !== "User" && (
-          <section className="antialiased bg-gray-200 animation">
-            <div className="h-screen flex ">
-              <SideBar />
+      {profile?.authorization !== "User" &&
+      profile?.authorization !== "Enterprise-Admin" ? (
+        <section className="antialiased bg-gray-200">
+          <div className="h-screen flex ">
+            <SideBar />
 
-              <div className="flex-1 flex-col relative z-0 overflow-y-auto animation">
-                <NavBar />
+            <div className="flex-1 flex-col relative z-0 overflow-y-auto">
+              <NavBar />
 
-                <Route exact path={props.path} component={props.component} />
-              </div>
+              <Route exact path={props.path} component={props.component} />
             </div>
-          </section>
-        )
+          </div>
+        </section>
       ) : (
         <Redirect to="/" />
       )}
@@ -40,4 +39,4 @@ const DashboardLayout = (props) => {
   );
 };
 
-export default DashboardLayout;
+export default CommunityLayout;

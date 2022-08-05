@@ -28,6 +28,7 @@ export default function Game() {
     <View style={tw`flex h-5/7 items-center justify-center`}>
       <ScrollView
         ref={scrollViewRef}
+        showsVerticalScrollIndicator={false}
         onContentSizeChange={() =>
           scrollViewRef.current.scrollToEnd({ animated: true })
         }

@@ -22,7 +22,8 @@ const ForgotPassword = () => {
         });
         return;
       }
-      if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email)) {//eslint-disable-line
+      if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email)) {
+        //eslint-disable-line
         setErrorForm({
           emailError: { msg: "A valid email is required" },
         });
@@ -65,7 +66,7 @@ const ForgotPassword = () => {
 
   return (
     <div className="w-screen h-screen flex justify-center items-center">
-      <div className="w-1/3 p-4 bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 ">
+      <div className="w-3/4 md:w-2/3 lg:w-1/3 p-4 bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 ">
         <form onSubmit={handleSubmit}>
           <h5 className="text-xl font-medium text-gray-900  text-center">
             Forgot Password

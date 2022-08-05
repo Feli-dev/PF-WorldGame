@@ -1,23 +1,8 @@
 import React, { useState, useEffect } from "react";
-import ModalUser from "../components/TableUser/ModalUser/ModalUser";
-import UserGraph from "../components/Graphs/UserGraph";
-import { useHistory } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux";
-import {
-  deactivateUser,
-  getAllUsers,
-  reactivateUser,
-  getByFilter,
-  orderUsername,
-  orderPoints,
-  
-} from "../redux/users/userActions";
 import {getRevs, filterRev, readReview, unreadReview} from '../redux/reviews/reviewActions'
 
 // Icons
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import ReplayIcon from "@mui/icons-material/Replay";
 import ModalMssg from "./ModalMssg";
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
@@ -64,11 +49,6 @@ const Reviews = () => {
     
   }
 
-  const handleSubmit = (event) => {
-    // event.preventDefault();
-    // dispatch(getByFilter(inputFilter));
-    console.log('yei')
-  };
 
   return (
     

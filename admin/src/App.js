@@ -15,13 +15,16 @@ import Users from "./pages/Users";
 import Games from "./pages/Games";
 import Payment from "./pages/Payments";
 import Reviews from "./pages/Reviews";
+
 // Layout
 import DashboardLayout from "./components/Layout/DashboardLayout";
 import AuthLayout from "./components/Layout/AuthLayout";
+import EntrepriseLayout from "./components/Layout/EnterpriseLayout";
 
 // Actions
 import { authenticateAction } from "./redux/auth/authActions";
 import EditUser from "./pages/EditUser";
+import CommunityLayout from "./components/Layout/CommunityLayout";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,7 +37,7 @@ function App() {
     if (redirect === "redirect") {
       navigate.push("/");
     }
-  }, []);//eslint-disable-line
+  }, []); //eslint-disable-line
 
   return (
     <BrowserRouter>
@@ -44,13 +47,13 @@ function App() {
         <AuthLayout exact path="/new-password/:id" component={NewPassword} />
         <DashboardLayout path="/dashboard" component={Dashboard} />
         <DashboardLayout path="/profile" component={Profile} />
-        <DashboardLayout path="/users" component={Users} />
-        <DashboardLayout path="/games" component={Games} />
-        <DashboardLayout path="/pays" component={Payment} />
-        <DashboardLayout path="/reviews" component={Reviews} />
+        <CommunityLayout path="/users" component={Users} />
+        <CommunityLayout path="/games" component={Games} />
+        <EntrepriseLayout path="/pays" component={Payment} />
+        <CommunityLayout path="/reviews" component={Reviews} />
         <DashboardLayout path="/update-password" component={UpdatePassword} />
-        <DashboardLayout path="/add-user" component={AddUser} />
-        <DashboardLayout path="/edit-user/:id" component={EditUser} />
+        <CommunityLayout path="/add-user" component={AddUser} />
+        <CommunityLayout path="/edit-user/:id" component={EditUser} />
         <Route exact path="/*" component={NoFound} />
       </Switch>
     </BrowserRouter>
