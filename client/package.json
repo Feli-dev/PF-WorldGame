@@ -21,6 +21,7 @@
     "expo": "~45.0.0",
     "expo-ads-admob": "~13.0.0",
     "expo-auth-session": "^3.6.1",
+    "expo-av": "^12.0.3",
     "expo-cli": "^5.5.1",
     "expo-image-picker": "~13.1.1",
     "expo-permissions": "~13.2.0",
