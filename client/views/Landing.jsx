@@ -11,6 +11,7 @@ import { Video } from 'expo-av'
 const Landing = ({ navigation }) => {
     const allUser = useSelector((state) => state.users)
     const [al, setAl] = useState(true);
+    let [first , setFirst] = useState(true);
     const dispatch = useDispatch()
     const video = React.useRef(null);
 
@@ -27,6 +28,7 @@ const Landing = ({ navigation }) => {
       ]
     );
     const getLogin = async () => {
+        if(first === true){
         if (allUser.Request?.length > 0) {
             var value = await AsyncStorage.getItem("User")
             if (value !== null) {
@@ -61,7 +63,8 @@ const Landing = ({ navigation }) => {
                 navigation.navigate("Register");
             }, 6000)
         }
-        
+        setFirst(false);
+    }
     }
     useEffect(() => {
         dispatch(getAllCountries());

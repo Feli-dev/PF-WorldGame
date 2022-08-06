@@ -59,6 +59,7 @@ export function postLogin(payload) {
     try {
       var json = await axios.post(
         "https://world-game-v8.herokuapp.com/Login/",
+
         payload
       );
       return dispatch({
@@ -224,6 +225,7 @@ export function PostFriend(payload) {
     try {
       const response = axios.post(
         "https://world-game-v8.herokuapp.com/friend",
+
         payload
       );
       return response;
@@ -253,7 +255,7 @@ export function PutFriend(payload) {
   return async function (dispatch) {
     try {
       var json = await axios.put(
-        "https://world-game-v8.herokuapp.com/friend",
+       "https://world-game-v8.herokuapp.com/friend",
         payload
       );
       return dispatch({
