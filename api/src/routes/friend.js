@@ -53,7 +53,6 @@ router.put('/', async(req, res) =>{
 });
 
 router.delete('/', async(req, res) =>{
-    console.log('req.body friend delete',req.body)
     try {
         const UserId = parseInt( req.query.UserId)
         const FriendId = parseInt( req.query.FriendId)
