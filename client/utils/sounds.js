@@ -24,6 +24,20 @@ export async function backSound(soundOn) {
     }
 }
 
+export async function winSound(){
+        const { sound } = await Audio.Sound.createAsync(
+            require('../assets/sounds/ganar.mp3')
+        );
+        await sound.playAsync();
+}
+
+export async function looseSound() {
+        const { sound } = await Audio.Sound.createAsync(
+            require('../assets/sounds/perder.mp3')
+        );
+        await sound.playAsync();
+}
+
 export async function playSound(dispatch,setStat, stat) {
     console.log(stat);
     if(stat?.soundObj === null){

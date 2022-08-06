@@ -11,7 +11,7 @@ import tw from "twrnc";
 import Svg, { Path } from "react-native-svg";
 import { gameAction, getAllCountries, PostGame, giveUp,newGame, setCountrie } from "../../redux/actions/index";
 import { setTestDeviceIDAsync, AdMobInterstitial } from "expo-ads-admob";
-import { touchSound, backSound} from '../../utils/sounds';
+import { touchSound, backSound, looseSound, winSound} from '../../utils/sounds';
 import {AutocompleteDropdown} from 'react-native-autocomplete-dropdown';
 
 export default function Footer() {
@@ -335,13 +335,13 @@ export default function Footer() {
           dispatch(gameAction(countryOfDay, attemp));
         }
         if(attemp.name.toLowerCase() === countryOfDay.name.toLowerCase()){
-          console.log(login)
           dispatch(PostGame({countrie: countryOfDay.name, winned: true, time: 120, attempts: listOfAttemps.length + 1, UserId: login.Request.id, points: 5000})) 
           setWin(true)
           if(!(login.Request.premium)){
             console.log("a mostrar ads")
             setTimeout(()=>{showAds()}, 1000)
           }
+          // winSound();
           console.log("Ya encontraste el país, felicitaciones!");
         }
       } else {
@@ -365,6 +365,7 @@ export default function Footer() {
         setTimeout(()=>{showAds()}, 1000)
       }
       dispatch(giveUp(true));
+      // looseSound();
     }
     
   return (
