@@ -1,11 +1,16 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { View, Text, Image, TouchableOpacity, ToastAndroid, } from 'react-native';
+import React, { useState, useEffect } from "react";
+import { View, Text, Image, TouchableOpacity, Alert, ToastAndroid, } from 'react-native';
+
+
 import { useNavigation } from '@react-navigation/native';
 import Ionic from 'react-native-vector-icons/Ionicons';
 import * as Animatable from 'react-native-animatable';
 import tw from "twrnc"
-import { PostFriend, deleteFirend } from "../../../redux/actions/index";
+
+import { PostFriend, deleteFriend, } from "../../../redux/actions/index";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useDispatch } from "react-redux";
+
 
 export const FriendProfileBody = ({
     name,
@@ -20,9 +25,24 @@ export const FriendProfileBody = ({
     password,
     premium,
     averageScore,
+    UserId,
+    FriendId,
 
 }) => {
+    const dispatch = useDispatch()
     const navigation = useNavigation();
+
+    
+    const touchDelete = () => {
+        dispatch(deleteFriend({UserId,
+            FriendId}))
+        
+    }
+    useEffect(() => {
+        console.log('will')
+        return () => dispatch(getUser(UserId))
+    },[dispatch])
+        
 
     return (
         <View>
@@ -129,6 +149,18 @@ export const FriendProfileBody = ({
                     </View>
                 </View>
 
+                <TouchableOpacity
+                        onPress={() => touchDelete()
+                            }
+                        style={tw`w-9/10`}>
+                        <View
+                            style={tw`h-8 rounded-lg items-center justify-center border-white border-2`}>
+                            <Text
+                                style={tw`text-base text-white font-bold`}>
+                                Dejar de seguir
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
 
             </View>
 
@@ -147,7 +179,7 @@ export const FriendProfileButtons = ({
     const [follow, setFollow] = useState(followingUser ? !follow : follow);
     const handledAddOrDeleteFriend =  (status, friendID, userID) => {
             status
-                ? dispatch(deleteFirend(
+                ? dispatch(deleteFriend(
                     {
                         UserId: userID,
                         FriendId: friendID

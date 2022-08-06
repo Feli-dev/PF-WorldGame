@@ -24,7 +24,9 @@ const FriendProfile = (params) => {
     const dispatch = useDispatch();
 
     const { freId, userId } = params.route.params
+
     const friendInfo = useSelector((state) => state.friendsDetail);
+
 
     const data = friendInfo.hasOwnProperty('Request') && Object.keys(friendInfo?.Request).length > 0 && Object.keys(friendInfo.Request.stats).length > 0 ? friendInfo.Request : false;
     const following = data && data.hasOwnProperty('friends')
@@ -44,23 +46,9 @@ const FriendProfile = (params) => {
             : false
         : false;
 
-    // "friends": [
-    //     {
-    //         "username": "rafa93",
-    //         "id": 1,
-    //         "FriendId": 3,
-    //         "name": "",
-    //         "state": "Enviado",
-    //         "connect": false,
-    //         "avatar": "",
-    //         "UserId": 4
-    //     }
-    // ],
-
     useEffect(() => {
         dispatch(getFriendDetail(freId))
     }, [dispatch, freId])
-
 
 
     //navigation.goBack(); AGREGAR BOTON PARA IR ATRAS O HOME
@@ -85,6 +73,8 @@ const FriendProfile = (params) => {
                                 password={data.password}
                                 premium={data.premium}
                                 averageScore={data?.stats.averageScore}
+                                UserId={userId}
+                                FriendId={freId}
                             />
                         </View>
 

@@ -172,7 +172,11 @@ export const rootReducer = (state = initialState, action) => {
     case type.POST_FRIEND:
       return{
         ...state
-      }    
+      }
+      case type.DELETE_FRIEND:
+        return{
+          ...state
+        }      
     default: {
       return state;
     }
