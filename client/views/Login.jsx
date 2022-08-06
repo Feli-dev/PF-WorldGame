@@ -56,6 +56,10 @@ function Login({ navigation, user, postLogin }) {
   }
 
   const googleloginUser = async (useInfo) => {
+    let inputauth ={
+      username: `${useInfo.given_name}${useInfo.family_name}`,
+      password: `P${useInfo.id}`
+    }
     var googleuser = await allUser.Request.find(
       (user) => user.email === useInfo.email
     );
@@ -77,6 +81,7 @@ function Login({ navigation, user, postLogin }) {
       }
     } else {
       navigation.navigate("Home");
+      setLogin_(inputauth)
     }
   };
   const dispatch = useDispatch();
