@@ -28,6 +28,7 @@ import {
 } from "chart.js";
 
 import { Line } from "react-chartjs-2";
+import { useSelector } from "react-redux";
 
 Chart.register(
   ArcElement,
@@ -56,7 +57,7 @@ Chart.register(
   SubTitle
 );
 
-let numUsers = [22, 5, 85, 21, 25, 41, 56, 54, 12, 1, 25, 15]; // eje y
+
 
 let labels = [
   "January",
@@ -84,6 +85,9 @@ const options = {
 };
 
 function UserGraph() {
+  let allRealUsers = useSelector((state) => state.userReducer.users.length)
+
+  let numUsers = [22, 5, 85, 21, 25, 41, 56, allRealUsers]; // eje y
   let data = useMemo(() => {
     return {
       datasets: [

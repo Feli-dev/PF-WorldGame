@@ -14,7 +14,7 @@ const SideBar = () => {
   let { profile } = useSelector((state) => state.authReducer);
   let { menu } = useSelector((state) => state.uiReducer);
   let url = useLocation().pathname
-  console.log(url)
+  
   const dispatch = useDispatch();
   let linksStyle = "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:bg-gray-200";
   let activeStyle = "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 text-blue-600";
