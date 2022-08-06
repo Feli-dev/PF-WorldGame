@@ -43,7 +43,7 @@ const Payment = (
     const subscribe = async () => {
         try {
             //sending request
-            const response = await fetch('http://192.168.1.72:3001/payment',
+            const response = await fetch('http://192.168.0.179:3001/payment',
                 {
                     method: 'POST',
                     body: JSON.stringify({ premiumLevel }),

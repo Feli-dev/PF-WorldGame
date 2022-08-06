@@ -7,7 +7,7 @@ import Ionic from 'react-native-vector-icons/Ionicons';
 import * as Animatable from 'react-native-animatable';
 import tw from "twrnc"
 
-import { PostFriend, deleteFriend, } from "../../../redux/actions/index";
+import { PostFriend, deleteFriend, getUser} from "../../../redux/actions/index";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch } from "react-redux";
 
@@ -33,11 +33,11 @@ export const FriendProfileBody = ({
     const navigation = useNavigation();
 
     
-    const touchDelete = () => {
-        dispatch(deleteFriend({UserId,
-            FriendId}))
+    // const touchDelete = () => {
+    //     dispatch(deleteFriend({UserId,
+    //         FriendId}))
         
-    }
+    // }
     useEffect(() => {
         console.log('will')
         return () => dispatch(getUser(UserId))
@@ -149,7 +149,7 @@ export const FriendProfileBody = ({
                     </View>
                 </View>
 
-                <TouchableOpacity
+                {/* <TouchableOpacity
                         onPress={() => touchDelete()
                             }
                         style={tw`w-9/10`}>
@@ -160,7 +160,7 @@ export const FriendProfileBody = ({
                                 Dejar de seguir
                             </Text>
                         </View>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
 
             </View>
 

@@ -233,82 +233,79 @@ const BottomTabView = ({
                 showsVerticalScrollIndicator={false}
                 style={tw`bg-gray-900`}>
                 <Text style={tw`text-gray-400 text-center flex text-2xl pl-3 pt-3`}>Friends</Text>
-                <TouchableOpacity onPress={() => navigation.navigate('SearchFriends', {id, friends, navigation})}><Text>Search</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('SearchFriends', { id, friends, navigation })}><Text>Search</Text></TouchableOpacity>
                 <View style={{
                     //agregar boton busqueda
                 }}>
                     {friends?.map((friend) => {
-                        return (
+                        if (friend.state === "Enviado") {
 
+                            return (
+                                <TouchableOpacity
 
-                            <TouchableOpacity
-
-                                key={friend.id}
-                                onPress={() => navigation.navigate('FriendProfile', { freId: friend.FriendId, userId: id })}
-
-                            >
-
-                                <View
-                                    style={{
-                                        width: '100%',
-                                        marginBottom: 15,
-                                    }}
+                                    key={friend.id}
+                                    onPress={() => navigation.navigate('FriendProfile', { freId: friend.FriendId, userId: id })}
 
                                 >
+
                                     <View
                                         style={{
-                                            borderRadius: 8,
-                                            backgroundColor: 'grey',
-                                            padding: 15,
-                                            justifyContent: 'space-between',
-                                            alignItems: 'center',
-                                            display: 'flex',
-                                            flexDirection: 'row',
+                                            width: '100%',
+                                            marginBottom: 15,
                                         }}
+
                                     >
-                                        <Image
+                                        <View
                                             style={{
-                                                width: 50,
-                                                height: 50,
+                                                borderRadius: 8,
+                                                backgroundColor: 'grey',
+                                                padding: 15,
+                                                justifyContent: 'space-between',
+                                                alignItems: 'center',
+                                                display: 'flex',
+                                                flexDirection: 'row',
                                             }}
-                                            source={friend.avatar === "" ? avatarDefault : friend.avatar} />
+                                        >
+                                            <Image
+                                                style={{
+                                                    width: 50,
+                                                    height: 50,
+                                                }}
+                                                source={friend.avatar === "" ? avatarDefault : friend.avatar} />
 
-                                        <Text
-                                            style={{
-                                                color: 'white',
-                                                fontSize: 25,
-                                                textAlign: 'center',
-                                                paddingRight: 10,
-                                            }}>
-                                            {friend.username ? friend.username : 'Not friends :('}
-                                        </Text>
+                                            <Text
+                                                style={{
+                                                    color: 'white',
+                                                    fontSize: 25,
+                                                    textAlign: 'center',
+                                                    paddingRight: 10,
+                                                }}>
+                                                {friend.username ? friend.username : 'Not friends :('}
+                                            </Text>
 
-                                        <Image
-                                            style={{
-                                                width: 50,
-                                                height: 50,
-                                            }}
-                                            source={friend.avatar === "" ? avatarDefault : friend.avatar} />
-                                        {/* <TouchableOpacity
-                                            style={{
-                                                color: 'white',
-                                                fontSize: 25,
-                                                textAlign: 'center',
-                                                paddingRight: 10,
-                                            }}>
-                                            <Text>Eliminar</Text>
-                                        </TouchableOpacity>     */}
+                                            <Image
+                                                style={{
+                                                    width: 50,
+                                                    height: 50,
+                                                }}
+                                                source={friend.avatar === "" ? avatarDefault : friend.avatar} />
+                                            {/* <TouchableOpacity
+                                                style={{
+                                                    color: 'white',
+                                                    fontSize: 25,
+                                                    textAlign: 'center',
+                                                    paddingRight: 10,
+                                                }}>
+                                                <Text>Eliminar</Text>
+                                            </TouchableOpacity>     */}
+                                        </View>
+
                                     </View>
+                                </TouchableOpacity>
 
-                                </View>
-                            </TouchableOpacity>
-
-                        )
+                            )
+                        }
                     })}
-
-
-
-
                 </View>
 
             </ScrollView>

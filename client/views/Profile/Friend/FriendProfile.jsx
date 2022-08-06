@@ -8,7 +8,7 @@ import React, { useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 
-import { getUser } from "../../../redux/actions/index";
+import { getFriendDetail } from "../../../redux/actions/index";
 
 import tw from "twrnc";
 
@@ -32,7 +32,7 @@ const FriendProfile = (params) => {
     const following = data && data.hasOwnProperty('friends')
         ? data.friends.length > 0
             ? data.friends.map((request) => {
-                if (request.FriendId === userId && request.state === "Recibido") {
+                if (request.FriendId === userId && request.state === "Recibido") {//VER DE BUSCAR LOS ENVIADOS
                     return true
                 }
 
@@ -42,7 +42,7 @@ const FriendProfile = (params) => {
 
     const friendSended = data && data.hasOwnProperty('friends')
         ? data.friends.length > 0
-            ? data.friends.map((friend) => friend.state === "Enviado")
+            ? data.friends.filter((friend) => friend.state === "Enviado")
             : false
         : false;
 

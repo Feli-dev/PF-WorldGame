@@ -12,7 +12,7 @@ export function getGame(id) {
   return async function (dispatch) {
     try {
       var json = await axios.get(
-        "http://192.168.1.72:3001/games/",
+        "http://192.168.0.179:3001/games/",
         id
       );
       return dispatch({
@@ -29,7 +29,7 @@ export function PostGame(payload) {
   return async function (dispatch) {
     try {
       const response = axios.post(
-        "http://192.168.1.72:3001/games/",
+        "http://192.168.0.179:3001/games/",
         payload
       );
       return response;
@@ -58,7 +58,7 @@ export function postLogin(payload) {
   return async function (dispatch) {
     try {
       var json = await axios.post(
-        "http://192.168.1.72:3001/Login/",
+        "http://192.168.0.179:3001/Login/",
         payload
       );
       return dispatch({
@@ -90,7 +90,7 @@ export function getRank(payload) {
   return async function (dispatch) {
     try {
       var json = await axios.get(
-        "http://192.168.1.72:3001/User/rank/",
+        "http://192.168.0.179:3001/User/rank/",
         { total: payload }
       );
       return dispatch({
@@ -108,14 +108,14 @@ export function getUser(id) {
     try {
       if (id) {
         var json = await axios.get(
-          "http://192.168.1.72:3001/User/" + id
+          "http://192.168.0.179:3001/User/" + id
         );
         return dispatch({
           type: type.GET_USER,
           payload: json.data,
         });
       } else {
-        var json = await axios.get("http://192.168.1.72:3001/User/");
+        var json = await axios.get("http://192.168.0.179:3001/User/");
         return dispatch({
           type: type.GET_ALL_USER,
           payload: json.data,
@@ -131,7 +131,7 @@ export function getUser(id) {
 //     return async function(dispatch){
 //         try{
 //             console.log("payload", payload)
-//             return await axios.post("http://192.168.1.72:3001/User", payload)
+//             return await axios.post("http://192.168.0.179:3001/User", payload)
 //             .catch(error =>  console.log(error))
 //         }catch(e){
 //             console.log("error en acción:", e)
@@ -143,7 +143,7 @@ export function PostUser(payload) {
   return async function (dispatch) {
     try {
       var json = await axios.post(
-        "http://192.168.1.72:3001/User/",
+        "http://192.168.0.179:3001/User/",
         payload
       );
       //para que los métodos de axios funcionen bien en el emulador expo
@@ -166,7 +166,7 @@ export function PutUser(payload) {
   return async function (dispatch) {
     try {
       var json = await axios.put(
-        "http://192.168.1.72:3001/User/",
+        "http://192.168.0.179:3001/User/",
         payload
       );
       return dispatch({
@@ -183,7 +183,7 @@ export function deleteUser(payload) {
   return async function (dispatch) {
     try {
       const response = axios.delete(
-        `http://192.168.1.72:3001/User/delete/recycle/${payload}`
+        `http://192.168.0.179:3001/User/delete/recycle/${payload}`
       );
       return response;
     } catch (e) {
@@ -195,7 +195,7 @@ export function restoreUser(payload) {
   return async function (dispatch) {
     try {
       const response = axios.delete(
-        `http://192.168.1.72:3001/User/delete/restore/${payload}`
+        `http://192.168.0.179:3001/User/delete/restore/${payload}`
       );
       return response;
     } catch (e) {
@@ -223,7 +223,7 @@ export function PostFriend(payload) {
   return async function (dispatch) {
     try {
       const response = axios.post(
-        "http://192.168.1.72:3001/friend",
+        "http://192.168.0.179:3001/friend",
         payload
       );
       return response;
@@ -237,7 +237,7 @@ export function GetFriends() {
   return async function (dispatch) {
     try {
       var json = await axios.get(
-        "http://192.168.1.72:3001/friend"
+        "http://192.168.0.179:3001/friend"
       );
       return dispatch({
         type: type.GET_FRIENDS,
@@ -255,7 +255,7 @@ export function getFriendDetail(id) {
     try {
 
       var json = await axios.get(
-        "http://192.168.1.72:3001/User/" + id
+        "http://192.168.0.179:3001/User/" + id
       );
       return dispatch({
         type: type.GET_FRIEND_DETAIL,
@@ -273,7 +273,7 @@ export function addFriend(payload) {
     try {
       
       var json = await axios.post(
-        "http://192.168.1.72:3001/friend",
+        "http://192.168.0.179:3001/friend",
         payload
       );
       return dispatch({
@@ -292,7 +292,7 @@ export function deleteFriend({FriendId, UserId}) {
     try {
       console.log('DELE', FriendId)
       var json = await axios.delete(
-        `http://192.168.1.72:3001/friend?FriendId=${FriendId}&UserId=${UserId}`
+        `http://192.168.0.179:3001/friend?FriendId=${FriendId}&UserId=${UserId}`
       );
       return dispatch({
         type: type.DELETE_FRIEND,
@@ -309,7 +309,7 @@ export function searchFriend(friend){
   return async function (dispatch) {
     try {
              
-        var {data} = await axios.get("http://192.168.1.72:3001/User/");
+        var {data} = await axios.get("http://192.168.0.179:3001/User/");
         return dispatch({
           type: type.SEARCH_FRIEND,
           payload: {data, friend},
@@ -326,7 +326,7 @@ export function getCountrie(name) {
   return async function (dispatch) {
     try {
       var json = await axios.get(
-        "http://192.168.1.72:3001/countries",
+        "http://192.168.0.179:3001/countries",
         name
       );
       return dispatch({
@@ -350,7 +350,7 @@ export function getAllCountries(form = false) {
   return async function (dispatch) {
     try {
       var { data } = await axios.get(
-        "http://192.168.1.72:3001/countries"
+        "http://192.168.0.179:3001/countries"
       );
       if (!form) {
         return dispatch({
@@ -400,7 +400,7 @@ export function PostReview(payload) {
   return async function (dispatch) {
     try {
       var json = await axios.post(
-        "http://192.168.1.72:3001/review",
+        "http://192.168.0.179:3001/review",
         payload
       );
       return dispatch({
@@ -420,7 +420,7 @@ export function PostPayment(payload) {
   return async function (dispatch) {
     try {
       const response = await axios.post(
-        "http://192.168.1.72:3001/pays",
+        "http://192.168.0.179:3001/pays",
         payload
       );
       return response;
