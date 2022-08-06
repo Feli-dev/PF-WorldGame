@@ -41,7 +41,6 @@ function Login({ navigation, user, postLogin }) {
     setUserA(inputauth);
     console.log(inputauth);
     log(userA)
-
   }
 
   const dispatch = useDispatch();
