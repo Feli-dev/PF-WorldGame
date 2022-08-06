@@ -82,6 +82,7 @@ function Login({ navigation, user, postLogin }) {
         navigation.navigate("Home");
         getUser(googleuser.id);
         setLogin_(inputauth);
+        dispatch(setLogin(googleuser));
       }
     }
   }
