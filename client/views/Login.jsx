@@ -1,65 +1,84 @@
-import {BackHandler, Text, View, TouchableOpacity, TextInput, TouchableWithoutFeedback, Keyboard, Image, Alert } from "react-native";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  BackHandler,
+  Text,
+  View,
+  TouchableOpacity,
+  TextInput,
+  TouchableWithoutFeedback,
+  Keyboard,
+  Image,
+  Alert,
+} from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useState, useEffect } from "react";
 import { useDispatch, connect, useSelector } from "react-redux";
-import { postLogin, setLogin, getAllCountries, getUser } from "../redux/actions/index";
+import {
+  postLogin,
+  setLogin,
+  getAllCountries,
+  getUser,
+} from "../redux/actions/index";
 import tw from "twrnc";
 import Svg, { Path } from "react-native-svg";
 import validate from "../utils/validateL";
-import * as WebBrowser from 'expo-web-browser';
-import * as Google from 'expo-auth-session/providers/google';
+import * as WebBrowser from "expo-web-browser";
+import * as Google from "expo-auth-session/providers/google";
 import { fetchUserInfoAsync } from "expo-auth-session";
-import img from "../assets/Worldgame.png"
-
+import img from "../assets/Worldgame.png";
 
 function Login({ navigation, user, postLogin }) {
   const [accessToken, setAccessToken] = useState(null);
   const [userA, setUserA] = useState(null);
   const [request, response, promptAsync] = Google.useAuthRequest({
-    expoClientId: '1070907696300-0qdljeqakdv1kl2719q67qrrppo9fufi.apps.googleusercontent.com',
-    iosClientId: '1070907696300-lqbno53dfsfriamdtv1nbdenijssv5jn.apps.googleusercontent.com',
-    androidClientId: '1070907696300-lqbno53dfsfriamdtv1nbdenijssv5jn.apps.googleusercontent.com',
+    expoClientId:
+      "1070907696300-0qdljeqakdv1kl2719q67qrrppo9fufi.apps.googleusercontent.com",
+    iosClientId:
+      "1070907696300-lqbno53dfsfriamdtv1nbdenijssv5jn.apps.googleusercontent.com",
+    androidClientId:
+      "1070907696300-lqbno53dfsfriamdtv1nbdenijssv5jn.apps.googleusercontent.com",
   });
 
   useEffect(() => {
-    if (response?.type === 'success') {
+    if (response?.type === "success") {
       const { authentication } = response;
-      setAccessToken(authentication.accessToken)
-      accessToken && fetchUserInfo()
-      }
+      setAccessToken(authentication.accessToken);
+      accessToken && fetchUserInfo();
+    }
   }, [response, accessToken]);
-  
-  const allUser = useSelector((state) => state.users)
+
+  const allUser = useSelector((state) => state.users);
   async function fetchUserInfo() {
     let res = await fetch("https://www.googleapis.com/userinfo/v2/me", {
-      headers: { Authorization: `Bearer ${accessToken}` }
+      headers: { Authorization: `Bearer ${accessToken}` },
     });
     const useInfo = await res.json();
-    googleloginUser(useInfo)
-        
+    googleloginUser(useInfo);
   }
-  const googleloginUser= (useInfo)=>{
-    var googleuser= allUser.find(user => user.email===useInfo.email);
-        console.log(googleuser);
-        if(googleuser) {
-          if(googleuser.state=== false){
-            Alert.alert(
-              "User Banned",
-              "Please talk whit this email address: worldgamecontact4@gmail.com ",
-              [
-                {
-                  text: "Cancel",
-                  onPress: () => BackHandler.exitApp(),
-                  style: "cancel"
-                },
-                { text: "OK", onPress: () => navigation.navigate("Register") }
-              ]
-            );
-          }
-        }else{
-          navigation.navigate("home")
-        }
-  }
+
+  const googleloginUser = async (useInfo) => {
+    var googleuser = await allUser.Request.find(
+      (user) => user.email === useInfo.email
+    );
+    console.log(googleuser);
+    if (googleuser) {
+      if (googleuser.state === false) {
+        Alert.alert(
+          "User Banned",
+          "Please talk whit this email address: worldgamecontact4@gmail.com ",
+          [
+            {
+              text: "Cancel",
+              onPress: () => BackHandler.exitApp(),
+              style: "cancel",
+            },
+            { text: "OK", onPress: () => navigation.navigate("Register") },
+          ]
+        );
+      }
+    } else {
+      navigation.navigate("Home");
+    }
+  };
   const dispatch = useDispatch();
   const [input, setInput] = useState({
     username: "",
@@ -74,18 +93,17 @@ function Login({ navigation, user, postLogin }) {
   const [pressed, setPressed] = useState(false);
   const [banned, setBanned] = useState(false);
   const [logErr, setLogErr] = useState("");
-  const login = useSelector(state => state.login);
-  
+  const login = useSelector((state) => state.login);
+
   const setLogin_ = async (value) => {
     try {
-        return await AsyncStorage.setItem('User', JSON.stringify(value))
+      return await AsyncStorage.setItem("User", JSON.stringify(value));
     } catch (error) {
-       console.error('AsyncStorage#setItem error: ' + error.message);
+      console.error("AsyncStorage#setItem error: " + error.message);
     }
-  }
+  };
 
-  let log = async(_input) => {
-
+  let log = async (_input) => {
     if (_input.username.length < 3 && _input.password.length < 3) {
       setErr({
         username: "Enter your username",
@@ -99,30 +117,35 @@ function Login({ navigation, user, postLogin }) {
         setErr({ ...err, password: "Enter your password" });
       }
     }
-    
-    if (validate("username", _input.username) === "" && validate("password", _input.password) === "") {
-      const User = (allUser.Request.find((e) => (e.username.toLowerCase() === _input.username.toLowerCase())))
+
+    if (
+      validate("username", _input.username) === "" &&
+      validate("password", _input.password) === ""
+    ) {
+      const User = allUser.Request.find(
+        (e) => e.username.toLowerCase() === _input.username.toLowerCase()
+      );
       let siLogin = false;
       // if(login.Request && login.Request?.username?.toLowerCase() === input.username.toLowerCase() && login?.Request?.first === false){
       //   siLogin = true;
       // }
-      console.log(User)
-      if(User && User.state === false){
+      console.log(User);
+      if (User && User.state === false) {
         setLogErr("Banned user, please contact the administrator.");
         setBanned(true);
-      } else if((User && User.state === true)) {
+      } else if (User && User.state === true) {
         var c = await postLogin(_input);
-        if(c.payload.Request !== "No se inicio sessión"){
-          console.log(c)
+        if (c.payload.Request !== "No se inicio sessión") {
+          console.log(c);
           dispatch(setLogin(User));
           setLogin_(_input);
           setPressed(true);
         } else {
-          setTimeout(() =>{
-            if(logErr !== "Banned user, please contact the administrator."){
+          setTimeout(() => {
+            if (logErr !== "Banned user, please contact the administrator.") {
               setLogErr("invalid user or password");
             }
-          },700)
+          }, 700);
         }
       }
     }
@@ -130,7 +153,6 @@ function Login({ navigation, user, postLogin }) {
   };
 
   function handleInputChange(type, text) {
-    
     setInput({
       ...input,
       [type]: text,
@@ -141,58 +163,65 @@ function Login({ navigation, user, postLogin }) {
   }
 
   useEffect(() => {
-    if (pressed === true && user.Request && banned === false && (user.Request?.first === false||!user.Request.first)) {
+    if (
+      pressed === true &&
+      user.Request &&
+      banned === false &&
+      (user.Request?.first === false || !user.Request.first)
+    ) {
       setInput({
         username: "",
         password: "",
       });
       setLogErr("");
       navigation.navigate("Home");
-    } else if (pressed === true && user.Request?.first === true ) {
-      const User = (allUser.Request.find((e) => (e.username.toLowerCase() === input.username.toLowerCase())))
-      if(User){
+    } else if (pressed === true && user.Request?.first === true) {
+      const User = allUser.Request.find(
+        (e) => e.username.toLowerCase() === input.username.toLowerCase()
+      );
+      if (User) {
         navigation.navigate("Instructions");
         let logear = user.Request;
-        logear.first = false
-        dispatch(setLogin({
-          logear
-        }))
+        logear.first = false;
+        dispatch(
+          setLogin({
+            logear,
+          })
+        );
       } else {
-        setTimeout(() =>{
-          if(logErr !== "Banned user, please contact the administrator."){
+        setTimeout(() => {
+          if (logErr !== "Banned user, please contact the administrator.") {
             setLogErr("invalid user or password");
           }
-        },700)
+        }, 700);
       }
     }
-    if(pressed === true && !user.Request){
-      setTimeout(() =>{
-        if(logErr !== "Banned user, please contact the administrator."){
+    if (pressed === true && !user.Request) {
+      setTimeout(() => {
+        if (logErr !== "Banned user, please contact the administrator.") {
           setLogErr("invalid user or password");
         }
-      },700)
+      }, 700);
     }
-    if(input.password === "" || input.username === ""){
+    if (input.password === "" || input.username === "") {
       setLogErr("");
     }
     setPressed(false);
   }, [user, pressed]);
 
-
   useEffect(() => {
     dispatch(getAllCountries());
     dispatch(getUser());
-    if(input.password === "" || input.username === ""){
+    if (input.password === "" || input.username === "") {
       setLogErr("");
     }
-    console.log("useruseruseruseruseru",user)
+    console.log("useruseruseruseruseru", allUser);
   }, []);
-
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <View style={tw`flex h-full items-center justify-center bg-gray-900`}>
-        <Image style={tw`h-40 w-40`} source={img}/>
+        <Image style={tw`h-40 w-40`} source={img} />
         <View style={tw`flex flex-col mt-10`}>
           <Text style={tw`text-white text-lg text-left mb-1`}>User</Text>
           <TextInput
@@ -242,7 +271,9 @@ function Login({ navigation, user, postLogin }) {
           <Text style={tw`text-white text-center font-bold`}>LOGIN</Text>
         </TouchableOpacity>
         <View>
-          <Text style={tw`text-red-500 text-xs text-left mt-2 mb-1`}>{logErr}</Text>
+          <Text style={tw`text-red-500 text-xs text-left mt-2 mb-1`}>
+            {logErr}
+          </Text>
         </View>
         <View style={tw`flex flex-row mt-10 justify-center items-center`}>
           <View
