@@ -11,7 +11,7 @@ import tw from "twrnc"
 export const ProfileBody = ({
     name,
     userName,
-    userAvatar,
+    avatar,
     games,
     friends,
     gamesWon,
@@ -20,8 +20,8 @@ export const ProfileBody = ({
     email,
     password,
     premium,
-    countries,
-    
+    averageScore,
+
 }) => {
     const navigation = useNavigation();
     const soundOn = useSelector((state) => state.soundOn);
@@ -34,26 +34,49 @@ export const ProfileBody = ({
                             fontSize: 18,
                             fontWeight: 'bold',
                             color: 'white',
+                            paddingLeft: 5,
+
                         }}>
-                            {userName}
+                            {userName.length > 10 ? userName.slice(0, 11).concat('...') : userName}
                         </Text>
-                        {/* <Feather name="chevron-down" style={{
-                            fontSize: 20,
-                            color: 'black',
-                            paddingHorizontal: 5,
-                            opacity: 0.5,
-                        }} /> */}
+                        <Ionic
+                            name="chevron-down"
+                            style={{
+                                fontSize: 20,
+                                color: 'white',
+                                paddingHorizontal: 5,
+                                opacity: 0.5,
+                            }}
+                            onPress={() => navigation.navigate('Configuration')}
+                        />
                     </View>
-                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 23, }}>
+                        <Ionic
+                            name="trophy"
+                            style={{
+                                fontSize: 25,
+                                color: 'yellow',
+                                fontWeight: 'bold',
+                                paddingRight: 5,
+
+                            }}
+                            onPress={() => navigation.navigate('Ranking')}
+                        />
+                        <Text style={{ color: 'white', fontSize: 18, paddingRight: 20, }}>{averageScore}</Text>
+
                         {premium
-                            ? <Ionic
-                                name="star"
-                                style={{
-                                    fontSize: 25,
-                                    color: 'yellow',
-                                    paddingHorizontal: 15,
-                                }}
-                            />
+                            ? <Animatable.View
+                                animation="pulse" easing="ease-out" iterationCount="infinite"
+                            >
+                                <Ionic
+                                    name="star"
+                                    style={{
+                                        fontSize: 25,
+                                        color: 'yellow',
+                                        paddingHorizontal: 10,
+                                    }}
+                                />
+                            </Animatable.View>
                             : <Animatable.View
                                 animation="swing" iterationCount='infinite' delay={2000}
                             >
@@ -72,18 +95,12 @@ export const ProfileBody = ({
                                     style={{
                                         fontSize: 30,
                                         color: 'white',
-                                        paddingHorizontal: 15,
                                         marginTop: 5,
-                                        marginRight: 20,
+                                        paddingHorizontal: 10,
                                     }}
                                 />
                             </Animatable.View>}
-                        {/* <Feather
-                            name="menu"
-                            style={{
-                                fontSize: 25,
-                            }}
-                        /> */}
+
                     </View>
                 </View>
             ) : null}
@@ -99,7 +116,7 @@ export const ProfileBody = ({
                         alignItems: 'center',
                     }}>
                     <Image
-                        source={userAvatar}
+                        source={{ uri: avatar }}
                         style={{
                             resizeMode: 'cover',
                             width: 80,
@@ -113,7 +130,7 @@ export const ProfileBody = ({
                             color: 'white',
                         }}>
 
-                        {name}
+                        {name.length > 10 ? name.slice(0, 11).concat('...') : name}
 
                     </Text>
                 </View>
@@ -162,7 +179,7 @@ export const ProfileButtons = ({
     const soundOn = useSelector((state) => state.soundOn);
     return (
         <View>
-            {true ? (//ACA TENGO QUE COMPARAR EL ID DEL LOCALSTORAGE O LOGIN Y EL DEL USUARIO SELECCIONADO! (SPRINT 3)
+            {id === id ? (//ACA TENGO QUE COMPARAR EL ID DEL LOCALSTORAGE O LOGIN Y EL DEL USUARIO SELECCIONADO! (SPRINT 3)
                 <View
                     style={{
                         width: '100%',
@@ -218,8 +235,8 @@ export const ProfileButtons = ({
                                 justifyContent: 'center',
                                 alignItems: 'center',
                             }}>
-                            <Text style={{ color: follow ? 'black' : '#111827' }}>
-                                {follow ? 'gamesWon' : 'Follow'}
+                            <Text style={{ color: follow ? 'white' : '#111827' }}>
+                                {follow ? 'Following' : 'Follow'}
                             </Text>
                         </View>
                     </TouchableOpacity>

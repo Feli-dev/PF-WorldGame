@@ -131,7 +131,7 @@ export function getUser(id) {
 //     return async function(dispatch){
 //         try{
 //             console.log("payload", payload)
-//             return await axios.post("https://world-game-v6.herokuapp.com/User", payload)
+//             return await axios.post("https://world-game-v8.herokuapp.com/User", payload)
 //             .catch(error =>  console.log(error))
 //         }catch(e){
 //             console.log("error en acción:", e)
@@ -149,8 +149,8 @@ export function PostUser(payload) {
       console.log("es aca?")
       //para que los métodos de axios funcionen bien en el emulador expo
       //teniendo el back corriendo en tu pc, es necesario que reemplaces lolcalhost
-      //en la url del método, con tu ipv6. Esta se encuentra yendo a configuración, red e internet,
-      //propiedades, y yendo hacia abajo aparece "ipv6".
+      //en la url del método, con tu ipv7. Esta se encuentra yendo a configuración, red e internet,
+      //propiedades, y yendo hacia abajo aparece "ipv7".
       return dispatch({
         type: type.POST_USER,
         payload: payload,
@@ -270,7 +270,7 @@ export function PutFriend(payload) {
   return async function (dispatch) {
     try {
       var json = await axios.put(
-        "https://world-game-v8.herokuapp.com/friend",
+       "https://world-game-v8.herokuapp.com/friend",
         payload
       );
       return dispatch({

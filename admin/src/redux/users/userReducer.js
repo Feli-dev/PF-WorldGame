@@ -16,21 +16,18 @@ let initialState = {
 function userReducer(state = initialState, action) {
   switch (action.type) {
     case GET_ALL_USERS:
-      let actualUser = JSON.parse(localStorage.getItem("profile"));
-      let allUsers = action.payload.Request.filter(
-        (user) => user.id !== actualUser.id
-      );
-      let lastFive =
-        allUsers.length > 5 ? allUsers.slice(allUsers.length - 5) : allUsers;
-      let premium = action.payload.Request.filter(
-        (user) => user.premium 
-      ).length;
-      
+
+      // let actualUser = JSON.parse(localStorage.getItem("profile"));
+      // let allUsers = action.payload.Request.filter(
+      //   (user) => user.id !== actualUser.id
+      // );
+      let lastFive = action.payload.Request.length>5? action.payload.Request.slice(action.payload.Request.length-5):action.payload.Request
+      let premium = action.payload.Request.filter((user) => user.premium).length
       return {
         ...state,
-        users: allUsers,
+        users: action.payload.Request,
         last: lastFive.reverse(),
-        filterUsers: allUsers,
+        filterUsers: action.payload.Request,
         totalUsers: action.payload.Request.length,
         totalPremium: premium
       };

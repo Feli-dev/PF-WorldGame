@@ -93,7 +93,7 @@ const Profile = () => {
   return (
     <>
       <div className="container mx-auto">
-        <div className="md:max-w-6xl md:mx-auto px-4 py-7">
+        <div className="md:max-w-6xl md:mx-auto  px-4 py-7">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-bold text-gray-800">
               Account Settings
@@ -101,33 +101,40 @@ const Profile = () => {
           </div>
 
           <form onSubmit={handleSubmit}>
-            <div className="w-full bg-white rounded-lg mx-auto mt-8 flex overflow-hidden rounded-b-none">
-              <div className="w-1/3 bg-gray-100 p-8 hidden md:inline-block">
+            <div className="w-full bg-white rounded-lg mx-auto mt-6 md:mt-8 flex overflow-hidden rounded-b-none flex-col lg:flex-row">
+              <div className="bg-gray-100 p-8  md:inline-block">
                 <h2 className="font-medium text-md text-gray-700 mb-4 tracking-wide text-center">
                   Profile
                 </h2>
                 <div className=" clearfix flex flex-col ">
                   <span className="text-gray-700 px-6 py-4 flex items-center  ">
                     <div className=" cursor-pointer font-semibold float-left mx-auto w-40 h-40 text-5xl bg-blue-200 text-blue-600 flex items-center justify-center rounded-full">
-                      {profile?.username.charAt(0).toUpperCase()} 
+                      {profile?.username.charAt(0).toUpperCase()}
                     </div>
                   </span>
-                  <div className="bg-gray-200 text-gray-500 text-xs  text-center mt-5 ml-3 font-bold px- py-2 rounded-lg float-left hover:bg-gray-300 hover:text-gray-600 relative overflow-hidden cursor-pointer">
-                    <input
+                  <div className="bg-gray-200  text-center mt-5 ml-3 font-bold  py-2 rounded-lg float-left hover:bg-gray-300 hover:text-gray-600 relative overflow-hidden">
+                    {/*   <input
                       type="file"
                       name="photo"
                       className="absolute w-full h-full opacity-0 cursor-pointer text-center"
                     />{" "}
-                    Chagen Image
+                    Chagen Image */}
+                    <p className="text-black">
+                      Rol:{" "}
+                      <span className="text-gray-500">
+                        {" "}
+                        {profile?.authorization}
+                      </span>
+                    </p>
                   </div>
                 </div>
               </div>
-              <div className="md:w-2/3 w-full flex flex-col p-4">
+              <div className="lg:w-2/3 w-full flex flex-col p-4">
                 {msg && <Alerta alerta={error} />}
                 {message && (
                   <Alerta alerta={{ ...infoForm, msg: infoForm.message }} />
                 )}
-                <div className="py-3 px-16">
+                <div className="py-3 lg:px-16">
                   <label
                     htmlFor="name"
                     className={
@@ -155,7 +162,7 @@ const Profile = () => {
                     </p>
                   )}
                 </div>
-                <div className="py-3 px-16">
+                <div className="py-3 lg:px-16">
                   <label
                     htmlFor="name"
                     className={
@@ -184,7 +191,7 @@ const Profile = () => {
                   )}
                 </div>
 
-                <div className="py-3 px-16">
+                <div className="py-3 lg:px-16">
                   <label
                     htmlFor="email"
                     className={

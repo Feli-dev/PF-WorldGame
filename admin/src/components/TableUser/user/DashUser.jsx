@@ -39,7 +39,7 @@ const activateUser = (id) => {
     setUserInfo(user)
     setModalUser(true)
   }
-  
+  let actualUser = JSON.parse(localStorage.getItem("profile")) 
   return (
             <tr className="focus-within:bg-gray-200 overflow-hidden hover:bg-gray-100 w-auto">
               <td className="border-t">
@@ -71,21 +71,26 @@ const activateUser = (id) => {
                 </span>
               </td>
               <td className="border-t">
-                <div className="text-gray-700  flex w-2.5 gap-3 text-center">
-                  <EditIcon
-                    className="text-yellow-500 z-50 cursor-pointer"
-                    onClick={()=>getUserEdit(user.id)}
-                  />
-                  {user.state === true ?
-                  <DeleteIcon
-                  className="text-red-500 cursor-pointer"
-                  onClick={() => deleteUser(user.id)}
-                />
-                  : <ReplayIcon className="text-green-500 cursor-pointer"
-                  onClick={() => activateUser(user.id)}
-                  />
-                  }
-                </div>
+              {user.id !== actualUser.id? (
+                    <div className="text-gray-700  flex w-2.5 gap-3 text-center">
+                        
+                        <EditIcon
+                          className="text-yellow-500 z-50 cursor-pointer"
+                          onClick={() => getUserEdit(user.id)}
+                        />
+                        {user.state === true ? (
+                          <DeleteIcon
+                            className="text-red-500 cursor-pointer"
+                            onClick={() => deleteUser(user.id)}
+                          />
+                        ) : (
+                          <ReplayIcon
+                            className="text-green-500 cursor-pointer"
+                            onClick={() => activateUser(user.id)}
+                          />
+                        )}
+                      </div>
+                    ) : "..."}
               </td>
             </tr>
 
