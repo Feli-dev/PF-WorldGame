@@ -63,7 +63,7 @@ function Login({ navigation, user, postLogin }) {
     var googleuser = await allUser.Request.find(
       (user) => user.email === useInfo.email
     );
-    console.log(googleuser);
+    console.log("soy google user",googleuser);
     if (googleuser) {
       if (googleuser.state === false) {
         Alert.alert(
@@ -77,13 +77,14 @@ function Login({ navigation, user, postLogin }) {
             },
             { text: "OK", onPress: () => navigation.navigate("Register") },
           ]
-        );
+          );
+        } else {
+        navigation.navigate("Home");
+        getUser(googleuser.id);
+        setLogin_(inputauth);
       }
-    } else {
-      navigation.navigate("Home");
-      setLogin_(inputauth)
     }
-  };
+  }
   const dispatch = useDispatch();
   const [input, setInput] = useState({
     username: "",
