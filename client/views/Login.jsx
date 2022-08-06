@@ -1,4 +1,4 @@
-import { Text, View, TouchableOpacity, TextInput, TouchableWithoutFeedback, Keyboard, Image } from "react-native";
+import {BackHandler, Text, View, TouchableOpacity, TextInput, TouchableWithoutFeedback, Keyboard, Image, Alert } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState, useEffect } from "react";
 import { useDispatch, connect, useSelector } from "react-redux";
@@ -28,24 +28,39 @@ function Login({ navigation, user, postLogin }) {
       accessToken && fetchUserInfo()
       }
   }, [response, accessToken]);
-
+  
+  const allUser = useSelector((state) => state.users)
   async function fetchUserInfo() {
     let res = await fetch("https://www.googleapis.com/userinfo/v2/me", {
       headers: { Authorization: `Bearer ${accessToken}` }
     });
     const useInfo = await res.json();
-    let inputauth ={
-      username: `${useInfo.given_name}${useInfo.family_name}`,
-      password: `P${useInfo.id}`
-    }
-    setUserA(inputauth);
-    console.log(inputauth);
-    log(userA)
-
+    googleloginUser(useInfo)
+        
   }
-
+  const googleloginUser= (useInfo)=>{
+    var googleuser= allUser.find(user => user.email===useInfo.email);
+        console.log(googleuser);
+        if(googleuser) {
+          if(googleuser.state=== false){
+            Alert.alert(
+              "User Banned",
+              "Please talk whit this email address: worldgamecontact4@gmail.com ",
+              [
+                {
+                  text: "Cancel",
+                  onPress: () => BackHandler.exitApp(),
+                  style: "cancel"
+                },
+                { text: "OK", onPress: () => navigation.navigate("Register") }
+              ]
+            );
+          }
+        }else{
+          navigation.navigate("home")
+        }
+  }
   const dispatch = useDispatch();
-  const allUser = useSelector((state) => state.users)
   const [input, setInput] = useState({
     username: "",
     password: "",
@@ -91,11 +106,12 @@ function Login({ navigation, user, postLogin }) {
       // if(login.Request && login.Request?.username?.toLowerCase() === input.username.toLowerCase() && login?.Request?.first === false){
       //   siLogin = true;
       // }
+      console.log(User)
       if(User && User.state === false){
         setLogErr("Banned user, please contact the administrator.");
         setBanned(true);
       } else if((User && User.state === true)) {
-        let c = await postLogin(_input);
+        var c = await postLogin(_input);
         if(c.payload.Request !== "No se inicio sessión"){
           console.log(c)
           dispatch(setLogin(User));
