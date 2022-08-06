@@ -1,5 +1,6 @@
 import { type } from "../actions/types";
 
+
 const initialState = {
   game: [],
   countries: [],
@@ -13,6 +14,7 @@ const initialState = {
   friends: [],
   friendsDetail: {},
   giveUp : false,
+  searchFriend:[]
 };
 
 export const rootReducer = (state = initialState, action) => {
@@ -159,6 +161,18 @@ export const rootReducer = (state = initialState, action) => {
         ...state,
         friendsDetail:action.payload,
       };
+    case type.SEARCH_FRIEND:
+      let filtered = action.payload.data.Request.filter(user => 
+        user.username.toLowerCase().includes(action.payload.friend.toLowerCase()))
+      
+      return{
+        ...state,
+        searchFriend:filtered
+      }
+    case type.POST_FRIEND:
+      return{
+        ...state
+      }    
     default: {
       return state;
     }
