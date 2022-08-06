@@ -286,9 +286,10 @@ export function PutFriend(payload) {
 }
 
 export function deleteFirend(payload) {
+  console.log('payload deleteFriend',payload)
   return async function () {
     try {
-      const response = axios.delete(
+      const response = await axios.delete(
         'http://192.168.0.179:3001/friend',
         payload
       );

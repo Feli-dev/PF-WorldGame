@@ -123,7 +123,7 @@ const BottomTabViewFriend = ({games, gamesArr}) => {
   
     return (
         <Tab.Navigator
-            style={tw`rounded-lg w-9/10`}
+            style={tw`rounded-lg w-9/10 `}
             screenOptions={({ route }) => ({
                 tabBarStyle: {
                     borderTopLeftRadius: 15,
@@ -135,9 +135,9 @@ const BottomTabViewFriend = ({games, gamesArr}) => {
                 tabBarIndicatorStyle: {
                     backgroundColor: 'grey',
                     height: 2,
-                    width: 80,
-                    marginLeft: 20,
-                    marginRight: 20,
+                    width: '90%',
+                    borderRadius:10,
+                    marginLeft:20,
                 },
                 tabBarIcon: ({ focused, colour }) => {
                     let iconName;

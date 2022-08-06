@@ -74,7 +74,7 @@ const BottomTabView = ({
                                                     width: 60, height: 40, borderRadius: 4, justifyContent: 'center', alignItems: 'center',
 
                                                 }}
-                                                    source={{ uri: `${perGame.flagSvg?.replace("svg", "png").replace("//", "").replace("/", "/w2560/").replace("https:", "https://")}` }}
+                                                    source={perGame.flagSvg.length > 50 ? perGame.flagSvg : { uri: `${perGame.flagSvg?.replace("svg", "png").replace("//", "").replace("/", "/w2560/").replace("https:", "https://")}` }}
                                                 />
                                                 <Text style={{ color: 'white', paddingVertical: 5, fontWeight: 'bold', fontSize: 13, }}>
                                                     {perGame.countrie.length > 13 ? perGame.countrie.slice(0, 12).concat('...') : perGame.countrie}
@@ -226,7 +226,7 @@ const BottomTabView = ({
         )
     }
     const Friends = () => {
-        
+
         //console.log('firend arr', friends)
         return (
             <ScrollView
@@ -238,13 +238,13 @@ const BottomTabView = ({
                 }}>
                     {friends?.map((friend) => {
                         return (
-                             
+
 
                             <TouchableOpacity
-                            key={friend.id}
-                            onPress={() => navigation.navigate('FriendProfile', {freId:friend.FriendId})}
+                                key={friend.id}
+                                onPress={() => navigation.navigate('FriendProfile', { freId: friend.FriendId, userId: id })}
                             >
-                                
+
                                 <View
                                     style={{
                                         width: '100%',

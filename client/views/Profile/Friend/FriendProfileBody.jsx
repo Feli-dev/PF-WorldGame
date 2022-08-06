@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import { View, Text, Image, TouchableOpacity } from 'react-native';
-// import Feather from 'react-native-vector-icons/Feather';
+import { useDispatch } from "react-redux";
+import { View, Text, Image, TouchableOpacity, ToastAndroid, } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Ionic from 'react-native-vector-icons/Ionicons';
 import * as Animatable from 'react-native-animatable';
 import tw from "twrnc"
 import { PostFriend, deleteFirend } from "../../../redux/actions/index";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const FriendProfileBody = ({
     name,
@@ -24,33 +23,37 @@ export const FriendProfileBody = ({
 
 }) => {
     const navigation = useNavigation();
-        
+
     return (
         <View>
             {userName ? (
-                <View style={tw`flex flex-row items-center justify-between`}>
-                    <View style={tw`flex flex-row items-center`}>
-                        <Text style={{
-                            fontSize: 18,
-                            fontWeight: 'bold',
-                            color: 'white',
-                            paddingLeft: 5,
+                <View style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
 
-                        }}>
-                            {userName.length > 10 ? userName.slice(0, 11).concat('...') : userName}
-                        </Text>
-                        <Ionic
-                            name="chevron-down"
-                            style={{
-                                fontSize: 20,
-                                color: 'white',
-                                paddingHorizontal: 5,
-                                opacity: 0.5,
-                            }}
-                            onPress={() => navigation.navigate('Configuration')}
-                        />
-                    </View>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 23, }}>
+
+                }}>
+
+                    <Text style={{
+                        fontSize: 18,
+                        fontWeight: 'bold',
+                        color: 'white',
+                        paddingLeft: 5,
+                        paddingRight: 5,
+
+
+                    }}>
+                        {userName.length > 10 ? userName.slice(0, 11).concat('...') : userName}
+                    </Text>
+
+
+                    <View style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+
+                    }}>
                         <Ionic
                             name="trophy"
                             style={{
@@ -62,7 +65,7 @@ export const FriendProfileBody = ({
                             }}
                             onPress={() => navigation.navigate('Ranking')}
                         />
-                        <Text style={{ color: 'white', fontSize: 18, paddingRight: 20, }}>{averageScore}</Text>
+                        <Text style={{ color: 'white', fontSize: 18, }}>{averageScore}</Text>
 
                         {premium
                             ? <Animatable.View
@@ -83,22 +86,15 @@ export const FriendProfileBody = ({
             ) : null}
             <View
                 style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    paddingVertical: 20,
                 }}>
                 <View
                     style={{
-                        alignItems: 'center',
+
                     }}>
                     <Image
                         source={{ uri: avatar }}
                         style={{
-                            resizeMode: 'cover',
-                            width: 80,
-                            height: 80,
-                            borderRadius: 100,
+
                         }} />
                     <Text
                         style={{
@@ -112,27 +108,27 @@ export const FriendProfileBody = ({
                     </Text>
                 </View>
 
-                <View style={{ alignItems: 'center' }}>
-                    <Text style={{ fontWeight: 'bold', fontSize: 18, color: 'white' }}>{friends}</Text>
-                    <Text style={{ color: 'white' }}>Friends</Text>
+                <View style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                }}>
+                    <View style={{}}>
+                        <Text style={{ fontWeight: 'bold', fontSize: 18, color: 'white' }}>{friends}</Text>
+                        <Text style={{ color: 'white' }}>Friends</Text>
+                    </View>
+
+                    <View style={{}}>
+                        <Text style={{ fontWeight: 'bold', fontSize: 18, color: 'white' }}>{games}</Text>
+                        <Text style={{ color: 'white' }}>Games</Text>
+                    </View>
+
+                    <View style={{}}>
+                        <Text style={{ fontWeight: 'bold', fontSize: 18, color: 'white' }}>{gamesWon}</Text>
+                        <Text style={{ color: 'white' }}>Wins</Text>
+                    </View>
                 </View>
 
-                <View style={{ alignItems: 'center' }}>
-                    <Text style={{ fontWeight: 'bold', fontSize: 18, color: 'white' }}>{games}</Text>
-                    <Text style={{ color: 'white' }}>Games</Text>
-                </View>
-
-                <View style={{ alignItems: 'center', marginRight: 35 }}>
-                    <Text style={{ fontWeight: 'bold', fontSize: 18, color: 'white' }}>{gamesWon}</Text>
-                    <Text style={{ color: 'white' }}>Wins</Text>
-                </View>
-
-
-
-                {/* <View style={{ alignItems: 'center' }}>
-                    <Text style={{ fontWeight: 'bold', fontSize: 18 }}>{gamesWon}</Text>gamesWon            <Text>
-gamesWon</Text>
-                </View> */}
 
             </View>
 
@@ -140,59 +136,81 @@ gamesWon</Text>
     );
 };
 
-export const ProfileButtons = ({
-    id,
-    name,
-    userName,
-    userAvatar,
-    premium,
-    country,
-    email,
-    password,
-    countries,
+export const FriendProfileButtons = ({
+    friendID,
+    userID,
+    followingUser,
+
 }) => {
+    const dispatch = useDispatch();
     const navigation = useNavigation();
-    const [follow, setFollow] = useState(follow);
+    const [follow, setFollow] = useState(followingUser ? !follow : follow);
+    const handledAddOrDeleteFriend =  (status, friendID, userID) => {
+            status
+                ? dispatch(deleteFirend(
+                    {
+                        UserId: userID,
+                        FriendId: friendID
+                    }))
+                : dispatch(PostFriend(
+                    {
+                        UserId: userID,
+                        FriendId: friendID
+                    }
+                ))
+        status
+            ? ToastAndroid.show('Deleted Friend Sucessfully!', ToastAndroid.SHORT)
+            : ToastAndroid.show('Added Friend Sucessfully!', ToastAndroid.SHORT)
+
+    }
+    console.log('follow--------------->', follow)
     return (
         <View>
-            {id === 1 ? (//ACA COMPARAR EL ID O USERNAME DEL PERFIL CON TU LISTA DE AMIGOS DEL USER LOGIN
-                <View
-                    style={{
-                        width: '100%',
-                        flexDirection: 'row',
-                        justifyContent: 'space-evenly',
-                        alignItems: 'center',
-                    }}>
-                    <TouchableOpacity
-                        onPress={() => setFollow(!follow)}
-                        style={{ width: '42%' }}>
-                        <View
-                            style={{
-                                width: '100%',
-                                height: 35,
-                                borderRadius: 5,
-                                backgroundColor: follow ? null : '#3493D9',
-                                borderWidth: follow ? 1 : 0,
-                                borderColor: '#DEDEDE',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                            }}>
-                            <Text style={{ color: follow ? 'white' : '#111827' }}>
-                                {follow ? 'Following' : 'Follow'}
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
+            <View
+                style={{
+                    width: '100%',
+                    flexDirection: 'row',
+                    justifyContent: 'space-evenly',
+                    alignItems: 'center',
+                }}>
+                <TouchableOpacity
+                    onPress={() => {
+                        console.log('estoy entrando al onpress y follow es: ', follow)
+                        handledAddOrDeleteFriend(follow, friendID, userID)
+                        setFollow(!follow)
+                    }}
+                    style={{ width: '42%' }}>
                     <View
                         style={{
-                            // ACA ME QUEDE MIN 08:06
+                            width: '100%',
+                            height: 35,
+                            borderRadius: 5,
+                            backgroundColor: follow ? 'grey' : '#3493D9',
+                            borderWidth: follow ? 1 : 0,
+                            borderColor: '#DEDEDE',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            marginBottom: 10,
                         }}>
-
+                        <Text style={{
+                            fontWeight: 'bold',
+                            color: follow ? 'white' : '#111827',
+                        }}>
+                            {follow ? 'Following' : 'Follow'}
+                        </Text>
                     </View>
+                </TouchableOpacity>
+                <View
+                    style={{
+                        // ACA ME QUEDE MIN 08:06
+                    }}>
 
-                </View>)
-                : (null)
+                </View>
 
-            }
+            </View>
+
+
+
         </View>
     );
 

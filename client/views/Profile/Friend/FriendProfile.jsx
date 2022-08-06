@@ -8,7 +8,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getFriendDetail } from "../../../redux/actions/index";
 import tw from "twrnc";
-import { FriendProfileBody } from "./FriendProfileBody";
+import { FriendProfileBody, FriendProfileButtons } from "./FriendProfileBody";
 import BottomTabViewFriend from "./BottomTabViewFriend";
 
 //let lengthOfObject = Object.keys(obj).lengt
@@ -16,16 +16,45 @@ import BottomTabViewFriend from "./BottomTabViewFriend";
 
 const FriendProfile = (params) => {
     const dispatch = useDispatch();
-    const { freId } = params.route.params
+    const { freId, userId } = params.route.params
     const friendInfo = useSelector((state) => state.friendsDetail);
-    console.log('friendInfo',friendInfo)
-    const data = Object.keys(friendInfo.Request).length > 0 && Object.keys(friendInfo.Request.stats).length > 0 ? friendInfo.Request : false;
-   
+
+    const data = friendInfo.hasOwnProperty('Request') && Object.keys(friendInfo?.Request).length > 0 && Object.keys(friendInfo.Request.stats).length > 0 ? friendInfo.Request : false;
+    const following = data && data.hasOwnProperty('friends')
+        ? data.friends.length > 0
+            ? data.friends.map((request) => {
+                if (request.FriendId === userId && request.state === "Recibido") {
+                    return true
+                }
+
+            })
+            : false
+        : false;
+
+    const friendSended = data && data.hasOwnProperty('friends')
+        ? data.friends.length > 0
+            ? data.friends.map((friend) => friend.state === "Enviado")
+            : false
+        : false;
+
+    // "friends": [
+    //     {
+    //         "username": "rafa93",
+    //         "id": 1,
+    //         "FriendId": 3,
+    //         "name": "",
+    //         "state": "Enviado",
+    //         "connect": false,
+    //         "avatar": "",
+    //         "UserId": 4
+    //     }
+    // ],
+
     useEffect(() => {
         dispatch(getFriendDetail(freId))
-    }, [dispatch,freId])
+    }, [dispatch, freId])
 
-    console.log('data---->', data)
+
     //navigation.goBack(); AGREGAR BOTON PARA IR ATRAS O HOME
 
     return (
@@ -37,7 +66,7 @@ const FriendProfile = (params) => {
 
                             <FriendProfileBody
                                 avatar={data.avatar}
-                                friends={data.friends.length}
+                                friends={friendSended ? friendSended.length : 0}
                                 gamesWon={data.stats.wins}
                                 games={data.stats.games}
                                 id={data.id}
@@ -51,8 +80,16 @@ const FriendProfile = (params) => {
                             />
                         </View>
 
-                        <BottomTabViewFriend                            
-                            games={data.stats.games}                            
+                        <FriendProfileButtons
+                            friendID={freId}
+                            userID={userId}
+                            followingUser={following[0] ? true : false}
+
+
+                        />
+
+                        <BottomTabViewFriend
+                            games={data.stats.games}
                             gamesArr={data.games}
                         />
 
