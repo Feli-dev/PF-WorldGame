@@ -22,7 +22,7 @@ const FriendProfile = (params) => {
 
     const dispatch = useDispatch();
 
-    const { freId } = params.route.params
+    const { freId, userId } = params.route.params
 
     const userInfo = useSelector((state) => state.userdetail);
 
@@ -33,7 +33,7 @@ const FriendProfile = (params) => {
     }, [dispatch])
 
 
-    console.log('data---->', data)
+    console.log('data---->', freId, userId)
     //navigation.goBack(); AGREGAR BOTON PARA IR ATRAS O HOME
 
     return (
@@ -56,6 +56,8 @@ const FriendProfile = (params) => {
                                 password={data.password}
                                 premium={data.premium}
                                 averageScore={data?.stats.averageScore}
+                                UserId={userId}
+                                FriendId={freId}
                             />
                         </View>
 

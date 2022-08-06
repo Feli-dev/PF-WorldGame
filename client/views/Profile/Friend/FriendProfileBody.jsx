@@ -1,12 +1,13 @@
-import React, { useState } from "react";
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from "react";
+import { View, Text, Image, TouchableOpacity, Alert } from 'react-native';
 // import Feather from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
 import Ionic from 'react-native-vector-icons/Ionicons';
 import * as Animatable from 'react-native-animatable';
 import tw from "twrnc"
-import { PostFriend, deleteFirend } from "../../../redux/actions/index";
+import { PostFriend, deleteFriend, } from "../../../redux/actions/index";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useDispatch } from "react-redux";
 
 export const FriendProfileBody = ({
     name,
@@ -21,9 +22,22 @@ export const FriendProfileBody = ({
     password,
     premium,
     averageScore,
+    UserId,
+    FriendId,
 
 }) => {
+    const dispatch = useDispatch()
     const navigation = useNavigation();
+    
+    const touchDelete = () => {
+        dispatch(deleteFriend({UserId,
+            FriendId}))
+        
+    }
+    useEffect(() => {
+        console.log('will')
+        return () => dispatch(getUser(UserId))
+    },[dispatch])
         
     return (
         <View>
@@ -126,7 +140,18 @@ export const FriendProfileBody = ({
                     <Text style={{ fontWeight: 'bold', fontSize: 18, color: 'white' }}>{gamesWon}</Text>
                     <Text style={{ color: 'white' }}>Wins</Text>
                 </View>
-
+                <TouchableOpacity
+                        onPress={() => touchDelete()
+                            }
+                        style={tw`w-9/10`}>
+                        <View
+                            style={tw`h-8 rounded-lg items-center justify-center border-white border-2`}>
+                            <Text
+                                style={tw`text-base text-white font-bold`}>
+                                Dejar de seguir
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
 
 
                 {/* <View style={{ alignItems: 'center' }}>

@@ -243,7 +243,7 @@ const BottomTabView = ({
 
                             <TouchableOpacity
                             key={friend.id}
-                            onPress={() => navigation.navigate('FriendProfile', {freId:friend.FriendId})}
+                            onPress={() => navigation.navigate('FriendProfile', {freId:friend.FriendId, userId:id})}
                             >
                                 
                                 <View
@@ -287,6 +287,15 @@ const BottomTabView = ({
                                                 height: 50,
                                             }}
                                             source={friend.avatar === "" ? avatarDefault : friend.avatar} />
+                                        {/* <TouchableOpacity
+                                            style={{
+                                                color: 'white',
+                                                fontSize: 25,
+                                                textAlign: 'center',
+                                                paddingRight: 10,
+                                            }}>
+                                            <Text>Eliminar</Text>
+                                        </TouchableOpacity>     */}
                                     </View>
 
                                 </View>

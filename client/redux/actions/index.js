@@ -271,7 +271,7 @@ export function getFriendDetail(id) {
 export function addFriend(payload) {
   return async function (dispatch) {
     try {
-      console.log('post', payload)
+      
       var json = await axios.post(
         "http://192.168.1.72:3001/friend",
         payload
@@ -286,14 +286,17 @@ export function addFriend(payload) {
   };
 }
 
-export function deleteFirend(payload) {
-  return async function () {
+export function deleteFriend({FriendId, UserId}) {
+  return async function (dispatch) {
     try {
-      const response = axios.delete(
-        'http://192.168.1.72:3001/friend',
-        payload
+      console.log('DELE', FriendId)
+      var json = await axios.delete(
+        `http://192.168.1.72:3001/friend?FriendId=${FriendId}&UserId=${UserId}`
       );
-      return response;
+      return dispatch({
+        type: type.DELETE_FRIEND,
+        payload: json.data,
+      });
     } catch (e) {
       return e.message;
     }
