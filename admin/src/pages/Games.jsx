@@ -7,7 +7,6 @@ import {
   filterGamesWin,
   filterGamesAttempts,
   filterGamesPoints,
-  filterGamesTime,
 } from "../redux/games/gamesAction";
 import Game from "../components/Game";
 
@@ -20,7 +19,6 @@ const Games = () => {
   const [input, setInput] = useState({
     winned: "",
     attempts: "",
-    time: "",
     points: "",
   });
   let allGames = useSelector((state) => state.gamesReducer.allGames);
@@ -32,14 +30,13 @@ const Games = () => {
     dispatch(filterGamesWin(input.winned));
     dispatch(filterGamesAttempts(input.attempts));
     dispatch(filterGamesPoints(input.points));
-    dispatch(filterGamesTime(input.time));
+    //dispatch(filterGamesTime(input.time));
   }
   function resetFilters() {
     dispatch(getAllGames());
     setInput({
       winned: "",
       attempts: "",
-      time: "",
       points: "",
     });
   }
@@ -89,18 +86,7 @@ const Games = () => {
               return <option value={e}>{e}</option>;
             })}
           </select>
-          <select
-            name="time"
-            onChange={(e) => handleSelect(e)}
-            className={claseSelect}
-          >
-            <option selected value="">
-              Time
-            </option>
-            {numeritos?.map((e) => {
-              return <option value={e}>{e}</option>;
-            })}
-          </select>
+          
           <select
             name="points"
             onChange={(e) => handleSelect(e)}
@@ -109,6 +95,7 @@ const Games = () => {
             <option selected value="">
               Points
             </option>
+            <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -139,17 +126,15 @@ const Games = () => {
                 Game ID
               </th>
               <th className="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">
-                User
+              User Info
               </th>
               <th className="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">
-                User Info
+                Username
               </th>
               <th className="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">
                 Country
               </th>
-              <th className="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">
-                Time
-              </th>
+              
               <th className="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">
                 Attempts
               </th>

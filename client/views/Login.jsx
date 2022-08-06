@@ -60,6 +60,7 @@ function Login({ navigation, user, postLogin }) {
       username: `${useInfo.given_name}${useInfo.family_name}`,
       password: `P${useInfo.id}`
     }
+
     var googleuser = await allUser.Request.find(
       (user) => user.email === useInfo.email
     );

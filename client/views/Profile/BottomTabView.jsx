@@ -148,7 +148,6 @@ const BottomTabView = ({
 
         useEffect(() => {
             if(userName.length)socket.emit("conectado", userName);
-            console.log(socket);
         }, []);
 
         useEffect(() => {
@@ -168,6 +167,12 @@ const BottomTabView = ({
             }
         }
 
+        function view(){
+            let obj = {}
+            const send =  Messages.length > 0 ? Messages.filter(e => obj[e.mensaje] ? false : obj[e.mensaje] = true) : [];
+            return send;
+        }
+
         return (
             <View
                 style={tw`bg-gray-900 h-full`}>
@@ -180,17 +185,19 @@ const BottomTabView = ({
                     }
                     style={tw`mb-5 mt-3 bg-gray-800 rounded-lg`}
                 >
-                    {Messages.length > 0 ? Messages?.map((el,i) => {
+                    {
+                        view().length > 0 ? view()?.map((el,i) => {
                         return (el.nombre.toLowerCase() === userName.toLowerCase() ?
-                            <View key={i} style={tw.style("ml-3 mt-3 flex items-end justify-center mb-2 bg-gray-100 rounded-lg pl-5 pr-5",{alignSelf: "flex-end" })}>
-                                <Text style={tw`text-base font-bold text-black`}>{`${el.nombre}: ${el.mensaje}`}</Text>
-                            </View> 
-                            :
-                            <View key={i} style={tw.style("ml-3 mt-3 flex items-start justify-center mb-2 bg-gray-100 rounded-lg pl-5 pr-5",{alignSelf: "flex-start" })}>
-                                <Text style={tw`text-base font-bold text-black`}>{`${el.nombre}: ${el.mensaje}`}</Text>
-                            </View> 
-                        )
-                    }) : <></>}
+                                <View key={i} style={tw.style("ml-3 mt-3 flex items-end justify-center mb-2 bg-gray-100 rounded-lg pl-5 pr-5",{alignSelf: "flex-end" })}>
+                                    <Text style={tw`text-base font-bold text-black`}>{`${el.nombre}: ${el.mensaje}`}</Text>
+                                </View> 
+                                :
+                                <View key={i} style={tw.style("ml-3 mt-3 flex items-start justify-center mb-2 bg-gray-100 rounded-lg pl-5 pr-5",{alignSelf: "flex-start" })}>
+                                    <Text style={tw`text-base font-bold text-black`}>{`${el.nombre}: ${el.mensaje}`}</Text>
+                                </View>
+                            )
+                        }) : <></>
+                    }
                 </ScrollView>
                 <View style={tw`flex flex-row items-center justify-center mb-5`}>
                     <TextInput

@@ -31,6 +31,10 @@ module.exports = (sequelize) => {
         connect: {
             type: DataTypes.BOOLEAN,
             allowNull: false
+        },
+        avatar: {
+            type: DataTypes.TEXT,
+            defaultValue: "https://countryle.com/assets/images/welcome-page/welcome-loading-image-5.png"
         }
     },{
         timestamps: false,
