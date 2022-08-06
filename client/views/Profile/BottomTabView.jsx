@@ -233,7 +233,7 @@ const BottomTabView = ({
                 showsVerticalScrollIndicator={false}
                 style={tw`bg-gray-900`}>
                 <Text style={tw`text-gray-400 text-center flex text-2xl pl-3 pt-3`}>Friends</Text>
-                <TouchableOpacity onPress={() => navigation.navigate('SearchFriends', {id, friends})}><Text>Search</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('SearchFriends', {id, friends, navigation})}><Text>Search</Text></TouchableOpacity>
                 <View style={{
                     //agregar boton busqueda
                 }}>

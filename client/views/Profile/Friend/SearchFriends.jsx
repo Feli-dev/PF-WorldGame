@@ -14,6 +14,7 @@ import avatarDefault from '../../../assets/avatar_default.png';
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { searchFriend, addFriend, getUser } from "../../../redux/actions/index";
+import { useNavigation } from '@react-navigation/native';
 import tw from "twrnc";
 import { FriendProfileBody } from "./FriendProfileBody";
 import BottomTabViewFriend from "./BottomTabViewFriend";
@@ -22,34 +23,43 @@ import BottomTabViewFriend from "./BottomTabViewFriend";
 //<BottomTabView />
 
 const SearchFriends = (params) => {
-    let {id, friends} = params.route.params
+    let {id, friends, navigation} = params.route.params
   let findUsers = useSelector((state) => state.searchFriend);
+  
   let dispatch = useDispatch();
-//   console.log("search", id, friends);
+  console.log("search", friends);
   const [userData, SetUserData] = useState({
     username: "",
+    refresher:""
   });
 
+  
+  
   const handleOnChange = (type, e) => {
     SetUserData({
       ...userData,
       [type]: e,
+      refresher:e
     });
   };
 
   const handleSearch = () => {
     // console.log("hyo", userData.username);
     dispatch(searchFriend(userData.username));
+   
     SetUserData({
         ...userData,
         username: "",
       });
+
     
   };
 
   const sendFriend = (payload) => {
     console.log("hyo", payload);
     dispatch(addFriend(payload));
+    dispatch(searchFriend(' '))
+    // navigation.navigate('BottomTabView')
     // Alert.alert("hey");
   };
 
@@ -59,6 +69,10 @@ const SearchFriends = (params) => {
   useEffect(() => {
     console.log('will')
     return () => dispatch(getUser(id))
+},[dispatch])
+useEffect(() => {
+    console.log('will')
+    return () => dispatch(searchFriend(' '))
 },[dispatch])
 
  
@@ -92,7 +106,7 @@ const SearchFriends = (params) => {
       </View>
 
       {findUsers.map((user) => {
-        return (
+        if(user.id !== id)return (
           <View style={{width: "100%", marginBottom: 15, marginHorizontal: 20,}}
             key={user.id}
             // onPress={() =>
@@ -122,10 +136,10 @@ const SearchFriends = (params) => {
                   {user.username ? user.username : "Unknow"}
                  
                 </Text>
-
-                <TouchableOpacity onPress={() => sendFriend({UserId:id, FriendId:user.id})}>
+                  {user.friends.some(friend => friend.FriendId===id)?<View><Text>Agregado</Text></View>:<TouchableOpacity onPress={() => sendFriend({UserId:id, FriendId:user.id})}>
                   <Text>agregar</Text>
-                </TouchableOpacity>
+                </TouchableOpacity>}
+                
               </View>
             </View>
           </View>
@@ -160,7 +174,7 @@ const SearchFriends = (params) => {
           </TouchableOpacity>
         </View>
       </View>
-      <Text>No hemos econtrado personas para agregar a amigos</Text>
+      <Text>Realiza una (otra) busqueda</Text>
     </View>
   );
 };
