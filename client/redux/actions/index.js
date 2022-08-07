@@ -59,6 +59,7 @@ export function postLogin(payload) {
     try {
       var json = await axios.post(
         "http://192.168.0.179:3001/Login/",
+
         payload
       );
       return dispatch({
@@ -91,6 +92,7 @@ export function getRank(payload) {
     try {
       var json = await axios.get(
         "http://192.168.0.179:3001/User/rank/",
+
         { total: payload }
       );
       return dispatch({
@@ -132,6 +134,7 @@ export function getUser(id) {
 //         try{
 //             console.log("payload", payload)
 //             return await axios.post("http://192.168.0.179:3001/User", payload)
+
 //             .catch(error =>  console.log(error))
 //         }catch(e){
 //             console.log("error en acción:", e)
@@ -269,18 +272,18 @@ export function getFriendDetail(id) {
 }
 
 export function ClearFriendDetail() {
-  return async function (dispatch) {    
-      return dispatch({
-        type: type.CLEAR_FRIEND_DETAIL,
-        payload: {},
-      });
+  return async function (dispatch) {
+    return dispatch({
+      type: type.CLEAR_FRIEND_DETAIL,
+      payload: {},
+    });
   };
 }
 
 export function addFriend(payload) {
   return async function (dispatch) {
     try {
-      
+
       var json = await axios.post(
         "http://192.168.0.179:3001/friend",
         payload
@@ -296,7 +299,7 @@ export function addFriend(payload) {
 }
 
 
-export function deleteFriend({FriendId, UserId}) {
+export function deleteFriend({ FriendId, UserId }) {
   return async function (dispatch) {
     try {
       console.log('DELE', FriendId)
@@ -313,18 +316,18 @@ export function deleteFriend({FriendId, UserId}) {
   };
 }
 
-export function searchFriend(friend){
-  
+export function searchFriend(friend) {
+
   return async function (dispatch) {
     try {
-             
-        var {data} = await axios.get("http://192.168.0.179:3001/User/");
-        return dispatch({
-          type: type.SEARCH_FRIEND,
-          payload: {data, friend},
-        });
-      }
-     catch (e) {
+
+      var { data } = await axios.get("http://192.168.0.179:3001/User/");
+      return dispatch({
+        type: type.SEARCH_FRIEND,
+        payload: { data, friend },
+      });
+    }
+    catch (e) {
       return e.message;
     }
   };

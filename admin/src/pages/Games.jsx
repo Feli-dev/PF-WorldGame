@@ -118,7 +118,7 @@ const Games = () => {
           </button>
         </form>
       </div>
-      <div className="overflow-x-auto bg-white rounded-lg shadow">
+      <div className="overflow-x-auto bg-white rounded-lg shadow max-h-screen">
         <table className="w-full whitespace-no-wrap bg-white overflow-hidden table-striped">
           <thead>
             <tr className="text-left">
@@ -126,10 +126,10 @@ const Games = () => {
                 Game ID
               </th>
               <th className="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">
-                User
+              User Info
               </th>
               <th className="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">
-                User Info
+                Username
               </th>
               <th className="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">
                 Country

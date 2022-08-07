@@ -36,7 +36,7 @@ const Profile = () => {
 
 
 
-    useEffect(() => {//VER SI SEBA PUEDE HACER QUE ME TRAIGA UN GET FRIEND X ID
+    useEffect(() => {
         dispatch(getUser(userId));
         setTimeout(()=>setOpen(true), 1200)
     }, [dispatch, userId]);

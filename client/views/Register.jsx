@@ -46,7 +46,7 @@ export default function Register({ navigation }) {
       PostUser({
         email: useInfo.email,
         username: `${useInfo.given_name}${useInfo.family_name}`,
-        password: `P${useInfo.id}`,
+        password: `P${useInfo.given_name}2`,
         country: "Not Defined",
         avatar: useInfo.picture
       })

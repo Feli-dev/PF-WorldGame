@@ -33,7 +33,7 @@ const Game = ({ game, setModalUser, setUserInfo }) => {
       </td>
 
       <td className="border-t">
-        <span className="text-gray-700 px-6 py-4 flex items-center font-semibold">
+        <span className="text-gray-700 px-7 py-4 flex items-center font-semibold">
           {user[0]?.username}
         </span>
       </td>
