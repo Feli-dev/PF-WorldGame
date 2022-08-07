@@ -24,7 +24,7 @@ const FriendProfile = (params) => {
 
     const dispatch = useDispatch();
 
-    const { freId, userId } = params.route.params
+    const { freId, userId, friendsArr } = params.route.params
 
     const [open, setOpen] = useState(false);
 
@@ -41,12 +41,13 @@ const FriendProfile = (params) => {
     if (data && data.hasOwnProperty('friends')) {
         if (data.friends.length > 0) {
             data.friends.map((request) => {
-                if (request.FriendId === userId && request.state === "Recibido") {//VER DE BUSCAR LOS ENVIADOS
+                if (request.FriendId === userId) {//VER DE BUSCAR LOS ENVIADOS
                     following.push(true)
                 }
             })
         }
     }
+   
 
 
 
@@ -68,11 +69,7 @@ const FriendProfile = (params) => {
 
     //friendSended ES UN FILTRO DE TODO EL ARREGLO DE "FRIENDS" Y SOLO INDICA A LOS ENVIADOS. ESTOS SERIAN LOS AMIGOS DEL PROFILEFRIEND. 
     
-    const friendSended = data && data.hasOwnProperty('friends')
-        ? data.friends.length > 0
-            ? data.friends.filter((friend) => friend.state === "Enviado")
-            : false
-        : false;
+   
 
 
 
@@ -100,7 +97,7 @@ const FriendProfile = (params) => {
 
                             <FriendProfileBody
                                 avatar={data.avatar}
-                                friends={friendSended ? friendSended.length : 0}
+                                friends={data ? data.friends.length : 0}
                                 gamesWon={data.stats.wins}
                                 games={data.stats.games}
                                 id={data.id}

@@ -14,7 +14,10 @@ const initialState = {
   friends: [],
   friendsDetail: {},
   giveUp: false,
-  searchFriend: []
+  searchFriend: [],
+  profileUser: {},
+  profileAllUser: [],
+
 };
 
 export const rootReducer = (state = initialState, action) => {
@@ -35,15 +38,14 @@ export const rootReducer = (state = initialState, action) => {
         attemps: [],
       };
     case type.GET_USER:
-      action.payload={Request:action.payload}
+      action.payload = { Request: action.payload }
       return {
         ...state,
         login: action.payload,
         userdetail: action.payload,
       };
     case type.POST_USER:
-      action.payload={Request:action.payload}
-      console.log(action.payload);
+      action.payload = { Request: action.payload }
       return {
         ...state,
         login: action.payload,
@@ -55,7 +57,7 @@ export const rootReducer = (state = initialState, action) => {
         users: action.payload,
       };
     case type.POST_LOGIN:
-      
+
       return {
         ...state,
         login: action.payload,
@@ -184,7 +186,17 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         friendsDetail: action.payload,
-      }
+      };
+    case type.GET_ALL_PROFILES:
+      return {
+        ...state,
+        profileAllUser: action.payload,
+      };
+    case type.GET_PROFILE_USER:
+      return {
+        ...state,
+        profileUser: action.payload.Request,
+      };
     default: {
       return state;
     }

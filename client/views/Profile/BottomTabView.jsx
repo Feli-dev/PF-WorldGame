@@ -7,7 +7,7 @@ import tw from "twrnc";
 import io from "socket.io-client";
 import avatarDefault from '../../assets/avatar_default.png';
 import { useNavigation } from '@react-navigation/native';
-import World from '../../assets/World2.png';
+import World from '../../assets/World.png';
 import * as Animatable from 'react-native-animatable';
 import { useSelector } from "react-redux";
 
@@ -265,22 +265,22 @@ const BottomTabView = ({
                 showsVerticalScrollIndicator={false}
                 style={tw`bg-gray-900`}>
                 <View
-                style={{
-                    display:'flex',
-                    flexDirection:'row',
-                    justifyContent:'space-between',
-                    padding:20,
-                }}
-                >
-                <Text style={tw`text-gray-400 text-center flex text-2xl `}>Friends</Text>
-                <Ionic
-                    onPress={() => navigation.navigate('SearchFriends', { id, friends, navigation })}
-                    name="search"
                     style={{
-                        fontSize: 30,
-                        color: 'white',
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        padding: 20,
                     }}
-                />
+                >
+                    <Text style={tw`text-gray-400 text-center flex text-2xl `}>Friends</Text>
+                    <Ionic
+                        onPress={() => navigation.navigate('SearchFriends', { id, friends, navigation })}
+                        name="search"
+                        style={{
+                            fontSize: 30,
+                            color: 'white',
+                        }}
+                    />
                 </View>
 
 
@@ -288,75 +288,58 @@ const BottomTabView = ({
                     //agregar boton busqueda
                 }}>
                     {friends?.map((friend) => {
-                        if (friend.state === "Enviado") {
-
-                            return (
-                                <TouchableOpacity
-                                    key={friend.id}
-                                    onPress={() => navigation.navigate('FriendProfile', { freId: friend.FriendId, userId: id })}
+                        return (
+                            <TouchableOpacity
+                                key={friend.id}
+                                onPress={() => navigation.navigate('FriendProfile', { freId: friend.FriendId, userId: id, friendsArr:friend })}
+                            >
+                                <View
+                                    style={{
+                                        width: '100%',
+                                        marginBottom: 15,
+                                    }}
 
                                 >
-
                                     <View
                                         style={{
-                                            width: '100%',
-                                            marginBottom: 15,
+                                            borderRadius: 8,
+                                            backgroundColor: 'grey',
+                                            padding: 15,
+                                            justifyContent: 'space-between',
+                                            alignItems: 'center',
+                                            display: 'flex',
+                                            flexDirection: 'row',
                                         }}
-
                                     >
-                                        <View
+                                        <Image
                                             style={{
-                                                borderRadius: 8,
-                                                backgroundColor: 'grey',
-                                                padding: 15,
-                                                justifyContent: 'space-between',
-                                                alignItems: 'center',
-                                                display: 'flex',
-                                                flexDirection: 'row',
+                                                width: 50,
+                                                height: 50,
                                             }}
-                                        >
-                                            <Image
-                                                style={{
-                                                    width: 50,
-                                                    height: 50,
-                                                }}
-                                                source={friend.avatar === "" ? avatarDefault : friend.avatar} />
+                                            source={friend.avatar === "" ? avatarDefault : friend.avatar} />
 
-                                            <Text
-                                                style={{
-                                                    color: 'white',
-                                                    fontSize: 25,
-                                                    textAlign: 'center',
-                                                    paddingRight: 10,
-                                                }}>
-                                                {friend.username ? friend.username : 'Not friends :('}
-                                            </Text>
+                                        <Text
+                                            style={{
+                                                color: 'white',
+                                                fontSize: 25,
+                                                textAlign: 'center',
+                                                paddingRight: 10,
+                                            }}>
+                                            {friend.username ? friend.username : 'Not friends :('}
+                                        </Text>
 
-                                            <Image
-                                                style={{
-                                                    width: 50,
-                                                    height: 50,
-                                                }}
-                                                source={friend.avatar === "" ? avatarDefault : friend.avatar} />
-                                            {/* <TouchableOpacity
-                                                style={{
-                                                    color: 'white',
-                                                    fontSize: 25,
-                                                    textAlign: 'center',
-                                                    paddingRight: 10,
-                                                }}>
-                                                <Text>Eliminar</Text>
-                                            </TouchableOpacity>     */}
-                                        </View>
-
+                                        <Image
+                                            style={{
+                                                width: 50,
+                                                height: 50,
+                                            }}
+                                            source={friend.avatar === "" ? avatarDefault : friend.avatar} />                                        
                                     </View>
-                                </TouchableOpacity>
-
-                            )
-                        }
+                                </View>
+                            </TouchableOpacity>
+                        )
                     })}
                 </View>
-
             </ScrollView>
         )
     }

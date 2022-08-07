@@ -7,7 +7,7 @@ import Ionic from 'react-native-vector-icons/Ionicons';
 import * as Animatable from 'react-native-animatable';
 import tw from "twrnc"
 
-import { PostFriend, deleteFriend, getUser} from "../../../redux/actions/index";
+import { PostFriend, deleteFriend, GetProfileUser} from "../../../redux/actions/index";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch } from "react-redux";
 
@@ -39,7 +39,7 @@ export const FriendProfileBody = ({
         
     // }
     useEffect(() => {
-        return () => dispatch(getUser(UserId))
+        return () => dispatch(GetProfileUser(UserId))
     },[dispatch])
         
 
@@ -171,12 +171,13 @@ export const FriendProfileButtons = ({
     friendID,
     userID,
     followingUser,
+    
 
 }) => {
     const dispatch = useDispatch();
     const navigation = useNavigation();
 
-    const [follow, setFollow] = useState(followingUser ? true : false);
+    const [follow, setFollow] = useState( true );
     
     const handledAddOrDeleteFriend =  (status, friendID, userID) => {
             status

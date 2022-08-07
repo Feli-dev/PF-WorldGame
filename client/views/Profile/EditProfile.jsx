@@ -13,7 +13,7 @@ import React, { useEffect, useState } from "react";
 import Ionic from 'react-native-vector-icons/Ionicons'
 import tw from "twrnc";
 import { useDispatch,useSelector } from "react-redux";
-import { getUser, PutUser } from "../../redux/actions/index";
+import { GetProfileUser, PutUser } from "../../redux/actions/index";
 import AvatarOptions from './AvatarsOptions'
 import * as Animatable from 'react-native-animatable';
 //-----------------select
@@ -23,9 +23,9 @@ import * as Permissions from 'expo-permissions';
 
 export default function EditProfile({ route, navigation }) {
   const { id, name, avatar, premium, country, email, userName, password, countries } = route.params;
-  const userInfo = useSelector((state) => state.userdetail);
+  const userInfo = useSelector((state) => state.profileUser);
    useEffect(() => {
-    getUser(id)
+    GetProfileUser(id)
    },[])
   const pickFromCamera = async ()=>{ 
     const {granted} = await Permissions.askAsync(Permissions.CAMERA_ROLL);

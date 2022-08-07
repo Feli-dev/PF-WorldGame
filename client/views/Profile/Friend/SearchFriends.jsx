@@ -13,7 +13,7 @@ import {
 import avatarDefault from '../../../assets/avatar_default.png';
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { searchFriend, addFriend, getUser } from "../../../redux/actions/index";
+import { searchFriend, addFriend, GetProfileUser } from "../../../redux/actions/index";
 import { useNavigation } from '@react-navigation/native';
 import tw from "twrnc";
 import { FriendProfileBody } from "./FriendProfileBody";
@@ -33,6 +33,8 @@ const SearchFriends = (params) => {
     username: "",
     refresher: ""
   });
+
+  const [added, SetAdded] = useState(false);
 
 
 
@@ -64,12 +66,17 @@ const SearchFriends = (params) => {
     // Alert.alert("hey");
   };
 
+  const handleAdd = (UserId, FriendId) => {
+    SetAdded(true);
+    sendFriend(UserId, FriendId)
+  };
+
 
 
 
   useEffect(() => {
     console.log('will')
-    return () => dispatch(getUser(id))
+    return () => dispatch(GetProfileUser(id))
   }, [dispatch])
   useEffect(() => {
     console.log('will')
@@ -159,7 +166,9 @@ const SearchFriends = (params) => {
                   {user.username ? user.username : "Unknow"}
 
                 </Text>
-                {user.friends.some(friend => friend.FriendId === id && friend.state === "Recibido") ? <View><Text>Agregado</Text></View> : <TouchableOpacity onPress={() => sendFriend({ UserId: id, FriendId: user.id })}>
+                {friends.some(friend => friend.FriendId === user.id) || added
+                ? <View><Text>Agregado</Text></View> 
+                : <TouchableOpacity onPress={() => handleAdd({ UserId: id, FriendId: user.id })}>
                   <Text>agregar</Text>
                 </TouchableOpacity>}
 

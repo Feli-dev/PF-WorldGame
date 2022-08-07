@@ -223,7 +223,7 @@ function Login({ navigation, user, postLogin }) {
     if (input.password === "" || input.username === "") {
       setLogErr("");
     }
-    console.log("useruseruseruseruseru", allUser);
+    //console.log("useruseruseruseruseru", allUser);
   }, []);
 
   return (
