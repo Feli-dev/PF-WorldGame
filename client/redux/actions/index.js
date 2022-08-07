@@ -59,7 +59,6 @@ export function postLogin(payload) {
     try {
       var json = await axios.post(
         "https://world-game-v8.herokuapp.com/Login/",
-
         payload
       );
       return dispatch({
@@ -143,6 +142,7 @@ export function getUser(id) {
 export function PostUser(payload) {
   return async function (dispatch) {
     try {
+      console.log(payload)
       var json = await axios.post(
         "https://world-game-v8.herokuapp.com/User/",
         payload
@@ -219,13 +219,28 @@ export function filterByTop(payload) {
     payload,
   };
 }
+//-----------------------sound---------------------//
+
+export function setStat(payload) {
+  return {
+    type: type.SET_SOUND,
+    payload,
+  };
+}
+
+export function soundOnOff(payload) {
+  return {
+    type: type.SOUND_ON,
+    payload,
+  };
+}
+
 //-----------------------friends---------------------//
 export function PostFriend(payload) {
   return async function (dispatch) {
     try {
       const response = axios.post(
         "https://world-game-v8.herokuapp.com/friend",
-
         payload
       );
       return response;

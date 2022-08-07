@@ -3,6 +3,7 @@ import { View, Text, ScrollView, Image, TextInput, TouchableOpacity } from 'reac
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 // import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import Ionic from 'react-native-vector-icons/Ionicons'
+import { backSound } from '../../utils/sounds';
 import tw from "twrnc";
 import io from "socket.io-client";
 
@@ -20,6 +21,7 @@ const BottomTabView = ({
     gamesArr,
 }) => {
 
+    const soundOn = useSelector((state) => state.soundOn);
     // const dispatch = useDispatch();
     const allcountries = useSelector((state) => state.countries);
     const countriesAux = [];

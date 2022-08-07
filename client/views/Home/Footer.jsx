@@ -11,6 +11,7 @@ import tw from "twrnc";
 import Svg, { Path } from "react-native-svg";
 import { gameAction, getAllCountries, PostGame, giveUp,newGame, setCountrie } from "../../redux/actions/index";
 import { setTestDeviceIDAsync, AdMobInterstitial } from "expo-ads-admob";
+import { touchSound, backSound, looseSound, winSound} from '../../utils/sounds';
 import {AutocompleteDropdown} from 'react-native-autocomplete-dropdown';
 
 export default function Footer() {
@@ -19,6 +20,7 @@ export default function Footer() {
   const [input, setInput] = useState("");
   const [countryOfDay, setCountryOfDay] = useState("");
   const countries = useSelector((state) => state.countries);
+  const soundOn = useSelector((state) => state.soundOn);
   const login = useSelector((state) => state.login);
   const listOfAttemps = useSelector((state) => state.attemps);
   const [win, setWin] = useState(false)
@@ -333,13 +335,13 @@ export default function Footer() {
           dispatch(gameAction(countryOfDay, attemp));
         }
         if(attemp.name.toLowerCase() === countryOfDay.name.toLowerCase()){
-          console.log(login)
           dispatch(PostGame({countrie: countryOfDay.name, winned: true, time: 120, attempts: listOfAttemps.length + 1, UserId: login.Request.id, points: 5000})) 
           setWin(true)
           if(!(login.Request.premium)){
             console.log("a mostrar ads")
             setTimeout(()=>{showAds()}, 1000)
           }
+          // winSound();
           console.log("Ya encontraste el país, felicitaciones!");
         }
       } else {
@@ -363,6 +365,7 @@ export default function Footer() {
         setTimeout(()=>{showAds()}, 1000)
       }
       dispatch(giveUp(true));
+      // looseSound();
     }
     
   return (
@@ -373,7 +376,7 @@ export default function Footer() {
       <View style={tw`flex flex-row justify-center items-center`}>
         <TouchableOpacity
           style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-lg mr-5 w-10 h-15`}
-          onPress={!win ? (e) => handleGiveUp(e) : () => {setWin(false); dispatch(newGame()); dispatch(giveUp(false));}}
+          onPress={!win ? (e) => {handleGiveUp(e);touchSound(soundOn);} : () => {backSound(soundOn);setWin(false); dispatch(newGame()); dispatch(giveUp(false));}}
         >
           <View style={tw`w-10 h-10`}>
             <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -411,7 +414,7 @@ export default function Footer() {
         />
         <TouchableOpacity
           style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-lg w-10 h-15`}
-          onPress={!win ? (e) => handleSubmit(e) : () => {console.log(12);setWin(false); dispatch(newGame()); dispatch(giveUp(false));}}
+          onPress={!win ? (e) => {handleSubmit(e); touchSound(soundOn);}: () => {console.log(12);backSound(soundOn);setWin(false); dispatch(newGame()); dispatch(giveUp(false));}}
         >
           {win && listOfAttemps.length > 0 ? 
           <View style={tw`w-10 h-10`}>

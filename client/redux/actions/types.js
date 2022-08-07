@@ -23,4 +23,6 @@ export const type = {
   LOG_OUT: "LOG_OUT",
   POST_REVIEW: "POST_REVIEW",
   GIVE_UP: "GIVE_UP",
+  SET_SOUND: "SET_SOUND",
+  SOUND_ON: "SOUND_ON",
 };
