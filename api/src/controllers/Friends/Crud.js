@@ -21,46 +21,21 @@ module.exports = {
             return { Error: error, Request: "Fallo la función select", Path: path, Function: "select" };
         }
     },
-    insert: async(UserId = 0, FriendId = 0, name = "", username = "", nameFriend = "", usernameFriend = "", avatar = "", avatarFriend = "") => {
+    insert: async(UserId = 0, FriendId = 0, name = "", username = "", avatar = "") => {
         try {
-            return await Friend.bulkCreate(
-                [ { FriendId, UserId, state: "Enviado", name: nameFriend, username: usernameFriend, connect: false, avatar: avatarFriend },
-                { FriendId: UserId, UserId: FriendId, state: "Recibido", name, username, connect: false, avatar }] ,
-                { validate: true },
-                { fields: ['FriendId', 'UserId', 'state', 'name', 'username', 'connect', 'avatar'] }
-            )
+            return await Friend.create({ FriendId, UserId, name, username, connect: false, avatar })
             .then(result => {
-                result[0].setUser(UserId);
-                result[1].setUser(FriendId);
-                return { Request: "Solicitud de amistad enviada" };
+                result.setUser(UserId);
+                return { Request: `Siguiendo a ${username}` };
             })
             .catch(error => {
-                return { Error: error, Request: "Fallo al agregar un amigo", Path: path, Function: "insert" };
+                return { Error: error, Request: "Fallo al seguir a un amigo", Path: path, Function: "insert" };
             });
         } catch (error) {
             return { Error: error, Request: "Fallo la función insert", Path: path, Function: "insert" };
         }
     },
-    update: async(UserId = 0, FriendId = 0) => {
-        try {
-            return await Friend.update({ state: "Aceptado" }, {
-                where: {
-                    UserId: { [Op.or]: [UserId, FriendId] },
-                    FriendId: { [Op.or]: [UserId, FriendId] }
-                }
-            })
-            .then(result => {
-                if(result[0] > 0) return { Request: "Solicitud de amistad aceptada" };
-                return { Request: "No se acepto la solicitud" };
-            })
-            .catch(error => {
-                return { Error: error, Request: "Fallo al aceptar una solicitud de amistad", Path: path, Function: "update" };
-            });
-        } catch (error) {
-            return { Error: error, Request: "Fallo la función update", Path: path, Function: "update" };
-        }
-    },
-    notify: async(UserId = 0, username = "", name="", connect = false, avatar = "") => {
+    update: async(UserId = 0, username = "", name="", connect = false, avatar = "") => {
         try {
             return await Friend.update({ username, name, connect, avatar }, { where: { FriendId: UserId } })
             .then(result => {
@@ -68,22 +43,17 @@ module.exports = {
                 return { Request: "No se actualizaron los amigos" };
             })
             .catch(error => {
-                return { Error: error, Request: "Fallo al actualizar a los amigos", Path: path, Function: "notify" };
+                return { Error: error, Request: "Fallo al actualizar a los amigos", Path: path, Function: "update" };
             });
         } catch (error) {
-            return { Error: error, Request: "Fallo la función notify", Path: path, Function: "notify" };
+            return { Error: error, Request: "Fallo la función notify", Path: path, Function: "update" };
         }
     },
     remove: async(UserId = 0, FriendId = 0) => {
         try {
-            return await Friend.destroy({
-                where: {
-                    UserId: { [Op.or]: [UserId, FriendId] },
-                    FriendId: { [Op.or]: [UserId, FriendId] }
-                }
-            })
+            return await Friend.destroy({ where: { UserId, FriendId } })
             .then(result => {
-                if(result > 0) return { Request: "Amigos eliminado" };
+                if(result > 0) return { Request: "No siguiendo" };
                 return { Request: "No se pudo eliminar" };
             })
             .catch(error => {
