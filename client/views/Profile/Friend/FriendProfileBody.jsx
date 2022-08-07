@@ -175,7 +175,9 @@ export const FriendProfileButtons = ({
 }) => {
     const dispatch = useDispatch();
     const navigation = useNavigation();
+
     const [follow, setFollow] = useState(followingUser ? true : false);
+    
     const handledAddOrDeleteFriend =  (status, friendID, userID) => {
             status
                 ? dispatch(deleteFriend(

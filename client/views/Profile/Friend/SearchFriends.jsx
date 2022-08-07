@@ -136,7 +136,7 @@ useEffect(() => {
                   {user.username ? user.username : "Unknow"}
                  
                 </Text>
-                  {user.friends.some(friend => friend.FriendId===id)?<View><Text>Agregado</Text></View>:<TouchableOpacity onPress={() => sendFriend({UserId:id, FriendId:user.id})}>
+                {user.friends.some(friend => friend.FriendId===id && friend.state=== "Recibido")?<View><Text>Agregado</Text></View>:<TouchableOpacity onPress={() => sendFriend({UserId:id, FriendId:user.id})}>
                   <Text>agregar</Text>
                 </TouchableOpacity>}
                 

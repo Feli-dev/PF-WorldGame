@@ -7,7 +7,8 @@ import tw from "twrnc";
 import io from "socket.io-client";
 import avatarDefault from '../../assets/avatar_default.png';
 import { useNavigation } from '@react-navigation/native';
-
+import World from '../../assets/World2.png';
+import * as Animatable from 'react-native-animatable';
 import { useSelector } from "react-redux";
 
 const BottomTabView = ({
@@ -137,8 +138,41 @@ const BottomTabView = ({
                                 </View>
                             )
                         })
-                        : <View style={{ alignContent: 'center', justifyContent: 'center' }}>
-                            <Text>asd</Text>
+                        :
+                        <View style={{
+                            display: 'flex',
+                            alignContent: 'center',
+                            justifyContent: 'center',
+
+                        }}>
+                            <Text
+                                style={{
+                                    textAlign: 'center',
+                                    color: 'white',
+                                    fontSize: 20,
+                                    padding: 25,
+                                }}
+                            >
+                                You have not yet played any games.
+                            </Text>
+                            <Animatable.View
+                                animation="fadeInLeftBig" iterationCount={1} duration={3000}
+                                style={{
+                                    display: 'flex',
+                                    alignContent: 'center',
+                                    justifyContent: 'center',
+                                    marginTop: 30,
+                                }}
+                            >
+                                <Image
+                                    style={{
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                    }}
+                                    source={World}
+                                />
+                            </Animatable.View>
                         </View>
                     }
                 </View>
@@ -226,14 +260,30 @@ const BottomTabView = ({
         )
     }
     const Friends = () => {
-
-        //console.log('firend arr', friends)
         return (
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 style={tw`bg-gray-900`}>
-                <Text style={tw`text-gray-400 text-center flex text-2xl pl-3 pt-3`}>Friends</Text>
-                <TouchableOpacity onPress={() => navigation.navigate('SearchFriends', { id, friends, navigation })}><Text>Search</Text></TouchableOpacity>
+                <View
+                style={{
+                    display:'flex',
+                    flexDirection:'row',
+                    justifyContent:'space-between',
+                    padding:20,
+                }}
+                >
+                <Text style={tw`text-gray-400 text-center flex text-2xl `}>Friends</Text>
+                <Ionic
+                    onPress={() => navigation.navigate('SearchFriends', { id, friends, navigation })}
+                    name="search"
+                    style={{
+                        fontSize: 30,
+                        color: 'white',
+                    }}
+                />
+                </View>
+
+
                 <View style={{
                     //agregar boton busqueda
                 }}>
@@ -242,7 +292,6 @@ const BottomTabView = ({
 
                             return (
                                 <TouchableOpacity
-
                                     key={friend.id}
                                     onPress={() => navigation.navigate('FriendProfile', { freId: friend.FriendId, userId: id })}
 

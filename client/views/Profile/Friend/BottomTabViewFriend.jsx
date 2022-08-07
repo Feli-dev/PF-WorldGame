@@ -4,11 +4,11 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 // import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import Ionic from 'react-native-vector-icons/Ionicons'
 import tw from "twrnc";
-import io from "socket.io-client";
-
+import World from '../../../assets/World.png';
+import * as Animatable from 'react-native-animatable';
 import { useSelector } from "react-redux";
 
-const BottomTabViewFriend = ({games, gamesArr}) => {
+const BottomTabViewFriend = ({ games, gamesArr }) => {
     const Tab = createMaterialTopTabNavigator();
 
     const Games = () => {
@@ -39,7 +39,7 @@ const BottomTabViewFriend = ({games, gamesArr}) => {
             // style={tw`bg-gray-900`}
             >
                 {/* AGREGAR UN LOADING EN LO QUE SE CARGAN LAS CARDS  */}
-                <Text style={tw`text-gray-400 text-left text-2xl pl-3 pt-3`}>Games</Text>
+                <Text style={tw`text-gray-400 text-left text-2xl pl-3 pt-3 text-center`}>Games</Text>
                 <View style={{ flexDirection: 'column', alignItems: 'center' }}>
                     {countriesAux.length > 0
                         ? countriesAux.map((perGame) => {
@@ -112,15 +112,47 @@ const BottomTabViewFriend = ({games, gamesArr}) => {
                                 </View>
                             )
                         })
-                        : <View style={{ alignContent: 'center', justifyContent: 'center' }}>
-                            <Text>Holis</Text>
+                        : <View style={{
+                            display: 'flex',
+                            alignContent: 'center',
+                            justifyContent: 'center',
+
+                        }}>
+                            <Text
+                                style={{
+                                    textAlign: 'center',
+                                    color: 'white',
+                                    fontSize: 20,
+                                    padding: 25,
+                                }}
+                            >
+                                The player has not yet played any game.
+                            </Text>
+                            <Animatable.View
+                                animation="fadeInLeftBig" iterationCount={1} duration={3000} 
+                                style={{
+                                    display: 'flex',
+                                    alignContent: 'center',
+                                    justifyContent: 'center',
+                                    marginTop: 30,
+                                }}
+                            >
+                                <Image
+                                    style={{
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                    }}
+                                    source={World}
+                                />
+                            </Animatable.View>
                         </View>
                     }
                 </View>
             </ScrollView>
         )
     }
-  
+
     return (
         <Tab.Navigator
             style={tw`rounded-lg w-9/10 `}
@@ -136,8 +168,8 @@ const BottomTabViewFriend = ({games, gamesArr}) => {
                     backgroundColor: 'grey',
                     height: 2,
                     width: '90%',
-                    borderRadius:10,
-                    marginLeft:20,
+                    borderRadius: 10,
+                    marginLeft: 20,
                 },
                 tabBarIcon: ({ focused, colour }) => {
                     let iconName;
