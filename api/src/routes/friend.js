@@ -35,22 +35,6 @@ router.post('/', async(req, res) =>{
     }
 });
 
-router.put('/', async(req, res) =>{
-    try {
-        const { UserId, FriendId } = req.body;
-        return await friend.update(UserId || 0, FriendId || 0)
-        .then(result => {
-            if(result.hasOwnProperty("Error")) return res.status(404).json(result);
-            return res.status(200).json(result);
-        })
-        .catch(error => {
-            return res.status(404).json({ Error: error, Request: "Fallo el proceso de put", Ruta: path, Router: "put" });
-        });
-    } catch (error) {
-        return res.status(404).json({ Error: error, Request: "Fallo la ruta put", Ruta: path, Router: "put" });
-    }
-});
-
 router.delete('/', async(req, res) =>{
     try {
         const { UserId, FriendId } = req.body;

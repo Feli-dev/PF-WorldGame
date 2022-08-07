@@ -82,7 +82,7 @@ router.put('/', async(req, res) =>{
             return await user.update(parseInt(req.body.id), data)
             .then(result => {
                 if(result.hasOwnProperty("Error")) return res.status(404).json(result);
-                return Promise.all([e.send(req.body.email, req.body.username, 1), f.notify(parseInt(req.body.id))])
+                return Promise.all([e.send(req.body.email, req.body.username, 1), f.update(parseInt(req.body.id))])
                 .then(r => {
                     result.friend = r[1];
                     if(req.body.premium) e.send(req.body.email, req.body.username, 4, "");

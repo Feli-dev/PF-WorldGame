@@ -14,7 +14,7 @@ router.post('/', async(req, res, next) =>{
         .then(result => {
             if(result.hasOwnProperty("Error")) return res.status(400).json(result);
             result.Request.connect = true;
-            return Promise.all([user.online(parseInt(result.Request.id), true), friend.notify(result.Request.id, true, "login")])
+            return Promise.all([user.online(parseInt(result.Request.id), true), friend.update(result.Request.id, true, "login")])
             .then(o => {
                 result.update = o[1];
                 result.connect = o[0];
@@ -36,7 +36,7 @@ router.post('/', async(req, res, next) =>{
 router.put('/:id', async(req, res, next) =>{
     try{
         const { id } = req.params;
-        return await Promise.all([user.online(parseInt(id), false), friend.notify(id, false, "login")])
+        return await Promise.all([user.online(parseInt(id), false), friend.update(id, false, "login")])
         .then(result => {
             if(result[0].hasOwnProperty("Error")) return res.status(400).json(result[0]);
             result[0].update = result[1];

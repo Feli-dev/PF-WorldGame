@@ -118,7 +118,7 @@ const Games = () => {
           </button>
         </form>
       </div>
-      <div className="overflow-x-auto bg-white rounded-lg shadow">
+      <div className="overflow-x-auto bg-white rounded-lg shadow max-h-screen">
         <table className="w-full whitespace-no-wrap bg-white overflow-hidden table-striped">
           <thead>
             <tr className="text-left">
