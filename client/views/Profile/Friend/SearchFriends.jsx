@@ -18,41 +18,42 @@ import { useNavigation } from '@react-navigation/native';
 import tw from "twrnc";
 import { FriendProfileBody } from "./FriendProfileBody";
 import BottomTabViewFriend from "./BottomTabViewFriend";
+import Ionic from 'react-native-vector-icons/Ionicons'
 
 //let lengthOfObject = Object.keys(obj).lengt
 //<BottomTabView />
 
 const SearchFriends = (params) => {
-    let {id, friends, navigation} = params.route.params
+  let { id, friends, navigation } = params.route.params
   let findUsers = useSelector((state) => state.searchFriend);
-  
+
   let dispatch = useDispatch();
   console.log("search", friends);
   const [userData, SetUserData] = useState({
     username: "",
-    refresher:""
+    refresher: ""
   });
 
-  
-  
+
+
   const handleOnChange = (type, e) => {
     SetUserData({
       ...userData,
       [type]: e,
-      refresher:e
+      refresher: e
     });
   };
 
   const handleSearch = () => {
     // console.log("hyo", userData.username);
     dispatch(searchFriend(userData.username));
-   
-    SetUserData({
-        ...userData,
-        username: "",
-      });
 
-    
+    SetUserData({
+      ...userData,
+      username: "",
+    });
+
+
   };
 
   const sendFriend = (payload) => {
@@ -63,27 +64,50 @@ const SearchFriends = (params) => {
     // Alert.alert("hey");
   };
 
-  
-  
+
+
 
   useEffect(() => {
     console.log('will')
     return () => dispatch(getUser(id))
-},[dispatch])
-useEffect(() => {
+  }, [dispatch])
+  useEffect(() => {
     console.log('will')
     return () => dispatch(searchFriend(' '))
-},[dispatch])
+  }, [dispatch])
 
- 
+
 
   return findUsers.length > 0 ? (
-    <ScrollView>
-      <View style={{ padding: 50 }}>
+    <ScrollView
+    style={{
+      backgroundColor: '#111827',
+    }}
+    >
+      <View style={{
+        padding: 50,
+      }}>
         <View>
-          <Text style={{ opacity: 0.5, color: "#D1D5DB", fontSize: 20 }}>
-            Busca un amigo
-          </Text>
+          <View
+          style={{
+            display:'flex',
+            flexDirection:'row',
+            justifyContent:'space-between'
+          }}
+          >
+            <Text style={{ opacity: 0.5, color: "#D1D5DB", fontSize: 20, padding: 5, }}>
+              Find a friend
+            </Text>
+            <Ionic
+              onPress={() => handleSearch()}
+              name="search"
+              style={{
+                fontSize: 30,
+                color: '#D1D5DB',
+              }}
+            />
+          </View>
+
           <TextInput
             type="username"
             placeholder="Search username"
@@ -94,52 +118,51 @@ useEffect(() => {
               borderBottomWidth: 1,
               borderColor: "#CDCDCD",
               color: "#D1D5DB",
+              paddingTop: 15,
+              paddingBottom:5,
             }}
             onChangeText={(event) => handleOnChange("username", event)}
           />
         </View>
-        <View>
-          <TouchableOpacity onPress={() => handleSearch()}>
-            <Text>buscar</Text>
-          </TouchableOpacity>
-        </View>
       </View>
 
       {findUsers.map((user) => {
-        if(user.id !== id)return (
-          <View style={{width: "100%", marginBottom: 15, marginHorizontal: 20,}}
+        if (user.id !== id) return (
+          <View style={{ width: "100%", marginBottom: 15, marginHorizontal: 20, backgroundColor: '#111827' }}
             key={user.id}
-            // onPress={() =>
-            //   navigation.navigate("FriendProfile", { freId: friend.FriendId })
-            // }
+          // onPress={() =>
+          //   navigation.navigate("FriendProfile", { freId: friend.FriendId })
+          // }
           >
             <View
-              style={{width: "100%", marginBottom: 15,}}
+              style={{ width: "100%", marginBottom: 15, }}
             >
               <View
-                style={{borderRadius: 8,backgroundColor: "grey",padding: 15,
-                  justifyContent: "space-between",alignItems: "center",display: "flex",
-                  flexDirection: "row", marginHorizontal: 20,
+                style={{
+                  borderRadius: 8, backgroundColor: "grey", padding: 15,
+                  justifyContent: "space-between", alignItems: "center", display: "flex",
+                  flexDirection: "row", marginHorizontal: 10,width:'90%'
                 }}
               >
                 <Image
-                        style={{
-                          width: 50,
-                          height: 50,
-                        }}
-                        source={user.avatar? user.avatar :avatarDefault }
-                      />
-
-                <Text style={{color: "white", fontSize: 25,textAlign: "center", paddingRight: 10,
+                  style={{
+                    width: 50,
+                    height: 50,
                   }}
+                  source={user.avatar ? user.avatar : avatarDefault}
+                />
+
+                <Text style={{
+                  color: "white", fontSize: 25, textAlign: "center", paddingRight: 10,
+                }}
                 >
                   {user.username ? user.username : "Unknow"}
-                 
+
                 </Text>
-                {user.friends.some(friend => friend.FriendId===id && friend.state=== "Recibido")?<View><Text>Agregado</Text></View>:<TouchableOpacity onPress={() => sendFriend({UserId:id, FriendId:user.id})}>
+                {user.friends.some(friend => friend.FriendId === id && friend.state === "Recibido") ? <View><Text>Agregado</Text></View> : <TouchableOpacity onPress={() => sendFriend({ UserId: id, FriendId: user.id })}>
                   <Text>agregar</Text>
                 </TouchableOpacity>}
-                
+
               </View>
             </View>
           </View>
@@ -147,13 +170,30 @@ useEffect(() => {
       })}
     </ScrollView>
   ) : (
-    <View>
+    <View style={{ backgroundColor: '#111827', height:'100%' }}>
 
-    <View style={{ padding: 50 }}>
+      <View style={{ padding: 50,  }}>
         <View>
-          <Text style={{ opacity: 0.5, color: "#D1D5DB", fontSize: 20 }}>
-            Busca un amigo
-          </Text>
+          <View
+          style={{
+            display:'flex',
+            flexDirection:'row',
+            justifyContent:'space-between',
+            
+          }}
+          >
+            <Text style={{ opacity: 0.5, color: "#D1D5DB", fontSize: 20, padding: 5, }}>
+              Find a friend
+            </Text>
+            <Ionic
+              onPress={() => handleSearch()}
+              name="search"
+              style={{
+                fontSize: 30,
+                color: '#D1D5DB',
+              }}
+            />
+          </View>
           <TextInput
             type="username"
             placeholder="Search username"
@@ -164,17 +204,13 @@ useEffect(() => {
               borderBottomWidth: 1,
               borderColor: "#CDCDCD",
               color: "#D1D5DB",
+              paddingTop: 15,
+              paddingBottom:5,
             }}
             onChangeText={(event) => handleOnChange("username", event)}
           />
         </View>
-        <View>
-          <TouchableOpacity onPress={() => handleSearch()}>
-            <Text>buscar</Text>
-          </TouchableOpacity>
-        </View>
       </View>
-      <Text>Realiza una (otra) busqueda</Text>
     </View>
   );
 };
