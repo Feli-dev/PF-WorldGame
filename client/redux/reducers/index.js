@@ -13,8 +13,8 @@ const initialState = {
   rank_filter: [],
   friends: [],
   friendsDetail: {},
-  giveUp : false,
-  searchFriend:[]
+  giveUp: false,
+  searchFriend: []
 };
 
 export const rootReducer = (state = initialState, action) => {
@@ -40,7 +40,7 @@ export const rootReducer = (state = initialState, action) => {
         userdetail: action.payload,
       };
     case type.POST_USER:
-      action.payload={Request:action.payload}
+      action.payload = { Request: action.payload }
       console.log(action.payload);
       return {
         ...state,
@@ -52,7 +52,7 @@ export const rootReducer = (state = initialState, action) => {
         users: action.payload,
       };
     case type.POST_LOGIN:
-      
+
       return {
         ...state,
         login: action.payload,
@@ -140,7 +140,7 @@ export const rootReducer = (state = initialState, action) => {
         rank: [],
         rank_filter: [],
         friends: [],
-        giveUp : false,
+        giveUp: false,
       };
     case type.POST_REVIEW:
       return {
@@ -159,24 +159,29 @@ export const rootReducer = (state = initialState, action) => {
     case type.GET_FRIEND_DETAIL:
       return {
         ...state,
-        friendsDetail:action.payload,
+        friendsDetail: action.payload,
       };
     case type.SEARCH_FRIEND:
-      let filtered = action.payload.data.Request.filter(user => 
+      let filtered = action.payload.data.Request.filter(user =>
         user.username.toLowerCase().includes(action.payload.friend.toLowerCase()))
-      
-      return{
+
+      return {
         ...state,
-        searchFriend:filtered
+        searchFriend: filtered
       }
     case type.POST_FRIEND:
-      return{
+      return {
         ...state
       }
-      case type.DELETE_FRIEND:
-        return{
-          ...state
-        }      
+    case type.DELETE_FRIEND:
+      return {
+        ...state
+      };
+    case type.CLEAR_FRIEND_DETAIL:
+      return {
+        ...state,
+        friendsDetail: action.payload,
+      }
     default: {
       return state;
     }

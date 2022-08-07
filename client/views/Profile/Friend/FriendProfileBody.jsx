@@ -39,7 +39,6 @@ export const FriendProfileBody = ({
         
     // }
     useEffect(() => {
-        console.log('will')
         return () => dispatch(getUser(UserId))
     },[dispatch])
         
@@ -176,7 +175,7 @@ export const FriendProfileButtons = ({
 }) => {
     const dispatch = useDispatch();
     const navigation = useNavigation();
-    const [follow, setFollow] = useState(followingUser ? !follow : follow);
+    const [follow, setFollow] = useState(followingUser ? true : false);
     const handledAddOrDeleteFriend =  (status, friendID, userID) => {
             status
                 ? dispatch(deleteFriend(
@@ -195,7 +194,7 @@ export const FriendProfileButtons = ({
             : ToastAndroid.show('Added Friend Sucessfully!', ToastAndroid.SHORT)
 
     }
-    console.log('follow--------------->', follow)
+
     return (
         <View>
             <View
@@ -207,7 +206,6 @@ export const FriendProfileButtons = ({
                 }}>
                 <TouchableOpacity
                     onPress={() => {
-                        console.log('estoy entrando al onpress y follow es: ', follow)
                         handledAddOrDeleteFriend(follow, friendID, userID)
                         setFollow(!follow)
                     }}

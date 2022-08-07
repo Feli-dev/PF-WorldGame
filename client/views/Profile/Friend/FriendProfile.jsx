@@ -1,6 +1,6 @@
 import {
     View,
-    Text,
+    Image,
     Keyboard,
     TouchableWithoutFeedback,
 } from "react-native";
@@ -8,12 +8,13 @@ import React, { useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 
-import { getFriendDetail } from "../../../redux/actions/index";
+import { getFriendDetail, ClearFriendDetail } from "../../../redux/actions/index";
 
 import tw from "twrnc";
 
 import { FriendProfileBody, FriendProfileButtons } from "./FriendProfileBody";
 import BottomTabViewFriend from "./BottomTabViewFriend";
+import LoadingWorld from '../../../assets/LoadingWorld.gif';
 
 
 //let lengthOfObject = Object.keys(obj).lengt
@@ -28,11 +29,16 @@ const FriendProfile = (params) => {
     const friendInfo = useSelector((state) => state.friendsDetail);
 
 
-    const data = friendInfo.hasOwnProperty('Request') && Object.keys(friendInfo?.Request).length > 0 && Object.keys(friendInfo.Request.stats).length > 0 ? friendInfo.Request : false;
+    const data = friendInfo.hasOwnProperty('Request') && Object.keys(friendInfo?.Request).length > 0 && Object.keys(friendInfo.Request.stats).length > 0 
+    ? friendInfo.Request 
+    : false;
     const following = data && data.hasOwnProperty('friends')
         ? data.friends.length > 0
             ? data.friends.map((request) => {
                 if (request.FriendId === userId && request.state === "Recibido") {//VER DE BUSCAR LOS ENVIADOS
+                    console.log('userId---->', userId)
+                    console.log('request.FriendId---->', request.FriendId)
+                    console.log('request', request)
                     return true
                 }
 
@@ -45,10 +51,18 @@ const FriendProfile = (params) => {
             ? data.friends.filter((friend) => friend.state === "Enviado")
             : false
         : false;
+    
+    
 
     useEffect(() => {
         dispatch(getFriendDetail(freId))
     }, [dispatch, freId])
+
+    useEffect(() => {
+        return () => {
+            dispatch(ClearFriendDetail())
+        }
+    }, [dispatch])
 
 
     //navigation.goBack(); AGREGAR BOTON PARA IR ATRAS O HOME
@@ -94,8 +108,21 @@ const FriendProfile = (params) => {
 
                     </View>
                     :
-                    <View>
-                        <Text>Wait...</Text>
+                    <View style={{
+                        backgroundColor:'#050F1A',
+                        display:'flex',
+                        alignItems:'center',
+                        justifyContent:'center',
+                        height:'100%',
+                        width:'100%',
+                    }}>
+                        <Image
+                        style={{
+                            width:'70%',
+                            height:'70%',
+                        }}
+                        source={LoadingWorld}
+                        />
                     </View>
 
                 }

@@ -113,7 +113,7 @@ const BottomTabViewFriend = ({games, gamesArr}) => {
                             )
                         })
                         : <View style={{ alignContent: 'center', justifyContent: 'center' }}>
-                            <Text>asd</Text>
+                            <Text>Holis</Text>
                         </View>
                     }
                 </View>

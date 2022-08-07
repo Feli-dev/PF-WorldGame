@@ -268,6 +268,15 @@ export function getFriendDetail(id) {
   };
 }
 
+export function ClearFriendDetail() {
+  return async function (dispatch) {    
+      return dispatch({
+        type: type.CLEAR_FRIEND_DETAIL,
+        payload: {},
+      });
+  };
+}
+
 export function addFriend(payload) {
   return async function (dispatch) {
     try {
