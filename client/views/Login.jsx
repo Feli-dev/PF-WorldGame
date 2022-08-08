@@ -31,6 +31,7 @@ import img from "../assets/Worldgame.png";
     const [accessToken, setAccessToken] = useState(null);
     const [userA, setUserA] = useState(null);
     const soundOn = useSelector((state) => state.soundOn);
+    const first = useSelector((state) => state.first);
   const [request, response, promptAsync] = Google.useAuthRequest({
     expoClientId:
       "1070907696300-0qdljeqakdv1kl2719q67qrrppo9fufi.apps.googleusercontent.com",
@@ -67,6 +68,7 @@ import img from "../assets/Worldgame.png";
       (user) => user.email === useInfo.email
     );
     console.log("soy google user",googleuser);
+    console.log("soy allUser",allUser[allUser.length-1]);
     if (googleuser) {
       if (googleuser.state === false) {
         Alert.alert(
@@ -141,13 +143,14 @@ import img from "../assets/Worldgame.png";
       //   siLogin = true;
       // }
       console.log("user: ", User);
+      console.log("user: ", allUser);
       if (User && User.state === false) {
         setLogErr("Banned user, please contact the administrator.");
         setBanned(true);
       } else if (User && User.state === true) {
         var c = await postLogin(_input);
+        console.log("c: ", c);
         if (c.payload.Request !== "No se inicio sessión") {
-          console.log("c: ", c);
           dispatch(setLogin(User));
           setLogin_(_input);
           setPressed(true);
@@ -178,7 +181,7 @@ import img from "../assets/Worldgame.png";
       pressed === true &&
       user.Request &&
       banned === false &&
-      (user.Request?.first === false || !user.Request.first)
+      first === false
     ) {
       setInput({
         username: "",
@@ -186,7 +189,7 @@ import img from "../assets/Worldgame.png";
       });
       setLogErr("");
       navigation.navigate("Home");
-    } else if (pressed === true && user.Request?.first === true) {
+    } else if (pressed === true && first === true) {
       const User = allUser.Request.find(
         (e) => e.username.toLowerCase() === input.username.toLowerCase()
       );

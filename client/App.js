@@ -15,10 +15,13 @@ import Stripe from "./Stripe/Stripe";
 import EditProfile from "./views/Profile/EditProfile";
 import FriendProfile from "./views/Profile/Friend/FriendProfile";
 import SearchFriends from "./views/Profile/Friend/SearchFriends"
+import { LogBox } from 'react-native';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  LogBox.ignoreLogs(['new NativeEventEmitter']);
+  LogBox.ignoreAllLogs();
   return (
     <Provider store={store}>
       <NavigationContainer>

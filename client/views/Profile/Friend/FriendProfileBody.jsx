@@ -111,10 +111,8 @@ export const FriendProfileBody = ({
 
                     }}>
                     <Image
-                        source={{ uri: avatar }}
-                        style={{
-
-                        }} />
+                        source={{uri: avatar}}
+                        style={tw`w-10 h-10`} />
                     <Text
                         style={{
                             paddingVertical: 5,

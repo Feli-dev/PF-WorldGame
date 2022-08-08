@@ -15,6 +15,10 @@ export default function Configuration({navigation}) {
   const [isEnabled, setIsEnabled] = useState(false);
   const [reviewMessage, setReviewMessage] = useState("");
   const toggleSwitch = () => {setIsEnabled(previousState => !previousState); navigation.navigate("Payment",{id:login?.Request?.id, email: login?.Request?.email, name: login?.Request?.name})};
+  const [isEnabledMusic, setIsEnabledMusic] = useState(false);
+  const musicSwitch = () =>  {setIsEnabledMusic(previousState => !previousState); playSound(dispatch,setStat, stat)}
+  const [isEnabledSound, setIsEnabledSound] = useState(false);
+  const soundSwitch = () =>  {setIsEnabledSound(previousState => !previousState); dispatch(soundOnOff(!soundOn))}
   const [modalVisible, setModalVisible] = useState(false);
   const userInfo = useSelector((state) => state.userdetail);
 
@@ -40,7 +44,7 @@ export default function Configuration({navigation}) {
     <View style={tw`h-full bg-gray-900 flex flex-col justify-around items-center`}>
       <View style={tw`flex flex-col justify-center items-center`}>
         <View style={tw`flex-row flex items-center justify-center`}>
-          <Text style={tw`text-white text-lg`}>Disable Ads </Text>
+          <Text style={tw`text-white text-lg`}> Disable Ads </Text>
           <Switch
             trackColor={{ false: "#767577", true: "#81b0ff" }}
             thumbColor={isEnabled ? "#f4f3f4" : "#f4f3f4"}
@@ -95,18 +99,26 @@ export default function Configuration({navigation}) {
       >
         <Text style={tw`text-white text-center font-bold`}>LOG OUT</Text>
       </TouchableOpacity>
-      <TouchableOpacity 
-        style={tw`w-40 h-10 bg-red-500 flex items-center justify-center rounded-md`}
-        onPress={()=>{dispatch(soundOnOff(!soundOn))}} 
-      >
-        <Text style={tw`text-white text-center font-bold`}>Sound Off</Text>
-      </TouchableOpacity>
-      <TouchableOpacity 
-        style={tw`w-40 h-10 bg-red-500 flex items-center justify-center rounded-md`}
-        onPress={()=>{playSound(dispatch,setStat, stat)}} 
-      >
-        <Text style={tw`text-white text-center font-bold`}>Music Off</Text>
-      </TouchableOpacity>
+      <View style={tw`flex-row flex items-center justify-center`}>
+          <Text style={tw`text-white text-lg`}>Sound </Text>
+          <Switch
+            trackColor={{ false: "#767577", true: "#81b0ff" }}
+            thumbColor={soundOn ? "#f4f3f4" : "#f4f3f4"}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={soundSwitch}
+            value={soundOn}
+          />
+        </View>
+      <View style={tw`flex-row flex items-center justify-center`}>
+          <Text style={tw`text-white text-lg`}>Music </Text>
+          <Switch
+            trackColor={{ false: "#767577", true: "#81b0ff" }}
+            thumbColor={stat.soundObj?.isPlaying ? "#f4f3f4" : "#f4f3f4"}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={musicSwitch}
+            value={stat.soundObj?.isPlaying}
+          />
+        </View>
     </View>
   );
 }

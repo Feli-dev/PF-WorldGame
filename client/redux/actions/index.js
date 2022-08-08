@@ -54,6 +54,13 @@ export function giveUp(payload) {
 
 //-------------------------login----------------------------//
 
+export function first(payload) {
+  return ({
+    type: type.FIRST,
+    payload,
+  });
+}
+
 export function postLogin(payload) {
   return async function (dispatch) {
     try {
@@ -215,7 +222,7 @@ export function filterByCountry(payload) {
 
 export function filterByTop(payload) {
   return {
-    type: type.SORTED_BY_POINTS,
+    type: type.FILTER_BY_RANK,
     payload,
   };
 }

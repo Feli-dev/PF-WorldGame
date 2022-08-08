@@ -13,11 +13,14 @@ import { handleMenu } from "../redux/ui/uiActions";
 const SideBar = () => {
   let { profile } = useSelector((state) => state.authReducer);
   let { menu } = useSelector((state) => state.uiReducer);
+
   let url = useLocation().pathname
   
   const dispatch = useDispatch();
-  let linksStyle = "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:bg-gray-200";
-  let activeStyle = "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 text-blue-600";
+  let linksStyle =
+    "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:bg-gray-200";
+  let activeStyle =
+    "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 text-blue-600";
 
   return (
     <div
@@ -30,7 +33,11 @@ const SideBar = () => {
       <div className="flex items-center px-6 py-3 h-16 sm:mt-4 lg:mt-2">
         <div className="text-xl font-bold tracking-tight text-gray-800 flex justify-between w-full">
           <Link to="/dashboard">Dashboard Admin</Link>
-          {menu && <span className="sm:hidden" onClick={()=>dispatch(handleMenu())}>X</span>}
+          {menu && (
+            <span className="sm:hidden" onClick={() => dispatch(handleMenu())}>
+              X
+            </span>
+          )}
         </div>
       </div>
 
@@ -39,7 +46,10 @@ const SideBar = () => {
           <li>
             <Link
               to="/dashboard"
-              className={ url === "/dashboard"? activeStyle : linksStyle}
+              className={url === "/dashboard" ? activeStyle : linksStyle}
+              onClick={() => {
+                dispatch(handleMenu());
+              }}
             >
               <GridViewIcon className="mr-4 opacity-50" />
               Dashboard
@@ -51,7 +61,10 @@ const SideBar = () => {
               <li>
                 <Link
                   to="/users"
-                  className={ url === "/users"? activeStyle : linksStyle}
+                  className={url === "/users" ? activeStyle : linksStyle}
+                  onClick={() => {
+                    dispatch(handleMenu());
+                  }}
                 >
                   <PersonIcon className="mr-4 opacity-50" />
                   Users
@@ -60,7 +73,10 @@ const SideBar = () => {
               <li>
                 <Link
                   to="/games"
-                  className={ url === "/games"? activeStyle : linksStyle}
+                  className={url === "/games" ? activeStyle : linksStyle}
+                  onClick={() => {
+                    dispatch(handleMenu());
+                  }}
                 >
                   <SportsEsportsIcon className="mr-4 opacity-50" />
                   Games
@@ -72,7 +88,10 @@ const SideBar = () => {
             <li>
               <Link
                 to="/pays"
-                className={ url === "/pays"? activeStyle : linksStyle}
+                className={url === "/pays" ? activeStyle : linksStyle}
+                onClick={() => {
+                  dispatch(handleMenu());
+                }}
               >
                 <PaidIcon className="mr-4 opacity-50" />
                 Payments
@@ -84,7 +103,10 @@ const SideBar = () => {
             <li>
               <Link
                 to="/reviews"
-                className={ url === "/reviews"? activeStyle : linksStyle}
+                className={url === "/reviews" ? activeStyle : linksStyle}
+                onClick={() => {
+                  dispatch(handleMenu());
+                }}
               >
                 <GradingIcon className="mr-4 opacity-50" />
                 Reviews

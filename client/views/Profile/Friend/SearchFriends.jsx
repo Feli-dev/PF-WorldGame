@@ -142,40 +142,35 @@ const SearchFriends = (params) => {
       </View>
       {findUsers.map((user) => {
         if (user.id !== id) return (
-          <TouchableOpacity
+          <View style={{ width: "100%", marginBottom: 15, marginHorizontal: 20, backgroundColor: '#111827' }}
             key={user.id}
-            onPress={() => navigation.navigate('FriendProfile', { freId: user.id, userId: id, userFriends: friends  })}
+          // onPress={() =>
+          //   navigation.navigate("FriendProfile", { freId: friend.FriendId })
+          // }
           >
-
-            <View style={{ width: "100%", marginBottom: 15, marginHorizontal: 20, backgroundColor: '#111827' }}
-
-            // onPress={() =>
-            //   navigation.navigate("FriendProfile", { freId: friend.FriendId })
-            // }
+            <View
+              style={{ width: "100%", marginBottom: 15, }}
             >
               <View
-                style={{ width: "100%", marginBottom: 15, }}
+                style={{
+                  borderRadius: 8, backgroundColor: "grey", padding: 15,
+                  justifyContent: "space-between", alignItems: "center", display: "flex",
+                  flexDirection: "row", marginHorizontal: 10,width:'90%'
+                }}
               >
-                <View
+                <Image
                   style={{
-                    borderRadius: 8, backgroundColor: "grey", padding: 15,
-                    justifyContent: "space-between", alignItems: "center", display: "flex",
-                    flexDirection: "row", marginHorizontal: 10, width: '90%'
+                    width: 50,
+                    height: 50,
                   }}
-                >
-                  <Image
-                    style={{
-                      width: 50,
-                      height: 50,
-                    }}
-                    source={user.avatar ? user.avatar : avatarDefault}
-                  />
+                  source={user.avatar ? user.avatar : avatarDefault}
+                />
 
-                  <Text style={{
-                    color: "white", fontSize: 25, textAlign: "center", paddingRight: 10,
-                  }}
-                  >
-                    {user.username ? user.username : "Unknow"}
+                <Text style={{
+                  color: "white", fontSize: 25, textAlign: "center", paddingRight: 10,
+                }}
+                >
+                  {user.username ? user.username : "Unknow"}
 
                   </Text>
                   {friends.some(friend => friend.FriendId === user.id) || added

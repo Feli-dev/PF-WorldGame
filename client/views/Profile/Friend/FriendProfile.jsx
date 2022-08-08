@@ -30,6 +30,7 @@ const FriendProfile = (params) => {
 
     const friendInfo = useSelector((state) => state.friendsDetail);
 
+    
 
     //EN DATA ME GUARDO UN VALOR BOOLEANO, TRUE INDICA QUE ES AMIGO Y FALSE QUE NO.
     const data = friendInfo.hasOwnProperty('Request') && Object.keys(friendInfo?.Request).length > 0 && Object.keys(friendInfo.Request.stats).length > 0
@@ -47,24 +48,6 @@ const FriendProfile = (params) => {
             following.push(false)
         }
     }
-
-
-
-    // const following = data && data.hasOwnProperty('friends')
-    //     ? data.friends.length > 0
-    //         ? data.friends.map((request) => {
-    //             if (request.FriendId === userId && request.state === "Recibido") {//VER DE BUSCAR LOS ENVIADOS
-    //                 return true
-    //             }
-
-    //         })
-    //         : false
-    //     : false;
-
-
-
-
-
 
     //friendSended ES UN FILTRO DE TODO EL ARREGLO DE "FRIENDS" Y SOLO INDICA A LOS ENVIADOS. ESTOS SERIAN LOS AMIGOS DEL PROFILEFRIEND. 
 
@@ -139,11 +122,11 @@ const FriendProfile = (params) => {
                     }}>
 
                         <Image
+                            source={LoadingWorld}
                             style={{
                                 width: '70%',
                                 height: '70%',
                             }}
-                            source={LoadingWorld}
                         />
                     </View>
 

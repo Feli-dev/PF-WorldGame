@@ -256,7 +256,7 @@ ${countryOfGame.name}`}
                         </Text>
         : <></>}
         {(listOfAttemps.find((e)=> countryOfGame?.name?.toLowerCase() === e.name.toLowerCase())||display === true) ? <Map lat={parseInt(countryOfGame.latitud)} long={parseInt(countryOfGame.longitud)} /> : <></>}
-        {(listOfAttemps.find((e)=> countryOfGame?.name?.toLowerCase() === e.name.toLowerCase())||display === true) ? <ShareButton/> : <></>}
+        {!GV && (listOfAttemps.find((e)=> countryOfGame?.name?.toLowerCase() === e.name.toLowerCase())||display === true) ? <ShareButton/> : <></>}
       </ScrollView>
     </View>
   );
