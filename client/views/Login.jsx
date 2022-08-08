@@ -158,7 +158,7 @@ import img from "../assets/Worldgame.png";
         } else {
           setTimeout(() => {
             if (logErr !== "Banned user, please contact the administrator."|| logErr !=="Usuario baneado por favor contactarse con el administrador ") {
-              setLogErr(isSpanish ? "Usuario o contraseña invalido"  :" Invalid user or password");
+              setLogErr(isSpanish ? "Usuario o contraseña invalido"  : "Invalid user or password");
             }
           }, 700);
         }
@@ -239,9 +239,9 @@ import img from "../assets/Worldgame.png";
       <View style={tw`flex h-full items-center justify-center bg-gray-900`}>
         <Image style={tw`h-40 w-40`} source={img} />
         <View style={tw`flex flex-col mt-10`}>
-          <Text style={tw`text-white text-lg text-left mb-1`}>{isSpanish ? "User" : "User"}</Text>
+          <Text style={tw`text-white text-lg text-left mb-1`}>{isSpanish ? "Usuario" : "User"}</Text>
           <TextInput
-            placeholder={isSpanish ? "User..." : "User..."}
+            placeholder={isSpanish ? "Usuario..." : "User..."}
             key={"user"}
             value={input.username}
             onChangeText={(e) => handleInputChange("username", e)}
@@ -346,12 +346,12 @@ import img from "../assets/Worldgame.png";
                 />
               </Svg>
             </View>
-            <Text style={tw`text-base font-bold`}>{isSpanish ? 'Iniciar sesión con google' : "Sing In whit Google" }</Text>
+            <Text style={tw`text-base font-bold`}>{isSpanish ? 'Iniciar con google' : "Sing In whit Google" }</Text>
           </TouchableOpacity>
         </View>
         <View style={tw`mt-10`}>
           <Text style={tw`text-white text-center font-bold`}>
-            {isSpanish ? "Si no tenes cuenta": "If you do not have an account"}
+            {isSpanish ? "Si no tenes cuenta, ": "If you do not have an account, "}
             <Text
               style={tw`text-blue-200 text-center font-bold`}
               onPress={() => {navigation.navigate("Register");setPressed(false);setInput({
