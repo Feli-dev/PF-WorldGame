@@ -4,17 +4,21 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import img from "../assets/Worldgame.png"
-import { getUser, setLogin, getAllCountries } from '../redux/actions'
+import { getUser, setLogin, setStat, getAllCountries } from '../redux/actions'
+import { playSound } from '../utils/sounds';
 import tw from "twrnc";
 import { Video } from 'expo-av'
 
 const Landing = ({ navigation }) => {
     const allUser = useSelector((state) => state.users)
+    const stat = useSelector((state) => state.stat)
     const [al, setAl] = useState(true);
     let [first , setFirst] = useState(true);
     const dispatch = useDispatch()
     const video = React.useRef(null);
 
+
+    
     const createAlert = () =>
     Alert.alert(
       "You have been banned",
@@ -67,6 +71,7 @@ const Landing = ({ navigation }) => {
     }
     }
     useEffect(() => {
+        playSound(dispatch,setStat, stat);
         dispatch(getAllCountries());
         dispatch(getUser());
     }, [dispatch]);

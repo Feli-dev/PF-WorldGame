@@ -3,10 +3,13 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import tw from "twrnc";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { logOut, PostReview } from "../redux/actions";
+import { logOut, PostReview, soundOnOff, setStat } from "../redux/actions";
+import { backSound, playSound } from '../utils/sounds';
 
 export default function Configuration({navigation}) {
   const dispatch = useDispatch()
+  const stat = useSelector((state) => state.stat);
+  const soundOn = useSelector((state) => state.soundOn);
   const login = useSelector((state) => state.login);
   const [err, setErr] = useState({})
   const [isEnabled, setIsEnabled] = useState(false);
@@ -23,6 +26,7 @@ export default function Configuration({navigation}) {
     await AsyncStorage.removeItem("User")
     dispatch(logOut())
     navigation.navigate("Login")
+    backSound()
   }
 
   const handleError = () => {
@@ -90,6 +94,18 @@ export default function Configuration({navigation}) {
         onPress={()=>{logout()}} 
       >
         <Text style={tw`text-white text-center font-bold`}>LOG OUT</Text>
+      </TouchableOpacity>
+      <TouchableOpacity 
+        style={tw`w-40 h-10 bg-red-500 flex items-center justify-center rounded-md`}
+        onPress={()=>{dispatch(soundOnOff(!soundOn))}} 
+      >
+        <Text style={tw`text-white text-center font-bold`}>Sound Off</Text>
+      </TouchableOpacity>
+      <TouchableOpacity 
+        style={tw`w-40 h-10 bg-red-500 flex items-center justify-center rounded-md`}
+        onPress={()=>{playSound(dispatch,setStat, stat)}} 
+      >
+        <Text style={tw`text-white text-center font-bold`}>Music Off</Text>
       </TouchableOpacity>
     </View>
   );
