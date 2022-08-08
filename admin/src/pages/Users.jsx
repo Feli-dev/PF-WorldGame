@@ -124,7 +124,7 @@ const Users = () => {
   }
 
   return (
-    <div className="md:max-w-7xl md:mx-auto px-4 py-7 min-h-screen">
+    <div className="md:max-w-8xl md:mx-auto px-4 py-7 min-h-screen">
       <div className="flex items-center justify-between mb-6">
         <button
           className="text-2xl font-bold text-black hover:text-blue-600"
