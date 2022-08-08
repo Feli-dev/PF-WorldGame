@@ -30,6 +30,7 @@ const FriendProfile = (params) => {
 
     const friendInfo = useSelector((state) => state.friendsDetail);
 
+    
 
 
     //EN DATA ME GUARDO UN VALOR BOOLEANO, TRUE INDICA QUE ES AMIGO Y FALSE QUE NO.
@@ -38,6 +39,7 @@ const FriendProfile = (params) => {
         : false;
 
     const following = [];
+    console.log("soy friend",friendInfo)
     if (data && data.hasOwnProperty('friends')) {
         if (data.friends.length > 0) {
             data.friends.map((request) => {
@@ -47,8 +49,6 @@ const FriendProfile = (params) => {
             })
         }
     }
-   
-
 
 
     // const following = data && data.hasOwnProperty('friends')
@@ -139,11 +139,11 @@ const FriendProfile = (params) => {
                     }}>
                         
                         <Image
+                            source={LoadingWorld}
                             style={{
                                 width: '70%',
                                 height: '70%',
                             }}
-                            source={LoadingWorld}
                         />
                     </View>
 

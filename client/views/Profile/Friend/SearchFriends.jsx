@@ -152,11 +152,11 @@ const SearchFriends = (params) => {
                 }}
               >
                 <Image
+                  source={{ uri: user.avatar}}
                   style={{
                     width: 50,
                     height: 50,
                   }}
-                  source={user.avatar ? user.avatar : avatarDefault}
                 />
 
                 <Text style={{
@@ -169,7 +169,7 @@ const SearchFriends = (params) => {
                 {friends.some(friend => friend.FriendId === user.id) || added
                 ? <View><Text>Agregado</Text></View> 
                 : <TouchableOpacity onPress={() => handleAdd({ UserId: id, FriendId: user.id })}>
-                  <Text>agregar</Text>
+                  <Text>Agregar</Text>
                 </TouchableOpacity>}
 
               </View>

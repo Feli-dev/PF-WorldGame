@@ -317,7 +317,7 @@ const BottomTabView = ({
                                                 width: 50,
                                                 height: 50,
                                             }}
-                                            source={friend.avatar === "" ? avatarDefault : friend.avatar} />
+                                            source={{uri: friend.avatar}} />
 
                                         <Text
                                             style={{
@@ -334,7 +334,7 @@ const BottomTabView = ({
                                                 width: 50,
                                                 height: 50,
                                             }}
-                                            source={friend.avatar === "" ? avatarDefault : friend.avatar} />                                        
+                                            source={{ uri: friend.avatar}} />                                        
                                     </View>
                                 </View>
                             </TouchableOpacity>
