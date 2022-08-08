@@ -11,6 +11,7 @@ import {
 import Game from "../components/Game";
 
 // Icons
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 const Games = () => {
   const dispatch = useDispatch();
@@ -21,6 +22,8 @@ const Games = () => {
     attempts: "",
     points: "",
   });
+  const [filter, setFilter] = useState(false);
+
   let allGames = useSelector((state) => state.gamesReducer.allGames);
 
   let numeritos = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
@@ -60,13 +63,31 @@ const Games = () => {
           All Games
         </button>
       </div>
-      <div className="flex mb-7 ml-2 w-full items-center flex-col lg:flex-row">
-        <label className="font-semibold py-1">Filters</label>
-        <form className="flex flex-col gap-2 lg:flex-none lg:flex-row">
+      <div className="flex mb-7 w-full items-center flex-col lg:flex-row">
+        <label className="font-semibold py-1 hidden lg:block mr-4">
+          Filters:
+        </label>
+        <button
+          onClick={() => setFilter(!filter)}
+          className={
+            !filter
+              ? "lg:hidden w-full mb-2 text-white bg-blue-600 rounded-lg text-sm px-4 py-2 inline-flex items-center"
+              : "lg:hidden w-full mb-7 text-white bg-blue-600 rounded-lg text-sm px-4 py-2 inline-flex items-center"
+          }
+        >
+          Filters <ArrowDropDownIcon />
+        </button>
+        <form
+          className={
+            filter
+              ? "flex flex-col gap-2 lg:flex-none lg:flex-row w-full lg:w-max"
+              : "flex-col gap-2 lg:flex-none lg:flex-row w-full hidden lg:flex lg:w-max"
+          }
+        >
           <select
             name="winned"
             onChange={(e) => handleSelect(e)}
-            className={claseSelect}
+            className="p-2 lg:p-2 rounded w-full lg:w-max lg:mx-2"
           >
             <option selected value="">
               Winned
@@ -77,7 +98,7 @@ const Games = () => {
           <select
             name="attempts"
             onChange={(e) => handleSelect(e)}
-            className={claseSelect}
+            className="p-2 rounded w-full lg:w-max lg:p-2 lg:mx-2"
           >
             <option selected value="">
               Attempts
@@ -86,11 +107,10 @@ const Games = () => {
               return <option value={e}>{e}</option>;
             })}
           </select>
-          
           <select
             name="points"
             onChange={(e) => handleSelect(e)}
-            className={claseSelect}
+            className="p-2 rounded w-full lg:w-max lg:p-2 lg:mx-2"
           >
             <option selected value="">
               Points
@@ -126,7 +146,7 @@ const Games = () => {
                 Game ID
               </th>
               <th className="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">
-              User Info
+                User Info
               </th>
               <th className="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">
                 Username
@@ -134,7 +154,7 @@ const Games = () => {
               <th className="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">
                 Country
               </th>
-              
+
               <th className="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">
                 Attempts
               </th>
