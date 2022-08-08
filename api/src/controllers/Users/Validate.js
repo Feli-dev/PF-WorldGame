@@ -1,19 +1,23 @@
 const { Game, User, Friend } = require('../../db');
 const { averageScore } = require('../../Tools/AverageScore');
 const { showUsers } = require('../../Tools/filterShow');
+const ncrypt = require("ncrypt-js");
 const parseObject = require('../../Tools/ParseObject');
 const path = "api/src/controllers/Users/Validate";
+const ncryptObject = new ncrypt('key');
 
 module.exports = {
     auth: async (username = "", password = "") => {
         try {
-            return await User.findAll({ where: { username, password }, include: [ Game, Friend ],  order: [['id','ASC']]})
+            return await User.findAll({ where: { username }, include: [ Game, Friend ],  order: [['id','ASC']]})
             .then(result => {
-                let user = parseObject(result);
+                const user = parseObject(result);
                 if(user.length){
                     if(user[0].username.length && user[0].password.length){
-                        const stats = averageScore(user[0].games);
-                        return { Request: showUsers(user[0], stats) || "No se inicio sessión" };
+                        if(ncryptObject.decrypt(user[0].password) === password){
+                            const stats = averageScore(user[0].games);
+                            return { Request: showUsers(user[0], stats) || "No se inicio sessión" };
+                        }
                     }
                 }
                 return { Request: "No se inicio sessión" };
@@ -29,7 +33,7 @@ module.exports = {
         try {
             return await User.findAll({ where: { email } })
             .then(result => {
-                let user = parseObject(result);
+                const user = parseObject(result);
                 if(user.length){
                     if(user[0].email.length){
                         return { Value: user[0].id };
@@ -49,7 +53,7 @@ module.exports = {
         try {
             return await User.findAll({ where: { id } })
             .then(result => {
-                let user = parseObject(result);
+                const user = parseObject(result);
                 return user.length ? { Value: user[0] } : { Value: false, Request: "No se encontro al usuario" };
             })
             .catch(error => {

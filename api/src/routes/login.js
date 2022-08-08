@@ -1,16 +1,16 @@
 const { Router } = require('express');
-const { bitHash } = require('../db');
+const ncrypt = require("ncrypt-js");
 const user = require('../controllers/Users/Users');
 const friend = require('../controllers/Friends/Friends');
 
+const ncryptObject = new ncrypt('key');
 const router = Router();
 const path = "api/src/routes/login.js"
 
 router.post('/', async(req, res, next) =>{
     try{
         const { username, password } = req.body;
-        const passEncrypt = bitHash.encrypt(password);
-        return await user.login(username, passEncrypt.toString())
+        return await user.login(username, password)
         .then(result => {
             if(result.hasOwnProperty("Error")) return res.status(400).json(result);
             result.Request.connect = true;

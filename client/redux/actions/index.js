@@ -12,7 +12,7 @@ export function getGame(id) {
   return async function (dispatch) {
     try {
       var json = await axios.get(
-        "https://world-game-v8.herokuapp.com/games/",
+        "https://world-game-v9.herokuapp.com/games/",
         id
       );
       return dispatch({
@@ -29,7 +29,7 @@ export function PostGame(payload) {
   return async function (dispatch) {
     try {
       const response = axios.post(
-        "https://world-game-v8.herokuapp.com/games/",
+        "https://world-game-v9.herokuapp.com/games/",
         payload
       );
       return response;
@@ -58,7 +58,7 @@ export function postLogin(payload) {
   return async function (dispatch) {
     try {
       var json = await axios.post(
-        "https://world-game-v8.herokuapp.com/Login/",
+        "https://world-game-v9.herokuapp.com/Login/",
         payload
       );
       return dispatch({
@@ -90,7 +90,7 @@ export function getRank(payload) {
   return async function (dispatch) {
     try {
       var json = await axios.get(
-        "https://world-game-v8.herokuapp.com/User/rank/",
+        "https://world-game-v9.herokuapp.com/User/rank/",
         { total: payload }
       );
       return dispatch({
@@ -108,20 +108,20 @@ export function getUser(id) {
     try {
       if (id) {
         var json = await axios.get(
-          "https://world-game-v8.herokuapp.com/User/" + id
-          );
-          return dispatch({
-            type: type.GET_USER,
-            payload: json.data,
-          });
-        } else {
-          var json = await axios.get("https://world-game-v8.herokuapp.com/User/");
-          return dispatch({
-            type: type.GET_ALL_USER,
-            payload: json.data,
-          });
-        }
-      } catch (e) {
+          "https://world-game-v9.herokuapp.com/User/" + id
+        );
+        return dispatch({
+          type: type.GET_USER,
+          payload: json.data,
+        });
+      } else {
+        var json = await axios.get("https://world-game-v9.herokuapp.com/User/");
+        return dispatch({
+          type: type.GET_ALL_USER,
+          payload: json.data,
+        });
+      }
+    } catch (e) {
       return e.message;
     }
   };
@@ -131,7 +131,7 @@ export function getUser(id) {
 //     return async function(dispatch){
 //         try{
 //             console.log("payload", payload)
-//             return await axios.post("https://world-game-v8.herokuapp.com/User", payload)
+//             return await axios.post("http://192.168.0.179:3001/User", payload)
 //             .catch(error =>  console.log(error))
 //         }catch(e){
 //             console.log("error en acción:", e)
@@ -144,7 +144,7 @@ export function PostUser(payload) {
     try {
       console.log(payload)
       var json = await axios.post(
-        "https://world-game-v8.herokuapp.com/User/",
+        "https://world-game-v9.herokuapp.com/User/",
         payload
       );
       //para que los métodos de axios funcionen bien en el emulador expo
@@ -155,7 +155,7 @@ export function PostUser(payload) {
         type: type.POST_USER,
         payload: payload,
       });
-      
+
     } catch (e) {
       console.log("error en acción:", e);
       return e.message;
@@ -167,7 +167,7 @@ export function PutUser(payload) {
   return async function (dispatch) {
     try {
       var json = await axios.put(
-        "https://world-game-v8.herokuapp.com/User/",
+        "https://world-game-v9.herokuapp.com/User/",
         payload
       );
       return dispatch({
@@ -184,7 +184,7 @@ export function deleteUser(payload) {
   return async function (dispatch) {
     try {
       const response = axios.delete(
-        `https://world-game-v8.herokuapp.com/User/delete/recycle/${payload}`
+        `https://world-game-v9.herokuapp.com/User/delete/recycle/${payload}`
       );
       return response;
     } catch (e) {
@@ -196,7 +196,7 @@ export function restoreUser(payload) {
   return async function (dispatch) {
     try {
       const response = axios.delete(
-        `https://world-game-v8.herokuapp.com/User/delete/restore/${payload}`
+        `https://world-game-v9.herokuapp.com/User/delete/restore/${payload}`
       );
       return response;
     } catch (e) {
@@ -239,8 +239,7 @@ export function soundOnOff(payload) {
 export function PostFriend(payload) {
   return async function (dispatch) {
     try {
-      const response = axios.post(
-        "https://world-game-v8.herokuapp.com/friend",
+      const response = axios.post("https://world-game-v9.herokuapp.com/friend",
         payload
       );
       return response;
@@ -254,7 +253,7 @@ export function GetFriends() {
   return async function (dispatch) {
     try {
       var json = await axios.get(
-        "https://world-game-v8.herokuapp.com/friend"
+        "https://world-game-v9.herokuapp.com/friend"
       );
       return dispatch({
         type: type.GET_FRIENDS,
@@ -266,15 +265,44 @@ export function GetFriends() {
   };
 }
 
-export function PutFriend(payload) {
+//Esta accion me trae la info del amigo para su profile
+export function getFriendDetail(id) {
   return async function (dispatch) {
     try {
-      var json = await axios.put(
-       "https://world-game-v8.herokuapp.com/friend",
+
+      var json = await axios.get(
+        "https://world-game-v9.herokuapp.com/User/" + id
+      );
+      return dispatch({
+        type: type.GET_FRIEND_DETAIL,
+        payload: json.data,
+      });
+
+    } catch (e) {
+      return e.message;
+    }
+  };
+}
+
+export function ClearFriendDetail() {
+  return async function (dispatch) {    
+      return dispatch({
+        type: type.CLEAR_FRIEND_DETAIL,
+        payload: {},
+      });
+  };
+}
+
+export function addFriend(payload) {
+  return async function (dispatch) {
+    try {
+      
+      var json = await axios.post(
+        "https://world-game-v9.herokuapp.com/friend",
         payload
       );
       return dispatch({
-        type: type.PUT_FRIEND,
+        type: type.POST_FRIEND,
         payload: json.data,
       });
     } catch (e) {
@@ -282,12 +310,48 @@ export function PutFriend(payload) {
     }
   };
 }
+
+
+export function deleteFriend({FriendId, UserId}) {
+  return async function (dispatch) {
+    try {
+      console.log('DELE', FriendId)
+      var json = await axios.delete(
+        `https://world-game-v9.herokuapp.com/friend?FriendId=${FriendId}&UserId=${UserId}`
+      );
+      return dispatch({
+        type: type.DELETE_FRIEND,
+        payload: json.data,
+      });
+    } catch (e) {
+      return e.message;
+    }
+  };
+}
+
+export function searchFriend(friend){
+  
+  return async function (dispatch) {
+    try {
+             
+        var {data} = await axios.get("https://world-game-v9.herokuapp.com/User/");
+        return dispatch({
+          type: type.SEARCH_FRIEND,
+          payload: {data, friend},
+        });
+      }
+     catch (e) {
+      return e.message;
+    }
+  };
+
+}
 //--------------------countries----------------------//
 export function getCountrie(name) {
   return async function (dispatch) {
     try {
       var json = await axios.get(
-        "https://world-game-v8.herokuapp.com/countries",
+        "https://world-game-v9.herokuapp.com/countries",
         name
       );
       return dispatch({
@@ -311,7 +375,7 @@ export function getAllCountries(form = false) {
   return async function (dispatch) {
     try {
       var { data } = await axios.get(
-        "https://world-game-v8.herokuapp.com/countries"
+        "https://world-game-v9.herokuapp.com/countries"
       );
       if (!form) {
         return dispatch({
@@ -361,7 +425,7 @@ export function PostReview(payload) {
   return async function (dispatch) {
     try {
       var json = await axios.post(
-        "https://world-game-v8.herokuapp.com/review",
+        "https://world-game-v9.herokuapp.com/review",
         payload
       );
       return dispatch({
@@ -377,11 +441,11 @@ export function PostReview(payload) {
 
 //------------------------pay.action------------------//
 export function PostPayment(payload) {
-  console.log('payloadPostPays',payload)
+  console.log('payloadPostPays', payload)
   return async function (dispatch) {
     try {
       const response = await axios.post(
-        "https://world-game-v8.herokuapp.com/pays",
+        "https://world-game-v9.herokuapp.com/pays",
         payload
       );
       return response;
@@ -390,3 +454,28 @@ export function PostPayment(payload) {
     }
   };
 };
+
+//---------------------------Profile
+export function GetProfileUser(id) {
+  return async function (dispatch) {
+    try {
+      if (id) {
+        var json = await axios.get(
+          "https://world-game-v9.herokuapp.com/User/" + id
+        );
+        return dispatch({
+          type: type.GET_PROFILE_USER,
+          payload: json.data,
+        });
+      } else {
+        var json = await axios.get("https://world-game-v9.herokuapp.com/User/");
+        return dispatch({
+          type: type.GET_ALL_PROFILES,
+          payload: json.data,
+        });
+      }
+    } catch (e) {
+      return e.message;
+    }
+  };
+}

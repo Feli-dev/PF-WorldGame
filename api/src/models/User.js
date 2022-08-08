@@ -24,10 +24,7 @@ module.exports = (sequelize) => {
         },
         password: {
             type: DataTypes.TEXT,
-            allowNull: false,
-            validate:{
-                len: [3,40]
-            },
+            allowNull: false
         },
         email: {
             type: DataTypes.STRING,
@@ -72,7 +69,7 @@ module.exports = (sequelize) => {
         avatar: {
             type: DataTypes.TEXT,
             defaultValue: "https://countryle.com/assets/images/welcome-page/welcome-loading-image-5.png"
-        },
+        }
     },{
         timestamps: true,
     });

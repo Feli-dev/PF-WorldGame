@@ -67,6 +67,7 @@ import img from "../assets/Worldgame.png";
       (user) => user.email === useInfo.email
     );
     console.log("soy google user",googleuser);
+    console.log(allUser.Request)
     if (googleuser) {
       if (googleuser.state === false) {
         Alert.alert(
@@ -140,7 +141,7 @@ import img from "../assets/Worldgame.png";
       // if(login.Request && login.Request?.username?.toLowerCase() === input.username.toLowerCase() && login?.Request?.first === false){
       //   siLogin = true;
       // }
-      console.log(User);
+      console.log("user: ", User);
       if (User && User.state === false) {
         setLogErr("Banned user, please contact the administrator.");
         setBanned(true);
@@ -148,6 +149,7 @@ import img from "../assets/Worldgame.png";
         var c = await postLogin(_input);
         console.log(c.payload);
         if (c.payload.Request !== "No se inicio sessión") {
+          console.log("c: ", c);
           dispatch(setLogin(User));
           setLogin_(_input);
           setPressed(true);
@@ -174,7 +176,7 @@ import img from "../assets/Worldgame.png";
   }
 
   useEffect(() => {
-    console.log(user)
+    console.log(allUser[allUser.length-1])
     if (pressed === true && user.Request &&  banned === false &&(user.Request?.first === false || !user.Request.first)) {
       setInput({
         username: "",
@@ -222,7 +224,7 @@ import img from "../assets/Worldgame.png";
     if (input.password === "" || input.username === "") {
       setLogErr("");
     }
-    console.log("useruseruseruseruseru", allUser);
+    //console.log("useruseruseruseruseru", allUser);
   }, []);
   
 
