@@ -39,7 +39,8 @@ export default function EditProfile({ route, navigation }) {
   useEffect(() => {
     GetProfileUser(id);
     console.log(userInfo);
-  }, []);
+  }, [ handleUpload ]);
+
   const pickFromCamera = async () => {
     const { granted } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
     if (granted) {

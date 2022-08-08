@@ -68,7 +68,7 @@ module.exports = (sequelize) => {
         },
         avatar: {
             type: DataTypes.TEXT,
-            defaultValue: "https://countryle.com/assets/images/welcome-page/welcome-loading-image-5.png"
+            defaultValue: "https://res.cloudinary.com/dunhnh8mv/image/upload/v1659972908/nnm2jznivdalyzycj3rb.png"
         }
     },{
         timestamps: true,
