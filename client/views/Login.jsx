@@ -143,8 +143,8 @@ function Login({ navigation, user, postLogin }) {
         setBanned(true);
       } else if (User && User.state === true) {
         var c = await postLogin(_input);
+        console.log(c.payload);
         if (c.payload.Request !== "No se inicio sessión") {
-          console.log(c);
           dispatch(setLogin(User));
           setLogin_(_input);
           setPressed(true);
