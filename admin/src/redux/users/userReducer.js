@@ -3,6 +3,7 @@ import {
   GET_BY_FILTERED,
   ORDER_NAME,
   ORDER_POINTS,
+  SEARCH_USERS
 } from "../types";
 
 let initialState = {
@@ -79,6 +80,16 @@ function userReducer(state = initialState, action) {
         ...state,
         filterUsers: orderPoints,
       };
+    case SEARCH_USERS:
+      let input = action.payload?.toLowerCase()
+      let searched = state.users?.filter((us) =>{
+        return us.username.includes(input)
+      })
+      return {
+        ...state,
+        filterUsers: searched
+      }
+
 
     default:
       return state;

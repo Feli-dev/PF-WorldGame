@@ -10,6 +10,7 @@ import {
   getByFilter,
   orderUsername,
   orderPoints,
+  searchUsers
 } from "../redux/users/userActions";
 
 // Icons
@@ -28,10 +29,8 @@ const Users = () => {
     state: "",
     authorization: "",
   });
+  const [inputSearch, setInputSearch] = useState()
 
-  /*   let allCountries = useSelector(
-    (state) => state.countriesReducer.allCountries
-  ); */
 
   let [order, setOrder] = useState(""); //eslint-disable-line
   let actualUser = JSON.parse(localStorage.getItem("profile"));
@@ -123,6 +122,12 @@ const Users = () => {
     setOrder(event.target.value + "point");
   }
 
+  function handleSearchSubmit(event){
+    event.preventDefault()
+    dispatch(searchUsers(inputSearch))
+  }
+  
+
   return (
     <div className="md:max-w-8xl md:mx-auto px-4 py-7 min-h-screen">
       <div className="flex items-center justify-between mb-6">
@@ -133,7 +138,7 @@ const Users = () => {
           All Users
         </button>
       </div>
-      <div className="flex mb-7 w-full items-center flex-col lg:flex-row">
+      <div className="flex mb-4 w-full items-center flex-col lg:flex-row">
         <label className="font-semibold py-1 hidden lg:block mr-4">
           Filters:
         </label>
@@ -209,8 +214,8 @@ const Users = () => {
 
           <input
             type="submit"
-            className="bg-transparent hover:bg-green-700 text-blue-700 font-semibold hover:text-white px-4 mx-2 border border-blue-500 hover:border-transparent rounded"
-            value="Search"
+            className="cursor-pointer bg-transparent hover:bg-green-700 text-blue-700 font-semibold hover:text-white px-4 mx-2 border border-blue-500 hover:border-transparent rounded"
+            value="Filter"
           />
           <button
             type="reset"
@@ -220,6 +225,16 @@ const Users = () => {
             Reset filters
           </button>
         </form>
+      </div>
+      <div className="flex mb-5 w-full items-center flex-col lg:flex-row">
+        <input type="search" onChange={(e) => setInputSearch(e.target.value)}
+        className="rounded p-1 mb-3 lg:mb-0"
+        placeholder="Search by username"
+        ></input>
+        <button
+        className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white px-4 py-1 mx-2 my-0 border border-blue-500 hover:border-transparent rounded"
+        onClick={handleSearchSubmit}
+        >Search</button>
       </div>
 
       <div className="overflow-x-auto bg-white rounded-lg shadow max-h-96">
