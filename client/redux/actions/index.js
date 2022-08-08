@@ -215,7 +215,7 @@ export function filterByCountry(payload) {
 
 export function filterByTop(payload) {
   return {
-    type: type.SORTED_BY_POINTS,
+    type: type.FILTER_BY_RANK,
     payload,
   };
 }

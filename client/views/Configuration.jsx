@@ -40,7 +40,7 @@ export default function Configuration({navigation}) {
     <View style={tw`h-full bg-gray-900 flex flex-col justify-around items-center`}>
       <View style={tw`flex flex-col justify-center items-center`}>
         <View style={tw`flex-row flex items-center justify-center`}>
-          <Text style={tw`text-white text-lg`}>Disable Ads </Text>
+          <Text style={tw`text-white text-lg`}> Disable Ads </Text>
           <Switch
             trackColor={{ false: "#767577", true: "#81b0ff" }}
             thumbColor={isEnabled ? "#f4f3f4" : "#f4f3f4"}

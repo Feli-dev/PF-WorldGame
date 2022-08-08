@@ -11,6 +11,8 @@ const initialState = {
   userdetail: {},
   rank: [],
   rank_filter: [],
+  rank_filter_by_country: [],
+  rank_filter_by_ranks: [],
   friends: [],
   friendsDetail: {},
   giveUp: false,
@@ -83,34 +85,59 @@ export const rootReducer = (state = initialState, action) => {
         users: action.payload,
       };
     case type.FILTER_BY_COUNTRY:
-      const all = state.rank;
       if (action.payload === "All Countries") {
-        return {
-          ...state,
-          rank_filter: all,
-        };
+        if(state.rank.length !== state.rank_filter_by_ranks.length){
+          return {
+            ...state,
+            rank_filter: state.rank_filter_by_ranks,
+            rank_filter_by_country: state.rank,
+          };
+        }else {
+          return {
+            ...state,
+            rank_filter: state.rank,
+            rank_filter_by_country: state.rank,
+          };
+        }
       } else {
-        const filCountry = all.filter(
+        const filCountry = state.rank.filter(
           (el) => el.country.toLowerCase() === action.payload.toLowerCase()
         );
+        let filtered = []
+        filCountry.forEach(el => {if(state.rank_filter_by_ranks.includes(el)){filtered.push(el)}})
         return {
           ...state,
-          rank_filter: filCountry,
+          rank_filter: filtered,
+          rank_filter_by_country: filCountry,
         };
       }
-    case type.SORTED_BY_POINTS:
-      const sortedpoints =
-        action.payload === "asc"
-          ? state.users.sort(function (a, b) {
-            return parseInt(a.points) - parseInt(b.points);
-          })
-          : state.users.sort(function (a, b) {
-            return parseInt(b.points) - parseInt(a.points);
-          });
-      return {
-        ...state,
-        users: sortedpoints,
-      };
+    case type.FILTER_BY_RANK:
+      if (action.payload === "All Ranks") {
+        if(state.rank.length !== state.rank_filter_by_country.length){
+          return {
+            ...state,
+            rank_filter: state.rank_filter_by_country,
+            rank_filter_by_ranks: state.rank,
+          };
+        }else {
+          return {
+            ...state,
+            rank_filter: state.rank,
+            rank_filter_by_ranks: state.rank,
+          };
+        }
+      } else {
+        let from = action.payload.replace(" ","").split("-")[0] - 1
+        let to = action.payload.replace(" ","").split("-")[1]
+        let aux = state.rank.slice(from, to)
+        let filtered = []
+        aux.forEach(el => {if(state.rank_filter_by_country.includes(el)){filtered.push(el)}})
+        return {
+          ...state,
+          rank_filter: filtered,
+          rank_filter_by_ranks: aux,
+        };
+      }
     case type.GET_COUNTRIES:
       return {
         ...state,
@@ -136,6 +163,8 @@ export const rootReducer = (state = initialState, action) => {
         ...state,
         rank: action.payload,
         rank_filter: action.payload,
+        rank_filter_by_country: action.payload,
+        rank_filter_by_ranks: action.payload,
       };
     case type.SET_SOUND:
       return {
