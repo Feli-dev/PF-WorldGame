@@ -51,7 +51,7 @@ function loginAction(user) {
 
       const { data } = await clienteAxios.post(`/Login`, {
         username: user.email,
-        password: user.password,
+        password: user.password
       });
 
       if (data.Request.authorization === "User") {
@@ -68,11 +68,25 @@ function loginAction(user) {
         }, 3000);
 
         return;
-      } else if (data.Request === "No se inicio sessión") {
+      } else if (data.Request === "No se inicio sesión") {
         dispatch({
           type: ERROR,
           payload: { msg: "Wrong credentials", error: true },
         });
+
+        setTimeout(() => {
+          dispatch({
+            type: ERROR,
+            payload: "",
+          });
+        }, 3000);
+        return;
+      } 
+      else if (data.Request.state === false) {
+        dispatch({
+          type: ERROR,
+          payload: { msg: "Not authorized", error: true },
+        })
 
         setTimeout(() => {
           dispatch({
