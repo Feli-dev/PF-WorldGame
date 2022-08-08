@@ -74,16 +74,12 @@ const Reviews = () => {
           Filters <ArrowDropDownIcon />
         </button>
 
-        <label className="font-semibold py-1 hidden lg:block mr-4">
-          Filters:
-        </label>
-
         <select
           id="read"
           className={
             filter
-              ? "mx-2 p-1 border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-              : "mx-2 p-1 border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 hidden"
+              ? "mx-2 p-2 border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+              : "mx-2 p-2 border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 hidden lg:block"
           }
           onChange={(event) => filterRead(event)}
           defaultValue="Read/Unread"

@@ -157,7 +157,7 @@ const Users = () => {
         >
           <select
             id="countries"
-            className="mx-2 p-1 border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 "
+            className="mx-2 p-2 border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 "
             onChange={(event) => handleSelectCountry(event)}
             defaultValue="Choose a country"
           >
@@ -173,7 +173,7 @@ const Users = () => {
 
           <select
             id="userType"
-            className="mx-2 p-1 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+            className="mx-2 p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
             onChange={handleSelectPremium}
             defaultValue="Type user"
           >
@@ -184,7 +184,7 @@ const Users = () => {
           </select>
           <select
             id="state"
-            className="mx-2 p-1 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+            className="mx-2 p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
             onChange={handleSelectState}
             defaultValue="State"
           >
@@ -195,7 +195,7 @@ const Users = () => {
           </select>
           <select
             id="Authorization"
-            className="mx-2 p-1 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+            className="mx-2 p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
             onChange={handleSelectAuthorization}
             defaultValue="Authorization"
           >
