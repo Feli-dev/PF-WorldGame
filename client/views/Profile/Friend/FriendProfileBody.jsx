@@ -176,8 +176,9 @@ export const FriendProfileButtons = ({
 }) => {
     const dispatch = useDispatch();
     const navigation = useNavigation();
+    console.log('followingUser -->',followingUser)
 
-    const [follow, setFollow] = useState( true );
+    const [follow, setFollow] = useState( followingUser );
     
     const handledAddOrDeleteFriend =  (status, friendID, userID) => {
             status
@@ -233,12 +234,7 @@ export const FriendProfileButtons = ({
                         </Text>
                     </View>
                 </TouchableOpacity>
-                <View
-                    style={{
-                        // ACA ME QUEDE MIN 08:06
-                    }}>
-
-                </View>
+               
 
             </View>
 
