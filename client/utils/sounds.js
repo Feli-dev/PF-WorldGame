@@ -52,13 +52,10 @@ export async function playSound(dispatch,setStat, stat) {
             console.log(status)
         dispatch(setStat({...stat, playbackObj: sound, soundObj: status}));
     }else if(stat?.soundObj.isLoaded && stat.soundObj.isPlaying){
-        console.log("tk tk")
         let status = await stat.playbackObj.setStatusAsync({ shouldPlay: false })
         dispatch(setStat({...stat, soundObj: status}))
     } else if(stat?.soundObj.isLoaded && stat.soundObj.isPlaying === false){{
-        console.log("tk gil");
         let status = await stat.playbackObj.setStatusAsync({ shouldPlay: true })
-
         dispatch(setStat({...stat, soundObj: status}))
     }
 
