@@ -67,6 +67,7 @@ import img from "../assets/Worldgame.png";
       (user) => user.email === useInfo.email
     );
     console.log("soy google user",googleuser);
+    console.log("soy allUser",allUser);
     if (googleuser) {
       if (googleuser.state === false) {
         Alert.alert(
@@ -141,13 +142,14 @@ import img from "../assets/Worldgame.png";
       //   siLogin = true;
       // }
       console.log("user: ", User);
+      console.log("user: ", allUser);
       if (User && User.state === false) {
         setLogErr("Banned user, please contact the administrator.");
         setBanned(true);
       } else if (User && User.state === true) {
         var c = await postLogin(_input);
+        console.log("c: ", c);
         if (c.payload.Request !== "No se inicio sessión") {
-          console.log("c: ", c);
           dispatch(setLogin(User));
           setLogin_(_input);
           setPressed(true);
