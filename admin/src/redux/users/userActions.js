@@ -5,6 +5,7 @@ import {
   GET_BY_FILTERED,
   ORDER_NAME,
   ORDER_POINTS,
+  SEARCH_USERS,
 } from "../types";
 
 export function getAllUsers() {
@@ -79,5 +80,12 @@ export function orderPoints(order) {
   return {
     type: ORDER_POINTS,
     payload: order,
+  };
+}
+
+export function searchUsers(input){
+  return {
+    type: SEARCH_USERS,
+    payload: input
   };
 }
