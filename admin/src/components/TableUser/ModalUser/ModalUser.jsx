@@ -91,8 +91,7 @@ const ModalUser = ({ setModalUser, userInfo }) => {
               Friends:
               <span className="text-base leading-relaxed text-gray-500 ">
                 {" "}
-                0??{" "}
-                {/* {userInfo.friends.length? `${userInfo.friends.length}`: `0`} */}
+                {userInfo?.friends.length ? `${userInfo?.friends.length}` : `0`}
               </span>
             </p>
 
