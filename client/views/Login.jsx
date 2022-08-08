@@ -174,12 +174,8 @@ import img from "../assets/Worldgame.png";
   }
 
   useEffect(() => {
-    if (
-      pressed === true &&
-      user.Request &&
-      banned === false &&
-      (user.Request?.first === false || !user.Request.first)
-    ) {
+    console.log(user)
+    if (pressed === true && user.Request &&  banned === false &&(user.Request?.first === false || !user.Request.first)) {
       setInput({
         username: "",
         password: "",
