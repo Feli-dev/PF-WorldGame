@@ -29,7 +29,7 @@ const ModalMssg = ({ setModalMessage, review }) => {
           <div className="p-6 space-y-6">
             <p className="font-bold">
               Review:
-              <span className="text-base leading-relaxed text-gray-500 block">
+              <span className="text-base leading-relaxed text-gray-500 block break-words">
                 {" "}
                 {review?.message ? `${review?.message}` : `vacio`}
               </span>
