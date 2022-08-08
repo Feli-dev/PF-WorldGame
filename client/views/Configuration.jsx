@@ -13,7 +13,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import tw from "twrnc";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { logOut, PostReview, soundOnOff, setStat } from "../redux/actions";
+import { logOut, PostReview, soundOnOff, setStat, GetLanguages } from "../redux/actions";
 import { backSound, playSound } from "../utils/sounds";
 
 export default function Configuration({ navigation }) {
@@ -73,6 +73,7 @@ export default function Configuration({ navigation }) {
           <View style={tw`flex flex-row justify-around items-center mt-5`}>
             <TouchableOpacity
               style={tw`flex mr-5 items-center justify-center w-12 h-10 bg-gray-300 rounded-lg`}
+              onPress={() => {dispatch(GetLanguages(false))}}
             >
               {/* <Text style={tw`text-center font-bold`}>EN</Text> */}
               <Image
@@ -82,6 +83,7 @@ export default function Configuration({ navigation }) {
             </TouchableOpacity>
             <TouchableOpacity
               style={tw`flex items-center justify-center w-12 h-10 bg-gray-300 rounded-lg`}
+              onPress={() => {dispatch(GetLanguages(true))}}
             >
               {/* <Text style={tw`text-center font-bold`}>ES</Text> */}
               <Image

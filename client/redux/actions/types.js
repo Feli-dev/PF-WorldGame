@@ -33,4 +33,5 @@ export const type = {
   SET_SOUND: "SET_SOUND",
   SOUND_ON: "SOUND_ON",
   FIRST: "FIRST",
+  GET_LANGUAGES:'GET_LANGUAGES',
 };
