@@ -12,6 +12,7 @@ import {
 import React, { useEffect, useState } from "react";
 import Ionic from 'react-native-vector-icons/Ionicons'
 import tw from "twrnc";
+import { touchSound } from '../../utils/sounds';
 import { useDispatch,useSelector } from "react-redux";
 import { GetProfileUser, PutUser } from "../../redux/actions/index";
 import AvatarOptions from './AvatarsOptions'
@@ -24,6 +25,8 @@ import * as Permissions from 'expo-permissions';
 export default function EditProfile({ route, navigation }) {
   const { id, name, avatar, premium, country, email, userName, password, countries } = route.params;
   const userInfo = useSelector((state) => state.profileUser);
+  const soundOn = useSelector((state) => state.soundOn);
+  const userInfo = useSelector((state) => state.userdetail);
    useEffect(() => {
     GetProfileUser(id)
    },[])
@@ -136,11 +139,11 @@ export default function EditProfile({ route, navigation }) {
             justifyContent: 'space-between',
             padding: 10,
           }}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
+          <TouchableOpacity onPress={() => {navigation.goBack();touchSound(soundOn);}}>
             <Ionic name='close-outline' style={{ fontSize: 35, color: '#BE185D' }}></Ionic>
           </TouchableOpacity>
           <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#D1D5DB' }}>Edit Profile</Text>
-          <TouchableOpacity onPress={() => handleUpdate()}>
+          <TouchableOpacity onPress={() => {handleUpdate();touchSound(soundOn);}}>
             <Ionic name='checkmark' style={{ fontSize: 35, color: '#059669' }}></Ionic>
           </TouchableOpacity>
         </View>
@@ -155,13 +158,13 @@ export default function EditProfile({ route, navigation }) {
           />
          <TouchableOpacity
           style={tw`bg-gray-600 px-8 py-2 rounded-lg mt-3 w-50`}
-          onPress={()=>pickFromGalary()}
+          onPress={()=>{pickFromGalary();touchSound(soundOn);}}
         >
           <Text style={tw`text-white text-center font-bold`}>Change Image</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={tw`bg-gray-600 px-8 py-2 rounded-lg mt-3 w-50`}
-          onPress={()=>pickFromCamera()}
+          onPress={()=>{pickFromCamera();touchSound(soundOn);}}
         >
           <Text style={tw`text-white text-center font-bold`}>Take photo</Text>
         </TouchableOpacity>
@@ -226,7 +229,7 @@ export default function EditProfile({ route, navigation }) {
               setItems={setItems}
               arrowIconStyle={{ tintColor: "white" }}
               type='country'
-              onSelectItem={(event) => { handleOnChange("country", event.value) }}
+              onSelectItem={(event) => { handleOnChange("country", event.value); touchSound(soundOn); }}
               containerStyle={tw`w-6/12`}
             />
 
@@ -244,14 +247,14 @@ export default function EditProfile({ route, navigation }) {
           >
             <Text //ESTO TIENE QUE APARECER SI NO ES PREMIUM!
 
-              onPress={() => navigation.navigate('Payment', {
+              onPress={() => {navigation.navigate('Payment', {
                 id: id,
                 name: name,
                 country: country,
                 email: email,
                 userName: userName,
                 password: password,
-              })}
+              });touchSound(soundOn);}}
               style={{
                 fontSize: 20,
                 marginVertical: 100,

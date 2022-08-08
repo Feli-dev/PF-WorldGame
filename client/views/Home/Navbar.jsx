@@ -2,11 +2,17 @@ import { Text, View, TouchableOpacity, Modal, Image } from "react-native";
 import tw from "twrnc";
 import Svg, { Path } from "react-native-svg";
 import { useState } from "react";
+import { useDispatch,useSelector } from "react-redux";
+import { setStat, soundOnOff } from '../../redux/actions'
 import red from "../../assets/viewInfo/red.png";
+import { touchSound, playSound } from '../../utils/sounds';
 import green from "../../assets/viewInfo/green.png";
 
 export default function Navbar({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
+  const stat = useSelector((state) => state.stat);
+  const soundOn = useSelector((state) => state.soundOn);
+  const dispatch = useDispatch()
   return (
     <View
       style={tw`flex h-1/6 items-center justify-center bg-gray-900 mt-40 mb--8`}
@@ -125,7 +131,7 @@ export default function Navbar({ navigation }) {
                   ></View>
                   <TouchableOpacity
                     style={tw`w-35 pt-1 rounded-lg`}
-                    onPress={() => setModalVisible(!modalVisible)}
+                    onPress={() => {setModalVisible(!modalVisible);touchSound(soundOn);}}
                   >
                     <Text style={tw`text-center font-bold`}> Close </Text>
                   </TouchableOpacity>
@@ -137,7 +143,7 @@ export default function Navbar({ navigation }) {
       <View style={tw`flex flex-row justify-center items-center`}>
         <TouchableOpacity
           style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-lg mr-5 w-10 h-15`}
-          onPress={()=> setModalVisible(true)}
+          onPress={()=> {setModalVisible(true);touchSound(soundOn);}}
           // onPress={() => navigation.navigate("Info")}
         >
           <View style={tw`w-10 h-10`}>
@@ -151,7 +157,7 @@ export default function Navbar({ navigation }) {
         </TouchableOpacity>
         <TouchableOpacity
           style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-lg mr-5 w-10 h-15`}
-          onPress={() => navigation.navigate("Configuration")}
+          onPress={() => {navigation.navigate("Configuration");touchSound(soundOn);}}
         >
           <View style={tw`w-10 h-10`}>
             <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -164,7 +170,7 @@ export default function Navbar({ navigation }) {
         </TouchableOpacity>
         <TouchableOpacity
           style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-lg mr-5 w-10 h-15`}
-          onPress={() => navigation.navigate("Ranking")}
+          onPress={() => {navigation.navigate("Ranking");touchSound(soundOn);}}
         >
           <View style={tw`w-10 h-10`}>
             <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
@@ -177,7 +183,7 @@ export default function Navbar({ navigation }) {
         </TouchableOpacity>
         <TouchableOpacity
           style={tw`flex justify-center items-center bg-[#FFFFFF] px-8 py-2 rounded-lg w-10 h-15`}
-          onPress={() => navigation.navigate("Profile")}
+          onPress={() => {navigation.navigate("Profile");touchSound(soundOn);}}
         >
           <View style={tw`w-10 h-10`}>
             <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
