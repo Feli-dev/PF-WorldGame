@@ -14,6 +14,7 @@ import tw from "twrnc";
 import { getRank, getAllCountries, filterByCountry, filterByTop } from "../redux/actions";
 
 export default function Ranking() {
+  const isSpanish= useSelector((state) => state.isSpanish);
   const ranked = useSelector((state) => state.rank_filter);
   const allCountries = useSelector((state) => state.countries);
   const dispatch = useDispatch();
@@ -38,7 +39,7 @@ export default function Ranking() {
           <View style={tw`flex flex-col`}>
             <View style={tw`ml-8 flex items-center justify-center`}>
               <Text style={tw`text-white text-lg text-center font-bold mb-2`}>
-                Country
+              {isSpanish ? 'País' : "Country" }
               </Text>
               <DropDownPicker
                 style={tw`border-solid border-0 w-7/7 h-8 m-0 flex justify-center items-center bg-gray-800 rounded-lg z-0`}
@@ -51,7 +52,7 @@ export default function Ranking() {
                 setOpen={setOpen}
                 setValue={setValue}
                 setItems={setItems}
-                placeholder="All Countries"
+                placeholder={isSpanish ? 'Todos los países' : "All countrys" }
                 arrowIconStyle={{ tintColor: "white" }}
                 containerStyle={tw`w-6/7`}
                 onChangeValue={(value) => {
@@ -63,7 +64,7 @@ export default function Ranking() {
           <View style={tw`flex flex-col`}>
             <View style={tw`flex items-center justify-center`}>
               <Text style={tw`text-white text-lg text-center font-bold mb-2`}>
-                Top
+              {isSpanish ? 'Mejor' : "Top" }
               </Text>
               <DropDownPicker
                 style={tw`border-solid border-0 w-7/7 h-8 m-0 flex justify-center items-center bg-gray-800 rounded-lg z-0`}
@@ -76,7 +77,7 @@ export default function Ranking() {
                 setOpen={setOpen2}
                 setValue={setValue2}
                 setItems={setItems2}
-                placeholder="All Ranks"
+                placeholder={isSpanish ? 'Todos los usuarios' : "All users" }
                 arrowIconStyle={{ tintColor: "white" }}
                 containerStyle={tw`w-6/7`}
                 onChangeValue={(value) => {

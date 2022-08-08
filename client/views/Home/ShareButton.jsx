@@ -6,13 +6,14 @@ import { useSelector } from 'react-redux';
 
 export default function ShareButton() {
     const listOfAttemps = useSelector((state) => state.attemps);
+    const isSpanish= useSelector((state) => state.isSpanish);
     const countryOfGame = useSelector((state) => state.countrie);
     const login = useSelector((state) => state.login);
     const createMessage = ()=>{
         let message = ""
         message += `--- *World Game* ---\n`
-        message += `User: ${login.Request.username}\n`
-        message += `Game: #${login.Request.stats.games +1}\n`
+        message += isSpanish? `Usuario: ${login.Request.username}\n`:`User: ${login.Request.username}*\n`
+        message += isSpanish? `Juego: #${login.Request.stats.games +1}\n`:`Game: #${login.Request.stats.games +1}\n`
         message += `-------------------------\n`
         listOfAttemps.map((el) => {
             if(el.hemisphere.asserted) message += "🟢"
@@ -28,7 +29,7 @@ export default function ShareButton() {
             message += "\n"
         })
         message += `-------------------------\n`
-        message += `Country of game: *${countryOfGame.name}*`
+        message += isSpanish? `País del juego${countryOfGame.name}`:`Country of game: *${countryOfGame.name}*`
         return message
     }
 
@@ -61,7 +62,7 @@ export default function ShareButton() {
                             <Path fill="#000" d="M285.4 197.1l-94.1 47c.5 3.9-.2 7-.2 11.9 0 4 .7 7.1.2 11.9l94.1 47c17.2-16.7 40.7-26.9 66.6-26.9 53 0 96 42.1 96 96 0 53-43 96-96 96-53.9 0-96-43-96-96 0-4.9.2-8 .7-11.9l-94.1-47C145.4 341.8 121.9 352 96 352c-53.02 0-96-43-96-96 0-53.9 42.98-96 96-96 25.9 0 49.4 10.2 66.6 26.9l94.1-47c-.5-4.8-.7-7.9-.7-11.9 0-53.02 42.1-96 96-96 53 0 96 42.98 96 96 0 53-43 96-96 96-25.9 0-49.4-10.2-66.6-26.9z" />
                         </Svg>
                     </View>
-                    <Text style={tw`font-bold text-xl`}>Share</Text>
+                    <Text style={tw`font-bold text-xl`}>{isSpanish ? "Compartir" :"Share"}</Text>
                 </View>
             </TouchableOpacity>
         </View>

@@ -10,6 +10,7 @@ import green from "../../assets/viewInfo/green.png";
 
 export default function Navbar({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
+  const isSpanish= useSelector((state) => state.isSpanish);
   const stat = useSelector((state) => state.stat);
   const soundOn = useSelector((state) => state.soundOn);
   const dispatch = useDispatch()
@@ -28,7 +29,7 @@ export default function Navbar({ navigation }) {
           >
             <View style={tw`flex items-center justify-center mt-35`}>
               <View style={tw`flex items-center justify-center bg-gray-300 rounded-lg w-80 h-90`}>
-                <Text style={tw`text-base font-bold text-center mt-2 mb--2`}>INFO</Text>
+                <Text style={tw`text-base font-bold text-center mt-2 mb--2`}>{isSpanish ? '' :"INFO"}</Text>
                 <View style={tw`h-3/10 w-8/10 flex flex-row items-center justify-evenly`}>
                   <View
                     style={tw`flex flex-col justify-center items-center h-25 w-22 rounded-lg mr-5`}
@@ -41,7 +42,7 @@ export default function Navbar({ navigation }) {
                         />
                       </Svg>
                     </View>
-                    <Text style={tw`mb-0.5 mt-0.5 font-bold text-sm`}>Hemisphere</Text>
+                    <Text style={tw`mb-0.5 mt-0.5 font-bold text-sm`}>{isSpanish ? "Hemisferio" : "Hemisphere"}</Text>
                   </View>
                   <View
                     style={tw`flex flex-col justify-center items-center h-25 w-22 rounded-lg mr-5`}
@@ -54,7 +55,7 @@ export default function Navbar({ navigation }) {
                         />
                       </Svg>
                     </View>
-                    <Text style={tw`mb-0.5 mt-0.5 font-bold text-sm`}>Continent</Text>
+                    <Text style={tw`mb-0.5 mt-0.5 font-bold text-sm`}>{isSpanish? "Continente":"Continent"}</Text>
                   </View>
                   <View
                     style={tw`flex flex-col justify-center items-center h-25 w-22 rounded-lg`}
@@ -76,7 +77,7 @@ export default function Navbar({ navigation }) {
                         />
                       </Svg>
                     </View>
-                    <Text style={tw`mb-0.5 mt-0.5 font-bold text-sm`}>Area</Text>
+                    <Text style={tw`mb-0.5 mt-0.5 font-bold text-sm`}>{isSpanish ? "Area" : "Area"}</Text>
                   </View>
                 </View>
                 <View style={tw`h-3/10 w-8/10 flex flex-row items-center justify-evenly`}>
@@ -91,7 +92,7 @@ export default function Navbar({ navigation }) {
                         />
                       </Svg>
                     </View>
-                    <Text style={tw`mb-0.5 mt-0.5 font-bold text-sm`}>Poblation</Text>
+                    <Text style={tw`mb-0.5 mt-0.5 font-bold text-sm`}>{isSpanish? "Población":"Poblation"}</Text>
                   </View>
                   <View
                     style={tw`flex flex-col justify-center items-center h-25 w-25 rounded-lg`}
@@ -104,7 +105,7 @@ export default function Navbar({ navigation }) {
                         />
                       </Svg>
                     </View>
-                    <Text style={tw`mb-0.5 mt-0.5 font-bold text-sm`}>Coordinates</Text>
+                    <Text style={tw`mb-0.5 mt-0.5 font-bold text-sm`}>{isSpanish ? "Coordenadas" : "Coordinates"}</Text>
                   </View>
                 </View>
                 <View style={tw`h-2/10 w-8/10 flex flex-row items-center justify-evenly`}>
@@ -114,7 +115,7 @@ export default function Navbar({ navigation }) {
                     <View style={tw`h-7 w-7`}>
                       <Image source={red} style={tw`w-7 h-7`} />
                     </View>
-                    <Text style={tw`mb-0.5 mt-0.5 font-bold text-sm`}>Wrong</Text>
+                    <Text style={tw`mb-0.5 mt-0.5 font-bold text-sm`}>{isSpanish ? "Equivocado" :"Wrong"}</Text>
                   </View>
                   <View
                     style={tw`flex flex-col justify-center items-center h-25 w-25 rounded-lg`}
@@ -122,7 +123,7 @@ export default function Navbar({ navigation }) {
                     <View style={tw`h-7 w-7`}>
                       <Image source={green} style={tw`w-7 h-7`} />
                     </View>
-                    <Text style={tw`mb-0.5 mt-0.5 font-bold text-sm`}>Correct</Text>
+                    <Text style={tw`mb-0.5 mt-0.5 font-bold text-sm`}>{isSpanish ? "Correcto":"Correct"}</Text>
                   </View>
                 </View>
                 <View style={tw`h-1/10 flex flex-col items-center justify-center mb-2`}>
@@ -133,7 +134,7 @@ export default function Navbar({ navigation }) {
                     style={tw`w-35 pt-1 rounded-lg`}
                     onPress={() => {setModalVisible(!modalVisible);touchSound(soundOn);}}
                   >
-                    <Text style={tw`text-center font-bold`}> Close </Text>
+                    <Text style={tw`text-center font-bold`}> {isSpanish ? "Cerrar":"Close"} </Text>
                   </TouchableOpacity>
                 </View>
               </View>

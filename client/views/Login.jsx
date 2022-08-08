@@ -29,6 +29,7 @@ import img from "../assets/Worldgame.png";
 
   function Login({ navigation, user, postLogin }) {
     const [accessToken, setAccessToken] = useState(null);
+    const isSpanish= useSelector((state) => state.isSpanish);
     const [userA, setUserA] = useState(null);
     const soundOn = useSelector((state) => state.soundOn);
     const first = useSelector((state) => state.first);
@@ -67,27 +68,27 @@ import img from "../assets/Worldgame.png";
     var googleuser = await allUser.Request.find(
       (user) => user.email === useInfo.email
     );
-    console.log("soy google user",googleuser);
-    console.log("soy allUser",allUser[allUser.length-1]);
+
     if (googleuser) {
       if (googleuser.state === false) {
         Alert.alert(
-          "User Banned",
-          "Please talk whit this email address: worldgamecontact4@gmail.com ",
+          isSpanish ? 'Usuario baneado' : "Users Banned",
+          isSpanish ? 'Por favor, hable a la siguiente dirección de correo electrónico: worldgamecontact4@gmail.com' : "Please talk whit this email address: worldgamecontact4@gmail.com ",
           [
             {
-              text: "Cancel",
+              text: isSpanish ? 'Cancelar' : "Cancel",
               onPress: () => BackHandler.exitApp(),
               style: "cancel",
             },
-            { text: "OK", onPress: () => navigation.navigate("Register") },
+            { text: isSpanish ? 'Continuar' : "Continue",
+             onPress: () => navigation.navigate("Register") },
           ]
           );
         } else {
-        navigation.navigate("Home");
-        getUser(googleuser.id);
-        setLogin_(inputauth);
-        dispatch(setLogin(googleuser));
+          getUser(googleuser.id);
+          setLogin_(inputauth);
+          dispatch(setLogin(googleuser));
+          navigation.navigate("Home");
       }
     }
   }
@@ -119,15 +120,15 @@ import img from "../assets/Worldgame.png";
   let log = async (_input) => {
     if (_input.username.length < 3 && _input.password.length < 3) {
       setErr({
-        username: "Enter your username",
-        password: "Enter your password",
+        username: isSpanish ? "Ingrese su Nombre de usuario" : "Enter your username",
+        password: isSpanish ? "Ingrese su Contraseña": "Enter your password",
       });
     } else {
       if (_input.username.length < 3) {
-        setErr({ ...err, username: "Enter your username" });
+        setErr({ ...err, username: isSpanish ? "Ingrese su Nombre de usuario" : "Enter your username" });
       }
       if (_input.password.length < 3) {
-        setErr({ ...err, password: "Enter your password" });
+        setErr({ ...err, password: isSpanish ? "Ingrese su Nombre de usuario" : "Enter your username" });
       }
     }
 
@@ -145,8 +146,8 @@ import img from "../assets/Worldgame.png";
       console.log("user: ", User);
       console.log("user: ", allUser);
       if (User && User.state === false) {
-        setLogErr("Banned user, please contact the administrator.");
-        setBanned(true);
+        setLogErr(isSpanish ? "Usuario baneado por favor contactarse con el administrador ":"Banned user, please contact the administrator.");
+        setBanned(true); 
       } else if (User && User.state === true) {
         var c = await postLogin(_input);
         console.log("c: ", c);
@@ -156,8 +157,8 @@ import img from "../assets/Worldgame.png";
           setPressed(true);
         } else {
           setTimeout(() => {
-            if (logErr !== "Banned user, please contact the administrator.") {
-              setLogErr("invalid user or password");
+            if (logErr !== "Banned user, please contact the administrator."|| logErr !=="Usuario baneado por favor contactarse con el administrador ") {
+              setLogErr(isSpanish ? "Usuario o contraseña invalido"  :" Invalid user or password");
             }
           }, 700);
         }
@@ -204,16 +205,16 @@ import img from "../assets/Worldgame.png";
         );
       } else {
         setTimeout(() => {
-          if (logErr !== "Banned user, please contact the administrator.") {
-            setLogErr("invalid user or password");
+          if (logErr !== "Banned user, please contact the administrator."|| logErr !=="Usuario baneado por favor contactarse con el administrador ") {
+            setLogErr(isSpanish ? "Usuario o contraseña invalido"  :" Invalid user or password");
           }
         }, 700);
       }
     }
     if (pressed === true && !user.Request) {
       setTimeout(() => {
-        if (logErr !== "Banned user, please contact the administrator.") {
-          setLogErr("invalid user or password");
+        if (logErr !== "Banned user, please contact the administrator." || logErr !=="Usuario baneado por favor contactarse con el administrador ") {
+          setLogErr(isSpanish ? "Usuario o contraseña invalido"  :" Invalid user or password");
         }
       }, 700);
     }
@@ -238,9 +239,9 @@ import img from "../assets/Worldgame.png";
       <View style={tw`flex h-full items-center justify-center bg-gray-900`}>
         <Image style={tw`h-40 w-40`} source={img} />
         <View style={tw`flex flex-col mt-10`}>
-          <Text style={tw`text-white text-lg text-left mb-1`}>User</Text>
+          <Text style={tw`text-white text-lg text-left mb-1`}>{isSpanish ? "User" : "User"}</Text>
           <TextInput
-            placeholder="User..."
+            placeholder={isSpanish ? "User..." : "User..."}
             key={"user"}
             value={input.username}
             onChangeText={(e) => handleInputChange("username", e)}
@@ -252,10 +253,10 @@ import img from "../assets/Worldgame.png";
           </Text>
         </View>
         <View>
-          <Text style={tw`text-white text-lg text-left mb-1`}>Password</Text>
+          <Text style={tw`text-white text-lg text-left mb-1`}>{isSpanish ? "Contraseña" : "Password"}</Text>
           <TextInput
             secureTextEntry={true}
-            placeholder="Password..."
+            placeholder={isSpanish ? "Contraseña..." : "Password..."}
             key={"password"}
             value={input.password}
             onChangeText={(e) => handleInputChange("password", e)}
@@ -283,7 +284,7 @@ import img from "../assets/Worldgame.png";
           style={tw`bg-gray-600 px-8 py-2 rounded-lg mt-3 w-50`}
           onPress={() => {log(input);touchSound(soundOn);}}
         >
-          <Text style={tw`text-white text-center font-bold`}>LOGIN</Text>
+          <Text style={tw`text-white text-center font-bold`}>{isSpanish ? "INICIAR SESIÓN" : "LOGIN"}</Text>
         </TouchableOpacity>
         <View>
           <Text style={tw`text-red-500 text-xs text-left mt-2 mb-1`}>
@@ -294,7 +295,7 @@ import img from "../assets/Worldgame.png";
           <View
             style={tw`w-30 mr-5 border-b border-solid border-gray-400`}
           ></View>
-          <Text style={tw`text-gray-100 text-xs`}>OR</Text>
+          <Text style={tw`text-gray-100 text-xs`}>{isSpanish ? 'O' : "OR" }</Text>
           <View
             style={tw`w-30 ml-5 border-b border-solid border-gray-400`}
           ></View>
@@ -345,12 +346,12 @@ import img from "../assets/Worldgame.png";
                 />
               </Svg>
             </View>
-            <Text style={tw`text-base font-bold`}>Sign in with Google</Text>
+            <Text style={tw`text-base font-bold`}>{isSpanish ? 'Iniciar sesión con google' : "Sing In whit Google" }</Text>
           </TouchableOpacity>
         </View>
         <View style={tw`mt-10`}>
           <Text style={tw`text-white text-center font-bold`}>
-            If you don't have an account,
+            {isSpanish ? "Si no tenes cuenta": "If you do not have an account"}
             <Text
               style={tw`text-blue-200 text-center font-bold`}
               onPress={() => {navigation.navigate("Register");setPressed(false);setInput({
@@ -358,7 +359,7 @@ import img from "../assets/Worldgame.png";
                 password: "",
               });touchSound(soundOn);}}
             >
-              &nbsp;register
+              &nbsp;{isSpanish ? "Registrarse": "Register"}
             </Text>
           </Text>
         </View>
