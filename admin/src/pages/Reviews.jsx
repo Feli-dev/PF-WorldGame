@@ -53,9 +53,9 @@ const Reviews = () => {
   }
 
   return (
-    <div className="md:max-w-8xl md:mx-auto px-4 py-6 ">
+    <div className="md:max-w-7xl md:mx-auto px-4 py-7 ">
       <div className="flex items-center justify-between mb-4 h-1/6">
-        <button className="ml-1 text-2xl font-bold text-black hover:text-blue-600">
+        <button className="text-2xl font-bold text-black hover:text-blue-600">
           All Reviews
         </button>
       </div>

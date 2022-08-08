@@ -124,10 +124,10 @@ const Users = () => {
   }
 
   return (
-    <div className="md:max-w-8xl md:mx-auto px-4 py-7 min-h-screen">
-      <div className="flex items-center justify-between mb-6 ml-2">
+    <div className="md:max-w-7xl md:mx-auto px-4 py-7 min-h-screen">
+      <div className="flex items-center justify-between mb-6">
         <button
-          className="ml-1 text-2xl font-bold text-black hover:text-blue-600"
+          className="text-2xl font-bold text-black hover:text-blue-600"
           onClick={handleReset}
         >
           All Users

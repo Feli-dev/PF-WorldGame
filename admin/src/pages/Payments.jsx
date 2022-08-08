@@ -11,7 +11,7 @@ const Payment = () => {
   return (
     <div className="md:max-w-7xl md:mx-auto px-4 py-7 min-h-screen">
       <div className="flex items-center justify-between mb-4 ml-2 h-1/8">
-        <h2 className="text-xl font-bold text-gray-800">All Payments</h2>
+        <h2 className="text-2xl font-bold text-black hover:text-blue-600">All Payments</h2>
       </div>
       <div className="overflow-x-auto bg-white rounded-lg shadow h-4/8">
         <table className="w-full whitespace-no-wrap bg-white overflow-hidden table-striped">
