@@ -140,14 +140,14 @@ import img from "../assets/Worldgame.png";
       // if(login.Request && login.Request?.username?.toLowerCase() === input.username.toLowerCase() && login?.Request?.first === false){
       //   siLogin = true;
       // }
-      console.log(User);
+      console.log("user: ", User);
       if (User && User.state === false) {
         setLogErr("Banned user, please contact the administrator.");
         setBanned(true);
       } else if (User && User.state === true) {
         var c = await postLogin(_input);
         if (c.payload.Request !== "No se inicio sessión") {
-          console.log(c);
+          console.log("c: ", c);
           dispatch(setLogin(User));
           setLogin_(_input);
           setPressed(true);
