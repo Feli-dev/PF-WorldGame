@@ -201,8 +201,7 @@ const BottomTabView = ({
         }, [Messages]);
 
         function onSubmitChatMessage() {
-            if (userName.length) {
-                console.log("mensaje", userName, chatMessage);
+            if (userName.length && chatMessage.length) {
                 socket.emit("mensaje", userName, chatMessage);
                 setChatMessage("");
             }
@@ -210,7 +209,7 @@ const BottomTabView = ({
 
         function view() {
             let obj = {}
-            const send = Messages.length > 0 ? Messages.filter(e => obj[e.mensaje] ? false : obj[e.mensaje] = true) : [];
+            const send = Messages.length > 0 ? Messages.filter(e => obj[`${userName} ha entrado en la sala del chat`] && obj[`${userName} ha abandonado la sala`] ? false : obj[e.mensaje] = true) : [];
             return send;
         }
 
@@ -246,7 +245,7 @@ const BottomTabView = ({
                         placeholderTextColor="#6f6f6f"
                         autoCapitalize="sentences"
                         style={tw`pl-3 w-75 mr-1 h-12 rounded-lg bg-white text-black text-lg`}
-                        onChangeText={text => setChatMessage(text)}
+                        onChangeText={text => setChatMessage(text.trimStart().trimEnd())}
                         multiline={true}
                         value={chatMessage}
                         textAlignVertical="center"
