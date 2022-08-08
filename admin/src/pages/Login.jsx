@@ -60,11 +60,6 @@ const Login = () => {
     const error = await dispatch(loginAction(user));
 
     if (!error) {
-      setUser({
-        email: "",
-        password: "",
-      });
-
       navigate.push("/dashboard");
     }
   };
@@ -73,7 +68,7 @@ const Login = () => {
 
   return (
     <div className="w-screen h-screen flex justify-center items-center">
-      <div className="w-1/3 p-4 bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 ">
+      <div className="w-3/4 md:w-2/3 lg:w-1/3 p-4 bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 ">
         <form className="space-y-6" onSubmit={handleSubmit}>
           <h5 className="text-xl font-medium text-gray-900  text-center">
             Login
@@ -142,23 +137,6 @@ const Login = () => {
             )}
           </div>
           <div className="flex items-start">
-            <div className="flex items-start">
-              <div className="flex items-center h-5">
-                <input
-                  id="remember"
-                  type="checkbox"
-                  value=""
-                  className="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300 "
-                  required=""
-                />
-              </div>
-              <label
-                htmlFor="remember"
-                className="ml-2 text-sm font-medium text-gray-900 "
-              >
-                Remember me
-              </label>
-            </div>
             <Link
               to="forgot-password"
               className="ml-auto text-sm text-blue-700 hover:underline "
@@ -168,7 +146,7 @@ const Login = () => {
           </div>
           <button
             type="submit"
-            className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium"
+            className="w-full p-2 rounded-md text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium"
           >
             Login
           </button>

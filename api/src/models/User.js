@@ -9,48 +9,68 @@ module.exports = (sequelize) => {
         },
         name: {
             type: DataTypes.STRING,
-            allowNull: true,
-            get() {
-                const value = this.getDataValue('name');
-                return value ? value.toUpperCase() : null;
-            }
+            allowNull: true
         },
         username: {
             type: DataTypes.STRING,
             unique: true,
             allowNull: false,
+            validate:{
+                len: [3,20]
+            },
             get() {
-                const value = this.getDataValue('username');
-                return value ? value.toLowerCase() : null;
+                return this.getDataValue('username') ? this.getDataValue('username').toLowerCase() : "";
             }
         },
         password: {
             type: DataTypes.TEXT,
-            //unique: true,
-            allowNull: false,
+            allowNull: false
         },
         email: {
             type: DataTypes.STRING,
-            //unique: true,
+            unique: true,
             allowNull: false,
+            validate:{
+                len: [10,80],
+                isEmail: true
+            },
         },
         points: {
             type:DataTypes.FLOAT,
             defaultValue: 0,
+            validate:{
+                min:0,
+                max:5,
+                isNumeric: true
+            },
         },
         country: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
+        },
+        premium: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false
+        },
+        connect: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false
         },
         state: {
             type: DataTypes.BOOLEAN,
             allowNull: false
         },
         authorization: {
-            type: DataTypes.BOOLEAN,
+            type: DataTypes.ENUM,
+            values: ['Pro-Admin', 'Community-Admin', 'Enterprise-Admin', 'User'],
+            defaultValue: 'User',
             allowNull: false
+        },
+        avatar: {
+            type: DataTypes.TEXT,
+            defaultValue: "https://res.cloudinary.com/dunhnh8mv/image/upload/v1659972908/nnm2jznivdalyzycj3rb.png"
         }
     },{
-        timestamps: false,
+        timestamps: true,
     });
 };

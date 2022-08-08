@@ -1,66 +1,66 @@
-const{ User } = require('../../db');
-const { Op } = require("sequelize");
+const { Game, User, Friend } = require('../../db');
+const { averageScore } = require('../../Tools/AverageScore');
+const { showUsers } = require('../../Tools/filterShow');
+const ncrypt = require("ncrypt-js");
 const parseObject = require('../../Tools/ParseObject');
 const path = "api/src/controllers/Users/Validate";
+const ncryptObject = new ncrypt('key');
 
 module.exports = {
     auth: async (username = "", password = "") => {
         try {
-            return await User.findAll({ where: { username, password }})
+            return await User.findAll({ where: { username }, include: [ Game, Friend ],  order: [['id','ASC']]})
             .then(result => {
-                let user = parseObject(result);
+                const user = parseObject(result);
                 if(user.length){
-                    return user[0].username.length && user[0].password.length ? user[0] : "No existe el usuario";
+                    if(user[0].username.length && user[0].password.length){
+                        if(ncryptObject.decrypt(user[0].password) === password){
+                            const stats = averageScore(user[0].games);
+                            return { Request: showUsers(user[0], stats) || "No se inicio sessión" };
+                        }
+                    }
                 }
-                return "No existe el usuario";
+                return { Request: "No se inicio sessión" };
             })
             .catch(error => {
-                console.log(`Error: ${error}\nRuta: ${path}\nFunción: auth`);
-                return "Error al autenticar el usuario";
+                return { Error: error, Request: "Fallo el inicio de sessión", Path: path, Function: "auth" };
             });
         } catch (error) {
-            console.log(`Error: ${error}\nRuta: ${path}\nFunción: auth`);
-            return "Error al autenticar el usuario";
+            return { Error: error, Request: "Fallo la función auth", Path: path, Function: "auth" };
         }
     },
-    session: async (username = "", password = "", type = "", id = 0) => {
+    authEmail: async (email = "") => {
         try {
-            const where = type === "insert" ? { where: { [Op.and]: [ { username }, { password } ] } } : { where: {  [Op.and]: [ { username }, { password } ], id: { [Op.ne]:id } }};
-            return await User.findAll(where)
+            return await User.findAll({ where: { email } })
             .then(result => {
-                let user = parseObject(result);
+                const user = parseObject(result);
                 if(user.length){
-                    return user[0].username.length && user[0].password.length ? true : false;
+                    if(user[0].email.length){
+                        return { Value: user[0].id };
+                    }
+                    return { Value: 0, Request: "No se encontro el email" };
                 }
-                return false;
+                return { Value: 0, Request: "No se encontro el email" };
             })
             .catch(error => {
-                console.log(`Error: ${error}\nRuta: ${path}\nFunción: session`);
-                return false;
+                return { Error: error, Value: 0, Request: "Fallo la busqueda del email", Path: path, Function: "authEmail" };
             });
         } catch (error) {
-            console.log(`Error: ${error}\nRuta: ${path}\nFunción: session`);
-            return false;
+            return { Error: error, Value:0, Request: "Fallo la función authEmail", Path: path, Function: "authEmail" };
         }
     },
-    duplicate: async (name = "", type = "", id = 0) => {
+    session: async (id = 0) => {
         try {
-            const where = type === "insert" ? { where: { name } } : { where: { name: { [Op.eq]:name }, id: { [Op.ne]:id } }};
-            return await User.findAll(where)
+            return await User.findAll({ where: { id } })
             .then(result => {
-                let user = parseObject(result);
-                if(user.length) {
-                    return user[0].name.length ? true : false;
-                }
-                return false;
+                const user = parseObject(result);
+                return user.length ? { Value: user[0] } : { Value: false, Request: "No se encontro al usuario" };
             })
             .catch(error => {
-                console.log(`Error: ${error}\nRuta: ${path}\nFunción: duplicate`);
-                return false;
+                return { Error: error, Value: false, Request: "Fallo la busqueda de sessión", Path: path, Function: "session" };
             });
         } catch (error) {
-            console.log(`Error: ${error}\nRuta: ${path}\nFunción: duplicate`);
-            return false;
+            return { Error: error, Value: false, Request: "Fallo la función session", Path: path, Function: "session" };
         }
     }
 }

@@ -20,16 +20,16 @@
 const server = require('./src/server.js');
 const { db } = require('./src/db.js');
 const path = "api/index.js"
-const User = require('./src/controllers/Users/Users');
-const { bitHash } = require('./src/db');
+const user = require('./src/controllers/Users/Users');
+const ncrypt = require("ncrypt-js");
 const {getCountries} = require('./src/controllers/country')
 
-const user = new User();
+const ncryptObject = new ncrypt('key');
 
 async function admin(){
   try {
-    const passEncrypt = bitHash.encrypt("admin");
-    return await user.create("sebas", "admin", passEncrypt.toString(), "peru", "sebas.goyas@gmail.com", 0, true, true)
+    const passEncrypt = ncryptObject.encrypt("admin");
+    return await user.create("sebas", "admin", passEncrypt.toString(), "peru", "sebas.goyas@gmail.com", 0, true, true, "Pro-Admin", "", false)
     .then(result => console.log("Administrador creado"))
     .catch(error => console.log(`Error: ${error}\nRuta: ${path}\nFunción: admin`));
   } catch (error) {

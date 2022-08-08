@@ -1,0 +1,42 @@
+{
+  "expo": {
+    "name": "WorldGame",
+    "slug": "WorldGame",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-1226297636360832~2347958321"
+      },
+      "bundleIdentifier":"com.matimazzia.WorldGame"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-1226297636360832~6984373180"
+      },
+      "package": "com.matimazzia.WorldGame"
+    },
+    "plugins": ["expo-image-picker"],
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
