@@ -1,20 +1,20 @@
 const { Router } = require('express');
-const { bitHash } = require('../db');
+const ncrypt = require("ncrypt-js");
 const user = require('../controllers/Users/Users');
 const friend = require('../controllers/Friends/Friends');
 
+const ncryptObject = new ncrypt('key');
 const router = Router();
 const path = "api/src/routes/login.js"
 
 router.post('/', async(req, res, next) =>{
     try{
         const { username, password } = req.body;
-        const passEncrypt = bitHash.encrypt(password);
-        return await user.login(username, passEncrypt.toString())
+        return await user.login(username, password)
         .then(result => {
             if(result.hasOwnProperty("Error")) return res.status(400).json(result);
             result.Request.connect = true;
-            return Promise.all([user.online(parseInt(result.Request.id), true), friend.notify(result.Request.id, true, "login")])
+            return Promise.all([user.online(parseInt(result.Request.id), true), friend.update(result.Request.id, true, "login")])
             .then(o => {
                 result.update = o[1];
                 result.connect = o[0];
@@ -36,7 +36,7 @@ router.post('/', async(req, res, next) =>{
 router.put('/:id', async(req, res, next) =>{
     try{
         const { id } = req.params;
-        return await Promise.all([user.online(parseInt(id), false), friend.notify(id, false, "login")])
+        return await Promise.all([user.online(parseInt(id), false), friend.update(id, false, "login")])
         .then(result => {
             if(result[0].hasOwnProperty("Error")) return res.status(400).json(result[0]);
             result[0].update = result[1];

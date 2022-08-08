@@ -3,9 +3,13 @@ import { View, Text, ScrollView, Image, TextInput, TouchableOpacity } from 'reac
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 // import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import Ionic from 'react-native-vector-icons/Ionicons'
+import { backSound } from '../../utils/sounds';
 import tw from "twrnc";
 import io from "socket.io-client";
-
+import avatarDefault from '../../assets/avatar_default.png';
+import { useNavigation } from '@react-navigation/native';
+import World from '../../assets/World.png';
+import * as Animatable from 'react-native-animatable';
 import { useSelector } from "react-redux";
 
 const BottomTabView = ({
@@ -18,12 +22,16 @@ const BottomTabView = ({
     timePaying,
     wins,
     gamesArr,
+    friends,
 }) => {
 
+    const soundOn = useSelector((state) => state.soundOn);
     // const dispatch = useDispatch();
     const allcountries = useSelector((state) => state.countries);
     const countriesAux = [];
     const Tab = createMaterialTopTabNavigator();
+    const navigation = useNavigation();
+
     for (let i = 0; i < games; i++) {
         allcountries?.map((country) => {
             if (gamesArr[i].countrie === country.name) {
@@ -46,15 +54,15 @@ const BottomTabView = ({
 
     const Games = () => {
         return (
-            <ScrollView showsVerticalScrollIndicator={false} style={{ backgroundColor: '#111827',}}
+            <ScrollView showsVerticalScrollIndicator={false} style={{ backgroundColor: '#111827', }}
             // style={tw`bg-gray-900`}
             >
                 <Text></Text>
 
                 {/* AGREGAR UN LOADING EN LO QUE SE CARGAN LAS CARDS  */}
-                
+
                 {/* <Text style={tw`text-gray-400 text-left text-2xl pl-3 pt-3`}>Games</Text> */}
-                
+
                 <View style={{ flexDirection: 'column', alignItems: 'center', }}>
                     {countriesAux.length > 0
                         ? countriesAux.map((perGame) => {
@@ -67,9 +75,9 @@ const BottomTabView = ({
                                                 {/* style={tw`h-7 w-9.33 rounded-sm`} */}
                                                 <Image style={{
                                                     width: 60, height: 40, borderRadius: 4, justifyContent: 'center', alignItems: 'center',
-                                                    
+
                                                 }}
-                                                    source={{ uri: `${perGame.flagSvg?.replace("svg", "png").replace("//", "").replace("/", "/w2560/").replace("https:", "https://")}` }}
+                                                    source={perGame.flagSvg.length > 50 ? perGame.flagSvg : { uri: `${perGame.flagSvg?.replace("svg", "png").replace("//", "").replace("/", "/w2560/").replace("https:", "https://")}` }}
                                                 />
                                                 <Text style={{ color: 'white', paddingVertical: 5, fontWeight: 'bold', fontSize: 13, }}>
                                                     {perGame.countrie.length > 13 ? perGame.countrie.slice(0, 12).concat('...') : perGame.countrie}
@@ -132,8 +140,41 @@ const BottomTabView = ({
                                 </View>
                             )
                         })
-                        : <View style={{alignContent:'center', justifyContent:'center'}}>
-                            <Text>asd</Text>
+                        :
+                        <View style={{
+                            display: 'flex',
+                            alignContent: 'center',
+                            justifyContent: 'center',
+
+                        }}>
+                            <Text
+                                style={{
+                                    textAlign: 'center',
+                                    color: 'white',
+                                    fontSize: 20,
+                                    padding: 25,
+                                }}
+                            >
+                                You have not yet played any games.
+                            </Text>
+                            <Animatable.View
+                                animation="fadeInLeftBig" iterationCount={1} duration={3000}
+                                style={{
+                                    display: 'flex',
+                                    alignContent: 'center',
+                                    justifyContent: 'center',
+                                    marginTop: 30,
+                                }}
+                            >
+                                <Image
+                                    style={{
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                    }}
+                                    source={World}
+                                />
+                            </Animatable.View>
                         </View>
                     }
                 </View>
@@ -147,7 +188,7 @@ const BottomTabView = ({
         const socket = io("https://chat-wg.herokuapp.com");
 
         useEffect(() => {
-            if(userName.length)socket.emit("conectado", userName);
+            if (userName.length) socket.emit("conectado", userName);
         }, []);
 
         useEffect(() => {
@@ -157,19 +198,19 @@ const BottomTabView = ({
             return () => {
                 socket.off();
             };
-        },[Messages]);
+        }, [Messages]);
 
         function onSubmitChatMessage() {
-            if(userName.length){
+            if (userName.length) {
                 console.log("mensaje", userName, chatMessage);
                 socket.emit("mensaje", userName, chatMessage);
                 setChatMessage("");
             }
         }
 
-        function view(){
+        function view() {
             let obj = {}
-            const send =  Messages.length > 0 ? Messages.filter(e => obj[e.mensaje] ? false : obj[e.mensaje] = true) : [];
+            const send = Messages.length > 0 ? Messages.filter(e => obj[e.mensaje] ? false : obj[e.mensaje] = true) : [];
             return send;
         }
 
@@ -181,18 +222,18 @@ const BottomTabView = ({
                     showsVerticalScrollIndicator={false}
                     ref={scrollViewRef}
                     onContentSizeChange={() =>
-                    scrollViewRef.current.scrollToEnd({ animated: true })
+                        scrollViewRef.current.scrollToEnd({ animated: true })
                     }
                     style={tw`mb-5 mt-3 bg-gray-800 rounded-lg`}
                 >
                     {
-                        view().length > 0 ? view()?.map((el,i) => {
-                        return (el.nombre.toLowerCase() === userName.toLowerCase() ?
-                                <View key={i} style={tw.style("ml-3 mt-3 flex items-end justify-center mb-2 bg-gray-100 rounded-lg pl-5 pr-5",{alignSelf: "flex-end" })}>
+                        view().length > 0 ? view()?.map((el, i) => {
+                            return (el.nombre.toLowerCase() === userName.toLowerCase() ?
+                                <View key={i} style={tw.style("ml-3 mt-3 flex items-end justify-center mb-2 bg-gray-100 rounded-lg pl-5 pr-5", { alignSelf: "flex-end" })}>
                                     <Text style={tw`text-base font-bold text-black`}>{`${el.nombre}: ${el.mensaje}`}</Text>
-                                </View> 
+                                </View>
                                 :
-                                <View key={i} style={tw.style("ml-3 mt-3 flex items-start justify-center mb-2 bg-gray-100 rounded-lg pl-5 pr-5",{alignSelf: "flex-start" })}>
+                                <View key={i} style={tw.style("ml-3 mt-3 flex items-start justify-center mb-2 bg-gray-100 rounded-lg pl-5 pr-5", { alignSelf: "flex-start" })}>
                                     <Text style={tw`text-base font-bold text-black`}>{`${el.nombre}: ${el.mensaje}`}</Text>
                                 </View>
                             )
@@ -210,9 +251,9 @@ const BottomTabView = ({
                         value={chatMessage}
                         textAlignVertical="center"
                     ></TextInput>
-                    <TouchableOpacity 
+                    <TouchableOpacity
                         style={tw`flex items-center justify-center h-12 w-12 bg-white rounded-lg`}
-                        onPress={() => {onSubmitChatMessage();}}
+                        onPress={() => { onSubmitChatMessage(); }}
                     >
                         <Text style={tw`text-center`}>Send</Text>
                     </TouchableOpacity>
@@ -220,16 +261,90 @@ const BottomTabView = ({
             </View>
         )
     }
-     // const TopGames = () => {
-    //     return (
-    //         <ScrollView
-    //             showsVerticalScrollIndicator={false}
-    //             style={tw`bg-gray-900`}>
-    //             <Text style={tw`text-gray-400 text-right text-2xl pl-3 pt-3`}>Top Games</Text>
+    const Friends = () => {
+        return (
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+                style={tw`bg-gray-900`}>
+                <View
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        padding: 20,
+                    }}
+                >
+                    <Text style={tw`text-gray-400 text-center flex text-2xl `}>Friends</Text>
+                    <Ionic
+                        onPress={() => navigation.navigate('SearchFriends', { id, friends, navigation })}
+                        name="search"
+                        style={{
+                            fontSize: 30,
+                            color: 'white',
+                        }}
+                    />
+                </View>
 
-    //         </ScrollView>
-    //     )
-    // }
+
+                <View style={{
+                    //agregar boton busqueda
+                }}>
+                    {friends?.map((friend) => {
+                        return (
+                            <TouchableOpacity
+                                key={friend.id}
+                                onPress={() => navigation.navigate('FriendProfile', { freId: friend.FriendId, userId: id, friendsArr:friend })}
+                            >
+                                <View
+                                    style={{
+                                        width: '100%',
+                                        marginBottom: 15,
+                                    }}
+
+                                >
+                                    <View
+                                        style={{
+                                            borderRadius: 8,
+                                            backgroundColor: 'grey',
+                                            padding: 15,
+                                            justifyContent: 'space-between',
+                                            alignItems: 'center',
+                                            display: 'flex',
+                                            flexDirection: 'row',
+                                        }}
+                                    >
+                                        <Image
+                                            style={{
+                                                width: 50,
+                                                height: 50,
+                                            }}
+                                            source={friend.avatar === "" ? avatarDefault : friend.avatar} />
+
+                                        <Text
+                                            style={{
+                                                color: 'white',
+                                                fontSize: 25,
+                                                textAlign: 'center',
+                                                paddingRight: 10,
+                                            }}>
+                                            {friend.username ? friend.username : 'Not friends :('}
+                                        </Text>
+
+                                        <Image
+                                            style={{
+                                                width: 50,
+                                                height: 50,
+                                            }}
+                                            source={friend.avatar === "" ? avatarDefault : friend.avatar} />                                        
+                                    </View>
+                                </View>
+                            </TouchableOpacity>
+                        )
+                    })}
+                </View>
+            </ScrollView>
+        )
+    }
     return (
         <Tab.Navigator
             style={tw`rounded-lg w-9/10`}
@@ -256,8 +371,8 @@ const BottomTabView = ({
                     } else if (route.name === "Chat") {
                         iconName = focused ? "chatbubbles-sharp" : "chatbubbles-outline";
                         colour = focused ? "black" : "gray";
-                    } else if (route.name === "TopGames") {
-                        iconName = focused ? "trophy-sharp" : "trophy-outline";
+                    } else if (route.name === "Friends") {
+                        iconName = focused ? "people" : "people-outline";
                         colour = focused ? "black" : "gray";
                     }
                     return <Ionic name={iconName} color={colour} size={22} />
@@ -266,7 +381,7 @@ const BottomTabView = ({
 
             <Tab.Screen name="Games" component={Games} />
             <Tab.Screen name="Chat" component={Chat} />
-            {/* <Tab.Screen name="TopGames" component={TopGames} /> */}
+            <Tab.Screen name="Friends" component={Friends} />
 
         </Tab.Navigator>
     );

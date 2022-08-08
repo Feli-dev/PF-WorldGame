@@ -1,10 +1,11 @@
 const { Router } = require('express');
-const { bitHash } = require('../db');
+const ncrypt = require("ncrypt-js");
 const user = require('../controllers/Users/Users');
 const e = require('../Tools/Email');
 const { session } = require('../controllers/Users/Validate')
 const f = require('../controllers/Friends/Friends');
 
+const ncryptObject = new ncrypt('key');
 const router = Router();
 const path = "api/src/routes/user.js";
 let obj = {}
@@ -24,7 +25,7 @@ async function filter(id = 0, body = {}){
         .then(result => {
             if(result.Value.name !== body.name && body.name !== undefined) obj.name = body.name;
             if(result.Value.username !== body.username && body.username !== undefined) obj.username = body.username;
-            if(result.Value.password.toString() !== bitHash.encrypt(body.password).toString() && body.password !== undefined) obj.password = bitHash.encrypt(body.password).toString();
+            if(ncryptObject.decrypt(result.Value.password).toString() !== body.password && body.password !== undefined) obj.password =  ncryptObject.encrypt(body.password).toString();
             if(result.Value.country !== body.country && body.country !== undefined) obj.country = body.country;
             if(result.Value.email !== body.email && body.email !== undefined) obj.email = body.email;
             if(parseFloat(result.Value.points) !== points && body.points !== undefined) obj.points = points;
@@ -49,7 +50,7 @@ router.post('/', async(req, res) =>{
         const { name, username, password, country, email, points, premium, authorization, avatar } = req.body;
         const message = field(username, password, email);
         if(!message.length){
-            const passEncrypt = bitHash.encrypt(password);
+            const passEncrypt =  ncryptObject.encrypt(password);
             return await user.create(name, username, passEncrypt.toString(), country, email, points || 0, premium, true, authorization, avatar, false)
             .then(result => {
                 if(result.hasOwnProperty("Error")) return res.status(404).json(result);
@@ -82,7 +83,7 @@ router.put('/', async(req, res) =>{
             return await user.update(parseInt(req.body.id), data)
             .then(result => {
                 if(result.hasOwnProperty("Error")) return res.status(404).json(result);
-                return Promise.all([e.send(req.body.email, req.body.username, 1), f.notify(parseInt(req.body.id))])
+                return Promise.all([e.send(req.body.email, req.body.username, 1), f.update(parseInt(req.body.id))])
                 .then(r => {
                     result.friend = r[1];
                     if(req.body.premium) e.send(req.body.email, req.body.username, 4, "");

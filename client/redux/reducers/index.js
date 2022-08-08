@@ -1,5 +1,6 @@
 import { type } from "../actions/types";
 
+
 const initialState = {
   game: [],
   countries: [],
@@ -11,7 +12,14 @@ const initialState = {
   rank: [],
   rank_filter: [],
   friends: [],
+  friendsDetail: {},
+  giveUp: false,
+  searchFriend: [],
+  profileUser: {},
+  profileAllUser: [],
   giveUp : false,
+  stat : { optionModalVisible: false, playbackObj: null, soundObj: null, currentAudio : {}},
+  soundOn : true,
 };
 
 export const rootReducer = (state = initialState, action) => {
@@ -32,14 +40,14 @@ export const rootReducer = (state = initialState, action) => {
         attemps: [],
       };
     case type.GET_USER:
-      action.payload={Request:action.payload}
+      action.payload = { Request: action.payload }
       return {
         ...state,
         login: action.payload,
         userdetail: action.payload,
       };
     case type.POST_USER:
-      action.payload={Request:action.payload}
+      action.payload = { Request: action.payload }
       return {
         ...state,
         login: action.payload,
@@ -51,7 +59,7 @@ export const rootReducer = (state = initialState, action) => {
         users: action.payload,
       };
     case type.POST_LOGIN:
-      action.payload={Request:action.payload}
+
       return {
         ...state,
         login: action.payload,
@@ -129,6 +137,17 @@ export const rootReducer = (state = initialState, action) => {
         rank: action.payload,
         rank_filter: action.payload,
       };
+    case type.SET_SOUND:
+      return {
+        ...state,
+        stat: action.payload,
+      };
+    case type.SOUND_ON:
+      console.log(action.payload);
+      return {
+        ...state,
+        soundOn: action.payload,
+      };
     case type.LOG_OUT:
       return {
         ...state,
@@ -139,7 +158,7 @@ export const rootReducer = (state = initialState, action) => {
         rank: [],
         rank_filter: [],
         friends: [],
-        giveUp : false,
+        giveUp: false,
       };
     case type.POST_REVIEW:
       return {
@@ -154,6 +173,42 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         friends: action.payload,
+      };
+    case type.GET_FRIEND_DETAIL:
+      return {
+        ...state,
+        friendsDetail: action.payload,
+      };
+    case type.SEARCH_FRIEND:
+      let filtered = action.payload.data.Request.filter(user =>
+        user.username.toLowerCase().includes(action.payload.friend.toLowerCase()))
+
+      return {
+        ...state,
+        searchFriend: filtered
+      }
+    case type.POST_FRIEND:
+      return {
+        ...state
+      }
+    case type.DELETE_FRIEND:
+      return {
+        ...state
+      };
+    case type.CLEAR_FRIEND_DETAIL:
+      return {
+        ...state,
+        friendsDetail: action.payload,
+      };
+    case type.GET_ALL_PROFILES:
+      return {
+        ...state,
+        profileAllUser: action.payload,
+      };
+    case type.GET_PROFILE_USER:
+      return {
+        ...state,
+        profileUser: action.payload.Request,
       };
     default: {
       return state;

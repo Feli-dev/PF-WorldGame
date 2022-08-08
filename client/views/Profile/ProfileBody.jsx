@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 // import Feather from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
 import Ionic from 'react-native-vector-icons/Ionicons';
+import { touchSound } from '../../utils/sounds';
 import * as Animatable from 'react-native-animatable';
 import tw from "twrnc"
 
@@ -22,6 +24,7 @@ export const ProfileBody = ({
 
 }) => {
     const navigation = useNavigation();
+    const soundOn = useSelector((state) => state.soundOn);
     return (
         <View>
             {userName ? (
@@ -78,14 +81,16 @@ export const ProfileBody = ({
                                 animation="swing" iterationCount='infinite' delay={2000}
                             >
                                 <Ionic
-                                    onPress={() => navigation.navigate('Payment', {
+                                    onPress={() => {navigation.navigate('Payment', {
                                         id: id,
                                         name: name,
                                         country: country,
                                         email: email,
                                         userName: userName,
                                         password: password,
-                                    })}
+                                    });
+                                    touchSound(soundOn);
+                                }}
                                     name="ribbon-sharp"
                                     style={{
                                         fontSize: 30,
@@ -171,9 +176,10 @@ export const ProfileButtons = ({
 }) => {
     const navigation = useNavigation();
     const [follow, setFollow] = useState(follow);
+    const soundOn = useSelector((state) => state.soundOn);
     return (
         <View>
-            {id === id ? (//ACA TENGO QUE COMPARAR EL ID DEL LOCALSTORAGE O LOGIN Y EL DEL USUARIO SELECCIONADO! (SPRINT 3)
+            {true ? (//ACA TENGO QUE COMPARAR EL ID DEL LOCALSTORAGE O LOGIN Y EL DEL USUARIO SELECCIONADO! (SPRINT 3)
                 <View
                     style={{
                         width: '100%',
@@ -183,7 +189,7 @@ export const ProfileButtons = ({
                         paddingVertical: 5,
                     }}>
                     <TouchableOpacity
-                        onPress={() =>
+                        onPress={() => {
                             navigation.push('EditProfile', {
                                 id: id,
                                 name: name,
@@ -194,7 +200,9 @@ export const ProfileButtons = ({
                                 password: password,
                                 userName: userName,
                                 countries: countries,
-                            })}
+                            });
+                            touchSound(soundOn);
+                        }}
                         style={tw`w-9/10`}>
                         <View
                             style={tw`h-8 rounded-lg items-center justify-center border-white border-2`}>
