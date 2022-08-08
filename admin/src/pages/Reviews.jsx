@@ -135,7 +135,7 @@ const Reviews = () => {
                     </td>
 
                     <td className="border-t">
-                      <span className="text-gray-700 px-6 py-4 flex items-center">
+                      <span className="text-gray-700 px-6 py-4 flex items-center ml-3">
                         {rev.id}
                       </span>
                     </td>
