@@ -16,6 +16,7 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ReplayIcon from "@mui/icons-material/Replay";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 const Users = () => {
   const dispatch = useDispatch();
@@ -34,6 +35,8 @@ const Users = () => {
 
   let [order, setOrder] = useState(""); //eslint-disable-line
   let actualUser = JSON.parse(localStorage.getItem("profile"));
+  const [filter, setFilter] = useState(false);
+
   //console.log("chee", actualUser)
 
   let allUsers = useSelector((state) => state.userReducer.filterUsers);
@@ -130,11 +133,27 @@ const Users = () => {
           All Users
         </button>
       </div>
-      <div className="flex mb-7 ml-2 w-full items-center flex-col lg:flex-row">
-        <label className="font-semibold p-1">Filters</label>
+      <div className="flex mb-7 w-full items-center flex-col lg:flex-row">
+        <label className="font-semibold py-1 hidden lg:block mr-4">
+          Filters:
+        </label>
+        <button
+          onClick={() => setFilter(!filter)}
+          className={
+            !filter
+              ? "lg:hidden w-full mb-2 text-white bg-blue-600 rounded-lg text-sm px-4 py-2 inline-flex items-center"
+              : "lg:hidden w-full mb-7 text-white bg-blue-600 rounded-lg text-sm px-4 py-2 inline-flex items-center"
+          }
+        >
+          Filters <ArrowDropDownIcon />
+        </button>
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col gap-2 lg:flex-none lg:flex-row"
+          className={
+            filter
+              ? "flex flex-col gap-2 lg:flex-none lg:flex-row w-full lg:w-max"
+              : "flex-col gap-2 lg:flex-none lg:flex-row w-full hidden lg:flex lg:w-max"
+          }
         >
           <select
             id="countries"
@@ -388,7 +407,6 @@ const Users = () => {
       <div className="bg-white p-5 lg:p-10 h-96 rounded-lg">
         <UserGraph />
       </div>
-
     </div>
   );
 };
