@@ -13,6 +13,8 @@ import Info from "./views/Info";
 import Landing from "./views/Landing";
 import Stripe from "./Stripe/Stripe";
 import EditProfile from "./views/Profile/EditProfile";
+import FriendProfile from "./views/Profile/Friend/FriendProfile";
+import SearchFriends from "./views/Profile/Friend/SearchFriends"
 
 const Stack = createNativeStackNavigator();
 
@@ -32,7 +34,8 @@ export default function App() {
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Instructions" component={Instructions} />
           <Stack.Screen name="Ranking" component={Ranking} /> 
-          {/* <Stack.Screen name="Profile/:friendId" component={Profile} /> */}
+          <Stack.Screen name="FriendProfile" component={FriendProfile} />
+          <Stack.Screen name="SearchFriends" component={SearchFriends} />
           <Stack.Screen name="Profile" component={Profile} />
           <Stack.Screen name="EditProfile" component={EditProfile} />
           <Stack.Screen name="Configuration" component={Configuration} />

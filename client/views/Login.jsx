@@ -226,7 +226,7 @@ import img from "../assets/Worldgame.png";
     if (input.password === "" || input.username === "") {
       setLogErr("");
     }
-    console.log("useruseruseruseruseru", allUser);
+    //console.log("useruseruseruseruseru", allUser);
   }, []);
   
 

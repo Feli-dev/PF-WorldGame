@@ -20,6 +20,7 @@ router.get('/', async(req, res) =>{
 });
 
 router.post('/', async(req, res) =>{
+    console.log('req.body friend post',req.body)
     try {
         const { UserId, FriendId } = req.body;
         return await friend.create(UserId || 0, FriendId || 0)
@@ -37,7 +38,9 @@ router.post('/', async(req, res) =>{
 
 router.delete('/', async(req, res) =>{
     try {
-        const { UserId, FriendId } = req.body;
+        const UserId = parseInt( req.query.UserId)
+        const FriendId = parseInt( req.query.FriendId)
+
         return await friend.delete(UserId || 0, FriendId || 0)
         .then(result => {
             if(result.hasOwnProperty("Error")) return res.status(404).json(result);
