@@ -1,4 +1,5 @@
-const { bitHash } = require('../db');
+const ncrypt = require("ncrypt-js");
+const ncryptObject = new ncrypt('key');
 
 module.exports = {
     showUsers: (user, averageScore) => {
@@ -6,7 +7,7 @@ module.exports = {
             id:user.id,
             name: user.name,
             username: user.username,
-            password: user.password,
+            password: ncryptObject.decrypt(user.password),
             country: user.country,
             email: user.email,
             points: user.points,

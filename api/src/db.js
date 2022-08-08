@@ -2,10 +2,10 @@ require('dotenv').config();
 const path = require('path');
 const fs = require('fs');
 const { Sequelize } = require('sequelize');
-const BitHash = require('./Tools/BitHash');
+const ncrypt = require("ncrypt-js");
 const {DB_USER, DB_PASSWORD, DB_HOST} = process.env;
 
-const bitHash = new BitHash();
+const ncryptObject = new ncrypt('key');
 
 const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/worldgame`, {
   logging: false,
@@ -41,6 +41,5 @@ Review.belongsTo(User);
 
 module.exports = {
     ...sequelize.models,
-    db: sequelize,
-    bitHash
+    db: sequelize
   };
