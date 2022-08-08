@@ -19,6 +19,7 @@ import { backSound, playSound } from "../utils/sounds";
 export default function Configuration({ navigation }) {
   const dispatch = useDispatch();
   const stat = useSelector((state) => state.stat);
+  const isSpanish = useSelector((state) => state.isSpanish);
   const soundOn = useSelector((state) => state.soundOn);
   const login = useSelector((state) => state.login);
   const [err, setErr] = useState({});
@@ -57,7 +58,8 @@ export default function Configuration({ navigation }) {
   }
 
   const handleError = () => {
-    setErr({ errAds: "Premium users cannot see ads" });
+    if(!isSpanish) setErr({ errAds: "Premium users cannot see ads" })
+    else setErr({ errAds: "Los usuarios Premium no pueden ver anuncios" })
     setTimeout(() => {
       setErr({});
     }, 3000);
@@ -69,7 +71,7 @@ export default function Configuration({ navigation }) {
     >
       <View style={tw`flex flex-col justify-center items-center`}>
         <View style={tw`flex-col flex items-center justify-center`}>
-          <Text style={tw`text-white text-lg`}> Change language </Text>
+          <Text style={tw`text-white text-lg`}> {isSpanish ? "Cambiar lenguaje" : "Change language"} </Text>
           <View style={tw`flex flex-row justify-around items-center mt-5`}>
             <TouchableOpacity
               style={tw`flex mr-5 items-center justify-center w-12 h-10 bg-gray-300 rounded-lg`}
@@ -94,7 +96,7 @@ export default function Configuration({ navigation }) {
           </View>
         </View>
         <View style={tw`flex-row flex items-center justify-center`}>
-          <Text style={tw`text-white text-lg`}> Disable Ads </Text>
+          <Text style={tw`text-white text-lg`}> {isSpanish ? "Desactivar anuncios" : "Disable Ads"} </Text>
           <Switch
             trackColor={{ false: "#767577", true: "#81b0ff" }}
             thumbColor={isEnabled ? "#f4f3f4" : "#f4f3f4"}
@@ -105,7 +107,7 @@ export default function Configuration({ navigation }) {
         </View>
         <Text style={tw`text-red-500 text-xs`}>{err.errAds}</Text>
         <View style={tw`flex-row flex items-center justify-center`}>
-        <Text style={tw`text-white text-lg`}>Sound </Text>
+        <Text style={tw`text-white text-lg`}>{ isSpanish ? "Sonido" : "Sound"} </Text>
         <Switch
           trackColor={{ false: "#767577", true: "#81b0ff" }}
           thumbColor={soundOn ? "#f4f3f4" : "#f4f3f4"}
@@ -115,7 +117,7 @@ export default function Configuration({ navigation }) {
         />
         </View>
         <View style={tw`flex-row flex items-center justify-center`}>
-          <Text style={tw`text-white text-lg`}>Music </Text>
+          <Text style={tw`text-white text-lg`}>{ isSpanish ? "Música" : "Music"} </Text>
           <Switch
             trackColor={{ false: "#767577", true: "#81b0ff" }}
             thumbColor={stat.soundObj?.isPlaying ? "#f4f3f4" : "#f4f3f4"}
@@ -138,7 +140,7 @@ export default function Configuration({ navigation }) {
                 style={tw`flex items-center justify-evenly bg-gray-300 rounded-md w-80 h-90`}
               >
                 <TextInput
-                  placeholder="Enter a review..."
+                  placeholder={ isSpanish ? "Introduzca una reseña..." : "Enter a review..."}
                   placeholderTextColor="#000"
                   multiline={true}
                   style={tw`p-3 w-65 h-65 rounded-md bg-gray-400 text-black text-justify text-base `}
@@ -163,7 +165,7 @@ export default function Configuration({ navigation }) {
                     }
                   }}
                 >
-                  <Text style={tw`text-base font-bold text-white`}>Send</Text>
+                  <Text style={tw`text-base font-bold text-white`}>{ isSpanish ? "Enviar" : "Send"}</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -173,7 +175,7 @@ export default function Configuration({ navigation }) {
           style={tw`w-30 h-10 bg-blue-500 flex items-center justify-center rounded-md mt-20`}
           onPress={() => setModalVisible(true)}
         >
-          <Text style={tw`text-white text-center font-bold`}>Send review</Text>
+          <Text style={tw`text-white text-center font-bold`}>{isSpanish ? "Enviar reseña" : "Send review"}</Text>
         </TouchableOpacity>
       </View>
       <TouchableOpacity
@@ -182,7 +184,7 @@ export default function Configuration({ navigation }) {
           logout();
         }}
       >
-        <Text style={tw`text-white text-center font-bold`}>LOG OUT</Text>
+        <Text style={tw`text-white text-center font-bold`}>{isSpanish ? "Cerrar Sesión" : "LOG OUT"}</Text>
       </TouchableOpacity>
     </View>
   );

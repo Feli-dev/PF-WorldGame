@@ -12,31 +12,32 @@ import green from "../assets/viewInfo/green.png";
 import yellow from "../assets/viewInfo/yellow.png";
 import arrow_up from "../assets/viewInfo/arrow_up.png";
 import arrow_down from "../assets/viewInfo/arrow_down.png";
+import { useSelector } from "react-redux";
 
 export default function Info({ navigation }) {
+  const isSpanish = useSelector((state) => state.isSpanish);
   return (
     <View style={tw`bg-gray-600`}>
       <ScrollView>
         <View style={tw`w-95% `}>
           <View style={tw`mt-12 ml-5 `}>
-            <Text style={tw`text-white font-bold text-xl `}>Target</Text>
-            <Text style={tw`text-white  `}>
-              Guess the country we hide every day. Be guided by the clues to get
-              it in as few attempts as possible.
+            <Text style={tw`text-white font-bold text-xl `}>{isSpanish?"Objetivo":"Target"}</Text>
+            <Text style={tw`text-white`}>
+              {isSpanish?"Adivina el país que escondemos. Guíate por las pistas para conseguirlo \n en el menor número de intentos posible.":"Guess the country we hide. Be guided by the clues to get \n it in as few attempts as possible."}
             </Text>
           </View>
 
           <View style={tw`m-4 mt-5`}>
-            <Text style={tw`text-white font-bold text-xl`}>The clues</Text>
+            <Text style={tw`text-white font-bold text-xl`}>{isSpanish?"Las pistas":"The clues"}</Text>
 
             <View style={tw`flex-row mt-10`}>
               <View>
                 <Image source={hemisphereIcon} style={tw` w-13 h-13 ml-3`} />
-                <Text style={tw`text-white `}>Hemisphere</Text>
+                <Text style={tw`text-white `}>{isSpanish?"Hemisferio":"Hemisphere"}</Text>
               </View>
               <View>
                 <Text style={tw`text-white mt-5  w-60 ml-5 text-center`}>
-                  Hemisphere where the country you have selected is located.
+                  {isSpanish?"Hemisferio en el que se encuentra el país que ha seleccionado.":"Hemisphere where the country you have selected is located."}
                 </Text>
               </View>
             </View>
@@ -44,11 +45,11 @@ export default function Info({ navigation }) {
             <View style={tw`flex-row mt-10`}>
               <View>
                 <Image source={continentIcon} style={tw` w-13 h-13 ml-3`} />
-                <Text style={tw`text-white ml-1.5`}>Continent</Text>
+                <Text style={tw`text-white ml-1.5`}>{isSpanish?"Continente":"Continent"}</Text>
               </View>
               <View>
                 <Text style={tw`text-white mt-5  w-60 ml-10 text-center`}>
-                  Continent where the country you have selected is located.
+                  {isSpanish?"Continente donde se encuentra el país que ha seleccionado.":"Continent where the country you have selected is located."}
                 </Text>
               </View>
             </View>
@@ -56,14 +57,11 @@ export default function Info({ navigation }) {
             <View style={tw`flex-row mt-10`}>
               <View>
                 <Image source={tempIcon} style={tw` w-13 h-13 ml-3`} />
-                <Text style={tw`text-white w-100% text-center`}>Average</Text>
-                <Text style={tw`text-white w-100% text-center`}>
-                  Temperature
-                </Text>
+                <Text style={tw`text-white w-100% text-center`}>{isSpanish?"Área":"Area"}</Text>
               </View>
               <View>
                 <Text style={tw`text-white mt-5  w-60 ml-5 text-center`}>
-                  Average temperature of the country you have chosen.
+                  {isSpanish?"Área del país que ha elegido.":"Area of the country you have chosen."}
                 </Text>
               </View>
             </View>
@@ -71,11 +69,11 @@ export default function Info({ navigation }) {
             <View style={tw`flex-row mt-10`}>
               <View>
                 <Image source={populationIcon} style={tw` w-13 h-13 ml-3`} />
-                <Text style={tw`text-white ml-1`}>Population</Text>
+                <Text style={tw`text-white ml-1`}>{isSpanish?"Población":"Population"}</Text>
               </View>
               <View>
                 <Text style={tw`text-white mt-5  w-60 ml-10 text-center`}>
-                  Number of inhabitants of the country you have selected.
+                  {isSpanish?"Número de habitantes del país que ha seleccionado.":"Number of inhabitants of the country you have selected."}
                 </Text>
               </View>
             </View>
@@ -83,12 +81,11 @@ export default function Info({ navigation }) {
             <View style={tw`flex-row mt-10`}>
               <View>
                 <Image source={directionIcon} style={tw` w-13 h-13 ml-3`} />
-                <Text style={tw`text-white`}>Coordinates</Text>
+                <Text style={tw`text-white`}>{isSpanish?"Coordenadas":"Coordinates"}</Text>
               </View>
               <View style={tw``}>
                 <Text style={tw`text-white mt-3 w-60 ml-9 text-center`}>
-                  Geographical address where the country you are looking for is
-                  located with respect to the country you have chosen.
+                  {isSpanish?"Dirección geográfica donde se encuentra el país \n que buscas con respecto al país que ha elegido.":"Geographical address where the country you are looking for is \n located with respect to the country you have chosen."}
                 </Text>
               </View>
             </View>

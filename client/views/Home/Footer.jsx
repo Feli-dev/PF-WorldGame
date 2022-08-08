@@ -18,6 +18,7 @@ import {AutocompleteDropdown} from 'react-native-autocomplete-dropdown';
 export default function Footer() {
   const dispatch = useDispatch();
   var attemp = {};
+  const isSpanish = useSelector((state) => state.isSpanish);
   const [input, setInput] = useState("");
   const [countryOfDay, setCountryOfDay] = useState("");
   const countries = useSelector((state) => state.countries);
@@ -388,19 +389,19 @@ export default function Footer() {
             >
               <View style={tw`flex items-center justify-center mt-75`}>
                 <View style={tw`flex items-center justify-evenly bg-gray-300 rounded-md w-60 h-40`}>
-                  <Text style={tw`text-center text-black font-bold`}> Sure you want to give up? </Text>
+                  <Text style={tw`text-center text-lg text-black font-bold`}> {isSpanish?"¿Seguro que quieres rendirte?":"Sure you want to give up?"} </Text>
                   <View style={tw`flex flex-row items-center`}>
                     <TouchableOpacity
                       style={tw`rounded-lg bg-green-400 pt-1 pb-1 pr-2 pl-2 mr-10`}
                       onPress={(e) => {setModalVisible(!modalVisible); handleGiveUp(e); touchSound(soundOn);}}
                     >
-                      <Text style={tw`text-base font-bold text-white`}>Yes</Text>
+                      <Text style={tw`text-sm font-bold text-white`}>{isSpanish?"Si":"Yes"}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                       style={tw`rounded-lg bg-red-400 pt-1 pb-1 pr-2 pl-2`}
                       onPress={() => {setModalVisible(!modalVisible); backSound(soundOn)}}
                     >
-                      <Text style={tw`text-base font-bold text-white`}>No</Text>
+                      <Text style={tw`text-sm font-bold text-white`}>{isSpanish?"No":"No"}</Text>
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -440,7 +441,7 @@ export default function Footer() {
             closeOnBlur={true}
             closeOnSubmit={true}
             textInputProps={{
-              placeholder: 'Enter a country...',
+              placeholder: isSpanish?"Introduzca un país":"Enter a country...",
               style: {color: "#000"},
             }}
             direction={"up"}

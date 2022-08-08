@@ -23,7 +23,7 @@ const initialState = {
   stat : { optionModalVisible: false, playbackObj: null, soundObj: null, currentAudio : {}},
   soundOn : true,
   filter : false,
-  isSpanish: false,
+  isSpanish: true,
 };
 
 export const rootReducer = (state = initialState, action) => {
