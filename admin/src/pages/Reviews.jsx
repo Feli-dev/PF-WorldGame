@@ -98,6 +98,9 @@ const Reviews = () => {
               <th className="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">
                 Review
               </th>
+              <th className="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">
+                Review ID
+              </th>
 
               <th className="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">
                 Username
@@ -128,6 +131,12 @@ const Reviews = () => {
                         >
                           msg
                         </div>
+                      </span>
+                    </td>
+
+                    <td className="border-t">
+                      <span className="text-gray-700 px-6 py-4 flex items-center">
+                        {rev.id}
                       </span>
                     </td>
 
