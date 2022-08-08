@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {getRevs, filterRev, readReview, unreadReview} from '../redux/reviews/reviewActions'
+import {
+  getRevs,
+  filterRev,
+  readReview,
+  unreadReview,
+} from "../redux/reviews/reviewActions";
 
 // Icons
 import ModalMssg from "./ModalMssg";
-import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 const Reviews = () => {
   const dispatch = useDispatch();
@@ -13,73 +19,82 @@ const Reviews = () => {
   const [review, setReview] = useState({});
   const [inputFilter, setInputFilter] = useState("");
   let [order, setOrder] = useState("review"); //eslint-disable-line
+  const [filter, setFilter] = useState(false);
 
   let allReviews = useSelector((state) => state.reviewReducer.reviews);
   // console.log('revs', inputFilter)
-  
-  useEffect(()=>{
-    dispatch(getRevs())
-    
-  },[dispatch])
+
+  useEffect(() => {
+    dispatch(getRevs());
+  }, [dispatch]);
 
   const setRead = (id) => {
     dispatch(readReview(id))
-    .then(res => {
-      console.log(res)
-      dispatch(filterRev(inputFilter))
-    })
-    .catch(err => console.log('error'))
+      .then((res) => {
+        console.log(res);
+        dispatch(filterRev(inputFilter));
+      })
+      .catch((err) => console.log("error"));
   };
 
   const setUnread = (id) => {
     dispatch(unreadReview(id))
-    .then(res => {
-      console.log(res)
-      dispatch(filterRev(inputFilter))
-    })
-    .catch(err => console.log('error'))
+      .then((res) => {
+        console.log(res);
+        dispatch(filterRev(inputFilter));
+      })
+      .catch((err) => console.log("error"));
   };
 
-  
-  
   function filterRead(event) {
     setInputFilter(event.target.value);
-    dispatch(filterRev(event.target.value))
-    setOrder(event.target.value + 'select')
-    
+    dispatch(filterRev(event.target.value));
+    setOrder(event.target.value + "select");
   }
 
-
   return (
-    
     <div className="md:max-w-8xl md:mx-auto px-4 py-6 ">
       <div className="flex items-center justify-between mb-4 h-1/6">
-        <button
-          className="ml-1 text-2xl font-bold text-black hover:text-blue-600"
-          
-        >
+        <button className="ml-1 text-2xl font-bold text-black hover:text-blue-600">
           All Reviews
         </button>
       </div>
-      <div className="flex mb-4 ml-2 w-full items-center">
-        <label className="font-semibold p-1">Filters:</label>
-        
-          <select
-            id="read"
-            className="mx-2 p-1 border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-            onChange={(event) => filterRead(event)}
-            defaultValue="Read/Unread"
-          >
-            <option disabled="Read/Unread">Read/Unread</option>
-            <option value="">All</option>
-            <option value="true">Read</option>
-            <option value="false">Unread</option>
-            
-          </select>
-          
-        
+      <div className="flex mb-7 w-full items-center flex-col lg:flex-row">
+        <label className="font-semibold py-1 hidden lg:block mr-4">
+          Filters:
+        </label>
+        <button
+          onClick={() => setFilter(!filter)}
+          className={
+            !filter
+              ? "lg:hidden w-full mb-2 text-white bg-blue-600 rounded-lg text-sm px-4 py-2 inline-flex items-center"
+              : "lg:hidden w-full mb-7 text-white bg-blue-600 rounded-lg text-sm px-4 py-2 inline-flex items-center"
+          }
+        >
+          Filters <ArrowDropDownIcon />
+        </button>
+
+        <label className="font-semibold py-1 hidden lg:block mr-4">
+          Filters:
+        </label>
+
+        <select
+          id="read"
+          className={
+            filter
+              ? "mx-2 p-1 border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+              : "mx-2 p-1 border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 hidden"
+          }
+          onChange={(event) => filterRead(event)}
+          defaultValue="Read/Unread"
+        >
+          <option disabled="Read/Unread">Read/Unread</option>
+          <option value="">All</option>
+          <option value="true">Read</option>
+          <option value="false">Unread</option>
+        </select>
       </div>
-               
+
       <div className="overflow-x-auto bg-white rounded-lg shadow h-5/6">
         <table className="w-full whitespace-no-wrap bg-white overflow-hidden table-striped">
           <thead>
@@ -87,18 +102,17 @@ const Reviews = () => {
               <th className="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">
                 Review
               </th>
-              
+
               <th className="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">
                 Username
               </th>
-              
+
               <th className="x-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">
                 Actions
               </th>
             </tr>
           </thead>
           <tbody>
-            
             {allReviews?.length > 0 &&
               allReviews.map((rev) => {
                 const handleClickMssg = () => {
@@ -130,7 +144,6 @@ const Reviews = () => {
                     <td className="border-t">
                       <div className="text-gray-700  flex items-center ml-4 text-center">
                         {rev.read ? (
-                          
                           <CheckCircleOutlineIcon
                             className="text-green-500 cursor-pointer"
                             onClick={() => setUnread(rev.id)}
@@ -156,9 +169,7 @@ const Reviews = () => {
       </div>
       {modalMessage && (
         <ModalMssg review={review} setModalMessage={setModalMessage} />
-      )}    
-      
-      
+      )}
     </div>
   );
 };
