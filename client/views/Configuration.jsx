@@ -103,20 +103,20 @@ export default function Configuration({navigation}) {
           <Text style={tw`text-white text-lg`}>Sound </Text>
           <Switch
             trackColor={{ false: "#767577", true: "#81b0ff" }}
-            thumbColor={isEnabledSound ? "#f4f3f4" : "#f4f3f4"}
+            thumbColor={soundOn ? "#f4f3f4" : "#f4f3f4"}
             ios_backgroundColor="#3e3e3e"
             onValueChange={soundSwitch}
-            value={isEnabledSound}
+            value={soundOn}
           />
         </View>
       <View style={tw`flex-row flex items-center justify-center`}>
           <Text style={tw`text-white text-lg`}>Music </Text>
           <Switch
             trackColor={{ false: "#767577", true: "#81b0ff" }}
-            thumbColor={isEnabledMusic ? "#f4f3f4" : "#f4f3f4"}
+            thumbColor={stat.soundObj?.isPlaying ? "#f4f3f4" : "#f4f3f4"}
             ios_backgroundColor="#3e3e3e"
             onValueChange={musicSwitch}
-            value={isEnabledMusic}
+            value={stat.soundObj?.isPlaying}
           />
         </View>
     </View>

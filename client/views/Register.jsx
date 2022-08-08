@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Svg, { Path } from "react-native-svg";
 import DropDownPicker from "react-native-dropdown-picker";
 import validateInput from "../utils/ValidateInput";
-import { PostUser,postLogin,getUser,_setLogin } from "../redux/actions";
+import { PostUser,postLogin,getUser, first } from "../redux/actions";
 import { useEffect } from "react";
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
@@ -102,6 +102,7 @@ export default function Register({ navigation }) {
       dispatch(getUser());
       const User = allUser.Request.find((e) => (e.username.toLowerCase() === input.username.toLowerCase()))
       dispatch(postLogin(User))
+      dispatch(first(true))
       navigation.navigate("Login")
     }
   }

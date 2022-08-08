@@ -22,10 +22,16 @@ const initialState = {
   giveUp : false,
   stat : { optionModalVisible: false, playbackObj: null, soundObj: null, currentAudio : {}},
   soundOn : true,
+  filter : false,
 };
 
 export const rootReducer = (state = initialState, action) => {
   switch (action.type) {
+    case type.FIRST:
+      return {
+        ...state,
+        first: action.payload,
+      };
     case type.GET_GAME:
       return {
         ...state,
@@ -166,13 +172,13 @@ export const rootReducer = (state = initialState, action) => {
         rank_filter_by_country: action.payload,
         rank_filter_by_ranks: action.payload,
       };
+      
     case type.SET_SOUND:
       return {
         ...state,
         stat: action.payload,
       };
     case type.SOUND_ON:
-      console.log(action.payload);
       return {
         ...state,
         soundOn: action.payload,
@@ -188,6 +194,7 @@ export const rootReducer = (state = initialState, action) => {
         rank_filter: [],
         friends: [],
         giveUp: false,
+        first: false,
       };
     case type.POST_REVIEW:
       return {

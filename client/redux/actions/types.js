@@ -32,4 +32,5 @@ export const type = {
   GET_ALL_PROFILES:'GET_ALL_PROFILES',
   SET_SOUND: "SET_SOUND",
   SOUND_ON: "SOUND_ON",
+  FIRST: "FIRST",
 };

@@ -54,6 +54,13 @@ export function giveUp(payload) {
 
 //-------------------------login----------------------------//
 
+export function first(payload) {
+  return ({
+    type: type.FIRST,
+    payload,
+  });
+}
+
 export function postLogin(payload) {
   return async function (dispatch) {
     try {
