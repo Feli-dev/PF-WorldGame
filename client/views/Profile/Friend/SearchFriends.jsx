@@ -50,6 +50,11 @@ const SearchFriends = (params) => {
     });
   };
 
+  const TostMessage = () => {
+    if(!isSpanish) ToastAndroid.show("Added Sucessfully!", ToastAndroid.SHORT);
+    else ToastAndroid.show("¡Agregado con éxito!", ToastAndroid.SHORT);
+  };  
+
   //AJUSTAR BOTON AGREGADO Y AGREGAR
   //FOLLOW Y FOLLOWING
 
@@ -67,9 +72,10 @@ const SearchFriends = (params) => {
   };
 
   const sendFriend = (payload) => {
-    console.log("hyo", payload);
+    dispatch(searchFriend("@-*"));
+    // console.log("hyo", payload);
     dispatch(addFriend(payload));
-    dispatch(searchFriend(" "));
+    TostMessage();
     // navigation.navigate('BottomTabView')
     // Alert.alert("hey");
   };
@@ -84,17 +90,19 @@ const SearchFriends = (params) => {
   }, [dispatch, id]);
 
   useEffect(() => {
-    
-    return () => {
-      setOpen(false);
-      dispatch(GetProfileUser(id));
-      dispatch(searchFriend(" "));
-    }
+    console.log("will");
+    return () => dispatch(GetProfileUser(id));
   }, [dispatch]);
   useEffect(() => {
-   
-    return () => dispatch(searchFriend(" "));
+    console.log("will");
+    return () => dispatch(searchFriend("@-*"));
   }, [dispatch]);
+  useEffect(() => {
+    console.log("will");
+    return () => setOpen(false);
+  }, [dispatch]);
+
+  
 
   return (
     <View style={{ backgroundColor: "#005f73", height: "100%" }}>
