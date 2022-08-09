@@ -89,7 +89,7 @@ export default function Register({ navigation }) {
   //UseEffect limpiar estados
 
   function handleSubmit(e) {
-    setErr(validateInput(input));
+    setErr(validateInput(input,isSpanish));
     if (!(Object.keys(err).length > 0)) {
       dispatch(
         PostUser({
@@ -113,8 +113,8 @@ export default function Register({ navigation }) {
       ...input,
       [type]: text,
     });
-    setErr(validateInput({ ...input, [type]: text }));
-    if (!(Object.keys(validateInput({ ...input, [type]: text })).length > 0)) {
+    setErr(validateInput({ ...input, [type]: text },isSpanish));
+    if (!(Object.keys(validateInput({ ...input, [type]: text },isSpanish)).length > 0)) {
       setIsDisabled(false);
     }
   }
