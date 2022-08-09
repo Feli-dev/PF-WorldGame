@@ -2,7 +2,7 @@ export default function validateInput(input, isSpanish) {
   let errors = {};
 
   if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(input.email)) {
-    errors.email = "A valid email is required";
+    errors.email = isSpanish? "Se requiere un correo electrónico válido" : "A valid email is required";
   }
   if (input.email.length > 80) {
     errors.email = isSpanish? "El correo es demasiado largo": "That email is too long";
