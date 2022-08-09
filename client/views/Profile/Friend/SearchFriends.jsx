@@ -76,6 +76,7 @@ const SearchFriends = (params) => {
 
   const handleAdd = (UserId, FriendId) => {
     sendFriend(UserId, FriendId);
+    setOpen(false);
   };
 
   useEffect(() => {
@@ -83,11 +84,15 @@ const SearchFriends = (params) => {
   }, [dispatch, id]);
 
   useEffect(() => {
-    console.log("will");
-    return () => dispatch(GetProfileUser(id));
+    
+    return () => {
+      setOpen(false);
+      dispatch(GetProfileUser(id));
+      dispatch(searchFriend(" "));
+    }
   }, [dispatch]);
   useEffect(() => {
-    console.log("will");
+   
     return () => dispatch(searchFriend(" "));
   }, [dispatch]);
 
@@ -250,6 +255,8 @@ const SearchFriends = (params) => {
           })}
         </ScrollView>
       ) : (
+        open && 
+        
         <View
           style={{
             backgroundColor: "#111827",
