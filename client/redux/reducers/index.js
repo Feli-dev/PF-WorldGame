@@ -19,7 +19,6 @@ const initialState = {
   searchFriend: [],
   profileUser: {},
   profileAllUser: [],
-  giveUp : false,
   stat : { optionModalVisible: false, playbackObj: null, soundObj: null, currentAudio : {}},
   soundOn : true,
   filter : false,
