@@ -6,7 +6,6 @@ import Ionic from 'react-native-vector-icons/Ionicons'
 import { backSound } from '../../utils/sounds';
 import tw from "twrnc";
 import io from "socket.io-client";
-import avatarDefault from '../../assets/avatar_default.png';
 import { useNavigation } from '@react-navigation/native';
 import World from '../../assets/World.png';
 import * as Animatable from 'react-native-animatable';
@@ -25,7 +24,7 @@ const BottomTabView = ({
     gamesArr,
     friends,
 }) => {
-    const isSpanish= useSelector((state) => state.isSpanish);
+    const isSpanish = useSelector((state) => state.isSpanish);
     const soundOn = useSelector((state) => state.soundOn);
     // const dispatch = useDispatch();
     const allcountries = useSelector((state) => state.countries);
@@ -54,32 +53,32 @@ const BottomTabView = ({
     }
 
     const Games = () => {
-        const translateRegion = (reg)=>{
+        const translateRegion = (reg) => {
             switch (reg) {
-              case "Africa":
-                if(isSpanish) return "África"
-                else return "Africa"
-              case "North America":
-                if(isSpanish) return "América del Norte"
-                else return "North America"
-              case "South America":
-                if(isSpanish) return "América del Sur"
-                else return "South America"
-              case "Asia":
-                if(isSpanish) return "Ásia"
-                else return "Asia"
-              case "Oceania":
-                if(isSpanish) return "Oceanía"
-                else return "Oceania"
-              case "Europe":
-                if(isSpanish) return "Europa"
-                else return "Europe"
-              case "Antarctica":
-                if(isSpanish) return "Antártida"
-                else return "Antarctica"
-              break;
+                case "Africa":
+                    if (isSpanish) return "África"
+                    else return "Africa"
+                case "North America":
+                    if (isSpanish) return "América del Norte"
+                    else return "North America"
+                case "South America":
+                    if (isSpanish) return "América del Sur"
+                    else return "South America"
+                case "Asia":
+                    if (isSpanish) return "Ásia"
+                    else return "Asia"
+                case "Oceania":
+                    if (isSpanish) return "Oceanía"
+                    else return "Oceania"
+                case "Europe":
+                    if (isSpanish) return "Europa"
+                    else return "Europe"
+                case "Antarctica":
+                    if (isSpanish) return "Antártida"
+                    else return "Antarctica"
+                    break;
             }
-          }
+        }
         return (
             <ScrollView showsVerticalScrollIndicator={false} style={{ backgroundColor: "#005f73", }}
             // style={tw`bg-gray-900`}
@@ -100,19 +99,18 @@ const BottomTabView = ({
                                             {/* VER COMO ACOMODAR LAS BANDERAS PARA QUE QUEDEN TODOS EN LA MISMA LINEA */}
                                             <View style={{ justifyContent: 'center', alignItems: 'center', }}>
                                                 {/* style={tw`h-7 w-9.33 rounded-sm`} */}
-                                                <Image style={tw.style('shadow-2xl',{
+                                                <Image style={tw.style('shadow-2xl', {
                                                     width: 60, height: 40, borderRadius: 4, justifyContent: 'center', alignItems: 'center',
 
                                                 })}
-                                                    source={perGame?.flagSvg?.length > 10 && !(perGame?.countrie?.toLowerCase() === "afganistán") ? { 
-                                                        uri:`${
-                                                            perGame?.flagSvg?.replace("svg", "png").replace("//","").replace("/","/w2560/").replace("https:","https://")
-                                                        }`
+                                                    source={perGame?.flagSvg?.length > 10 && !(perGame?.countrie?.toLowerCase() === "afganistán") ? {
+                                                        uri: `${perGame?.flagSvg?.replace("svg", "png").replace("//", "").replace("/", "/w2560/").replace("https:", "https://")
+                                                            }`
                                                     }
-                                                    :
-                                                    { 
-                                                        uri:`https://upload.wikimedia.org/wikipedia/commons/2/26/Flag_of_the_Taliban_%28Variant%29.png`
-                                                    }
+                                                        :
+                                                        {
+                                                            uri: `https://upload.wikimedia.org/wikipedia/commons/2/26/Flag_of_the_Taliban_%28Variant%29.png`
+                                                        }
                                                     }
                                                 />
                                                 <Text style={{ color: 'white', paddingVertical: 5, fontWeight: 'bold', fontSize: 13, }}>
@@ -138,7 +136,7 @@ const BottomTabView = ({
                                         <View style={{ alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between', display: 'flex', width: '100%', paddingRight: 30, paddingLeft: 30, }}>
                                             <View style={{ justifyContent: 'center', alignItems: 'center', }}>
                                                 <Text style={{ color: 'white', paddingVertical: 5, fontWeight: 'bold', fontSize: 16, }}>
-                                                {isSpanish ? "Población" : "Population"}
+                                                    {isSpanish ? "Población" : "Population"}
                                                 </Text>
                                                 <Text style={{ color: 'white', paddingVertical: 5, fontWeight: 'bold', fontSize: 15, }}>
                                                     {perGame.population > 1000000 ? (perGame.population / 1000000).toFixed(2).concat('M') : perGame.population}
@@ -154,12 +152,12 @@ const BottomTabView = ({
                                                 </Text>
                                             </View>
 
-                                            <View style={{ justifyContent: 'center', alignItems: 'center', width: 80, textAlign: "center"}}>
+                                            <View style={{ justifyContent: 'center', alignItems: 'center', width: 80, textAlign: "center" }}>
                                                 <Text style={{ color: 'white', paddingVertical: 5, fontWeight: 'bold', fontSize: 16, }}>
-                                                {isSpanish?"Continente":"Continent"}
+                                                    {isSpanish ? "Continente" : "Continent"}
                                                 </Text>
-                                                <Text style={{ color: 'white', paddingVertical: 5, fontWeight: 'bold', fontSize: 15, textAlign: "center"}}>
-                                                {perGame.continent.length > 13 ? translateRegion(perGame.continent).slice(0, 12).concat('...') : translateRegion(perGame.continent)}
+                                                <Text style={{ color: 'white', paddingVertical: 5, fontWeight: 'bold', fontSize: 15, textAlign: "center" }}>
+                                                    {perGame.continent.length > 13 ? translateRegion(perGame.continent).slice(0, 12).concat('...') : translateRegion(perGame.continent)}
                                                 </Text>
                                             </View>
 
@@ -191,7 +189,7 @@ const BottomTabView = ({
                                     padding: 25,
                                 }}
                             >
-                            {isSpanish? "Aún no has jugado ningúna partida." :" You have not yet played any games."}
+                                {isSpanish ? "Aún no has jugado ningúna partida." : " You have not yet played any games."}
                             </Text>
                             <Animatable.View
                                 animation="fadeInLeftBig" iterationCount={1} duration={3000}
@@ -277,7 +275,7 @@ const BottomTabView = ({
                 </ScrollView>
                 <View style={tw`flex flex-row items-center justify-center mb-5`}>
                     <TextInput
-                        placeholder="Enter a country..."
+                        placeholder={isSpanish ? "Ingrese mensaje..." : "Enter a message..."}
                         placeholderTextColor="#6f6f6f"
                         autoCapitalize="sentences"
                         style={tw`pl-3 w-75 mr-1 h-12 rounded-l-xl bg-white text-black text-lg`}
@@ -292,10 +290,10 @@ const BottomTabView = ({
                     >
                         <View style={tw`w-8 h-8`}>
                             <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-                            <Path
-                                fill="#9ebc63"
-                                d="M374.6 246.6c-6.2 6.3-14.4 9.4-22.6 9.4s-16.38-3.125-22.62-9.375L224 141.3V448c0 17.69-14.33 31.1-31.1 31.1S160 465.7 160 448V141.3L54.63 246.6c-12.5 12.5-32.75 12.5-45.25 0s-12.5-32.75 0-45.25l160-160c12.5-12.5 32.75-12.5 45.25 0l160 160c12.47 12.55 12.47 32.75-.03 45.25z"
-                            />
+                                <Path
+                                    fill="#9ebc63"
+                                    d="M374.6 246.6c-6.2 6.3-14.4 9.4-22.6 9.4s-16.38-3.125-22.62-9.375L224 141.3V448c0 17.69-14.33 31.1-31.1 31.1S160 465.7 160 448V141.3L54.63 246.6c-12.5 12.5-32.75 12.5-45.25 0s-12.5-32.75 0-45.25l160-160c12.5-12.5 32.75-12.5 45.25 0l160 160c12.47 12.55 12.47 32.75-.03 45.25z"
+                                />
                             </Svg>
                         </View>
                     </TouchableOpacity>
@@ -316,7 +314,7 @@ const BottomTabView = ({
                         padding: 20,
                     }}
                 >
-                    <Text style={tw`text-gray-400 text-center flex text-2xl `}>{isSpanish?"Amigos":"Friends"}</Text>
+                    <Text style={tw`text-gray-400 text-center flex text-2xl `}>{isSpanish ? "Amigos" : "Friends"}</Text>
                     <Ionic
                         onPress={() => navigation.navigate('SearchFriends', { id, navigation })}
                         name="search"
@@ -335,7 +333,7 @@ const BottomTabView = ({
                         return (
                             <TouchableOpacity
                                 key={friend.id}
-                                onPress={() => navigation.navigate('FriendProfile', { freId: friend.FriendId, userId: id, userFriends:friends })}
+                                onPress={() => navigation.navigate('FriendProfile', { freId: friend.FriendId, userId: id, userFriends: friends })}
                             >
                                 <View
                                     style={{
@@ -360,7 +358,7 @@ const BottomTabView = ({
                                                 width: 50,
                                                 height: 50,
                                             }}
-                                            source={{uri: friend.avatar}} />
+                                            source={{ uri: friend.avatar }} />
 
                                         <Text
                                             style={{
@@ -370,7 +368,10 @@ const BottomTabView = ({
                                                 paddingRight: 10,
                                             }}>
                                             {friend.username ? friend.username : 'Not friends :('}
-                                        </Text>                                        
+                                        </Text>
+                                        <View>
+                                            <Text></Text>
+                                        </View>
                                     </View>
                                 </View>
                             </TouchableOpacity>

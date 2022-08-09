@@ -162,7 +162,7 @@ export const FriendProfileButtons = ({
     const isSpanish= useSelector((state) => state.isSpanish);
     const dispatch = useDispatch();
     const navigation = useNavigation();
-    console.log('followingUser -->',followingUser)
+    // console.log('followingUser -->',followingUser)
 
     const [follow, setFollow] = useState( followingUser );
     
@@ -215,16 +215,11 @@ export const FriendProfileButtons = ({
                             fontWeight: 'bold',
                             color: follow ? 'black' : 'white',
                         }}>
-                            {follow ? (isSpanish ? 'Siguiendo':'Follow') : (isSpanish ? 'Seguir' : 'Following')}
+                            {follow ? (isSpanish ? 'Siguiendo':'Following') : (isSpanish ? 'Seguir' : 'Follow')}
                         </Text>
                     </View>
                 </TouchableOpacity>
-               
-
             </View>
-
-
-
         </View>
     );
 
