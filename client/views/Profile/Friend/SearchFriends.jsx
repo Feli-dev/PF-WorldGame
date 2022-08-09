@@ -72,9 +72,9 @@ const SearchFriends = (params) => {
   };
 
   const sendFriend = (payload) => {
-    console.log("hyo", payload);
-    dispatch(addFriend(payload));
     dispatch(searchFriend("@-*"));
+    // console.log("hyo", payload);
+    dispatch(addFriend(payload));
     TostMessage();
     // navigation.navigate('BottomTabView')
     // Alert.alert("hey");
