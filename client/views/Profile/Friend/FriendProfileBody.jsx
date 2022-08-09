@@ -230,7 +230,7 @@ export const FriendProfileButtons = ({
                             fontWeight: 'bold',
                             color: follow ? 'white' : '#111827',
                         }}>
-                            {follow ? (isSpanish ? 'Seguir' : 'Following') : (isSpanish ? 'Siguiendo':'Follow')}
+                            {follow ? (isSpanish ? 'Siguiendo':'Follow') : (isSpanish ? 'Seguir' : 'Following')}
                         </Text>
                     </View>
                 </TouchableOpacity>

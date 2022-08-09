@@ -274,7 +274,7 @@ export default function EditProfile({ route, navigation }) {
         >
           <View style={{ justifyContent: "center", alignItems: "center" }}>
             <Text style={{ opacity: 0.5, color: "#D1D5DB", fontSize: 20 }}>
-              Country
+              {isSpanish?"País":"Country"}
             </Text>
             <Text style={tw`text-center text-2xl  text-white mb-5`}>
               {userData.country}
