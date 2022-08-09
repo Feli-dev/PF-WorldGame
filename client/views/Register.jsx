@@ -103,7 +103,7 @@ export default function Register({ navigation }) {
       );
       dispatch(getUser());
       const User = allUser.Request.find((e) => (e.username.toLowerCase() === input.username.toLowerCase()))
-      dispatch(postLogin(User))
+      // dispatch(postLogin(User))
       dispatch(first(true))
       navigation.navigate("Login")
     }

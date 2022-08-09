@@ -17,6 +17,7 @@ import {
   setLogin,
   getAllCountries,
   getUser,
+  first
 } from "../redux/actions/index";
 import tw from "twrnc";
 import Svg, { Path } from "react-native-svg";
@@ -32,7 +33,7 @@ import img from "../assets/Worldgame.png";
     const isSpanish= useSelector((state) => state.isSpanish);
     const [userA, setUserA] = useState(null);
     const soundOn = useSelector((state) => state.soundOn);
-    const first = useSelector((state) => state.first);
+    const first_ = useSelector((state) => state.first);
   const [request, response, promptAsync] = Google.useAuthRequest({
     expoClientId:
       "1070907696300-0qdljeqakdv1kl2719q67qrrppo9fufi.apps.googleusercontent.com",
@@ -144,11 +145,11 @@ import img from "../assets/Worldgame.png";
       //   siLogin = true;
       // }
       console.log("user: ", User);
-      console.log("user: ", allUser);
+      console.log("user: ", allUser); 
       if (User && User.state === false) {
         setLogErr(isSpanish ? "Usuario baneado por favor contactarse con el administrador ":"Banned user, please contact the administrator.");
         setBanned(true); 
-      } else if (User && User.state === true) {
+      } else if (User && (User.state === true||User.state === undefined)) {
         var c = await postLogin(_input);
         console.log("c: ", c);
         if (c.payload.Request !== "No se inicio sessión") {
@@ -178,11 +179,13 @@ import img from "../assets/Worldgame.png";
   }
 
   useEffect(() => {
+    console.log(pressed, banned, first_)
+    console.log("user:",user)
     if (
       pressed === true &&
       user.Request &&
       banned === false &&
-      first === false
+      first_ === false
     ) {
       setInput({
         username: "",
@@ -190,20 +193,21 @@ import img from "../assets/Worldgame.png";
       });
       setLogErr("");
       navigation.navigate("Home");
-    } else if (pressed === true && first === true) {
+    } else if (pressed === true && first_ === true) {
       const User = allUser.Request.find(
         (e) => e.username.toLowerCase() === input.username.toLowerCase()
       );
+      console.log(User)
       if (User) {
         navigation.navigate("Instructions");
-        let logear = user.Request;
-        logear.first = false;
-        dispatch(
-          setLogin({
-            logear,
-          })
-        );
-      } else {
+        setInput({
+          username: "",
+          password: "",
+        });
+        setLogErr("");
+        console.log("first_",first_)
+        dispatch(first(false))
+      } else { 
         setTimeout(() => {
           if (logErr !== "Banned user, please contact the administrator."|| logErr !=="Usuario baneado por favor contactarse con el administrador ") {
             setLogErr(isSpanish ? "Usuario o contraseña invalido"  :" Invalid user or password");
@@ -226,12 +230,11 @@ import img from "../assets/Worldgame.png";
 
   useEffect(() => {
     dispatch(getAllCountries());
-    dispatch(getUser());
     if (input.password === "" || input.username === "") {
       setLogErr("");
     }
-    //console.log("useruseruseruseruseru", allUser);
-  }, []);
+    dispatch(getUser()).then(() => console.log("este:",allUser[allUser.length-2]))
+  }, [dispatch]);
   
 
   return (
