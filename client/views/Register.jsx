@@ -196,6 +196,7 @@ export default function Register({ navigation }) {
               items={items}
               min={1}
               max={1}
+              placeholder={isSpanish ? "Seleccionar país": "Select a country"}
               setOpen={setOpen}
               setValue={setValue}
               setItems={setItems}
