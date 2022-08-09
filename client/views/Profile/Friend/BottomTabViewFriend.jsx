@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 
 const BottomTabViewFriend = ({ games, gamesArr }) => {
     const Tab = createMaterialTopTabNavigator();
+    const isSpanish= useSelector((state) => state.isSpanish);
 
     const Games = () => {
         const allcountries = useSelector((state) => state.countries);
@@ -34,12 +35,39 @@ const BottomTabViewFriend = ({ games, gamesArr }) => {
             })
         }
 
+        const translateRegion = (reg)=>{
+            switch (reg) {
+              case "Africa":
+                if(isSpanish) return "África"
+                else return "Africa"
+              case "North America":
+                if(isSpanish) return "América del Norte"
+                else return "North America"
+              case "South America":
+                if(isSpanish) return "América del Sur"
+                else return "South America"
+              case "Asia":
+                if(isSpanish) return "Ásia"
+                else return "Asia"
+              case "Oceania":
+                if(isSpanish) return "Oceanía"
+                else return "Oceania"
+              case "Europe":
+                if(isSpanish) return "Europa"
+                else return "Europe"
+              case "Antarctica":
+                if(isSpanish) return "Antártida"
+                else return "Antarctica"
+              break;
+            }
+          }
+    
         return (
             <ScrollView showsVerticalScrollIndicator={false} style={{ backgroundColor: '#111827' }}
             // style={tw`bg-gray-900`}
             >
                 {/* AGREGAR UN LOADING EN LO QUE SE CARGAN LAS CARDS  */}
-                <Text style={tw`text-gray-400 text-left text-2xl pl-3 pt-3 text-center`}>Games</Text>
+                <Text style={tw`text-gray-400 text-left text-2xl pl-3 pt-3 text-center`}>{isSpanish ? 'partidas' : "Games"} </Text>
                 <View style={{ flexDirection: 'column', alignItems: 'center' }}>
                     {countriesAux.length > 0
                         ? countriesAux.map((perGame) => {
@@ -78,7 +106,7 @@ const BottomTabViewFriend = ({ games, gamesArr }) => {
                                         <View style={{ alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between', display: 'flex', width: '100%', paddingRight: 30, paddingLeft: 30, }}>
                                             <View style={{ justifyContent: 'center', alignItems: 'center', }}>
                                                 <Text style={{ color: 'white', paddingVertical: 5, fontWeight: 'bold', fontSize: 16, }}>
-                                                    Population
+                                                    {isSpanish ? "Población" : "Population"}
                                                 </Text>
                                                 <Text style={{ color: 'white', paddingVertical: 5, fontWeight: 'bold', fontSize: 15, }}>
                                                     {perGame.population > 1000000 ? (perGame.population / 1000000).toFixed(2).concat(' M') : perGame.population}
@@ -95,10 +123,10 @@ const BottomTabViewFriend = ({ games, gamesArr }) => {
                                             </View>
                                             <View style={{ justifyContent: 'center', alignItems: 'center', }}>
                                                 <Text style={{ color: 'white', paddingVertical: 5, fontWeight: 'bold', fontSize: 16, }}>
-                                                    Continent
+                                                    {isSpanish?"Continente":"Continent"}
                                                 </Text>
                                                 <Text style={{ color: 'white', paddingVertical: 5, fontWeight: 'bold', fontSize: 15, }}>
-                                                    {perGame.continent.length > 13 ? perGame.continent.slice(0, 12).concat('...') : perGame.continent}
+                                                    {perGame.continent.length > 13 ? translateRegion(perGame.continent).slice(0, 12).concat('...') : translateRegion(perGame.continent)}
                                                 </Text>
                                             </View>
                                             <View style={{ justifyContent: 'center', alignItems: 'center', }}>
@@ -126,7 +154,7 @@ const BottomTabViewFriend = ({ games, gamesArr }) => {
                                     padding: 25,
                                 }}
                             >
-                                The player has not yet played any game.
+                            {isSpanish? "El jugador aún no ha jugado ningúna partida." : "The player has not yet played any game."}
                             </Text>
                             <Animatable.View
                                 animation="fadeInLeftBig" iterationCount={1} duration={3000} 

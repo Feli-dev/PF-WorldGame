@@ -24,7 +24,7 @@ const SearchFriends = (params) => {
   let findUsers = useSelector((state) => state.searchFriend);
   const userInfo = useSelector((state) => state.profileUser);
   const friends = userInfo.friends
-
+  const isSpanish= useSelector((state) => state.isSpanish);
 
   let dispatch = useDispatch();
   console.log("search", friends);
@@ -111,7 +111,7 @@ const SearchFriends = (params) => {
             }}
           >
             <Text style={{ opacity: 0.5, color: "#D1D5DB", fontSize: 20, padding: 5, }}>
-              Find a friend
+              {isSpanish ? 'Busca a tu amigo' : "Find a friend"}
             </Text>
             <Ionic
               onPress={() => handleSearch()}
@@ -125,7 +125,7 @@ const SearchFriends = (params) => {
 
           <TextInput
             type="username"
-            placeholder="Search username"
+            placeholder={isSpanish ? 'Buscar por nombre de usuario' : "Search username"}
             placeholderTextColor="#6B7280"
             defaultValue={userData.username}
             style={{
@@ -175,7 +175,7 @@ const SearchFriends = (params) => {
                     color: "white", fontSize: 25, textAlign: "center", paddingRight: 10,
                   }}
                   >
-                    {user.username ? user.username : "Unknow"}
+                    {user.username ? user.username : (isSpanish ? "No definido":"Unknow")}
 
                   </Text>
                   {friends.some(friend => friend.FriendId === user.id)
@@ -211,7 +211,7 @@ const SearchFriends = (params) => {
             }}
           >
             <Text style={{ opacity: 0.5, color: "#D1D5DB", fontSize: 20, padding: 5, }}>
-              Find a friend
+            {isSpanish ? 'Busca a tu amigo' : "Find a friend"}
             </Text>
             <Ionic
               onPress={() => handleSearch()}
@@ -224,7 +224,7 @@ const SearchFriends = (params) => {
           </View>
           <TextInput
             type="username"
-            placeholder="Search username"
+            placeholder={isSpanish ? 'Buscar por nombre de usuario' : "Search username"}
             placeholderTextColor="#6B7280"
             defaultValue={userData.username}
             style={{
