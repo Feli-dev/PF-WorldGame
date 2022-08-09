@@ -63,17 +63,17 @@ const BottomTabViewFriend = ({ games, gamesArr }) => {
           }
     
         return (
-            <ScrollView showsVerticalScrollIndicator={false} style={{ backgroundColor: '#111827' }}
+            <ScrollView showsVerticalScrollIndicator={false} style={{ backgroundColor: "#005f73" }}
             // style={tw`bg-gray-900`}
             >
                 {/* AGREGAR UN LOADING EN LO QUE SE CARGAN LAS CARDS  */}
-                <Text style={tw`text-gray-400 text-left text-2xl pl-3 pt-3 text-center`}>{isSpanish ? 'partidas' : "Games"} </Text>
+                <Text style={tw`text-gray-300 text-left text-2xl pl-3 pt-3 text-center`}>{isSpanish ? 'Partidas' : "Games"} </Text>
                 <View style={{ flexDirection: 'column', alignItems: 'center' }}>
                     {countriesAux.length > 0
                         ? countriesAux.map((perGame) => {
                             return (
                                 <View key={perGame.id} style={{ width: '100%' }} >
-                                    <View style={{ height: 200, backgroundColor: perGame.winned ? '#18642C' : '#9D174D', marginBottom: 10, borderRadius: 8, }}>
+                                    <View style={{ height: 200, backgroundColor: perGame.winned ? '#18642C' : "#c94242", marginBottom: 10, borderRadius: 8, }}>
                                         <View style={{ justifyContent: 'space-between', alignItems: 'center', display: 'flex', flexDirection: 'row', margin: 15, }}>
                                             {/* VER COMO ACOMODAR LAS BANDERAS PARA QUE QUEDEN TODOS EN LA MISMA LINEA */}
                                             <View style={{ justifyContent: 'center', alignItems: 'center', }}>
@@ -170,6 +170,8 @@ const BottomTabViewFriend = ({ games, gamesArr }) => {
                                         display: 'flex',
                                         justifyContent: 'center',
                                         alignItems: 'center',
+                                        width: 300,
+                                        height: 300,
                                     }}
                                     source={World}
                                 />

@@ -75,7 +75,7 @@ const FriendProfile = (params) => {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
             <View>
                 {data && open ?
-                    <View style={tw`h-full bg-gray-900 flex justify-center items-center`}>
+                    <View style={tw`h-full bg-[#005f73] flex justify-center items-center`}>
                         <View style={tw`mt-10 p-5`}>
 
                             <FriendProfileBody
@@ -113,7 +113,7 @@ const FriendProfile = (params) => {
                     </View>
                     :
                     <View style={{
-                        backgroundColor: '#050F1A',
+                        backgroundColor: '#050F1A',//cambiar por bg-[#005f73]
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',

@@ -11,7 +11,7 @@ import img from "../../assets/Worldgame.png"
 export default function Home({ navigation }) {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <View style={tw`flex items-center justify-center bg-gray-900 mb-5`}>
+      <View style={tw`flex items-center justify-center bg-[#005f73] h-full mt-15`}>
         <View>
           <Navbar navigation={navigation} />
         </View>

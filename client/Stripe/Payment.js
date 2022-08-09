@@ -44,7 +44,7 @@ const Payment = (
     const subscribe = async () => {
         try {
             //sending request
-            const response = await fetch('https://world-game-v9.herokuapp.com/payment',
+            const response = await fetch('https://world-game-v10.herokuapp.com/payment',
                 {
                     method: 'POST',
                     body: JSON.stringify({ premiumLevel }),

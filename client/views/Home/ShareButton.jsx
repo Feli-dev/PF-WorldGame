@@ -53,10 +53,10 @@ export default function ShareButton() {
     return (
         <View style={tw`flex justify-center items-center mt-8 mb-5`}>
             <TouchableOpacity 
-                style={tw`w-30 h-9 border-0 m-0 p-0 flex justify-center items-center rounded-lg bg-white`}
+                style={tw`w-40 h-9 border-0 m-0 p-0 shadow-lg flex justify-center items-center rounded-lg bg-white`}
                 onPress={()=>{onShare()}}
             >
-                <View style={tw`w-22 h-10 m-0 p-0 flex flex-row justify-between items-center`}>
+                <View style={tw`w-32 h-10 m-0 p-0 flex flex-row justify-between items-center`}>
                     <View style={tw`h-6 w-6`}>
                         <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                             <Path fill="#000" d="M285.4 197.1l-94.1 47c.5 3.9-.2 7-.2 11.9 0 4 .7 7.1.2 11.9l94.1 47c17.2-16.7 40.7-26.9 66.6-26.9 53 0 96 42.1 96 96 0 53-43 96-96 96-53.9 0-96-43-96-96 0-4.9.2-8 .7-11.9l-94.1-47C145.4 341.8 121.9 352 96 352c-53.02 0-96-43-96-96 0-53.9 42.98-96 96-96 25.9 0 49.4 10.2 66.6 26.9l94.1-47c-.5-4.8-.7-7.9-.7-11.9 0-53.02 42.1-96 96-96 53 0 96 42.98 96 96 0 53-43 96-96 96-25.9 0-49.4-10.2-66.6-26.9z" />

@@ -34,15 +34,15 @@ export default function Ranking() {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <View style={tw`flex h-full items-center justify-center bg-gray-900`}>
+      <View style={tw`flex h-full items-center justify-center bg-[#005f73]`}>
         <View style={tw`flex flex-row mt-50 mr-8`}>
           <View style={tw`flex flex-col`}>
             <View style={tw`ml-8 flex items-center justify-center`}>
-              <Text style={tw`text-white text-lg text-center font-bold mb-2`}>
+              <Text style={tw`text-white text-xl text-center font-bold mb-2`}>
               {isSpanish ? 'País' : "Country" }
               </Text>
               <DropDownPicker
-                style={tw`border-solid border-0 w-7/7 h-8 m-0 flex justify-center items-center bg-gray-800 rounded-lg z-0`}
+                style={tw`border-solid border-0 w-7/7 h-8 m-0 flex justify-center items-center bg-[#C0D6DF] shadow-2xl rounded-lg z-0`}
                 textStyle={tw`text-gray-600`}
                 open={open}
                 value={value}
@@ -53,7 +53,7 @@ export default function Ranking() {
                 setValue={setValue}
                 setItems={setItems}
                 placeholder={isSpanish ? 'Todos los países' : "All countrys" }
-                arrowIconStyle={{ tintColor: "white" }}
+                arrowIconStyle={{ tintColor: "black" }}
                 containerStyle={tw`w-6/7`}
                 onChangeValue={(value) => {
                   dispatch(filterByCountry(value));
@@ -63,11 +63,11 @@ export default function Ranking() {
           </View>
           <View style={tw`flex flex-col`}>
             <View style={tw`flex items-center justify-center`}>
-              <Text style={tw`text-white text-lg text-center font-bold mb-2`}>
+              <Text style={tw`text-white text-xl text-center font-bold mb-2`}>
               {isSpanish ? 'Top' : "Top" }
               </Text>
               <DropDownPicker
-                style={tw`border-solid border-0 w-7/7 h-8 m-0 flex justify-center items-center bg-gray-800 rounded-lg z-0`}
+                style={tw`border-solid border-0 w-7/7 h-8 m-0 flex justify-center items-center bg-[#C0D6DF] shadow-2xl rounded-lg z-0`}
                 textStyle={tw`text-gray-600`}
                 open={open2}
                 value={value2}
@@ -78,7 +78,7 @@ export default function Ranking() {
                 setValue={setValue2}
                 setItems={setItems2}
                 placeholder={isSpanish ? 'Todos los usuarios' : "All users" }
-                arrowIconStyle={{ tintColor: "white" }}
+                arrowIconStyle={{ tintColor: "black" }}
                 containerStyle={tw`w-6/7`}
                 onChangeValue={(value) => {
                   dispatch(filterByTop(value));
@@ -88,20 +88,20 @@ export default function Ranking() {
           </View>
         </View>
         <View
-          style={tw`w-70 mt-15 mb--10 border-b border-solid border-gray-400`}
+          style={tw`w-70 mt-15 mb--10`}
         ></View>
         <View>
-          <ScrollView style={tw`mt-15 mb-45`}>
+          <ScrollView style={tw`mt-10 mb-45`}>
             {ranked?.map((player) => {
               return (
                 <View
                   key={
                     ranked?.findIndex((e) => e.username === player.username) + 1
                   }
-                  style={tw`flex flex-row justify-center items-center bg-gray-700 mt-5 rounded-lg p-3`}
+                  style={tw`flex flex-row justify-center items-center bg-[#C0D6DF] mt-5 rounded-xl shadow-xl p-3`}
                 >
                   <View style={tw`w-1/6`}>
-                    <Text style={tw`mr-5 text-white text-center font-bold`}>
+                    <Text style={tw`mr-5 text-black text-lg text-center font-bold`}>
                       {" "}
                       {`#${
                         ranked.findIndex((e) => e.username === player.username) +
@@ -110,7 +110,7 @@ export default function Ranking() {
                     </Text>
                   </View>
                   <View style={tw`w-3/6`}>
-                    <Text style={tw`mr-5 text-white text-center font-bold`}>
+                    <Text style={tw`mr-5 text-black text-base text-center font-bold`}>
                       {" "}
                       {player.username}{" "}
                     </Text>

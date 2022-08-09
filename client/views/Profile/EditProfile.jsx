@@ -151,7 +151,7 @@ export default function EditProfile({ route, navigation }) {
         style={{
           width: "100%",
           height: "100%",
-          backgroundColor: "#111827",
+          backgroundColor: "#005f73",
           marginTop: 25,
         }}
       >
@@ -202,30 +202,30 @@ export default function EditProfile({ route, navigation }) {
             style={{ width: 100, height: 100, borderRadius: 100 }}
           />
           <TouchableOpacity
-            style={tw`bg-gray-600 px-8 py-2 rounded-lg mt-3 w-50`}
+            style={tw`bg-[#C0D6DF] px-8 py-2 rounded-lg mt-3 w-50`}
             onPress={() => {
               pickFromGalary();
               touchSound(soundOn);
             }}
           >
-            <Text style={tw`text-white text-center font-bold`}>
+            <Text style={tw`text-black text-center font-bold`}>
               {isSpanish?"Cambiar Imagen":"Change Image"}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={tw`bg-gray-600 px-8 py-2 rounded-lg mt-3 w-50`}
+            style={tw`bg-[#C0D6DF] px-8 py-2 rounded-lg mt-3 w-50`}
             onPress={() => {
               pickFromCamera();
               touchSound(soundOn);
             }}
           >
-            <Text style={tw`text-white text-center font-bold`}>{isSpanish?"Tomar Foto":"Take photo"}</Text>
+            <Text style={tw`text-black text-center font-bold`}>{isSpanish?"Tomar Foto":"Take photo"}</Text>
           </TouchableOpacity>
         </View>
 
         <View style={{ padding: 10 }}>
           <View>
-            <Text style={{ opacity: 0.5, color: "#D1D5DB", fontSize: 20 }}>
+            <Text style={{ opacity: 0.7, color: "#D1D5DB", fontSize: 20 }}>
               {isSpanish?"Nombre":"Name"}
             </Text>
             <TextInput
@@ -246,7 +246,7 @@ export default function EditProfile({ route, navigation }) {
 
         <View style={{ padding: 10 }}>
           <View>
-            <Text style={{ opacity: 0.5, color: "#D1D5DB", fontSize: 20 }}>
+            <Text style={{ opacity: 0.7, color: "#D1D5DB", fontSize: 20 }}>
               {isSpanish?"Correo electrónico":"Email"}
             </Text>
             <TextInput
@@ -273,16 +273,16 @@ export default function EditProfile({ route, navigation }) {
           }}
         >
           <View style={{ justifyContent: "center", alignItems: "center" }}>
-            <Text style={{ opacity: 0.5, color: "#D1D5DB", fontSize: 20 }}>
+            <Text style={{ opacity: 0.7, color: "#D1D5DB", fontSize: 20 }}>
               {isSpanish?"País":"Country"}
             </Text>
-            <Text style={tw`text-center text-2xl  text-white mb-5`}>
-              {userData.country}
+            <Text style={tw`text-center text-2xl text-white mb-5`}>
+              {userData.country == "peru" ? "Perú" : userData.country}
             </Text>
             <DropDownPicker
               onPress={Keyboard.dismiss}
               accessible={false}
-              style={tw`flex justify-center items-center m-0 rounded-lg bg-[#1F2937] h-8 w-7/7`}
+              style={tw`border-0 flex justify-center items-center m-0 rounded-lg bg-[#C0D6DF] h-8 w-7/7`}
               // style={tw`border-solid border-0 w-3/5 h-8 m-0 flex justify-center items-center bg-gray-800 rounded-md z-0`}
               textStyle={tw`text-gray-600`}
               open={open}
@@ -293,7 +293,7 @@ export default function EditProfile({ route, navigation }) {
               setOpen={setOpen}
               setValue={setValue}
               setItems={setItems}
-              arrowIconStyle={{ tintColor: "white" }}
+              arrowIconStyle={{ tintColor: "black" }}
               type="country"
               onSelectItem={(event) => {
                 handleOnChange("country", event.value);

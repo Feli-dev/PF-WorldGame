@@ -5,7 +5,7 @@ import tw from "twrnc";
 
 export default function Map({lat, long}) {
   return (
-    <View style={tw`mt-5 w-full flex items-center justify-center overflow-hidden rounded-lg`}>
+    <View style={tw`mt-5 w-full shadow-lg flex items-center justify-center overflow-hidden rounded-lg`}>
       <MapView
         style={tw`w-75 h-50`}
         initialRegion={{
