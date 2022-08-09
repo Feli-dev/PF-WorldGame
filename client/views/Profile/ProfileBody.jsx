@@ -25,6 +25,7 @@ export const ProfileBody = ({
 }) => {
     const navigation = useNavigation();
     const soundOn = useSelector((state) => state.soundOn);
+    const isSpanish = useSelector((state) => state.isSpanish);
     return (
         <View>
             {userName ? (
@@ -137,17 +138,17 @@ export const ProfileBody = ({
 
                 <View style={{ alignItems: 'center' }}>
                     <Text style={{ fontWeight: 'bold', fontSize: 18, color: 'white' }}>{friends}</Text>
-                    <Text style={{ color: 'white' }}>Friends</Text>
+                    <Text style={{ color: 'white' }}>{isSpanish?"Amigos":"Friends"}</Text>
                 </View>
 
                 <View style={{ alignItems: 'center' }}>
                     <Text style={{ fontWeight: 'bold', fontSize: 18, color: 'white' }}>{games}</Text>
-                    <Text style={{ color: 'white' }}>Games</Text>
+                    <Text style={{ color: 'white' }}>{isSpanish?"Partidas":"Games"}</Text>
                 </View>
 
                 <View style={{ alignItems: 'center', marginRight: 35 }}>
                     <Text style={{ fontWeight: 'bold', fontSize: 18, color: 'white' }}>{gamesWon}</Text>
-                    <Text style={{ color: 'white' }}>Wins</Text>
+                    <Text style={{ color: 'white' }}>{isSpanish?"Ganadas":"Wins"}</Text>
                 </View>
 
 
@@ -177,6 +178,7 @@ export const ProfileButtons = ({
     const navigation = useNavigation();
     const [follow, setFollow] = useState(follow);
     const soundOn = useSelector((state) => state.soundOn);
+    const isSpanish = useSelector((state) => state.isSpanish);
     return (
         <View>
             {true ? (//ACA TENGO QUE COMPARAR EL ID DEL LOCALSTORAGE O LOGIN Y EL DEL USUARIO SELECCIONADO! (SPRINT 3)
@@ -208,7 +210,7 @@ export const ProfileButtons = ({
                             style={tw`h-8 rounded-lg items-center justify-center border-white border-2`}>
                             <Text
                                 style={tw`text-base text-white font-bold`}>
-                                Edit Profile
+                                {isSpanish ? "Editar Perfil":"Edit Profile"}
                             </Text>
                         </View>
                     </TouchableOpacity>
