@@ -133,8 +133,8 @@ import img from "../assets/Worldgame.png";
     }
 
     if (
-      validate("username", _input.username) === "" &&
-      validate("password", _input.password) === ""
+      validate("username", _input.username,isSpanish) === "" &&
+      validate("password", _input.password,isSpanish) === ""
     ) {
       const User = allUser.Request.find(
         (e) => e.username.toLowerCase() === _input.username.toLowerCase()
@@ -173,7 +173,7 @@ import img from "../assets/Worldgame.png";
       [type]: text,
     });
     setLogErr("");
-    setErr({ ...err, [type]: validate(type, text) });
+    setErr({ ...err, [type]: validate(type, text,isSpanish) });
     setPressed(false);
   }
 
