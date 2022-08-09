@@ -23,6 +23,7 @@ const initialState = {
   stat : { optionModalVisible: false, playbackObj: null, soundObj: null, currentAudio : {}},
   soundOn : true,
   filter : false,
+  isSpanish: true,
 };
 
 export const rootReducer = (state = initialState, action) => {
@@ -246,6 +247,11 @@ export const rootReducer = (state = initialState, action) => {
         ...state,
         profileUser: action.payload.Request,
       };
+    case type.GET_LANGUAGES:
+      return {
+        ...state,
+        isSpanish: action.payload
+    }
     default: {
       return state;
     }

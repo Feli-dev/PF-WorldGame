@@ -24,6 +24,7 @@ export default function Register({ navigation }) {
   const [accessToken, setAccessToken] = useState(null);
   const [userA, setUserA] = useState(null);
   const soundOn = useSelector((state) => state.soundOn);
+  const isSpanish= useSelector((state) => state.isSpanish);
   const user= useSelector(state => state.login);
   const allUser = useSelector((state) => state.users)
   const [request, response, promptAsync] = Google.useAuthRequest({
@@ -88,7 +89,7 @@ export default function Register({ navigation }) {
   //UseEffect limpiar estados
 
   function handleSubmit(e) {
-    setErr(validateInput(input));
+    setErr(validateInput(input,isSpanish));
     if (!(Object.keys(err).length > 0)) {
       dispatch(
         PostUser({
@@ -112,8 +113,8 @@ export default function Register({ navigation }) {
       ...input,
       [type]: text,
     });
-    setErr(validateInput({ ...input, [type]: text }));
-    if (!(Object.keys(validateInput({ ...input, [type]: text })).length > 0)) {
+    setErr(validateInput({ ...input, [type]: text },isSpanish));
+    if (!(Object.keys(validateInput({ ...input, [type]: text },isSpanish)).length > 0)) {
       setIsDisabled(false);
     }
   }
@@ -126,11 +127,11 @@ export default function Register({ navigation }) {
       >
         <View style={tw`flex`}>
           <View style={tw`flex flex-col`}>
-            <Text style={tw`text-white text-lg text-left mb-0.5`}>Mail</Text>
+            <Text style={tw`text-white text-lg text-left mb-0.5`}>{isSpanish ? 'Correo electrónico' : "e-Mail" }</Text>
             <TextInput
               type="email"
               onChangeText={(e) => handleInputChange("email", e)}
-              placeholder="Email..."
+              placeholder={isSpanish ? 'Correo electrónico...' : "e-Mail..." }
               placeholderTextColor="#6f6f6f"
               style={tw`pl-3 mb-1 w-70 h-10 rounded-lg bg-gray-800 text-white`}
             ></TextInput>
@@ -140,11 +141,11 @@ export default function Register({ navigation }) {
           </View>
 
           <View style={tw`flex flex-col`}>
-            <Text style={tw`text-white text-lg text-left mb-0.5`}>Username</Text>
+            <Text style={tw`text-white text-lg text-left mb-0.5`}>{isSpanish ? 'Nombre de Usuario' : "Username" }</Text>
             <TextInput
               type="username"
               onChangeText={(e) => handleInputChange("username", e)}
-              placeholder="Username..."
+              placeholder={isSpanish ? 'Nombre de Usuario...' : "Username..." }
               placeholderTextColor="#6f6f6f"
               style={tw`pl-3 mb-1 w-70 h-10 rounded-lg bg-gray-800 text-white`}
             ></TextInput>
@@ -154,12 +155,12 @@ export default function Register({ navigation }) {
           </View>
 
           <View style={tw`flex flex-col`}>
-            <Text style={tw`text-white text-lg text-left mb-0.5`}>Password</Text>
+            <Text style={tw`text-white text-lg text-left mb-0.5`}>{isSpanish ? 'Contraseña' : "Password" }</Text>
             <TextInput
               type="password"
               secureTextEntry={true}
               onChangeText={(e) => handleInputChange("password", e)}
-              placeholder="Password..."
+              placeholder={isSpanish ? 'Contraseña...' : "Password..." }
               placeholderTextColor="#6f6f6f"
               style={tw`pl-3 mb-1 w-70 h-10 rounded-lg bg-gray-800 text-white`}
             ></TextInput>
@@ -170,13 +171,13 @@ export default function Register({ navigation }) {
 
           <View style={tw`flex flex-col`}>
             <Text style={tw`text-white text-lg text-left mb-0.5`}>
-              Repeat password
+            {isSpanish ? 'Repetir Contraseña' : "Repeat Password" }
             </Text>
             <TextInput
               type="repeatPassword"
               secureTextEntry={true}
               onChangeText={(e) => handleInputChange("repeatPassword", e)}
-              placeholder="Repeat password..."
+              placeholder={isSpanish ? 'Repetir Contraseña...' : "Repeat Password..." }
               placeholderTextColor="#6f6f6f"
               style={tw`pl-3 mb-1 w-70 h-10 rounded-lg bg-gray-800 text-white`}
             ></TextInput>
@@ -186,7 +187,7 @@ export default function Register({ navigation }) {
           </View>
 
           <View style={tw`flex flex-col`}>
-            <Text style={tw`text-white text-lg text-left mb-0.5`}>Country</Text>
+            <Text style={tw`text-white text-lg text-left mb-0.5`}>{isSpanish ? 'Pais' : "Country" }</Text>
             <DropDownPicker onPress={Keyboard.dismiss} accessible={false}
               style={tw`border-solid border-0 w-3/5 h-8 m-0 flex justify-center items-center bg-gray-800 rounded-lg z-0`}
               textStyle={tw`text-gray-600`}
@@ -195,6 +196,7 @@ export default function Register({ navigation }) {
               items={items}
               min={1}
               max={1}
+              placeholder={isSpanish ? "Seleccionar país": "Select a country"}
               setOpen={setOpen}
               setValue={setValue}
               setItems={setItems}
@@ -213,14 +215,14 @@ export default function Register({ navigation }) {
             onPress={(e) => handleSubmit(e)}
             style={tw`bg-gray-600 px-8 py-2 rounded-lg mt-5 w-50`}
           >
-            <Text style={tw`text-gray-500 text-center font-bold`}>REGISTER</Text>
+            <Text style={tw`text-gray-500 text-center font-bold`}>{isSpanish ? 'REGISTRATE' : "REGISTER" }</Text>
           </TouchableOpacity>
         ) : (
           <TouchableOpacity
             onPress={(e) => {handleSubmit(e);touchSound(soundOn);}}
             style={tw`bg-gray-800 px-8 py-2 rounded-lg mt-5 w-50`}
           >
-            <Text style={tw`text-white text-center font-bold`}>REGISTER</Text>
+            <Text style={tw`text-white text-center font-bold`}>{isSpanish ? 'REGISTRATE' : "REGISTER" }</Text>
           </TouchableOpacity>
         )}
 
@@ -229,7 +231,7 @@ export default function Register({ navigation }) {
             style={tw`w-30 mr-5 border-b border-solid border-gray-400`}
           ></View>
 
-          <Text style={tw`text-gray-100 text-xs`}>OR</Text>
+          <Text style={tw`text-gray-100 text-xs`}>{isSpanish ? 'O' : "OR" }</Text>
           <View
             style={tw`w-30 ml-5 border-b border-solid border-gray-400`}
           ></View>
@@ -284,18 +286,18 @@ export default function Register({ navigation }) {
                 />
               </Svg>
             </View>
-            <Text style={tw`text-base font-bold`}>Sign in with Google</Text>
+            <Text style={tw`text-base font-bold`}>{isSpanish ? 'Registrate con google' : "Register whit Google" }</Text>
           </TouchableOpacity>
         </View>
 
         <View style={tw`mt-5`}>
           <Text style={tw`text-white text-center font-bold`}>
-            If you have an account,
+            {isSpanish ? 'Si ya tenes cuenta' : "If you have acount" },
             <Text
               style={tw`text-blue-200 text-center font-bold`}
               onPress={() => {navigation.navigate("Login");touchSound(soundOn);}}
             >
-              &nbsp;Log in
+              &nbsp;{isSpanish ? 'Ingresa' : "Login" }
             </Text>
           </Text>
         </View>

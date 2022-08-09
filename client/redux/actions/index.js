@@ -486,3 +486,18 @@ export function GetProfileUser(id) {
     }
   };
 }
+
+//--------------------------languages-----------------//
+
+export function GetLanguages(boolean = false) {
+  return async function (dispatch) {
+    try {
+      return dispatch({
+        type: type.GET_LANGUAGES,
+        payload: boolean,
+      })
+    }catch(e)
+    { return e.message;}
+  }
+};
+      

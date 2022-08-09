@@ -16,6 +16,7 @@ const Payment = (
         email,
         userName,
         password,
+        isSpanish,
     }
 
 ) => {
@@ -73,7 +74,8 @@ const Payment = (
             //-------------------------------------------------------------------------->presentSheet Me indica si el pago fue concretado o no
 
             if (presentSheet.error) { return Alert.alert(presentSheet.error.message) };
-            Alert.alert("Payment complete!");
+            if(!isSpanish) Alert.alert("Payment complete!");
+            else Alert.alert("Pago completado!");
             dispatch(PostPayment({ UserId }))
             navigation.navigate("Home");
 
@@ -83,7 +85,8 @@ const Payment = (
 
         } catch (error) {
             console.error(error);
-            Alert.alert("Something went wrong, try again later!")
+            if(!isSpanish) Alert.alert("Something went wrong, try again later!")
+            else Alert.alert("Algo ha ido mal, inténtalo de nuevo más tarde.")
         }
     }
 
@@ -97,12 +100,12 @@ const Payment = (
                     style={tw`h-90 w-90`} />
                 <View
                     style={tw`bg-gray-900 items-center justify-center mt-5`}>
-                    <Text style={tw`text-white font-bold text-base text-center p-5`}>Please enter the card owner's information.</Text>
+                    <Text style={tw`text-white font-bold text-base text-center p-5`}>{isSpanish?"Por favor, introduzca los datos del propietario de la tarjeta.":"Please enter the card owner's information."}</Text>
                     <View>
                         <TextInput
                             // value={premiumLevelAUX.name}
                             onChangeText={(text) => handleOnChange("name", text)}//VER SI AGREGO VARIAS OPCIONES DE PREMIUM O UNA SOLA
-                            placeholder="Name"
+                            placeholder={isSpanish?"Nombre":"Name"}
                             placeholderTextColor="white"
                             type="name"
                             defaultValue={premiumLevelAUX.name}
@@ -114,7 +117,7 @@ const Payment = (
                         <TextInput
                             // value={premiumLevelAUX.email}
                             onChangeText={(text) => handleOnChange("email", text)}//VER SI AGREGO VARIAS OPCIONES DE PREMIUM O UNA SOLA
-                            placeholder="Email"
+                            placeholder={isSpanish?"Correo Electrónico":"Email"}
                             placeholderTextColor="white"
                             type="email"
                             defaultValue={premiumLevelAUX.email}
@@ -133,7 +136,7 @@ const Payment = (
                         >
                             <Text>Subscribe - $5</Text>
                         </TouchableOpacity> */}
-                    <Button title='Subscribe - $5' onPress={subscribe} />
+                    <Button title={isSpanish?"Suscribirse - $5":'Subscribe - $5'} onPress={subscribe} />
                 </View>
                 </View>
             </View>

@@ -9,11 +9,12 @@ import {
 } from "react-native";
 import Svg, { Path } from "react-native-svg";
 import img from "../assets/Worldgame.png"
+import { useSelector } from "react-redux";
 
 export default function Instructions({ navigation }) {
   //const { height, width } = useWindowDimensions();
   const estiloView = tw`flex h-9/10 items-center justify-between text-white mt-12 w-1/6 `;
-
+  const isSpanish = useSelector((state) => state.isSpanish);
   const styleText = tw`m-5 text-white text-center text-base text-xl`;
   const styleButton = tw`m-5 w-3/4 text-white text-center justify-center bg-blue-400 rounded-lg`;
   const styleTextButton = tw`p-3 text-white text-center text-base font-bold`;
@@ -30,7 +31,7 @@ export default function Instructions({ navigation }) {
       >
         <View style={estiloView}>
           <Text style={styleText}>
-            Welcome dear globetrotter, swipe left to see instructions
+            {isSpanish?"Bienvenido querido trotamundos, \ndesliza el dedo hacia la izquierda para ver las instrucciones":"Welcome dear globetrotter, swipe left to see instructions"}
           </Text>
           <Image
             source={{
@@ -39,7 +40,7 @@ export default function Instructions({ navigation }) {
             style={tw`w-80 h-80`}
           />
           <View style={tw`flex items-center justify-center`}>
-            <Text style={styleText}>I already know how to play:</Text>
+            <Text style={styleText}>{isSpanish?"Ya sé cómo jugar:":"I already know how to play:"}</Text>
             <TouchableHighlight
               style={tw`w-50`}
               onPress={() => navigation.navigate("Home")}
@@ -47,14 +48,14 @@ export default function Instructions({ navigation }) {
               activeOpacity={0.7}
             >
               <View style={styleButton}>
-                <Text style={styleTextButton}>Skip</Text>
+                <Text style={styleTextButton}>{isSpanish?"Omitir instrucciones":"Skip Instructions"}</Text>
               </View>
             </TouchableHighlight>
           </View>
         </View>
 
         <View style={estiloView}>
-          <Text style={styleText}>Your mission, if you acept it</Text>
+          <Text style={styleText}>{isSpanish?"Su misión, si la acepta":"Your mission, if you acept it"}</Text>
           <Image
             source={{
               uri: "https://countryle.com/assets/images/welcome-page/welcome-loading-image-2.png",
@@ -62,7 +63,7 @@ export default function Instructions({ navigation }) {
             style={tw`w-80 h-80`}
           />
           <Text style={styleText}>
-            is to find a country following some clues...
+            {isSpanish?"es encontrar un país siguiendo algunas pistas...":"is to find a country following some clues..."}
           </Text>
           <TouchableHighlight>
             <View style={tw``}>
@@ -73,7 +74,7 @@ export default function Instructions({ navigation }) {
 
         <View style={estiloView}>
           <Text style={styleText}>
-            Go to the search bar on the bottom and write the name of any country
+            {isSpanish?"Vaya a la barra de búsqueda de la parte inferior y escriba el nombre de cualquier país":"Go to the search bar on the bottom and write the name of any country"}
           </Text>
           <Image
             source={{
@@ -81,7 +82,7 @@ export default function Instructions({ navigation }) {
             }}
             style={tw`w-80 h-80`}
           />
-          <Text style={styleText}>Select one of them...</Text>
+          <Text style={styleText}>{isSpanish?"Seleccione uno de ellos...":"Select one of them..."}</Text>
 
           <TouchableHighlight>
             <View style={tw`mb-2`}>
@@ -91,7 +92,7 @@ export default function Instructions({ navigation }) {
         </View>
 
         <View style={estiloView}>
-          <Text style={styleText}>Guided by the clues showed</Text>
+          <Text style={styleText}>{isSpanish?"Guíado por las pistas mostradas":"Guided by the clues showed"}</Text>
           <View style={tw`flex flex-col justify-center items-center`}>
             <View style={tw`flex flex-row justify-evenly items-center h-40`}>
               <View style={tw`h-15 w-22 mr-10`}>
@@ -101,7 +102,7 @@ export default function Instructions({ navigation }) {
                     d="M352 256c0 22.2-1.2 43.6-3.3 64H163.3c-2.1-20.4-4.2-41.8-4.2-64 0-22.2 2.1-43.6 4.2-64h185.4c2.1 20.4 3.3 41.8 3.3 64zm151.9-64c5.3 20.5 8.1 41.9 8.1 64s-2.8 43.5-8.1 64H380.8c2.1-20.6 3.2-42.9 3.2-64 0-22-1.1-43.4-3.2-64h123.1zm-10.5-32H376.7c-10-63.86-29.8-117.38-55.3-151.558C399.8 29.09 463.4 85.94 493.4 160zm-149.1 0H167.7c6.1-36.4 15.5-68.62 27-94.65 10.5-23.61 22.2-40.74 33.5-51.54C239.4 3.178 248.7 0 256 0c7.3 0 16.6 3.178 27.8 13.81 11.3 10.8 23 27.93 33.5 51.54 11.5 26.03 20.9 58.25 27 94.65zm-325.69 0C48.59 85.94 112.2 29.09 190.6 8.442 165.1 42.62 145.3 96.14 135.3 160H18.61zm112.59 32c-2.1 20.6-4.1 42-4.1 64 0 21.1 2 43.4 4.1 64H8.065C2.8 299.5 0 278.1 0 256s2.8-43.5 8.065-64H131.2zm63.5 254.6c-11.5-26-20.9-58.2-27-94.6h176.6c-6.1 36.4-15.5 68.6-27 94.6-10.5 23.7-22.2 40.8-33.5 51.6-11.2 10.6-20.5 13.8-28.7 13.8-6.4 0-15.7-3.2-26.9-13.8-11.3-10.8-23-27.9-33.5-51.6zm-4.1 57C112.2 482.9 48.59 426.1 18.61 352H135.3c10 63.9 29.8 117.4 55.3 151.6zm130.8 0c25.5-34.2 45.3-87.7 55.3-151.6h116.7c-30 74.1-93.6 130.9-172 151.6z"
                   />
                 </Svg>
-                <Text style={tw`mb-1 mt-1 text-center text-white font-bold text-sm`}>Hemisphere</Text>
+                <Text style={tw`mb-1 mt-1 text-center text-white font-bold text-sm`}>{isSpanish?"Hemisferio":"Hemisphere"}</Text>
               </View>
               <View style={tw`h-15 w-22 mr-10`}>
                 <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -110,7 +111,7 @@ export default function Instructions({ navigation }) {
                     d="M512 256c0 141.4-114.6 256-256 256S0 397.4 0 256 114.6 0 256 0s256 114.6 256 256zM57.71 192.1l9.36 17.3a64.042 64.042 0 0038.03 29.8l57 16.5c18.1 4.9 29.9 20.6 29.9 38.5v39.9c0 11 6.2 21 16 25 9.8 5.8 16 15.8 16 26.8v39c0 15.6 14.9 26.8 29.9 22.5 16.2-4.6 28.6-18.3 32.7-33.7l2.8-11.2c4.2-16.9 15.2-31.4 30.3-40.1l8.1-4.6c15-8.5 24.2-24.4 24.2-41.7v-8.2c0-12.8-5.1-25-14.1-34l-3.8-3.8c-9-9-21.3-15-34-15h-44c-10.2 0-21.2-2-30.9-7.5l-34.5-19.8c-4.3-2.4-7.6-6.4-9.1-11.1-3.2-9.6 1.1-20 10.1-24.6l6-2.9c6.6-3.3 14.2-3.9 20.4-1.5l24.1 7.7c8.1 2.7 17.1-.4 21.9-7.5 4.7-7.1 4.2-16.4-1.2-22.9l-13.6-16.2c-10-12-9.9-29.5.3-41.3l15.7-18.38c8.8-10.27 10.2-24.96 3.5-36.7l-2.4-4.16c-4.3-.17-6.9-.26-10.4-.26-92.9 0-171.6 60.9-198.29 144.1zm379.89-37.6L412 164.8c-15.7 6.3-23.8 23.7-18.5 39.8l16.9 50.7c3.5 10.4 12 18.3 22.6 21l29.2 7.2c1.2-9 1.8-18.2 1.8-27.5 0-36.8-9.6-71.4-26.4-101.5z"
                   />
                 </Svg>
-                <Text style={tw`mb-1 mt-1 text-center text-white font-bold text-sm`}>Continent</Text>
+                <Text style={tw`mb-1 mt-1 text-center text-white font-bold text-sm`}>{isSpanish?"Continente":"Continent"}</Text>
               </View>
               <View style={tw`h-15 w-22`}>
                 <Svg
@@ -128,7 +129,7 @@ export default function Instructions({ navigation }) {
                     transform="matrix(.1 0 0 -.1 0 512)"
                   />
                 </Svg>
-                <Text style={tw`mb-1 mt-1 text-center text-white font-bold text-sm`}>Area</Text>
+                <Text style={tw`mb-1 mt-1 text-center text-white font-bold text-sm`}>{isSpanish?"Área":"Area"}</Text>
               </View>
             </View>
             <View style={tw`flex flex-row justify-evenly items-center h-40`}>
@@ -139,7 +140,7 @@ export default function Instructions({ navigation }) {
                     d="M208 48c0 26.51-21.5 48-48 48s-48-21.49-48-48 21.5-48 48-48 48 21.49 48 48zm-56 304v128c0 17.7-14.3 32-32 32s-32-14.3-32-32V256.9l-28.57 47.6c-9.1 15.1-28.76 20-43.91 10.9-15.15-9.1-20.051-28.7-10.947-43.9l58.277-96.9C80.2 145.7 111.4 128 145.1 128h29.8c33.7 0 64.9 17.7 82.3 46.6l58.2 96.9c9.1 15.2 4.2 34.8-10.9 43.9-15.2 9.1-34.8 4.2-43.9-10.9L232 256.9V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V352h-16z"
                   />
                 </Svg>
-                <Text style={tw`mb-1 mt-1 text-center text-white font-bold text-sm`}>Poblation</Text>
+                <Text style={tw`mb-1 mt-1 text-center text-white font-bold text-sm`}>{isSpanish?"Población":"Poblation"}</Text>
               </View>
               <View style={tw`h-15 w-25`}>
                 <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -148,11 +149,11 @@ export default function Instructions({ navigation }) {
                     d="M288 256c0 17.7-14.3 32-32 32s-32-14.3-32-32 14.3-32 32-32 32 14.3 32 32zM0 256C0 114.6 114.6 0 256 0s256 114.6 256 256-114.6 256-256 256S0 397.4 0 256zm325.1 50.7l55.5-144.3c7.5-20.3-11.6-38.5-31-31l-144.3 55.5c-8.5 3.2-15.2 9.9-18.4 18.4l-55.5 144.3c-7.5 19.4 10.7 38.5 31 31l144.3-55.5c8.5-3.2 15.2-9.9 18.4-18.4z"
                   />
                 </Svg>
-                <Text style={tw`mb-1 mt-1 text-center text-white font-bold text-sm`}>Coordinates</Text>
+                <Text style={tw`mb-1 mt-1 text-center text-white font-bold text-sm`}>{isSpanish?"Coordenadas":"Coordinates"}</Text>
               </View>
             </View>
           </View>
-          <Text style={styleText}>try with another country! </Text>
+          <Text style={styleText}>{isSpanish?"¡inténtalo con otro país! ":"try with another country! "}</Text>
           <TouchableHighlight>
             <View style={tw`mb-2`}>
               <Text style={tw``}></Text>
@@ -162,7 +163,7 @@ export default function Instructions({ navigation }) {
 
         <View style={estiloView}>
           <Text style={styleText}>
-            You can share your results once you guess the country!{" "}
+            {isSpanish?"Puedes compartir tus resultados una vez que hayas adivinado el país.":"You can share your results once you guess the country!"}{" "}
           </Text>
           <View style={tw`flex flex-col justify-evenly items-center`}>
             <View style={tw`h-30 w-30 mb-30`}>
@@ -181,7 +182,7 @@ export default function Instructions({ navigation }) {
 
         <View style={estiloView}>
           <Text style={tw`m-5 text-white text-center text-2xl font-bold`}>
-            Ready!{" "}
+            {isSpanish?"¡Listo!":"Ready!"}{" "}
           </Text>
           <Image style={tw`h-100 w-100`} source={img}/>
           <View style={tw`w-3/5 ml-5`}>
@@ -191,7 +192,7 @@ export default function Instructions({ navigation }) {
               activeOpacity={0.7}
             >
               <View style={styleButton}>
-                <Text style={styleTextButton}>Play</Text>
+                <Text style={styleTextButton}>{isSpanish?"Jugar":"Play"}</Text>
               </View>
             </TouchableHighlight>
           </View>
