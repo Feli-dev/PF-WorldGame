@@ -25,8 +25,6 @@ const Profile = () => {
     const [open, setOpen] = useState(false);
 
     const data =
-        // userInfo?.hasOwnProperty('Request')
-        //     && userInfo.Request?.hasOwnProperty('Request')
         typeof (userInfo) !== 'string'
             && userInfo?.hasOwnProperty('username')
             ? userInfo
@@ -36,18 +34,17 @@ const Profile = () => {
         Object.keys(userlogin?.Request).length > 0
             ? userlogin.Request.id : 0;
 
-
     useEffect(() => {
         dispatch(GetProfileUser(userId));
         setTimeout(() => setOpen(true), 1200)
     }, [dispatch, userId]);
 
-    useEffect(() => {//VER SI SEBA PUEDE HACER QUE ME TRAIGA UN GET FRIEND X ID
+    useEffect(() => {
         return () => dispatch(GetProfileUser(userId));
     }, [dispatch, userId]);
 
 
-    return (//userInfo
+    return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
             <View>
                 {
