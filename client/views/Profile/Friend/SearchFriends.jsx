@@ -50,6 +50,11 @@ const SearchFriends = (params) => {
     });
   };
 
+  const TostMessage = () => {
+    if(!isSpanish) ToastAndroid.show("Added Sucessfully!", ToastAndroid.SHORT);
+    else ToastAndroid.show("¡Agregado con éxito!", ToastAndroid.SHORT);
+  };  
+
   //AJUSTAR BOTON AGREGADO Y AGREGAR
   //FOLLOW Y FOLLOWING
 
@@ -70,6 +75,7 @@ const SearchFriends = (params) => {
     console.log("hyo", payload);
     dispatch(addFriend(payload));
     dispatch(searchFriend("@-*"));
+    TostMessage();
     // navigation.navigate('BottomTabView')
     // Alert.alert("hey");
   };
