@@ -9,7 +9,8 @@ import tw from "twrnc"
 
 import { PostFriend, deleteFriend, GetProfileUser} from "../../../redux/actions/index";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector  } from "react-redux";
+
 
 
 export const FriendProfileBody = ({
@@ -42,7 +43,7 @@ export const FriendProfileBody = ({
         return () => dispatch(GetProfileUser(UserId))
     },[dispatch])
         
-
+const isSpanish= useSelector((state) => state.isSpanish);
     return (
         <View>
             {userName ? (
@@ -132,17 +133,17 @@ export const FriendProfileBody = ({
                 }}>
                     <View style={{}}>
                         <Text style={{ fontWeight: 'bold', fontSize: 18, color: 'white' }}>{friends}</Text>
-                        <Text style={{ color: 'white' }}>Friends</Text>
+                        <Text style={{ color: 'white' }}>{isSpanish?"Amigos":"Friends"}</Text>
                     </View>
 
                     <View style={{}}>
                         <Text style={{ fontWeight: 'bold', fontSize: 18, color: 'white' }}>{games}</Text>
-                        <Text style={{ color: 'white' }}>Games</Text>
+                        <Text style={{ color: 'white' }}>{isSpanish?"Partidas":"Games"}</Text>
                     </View>
 
                     <View style={{}}>
                         <Text style={{ fontWeight: 'bold', fontSize: 18, color: 'white' }}>{gamesWon}</Text>
-                        <Text style={{ color: 'white' }}>Wins</Text>
+                        <Text style={{ color: 'white' }}>{isSpanish?"Victorias":"Wins"}</Text>
                     </View>
                 </View>
 
@@ -172,6 +173,7 @@ export const FriendProfileButtons = ({
     
 
 }) => {
+    const isSpanish= useSelector((state) => state.isSpanish);
     const dispatch = useDispatch();
     const navigation = useNavigation();
     console.log('followingUser -->',followingUser)
@@ -192,8 +194,8 @@ export const FriendProfileButtons = ({
                     }
                 ))
         status
-            ? ToastAndroid.show('Deleted Friend Sucessfully!', ToastAndroid.SHORT)
-            : ToastAndroid.show('Added Friend Sucessfully!', ToastAndroid.SHORT)
+            ? ToastAndroid.show(isSpanish? '¡Amigo borrado con éxito!' :'Deleted Friend Sucessfully!', ToastAndroid.SHORT)
+            : ToastAndroid.show(isSpanish? '¡Añadido amigo con éxito!':'Added Friend Sucessfully!', ToastAndroid.SHORT)
 
     }
 
@@ -228,7 +230,7 @@ export const FriendProfileButtons = ({
                             fontWeight: 'bold',
                             color: follow ? 'white' : '#111827',
                         }}>
-                            {follow ? 'Following' : 'Follow'}
+                            {follow ? (isSpanish ? 'Siguiendo':'Follow') : (isSpanish ? 'Seguir' : 'Following')}
                         </Text>
                     </View>
                 </TouchableOpacity>

@@ -29,7 +29,7 @@ export default function ShareButton() {
             message += "\n"
         })
         message += `-------------------------\n`
-        message += isSpanish? `País del juego${countryOfGame.name}`:`Country of game: *${countryOfGame.name}*`
+        message += isSpanish? `País del juego: *${countryOfGame.name}*`:`Country of game: *${countryOfGame.name}*`
         return message
     }
 

@@ -61,7 +61,8 @@ export default function EditProfile({ route, navigation }) {
         Alert.alert("");
       }
     } else {
-      Alert.alert("not possible");
+      if(!isSpanish) Alert.alert("Not possible");
+      else Alert.alert("No es posible");
     }
   };
   const pickFromGalary = async () => {
@@ -80,7 +81,8 @@ export default function EditProfile({ route, navigation }) {
         handleUpload(newFile);
       }
     } else {
-      Alert.alert("no se pudo seleccionar");
+      if(isSpanish)Alert.alert("No se pudo seleccionar");
+      else Alert.alert("Could not be selected");
     }
   };
 
@@ -110,8 +112,9 @@ export default function EditProfile({ route, navigation }) {
   };
 
   const TostMessage = () => {
-    ToastAndroid.show("Edited Sucessfully!", ToastAndroid.SHORT);
-  };
+    if(!isSpanish) ToastAndroid.show("Edited Sucessfully!", ToastAndroid.SHORT);
+    else ToastAndroid.show("¡Editado con éxito!", ToastAndroid.SHORT);
+  };  
 
   const dispatch = useDispatch();
 
@@ -129,7 +132,7 @@ export default function EditProfile({ route, navigation }) {
   const [isDisabled, setIsDisabled] = useState(true);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState(countries);
-
+  const isSpanish = useSelector((state) => state.isSpanish);
   const handleUpdate = () => {
     dispatch(PutUser(userData));
     navigation.navigate("Home");
@@ -173,7 +176,7 @@ export default function EditProfile({ route, navigation }) {
             ></Ionic>
           </TouchableOpacity>
           <Text style={{ fontSize: 16, fontWeight: "bold", color: "#D1D5DB" }}>
-            Edit Profile
+            {isSpanish?"Editar Perfil":"Edit Profile"}
           </Text>
           <TouchableOpacity
             onPress={() => {
@@ -206,7 +209,7 @@ export default function EditProfile({ route, navigation }) {
             }}
           >
             <Text style={tw`text-white text-center font-bold`}>
-              Change Image
+              {isSpanish?"Cambiar Imagen":"Change Image"}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -216,18 +219,18 @@ export default function EditProfile({ route, navigation }) {
               touchSound(soundOn);
             }}
           >
-            <Text style={tw`text-white text-center font-bold`}>Take photo</Text>
+            <Text style={tw`text-white text-center font-bold`}>{isSpanish?"Tomar Foto":"Take photo"}</Text>
           </TouchableOpacity>
         </View>
 
         <View style={{ padding: 10 }}>
           <View>
             <Text style={{ opacity: 0.5, color: "#D1D5DB", fontSize: 20 }}>
-              Name
+              {isSpanish?"Nombre":"Name"}
             </Text>
             <TextInput
               type="name"
-              placeholder="name"
+              placeholder={isSpanish?"Nombre":"Name"}
               placeholderTextColor="#6B7280"
               defaultValue={name}
               style={{
@@ -244,11 +247,11 @@ export default function EditProfile({ route, navigation }) {
         <View style={{ padding: 10 }}>
           <View>
             <Text style={{ opacity: 0.5, color: "#D1D5DB", fontSize: 20 }}>
-              Email
+              {isSpanish?"Correo electrónico":"Email"}
             </Text>
             <TextInput
               type="email"
-              placeholder="email"
+              placeholder={isSpanish?"Correo electrónico":"Email"}
               placeholderTextColor="#6B7280"
               defaultValue={email}
               style={{
@@ -271,7 +274,7 @@ export default function EditProfile({ route, navigation }) {
         >
           <View style={{ justifyContent: "center", alignItems: "center" }}>
             <Text style={{ opacity: 0.5, color: "#D1D5DB", fontSize: 20 }}>
-              Country
+              {isSpanish?"País":"Country"}
             </Text>
             <Text style={tw`text-center text-2xl  text-white mb-5`}>
               {userData.country}
@@ -286,6 +289,7 @@ export default function EditProfile({ route, navigation }) {
               items={items}
               min={1}
               max={1}
+              placeholder={isSpanish ? "Seleccionar país" : "Select a country"}
               setOpen={setOpen}
               setValue={setValue}
               setItems={setItems}
@@ -334,7 +338,7 @@ export default function EditProfile({ route, navigation }) {
                 borderColor: "#EFEFEF",
               }}
             >
-              Switch to Premium account
+              {isSpanish?"Cambiar a cuenta Premium":"Switch to Premium account"}
             </Text>
           </Animatable.View>
         )}
