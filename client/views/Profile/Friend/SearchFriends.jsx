@@ -41,12 +41,13 @@ const SearchFriends = (params) => {
   const [open, setOpen] = useState(false);
   const [find, setFind] = useState(false);
   const [added, setAdded] = useState(false);
-
+  
   const handleOnChange = (type, e) => {
     SetUserData({
       ...userData,
       [type]: e,
     });
+   
   };
 
   const TostMessage = () => {
@@ -57,18 +58,15 @@ const SearchFriends = (params) => {
   //AJUSTAR BOTON AGREGADO Y AGREGAR
   //FOLLOW Y FOLLOWING
 
-  const handleSearch = () => {
-    // console.log("hyo", userData.username);
-    setOpen(true);
+  const handleSearch = (e) => {
+    
+    
     dispatch(GetProfileUser(id))
     .then(res => dispatch(searchFriend(userData.username)).then(res => {setFind(true)
-      setFind(false)})).catch(err => console.log('entre al error'))
+      setFind(false)})).then(res => setOpen(true)).catch(err => console.log('error al buscar'))
     
     
-    // SetUserData({
-    //   ...userData,
-    //   username: "",
-    // });
+    
   };
 
   const handleAdd = (payload) => {
@@ -77,7 +75,7 @@ const SearchFriends = (params) => {
       setOpen(false);
       TostMessage();
     })
-    .catch(err => console.log('aaaa'))
+    .catch(err => console.log('error añadir amigo'))
     
     
   };
@@ -87,15 +85,15 @@ const SearchFriends = (params) => {
   }, [dispatch, id]);
 
   useEffect(() => {
-    console.log("will");
+    
     return () => dispatch(GetProfileUser(id));
   }, [dispatch]);
   useEffect(() => {
-    console.log("will");
+   
     return () => dispatch(searchFriend("@-*"));
   }, [dispatch]);
   useEffect(() => {
-    console.log("will");
+    
     return () => setOpen(false);
   }, [dispatch]);
 
@@ -122,7 +120,8 @@ const SearchFriends = (params) => {
               {isSpanish ? "Busca a tu amigo" : "Find a friend"}
             </Text>
             <Ionic
-              onPress={() => handleSearch()}
+              onPress={(e) => {handleSearch(e)
+                }}
               name="search"
               style={{
                 fontSize: 30,
