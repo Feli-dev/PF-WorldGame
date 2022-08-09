@@ -170,8 +170,6 @@ const BottomTabViewFriend = ({ games, gamesArr }) => {
                                         display: 'flex',
                                         justifyContent: 'center',
                                         alignItems: 'center',
-                                        width: 300,
-                                        height: 300,
                                     }}
                                     source={World}
                                 />

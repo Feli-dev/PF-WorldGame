@@ -219,12 +219,7 @@ export const FriendProfileButtons = ({
                         </Text>
                     </View>
                 </TouchableOpacity>
-               
-
             </View>
-
-
-
         </View>
     );
 
