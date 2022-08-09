@@ -69,7 +69,7 @@ const SearchFriends = (params) => {
   const sendFriend = (payload) => {
     console.log("hyo", payload);
     dispatch(addFriend(payload));
-    dispatch(searchFriend(" "));
+    dispatch(searchFriend("@-*"));
     // navigation.navigate('BottomTabView')
     // Alert.alert("hey");
   };
@@ -84,17 +84,19 @@ const SearchFriends = (params) => {
   }, [dispatch, id]);
 
   useEffect(() => {
-    
-    return () => {
-      setOpen(false);
-      dispatch(GetProfileUser(id));
-      dispatch(searchFriend(" "));
-    }
+    console.log("will");
+    return () => dispatch(GetProfileUser(id));
   }, [dispatch]);
   useEffect(() => {
-   
-    return () => dispatch(searchFriend(" "));
+    console.log("will");
+    return () => dispatch(searchFriend("@-*"));
   }, [dispatch]);
+  useEffect(() => {
+    console.log("will");
+    return () => setOpen(false);
+  }, [dispatch]);
+
+  
 
   return (
     <View style={{ backgroundColor: "#111827", height: "100%" }}>
