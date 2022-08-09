@@ -26,7 +26,6 @@ export default function EditProfile({ route, navigation }) {
   const {
     id,
     name,
-    avatar,
     premium,
     country,
     email,
