@@ -10,17 +10,21 @@ import {
 import Svg, { Path } from "react-native-svg";
 import img from "../assets/Worldgame.png"
 import { useSelector } from "react-redux";
+import howToPlay from "../assets/how_to_play.png"
+import comoJugar from "../assets/como_jugar.png"
+import landing2 from "../assets/landing2.png"
+import landing3 from "../assets/landing3.png"
 
 export default function Instructions({ navigation }) {
   //const { height, width } = useWindowDimensions();
   const estiloView = tw`flex h-9/10 items-center justify-between text-white mt-12 w-1/6 `;
   const isSpanish = useSelector((state) => state.isSpanish);
-  const styleText = tw`m-5 text-white text-center text-base text-xl`;
-  const styleButton = tw`m-5 w-3/4 text-white text-center justify-center bg-blue-400 rounded-lg`;
+  const styleText = tw`m-5 text-white text-center shadow text-base text-xl`;
+  const styleButton = tw`m-5 w-3/4 text-white text-center justify-center bg-[#023047] shadow-lg rounded-lg`;
   const styleTextButton = tw`p-3 text-white text-center text-base font-bold`;
 
   return (
-    <View style={tw`bg-gray-900 h-full`}>
+    <View style={tw`bg-[#005f73] h-full`}>
       <ScrollView
         horizontal={true}
         contentContainerStyle={{ width: `${100 * 6}%` }}
@@ -34,9 +38,7 @@ export default function Instructions({ navigation }) {
             {isSpanish?"Bienvenido querido trotamundos, \ndesliza el dedo hacia la izquierda para ver las instrucciones":"Welcome dear globetrotter, swipe left to see instructions"}
           </Text>
           <Image
-            source={{
-              uri: "https://countryle.com/assets/images/welcome-page/welcome-loading-image-1.png",
-            }}
+            source={isSpanish?comoJugar:howToPlay}
             style={tw`w-80 h-80`}
           />
           <View style={tw`flex items-center justify-center`}>
@@ -57,19 +59,12 @@ export default function Instructions({ navigation }) {
         <View style={estiloView}>
           <Text style={styleText}>{isSpanish?"Su misión, si la acepta":"Your mission, if you acept it"}</Text>
           <Image
-            source={{
-              uri: "https://countryle.com/assets/images/welcome-page/welcome-loading-image-2.png",
-            }}
+            source={landing2}
             style={tw`w-80 h-80`}
           />
           <Text style={styleText}>
             {isSpanish?"es encontrar un país siguiendo algunas pistas...":"is to find a country following some clues..."}
           </Text>
-          <TouchableHighlight>
-            <View style={tw``}>
-              <Text style={tw``}></Text>
-            </View>
-          </TouchableHighlight>
         </View>
 
         <View style={estiloView}>
@@ -77,18 +72,10 @@ export default function Instructions({ navigation }) {
             {isSpanish?"Vaya a la barra de búsqueda de la parte inferior y escriba el nombre de cualquier país":"Go to the search bar on the bottom and write the name of any country"}
           </Text>
           <Image
-            source={{
-              uri: "https://countryle.com/assets/images/welcome-page/welcome-loading-image-4.png",
-            }}
+            source={landing3}
             style={tw`w-80 h-80`}
           />
           <Text style={styleText}>{isSpanish?"Seleccione uno de ellos...":"Select one of them..."}</Text>
-
-          <TouchableHighlight>
-            <View style={tw`mb-2`}>
-              <Text style={tw``}></Text>
-            </View>
-          </TouchableHighlight>
         </View>
 
         <View style={estiloView}>
@@ -102,7 +89,7 @@ export default function Instructions({ navigation }) {
                     d="M352 256c0 22.2-1.2 43.6-3.3 64H163.3c-2.1-20.4-4.2-41.8-4.2-64 0-22.2 2.1-43.6 4.2-64h185.4c2.1 20.4 3.3 41.8 3.3 64zm151.9-64c5.3 20.5 8.1 41.9 8.1 64s-2.8 43.5-8.1 64H380.8c2.1-20.6 3.2-42.9 3.2-64 0-22-1.1-43.4-3.2-64h123.1zm-10.5-32H376.7c-10-63.86-29.8-117.38-55.3-151.558C399.8 29.09 463.4 85.94 493.4 160zm-149.1 0H167.7c6.1-36.4 15.5-68.62 27-94.65 10.5-23.61 22.2-40.74 33.5-51.54C239.4 3.178 248.7 0 256 0c7.3 0 16.6 3.178 27.8 13.81 11.3 10.8 23 27.93 33.5 51.54 11.5 26.03 20.9 58.25 27 94.65zm-325.69 0C48.59 85.94 112.2 29.09 190.6 8.442 165.1 42.62 145.3 96.14 135.3 160H18.61zm112.59 32c-2.1 20.6-4.1 42-4.1 64 0 21.1 2 43.4 4.1 64H8.065C2.8 299.5 0 278.1 0 256s2.8-43.5 8.065-64H131.2zm63.5 254.6c-11.5-26-20.9-58.2-27-94.6h176.6c-6.1 36.4-15.5 68.6-27 94.6-10.5 23.7-22.2 40.8-33.5 51.6-11.2 10.6-20.5 13.8-28.7 13.8-6.4 0-15.7-3.2-26.9-13.8-11.3-10.8-23-27.9-33.5-51.6zm-4.1 57C112.2 482.9 48.59 426.1 18.61 352H135.3c10 63.9 29.8 117.4 55.3 151.6zm130.8 0c25.5-34.2 45.3-87.7 55.3-151.6h116.7c-30 74.1-93.6 130.9-172 151.6z"
                   />
                 </Svg>
-                <Text style={tw`mb-1 mt-1 text-center text-white font-bold text-sm`}>{isSpanish?"Hemisferio":"Hemisphere"}</Text>
+                <Text style={tw`mb-1 mt-1 text-center text-white font-bold text-base`}>{isSpanish?"Hemisferio":"Hemisphere"}</Text>
               </View>
               <View style={tw`h-15 w-22 mr-10`}>
                 <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -111,7 +98,7 @@ export default function Instructions({ navigation }) {
                     d="M512 256c0 141.4-114.6 256-256 256S0 397.4 0 256 114.6 0 256 0s256 114.6 256 256zM57.71 192.1l9.36 17.3a64.042 64.042 0 0038.03 29.8l57 16.5c18.1 4.9 29.9 20.6 29.9 38.5v39.9c0 11 6.2 21 16 25 9.8 5.8 16 15.8 16 26.8v39c0 15.6 14.9 26.8 29.9 22.5 16.2-4.6 28.6-18.3 32.7-33.7l2.8-11.2c4.2-16.9 15.2-31.4 30.3-40.1l8.1-4.6c15-8.5 24.2-24.4 24.2-41.7v-8.2c0-12.8-5.1-25-14.1-34l-3.8-3.8c-9-9-21.3-15-34-15h-44c-10.2 0-21.2-2-30.9-7.5l-34.5-19.8c-4.3-2.4-7.6-6.4-9.1-11.1-3.2-9.6 1.1-20 10.1-24.6l6-2.9c6.6-3.3 14.2-3.9 20.4-1.5l24.1 7.7c8.1 2.7 17.1-.4 21.9-7.5 4.7-7.1 4.2-16.4-1.2-22.9l-13.6-16.2c-10-12-9.9-29.5.3-41.3l15.7-18.38c8.8-10.27 10.2-24.96 3.5-36.7l-2.4-4.16c-4.3-.17-6.9-.26-10.4-.26-92.9 0-171.6 60.9-198.29 144.1zm379.89-37.6L412 164.8c-15.7 6.3-23.8 23.7-18.5 39.8l16.9 50.7c3.5 10.4 12 18.3 22.6 21l29.2 7.2c1.2-9 1.8-18.2 1.8-27.5 0-36.8-9.6-71.4-26.4-101.5z"
                   />
                 </Svg>
-                <Text style={tw`mb-1 mt-1 text-center text-white font-bold text-sm`}>{isSpanish?"Continente":"Continent"}</Text>
+                <Text style={tw`mb-1 mt-1 text-center text-white font-bold text-base`}>{isSpanish?"Continente":"Continent"}</Text>
               </View>
               <View style={tw`h-15 w-22`}>
                 <Svg
@@ -129,7 +116,7 @@ export default function Instructions({ navigation }) {
                     transform="matrix(.1 0 0 -.1 0 512)"
                   />
                 </Svg>
-                <Text style={tw`mb-1 mt-1 text-center text-white font-bold text-sm`}>{isSpanish?"Área":"Area"}</Text>
+                <Text style={tw`mb-1 mt-1 text-center text-white font-bold text-base`}>{isSpanish?"Área":"Area"}</Text>
               </View>
             </View>
             <View style={tw`flex flex-row justify-evenly items-center h-40`}>
@@ -140,7 +127,7 @@ export default function Instructions({ navigation }) {
                     d="M208 48c0 26.51-21.5 48-48 48s-48-21.49-48-48 21.5-48 48-48 48 21.49 48 48zm-56 304v128c0 17.7-14.3 32-32 32s-32-14.3-32-32V256.9l-28.57 47.6c-9.1 15.1-28.76 20-43.91 10.9-15.15-9.1-20.051-28.7-10.947-43.9l58.277-96.9C80.2 145.7 111.4 128 145.1 128h29.8c33.7 0 64.9 17.7 82.3 46.6l58.2 96.9c9.1 15.2 4.2 34.8-10.9 43.9-15.2 9.1-34.8 4.2-43.9-10.9L232 256.9V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V352h-16z"
                   />
                 </Svg>
-                <Text style={tw`mb-1 mt-1 text-center text-white font-bold text-sm`}>{isSpanish?"Población":"Poblation"}</Text>
+                <Text style={tw`mb-1 mt-1 text-center text-white font-bold text-base`}>{isSpanish?"Población":"Poblation"}</Text>
               </View>
               <View style={tw`h-15 w-25`}>
                 <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -149,16 +136,11 @@ export default function Instructions({ navigation }) {
                     d="M288 256c0 17.7-14.3 32-32 32s-32-14.3-32-32 14.3-32 32-32 32 14.3 32 32zM0 256C0 114.6 114.6 0 256 0s256 114.6 256 256-114.6 256-256 256S0 397.4 0 256zm325.1 50.7l55.5-144.3c7.5-20.3-11.6-38.5-31-31l-144.3 55.5c-8.5 3.2-15.2 9.9-18.4 18.4l-55.5 144.3c-7.5 19.4 10.7 38.5 31 31l144.3-55.5c8.5-3.2 15.2-9.9 18.4-18.4z"
                   />
                 </Svg>
-                <Text style={tw`mb-1 mt-1 text-center text-white font-bold text-sm`}>{isSpanish?"Coordenadas":"Coordinates"}</Text>
+                <Text style={tw`mb-1 mt-1 text-center text-white font-bold text-base`}>{isSpanish?"Coordenadas":"Coordinates"}</Text>
               </View>
             </View>
           </View>
           <Text style={styleText}>{isSpanish?"¡inténtalo con otro país! ":"try with another country! "}</Text>
-          <TouchableHighlight>
-            <View style={tw`mb-2`}>
-              <Text style={tw``}></Text>
-            </View>
-          </TouchableHighlight>
         </View>
 
         <View style={estiloView}>
@@ -172,9 +154,9 @@ export default function Instructions({ navigation }) {
               </Svg>
             </View>
             <View style={tw`h-30 w-30`}>
-            <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-              <Path fill="#FFF" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z" />
-            </Svg>
+              <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <Path fill="#FFF" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z" />
+              </Svg>
             </View>
           </View>
           <Text style={tw``}></Text>

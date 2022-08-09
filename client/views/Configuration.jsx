@@ -47,8 +47,10 @@ export default function Configuration({ navigation }) {
   const userInfo = useSelector((state) => state.userdetail);
 
   useEffect(() => {
+    console.log(userInfo)
     if (login?.Request?.premium) setIsEnabled(true);
-  }, [login]);
+    else setIsEnabled(false);
+  }, []);
 
   async function logout() {
     await AsyncStorage.removeItem("User");
@@ -95,36 +97,50 @@ export default function Configuration({ navigation }) {
             </TouchableOpacity>
           </View>
         </View>
-        <View style={tw`flex-row flex items-center justify-center`}>
-          <Text style={tw`text-white text-lg`}> {isSpanish ? "Desactivar anuncios" : "Disable Ads"} </Text>
-          <Switch
-            trackColor={{ false: "#767577", true: "#9ebc63" }}
-            thumbColor={isEnabled ? "#f4f3f4" : "#f4f3f4"}
-            ios_backgroundColor="#3e3e3e"
-            onValueChange={login?.Request?.premium ? handleError : toggleSwitch}
-            value={isEnabled}
-          />
-        </View>
-        <Text style={tw`text-red-500 text-xs`}>{err.errAds}</Text>
-        <View style={tw`flex-row flex items-center justify-center mb-5`}>
-        <Text style={tw`text-white text-lg`}>{ isSpanish ? "Sonido" : "Sound"} </Text>
-        <Switch
-          trackColor={{ false: "#767577", true: "#9ebc63" }}
-          thumbColor={soundOn ? "#f4f3f4" : "#f4f3f4"}
-          ios_backgroundColor="#3e3e3e"
-          onValueChange={soundSwitch}
-          value={soundOn}
-        />
-        </View>
-        <View style={tw`flex-row flex items-center justify-center`}>
-          <Text style={tw`text-white text-lg`}>{ isSpanish ? "Música" : "Music"} </Text>
-          <Switch
-            trackColor={{ false: "#767577", true: "#9ebc63" }}
-            thumbColor={stat.soundObj?.isPlaying ? "#f4f3f4" : "#f4f3f4"}
-            ios_backgroundColor="#3e3e3e"
-            onValueChange={musicSwitch}
-            value={stat.soundObj?.isPlaying}
-          />
+        <View style={tw`flex flex-col items-center justify-center w-8/10 ml--12`}>
+          <View style={tw`flex-row flex items-center justify-center`}>
+            <View style={tw`flex flex-col justify-center items-center w-8/10 h-10`}>
+              <Text style={tw`text-white text-lg`}> {isSpanish ? "Desactivar anuncios" : "Disable Ads"} </Text>
+            </View>
+            <View style={tw`flex flex-col justify-center items-center w-2/10 h-10`}>
+              <Switch
+                trackColor={{ false: "#767577", true: "#9ebc63" }}
+                thumbColor={isEnabled ? "#f4f3f4" : "#f4f3f4"}
+                ios_backgroundColor="#3e3e3e"
+                onValueChange={login?.Request?.premium ? handleError : toggleSwitch}
+                value={isEnabled}
+              />
+            </View>
+          </View>
+          <Text style={tw`text-red-500 text-xs mb-3`}>{err.errAds}</Text>
+          <View style={tw`flex-row flex items-center justify-center mb-5`}>
+            <View style={tw`flex flex-col justify-center items-center w-8/10 h-10`}>
+              <Text style={tw`text-white text-lg`}>{ isSpanish ? "Sonido" : "Sound"} </Text>
+            </View>
+            <View style={tw`flex flex-col justify-center items-center w-2/10 h-10`}>
+              <Switch
+                trackColor={{ false: "#767577", true: "#9ebc63" }}
+                thumbColor={soundOn ? "#f4f3f4" : "#f4f3f4"}
+                ios_backgroundColor="#3e3e3e"
+                onValueChange={soundSwitch}
+                value={soundOn}
+              />
+            </View>
+          </View>
+          <View style={tw`flex-row flex items-center justify-center`}>
+            <View style={tw`flex flex-col justify-center items-center w-8/10 h-10`}>
+              <Text style={tw`text-white text-lg`}>{ isSpanish ? "Música" : "Music"} </Text>
+            </View>
+            <View style={tw`flex flex-col justify-center items-center w-2/10 h-10`}>
+              <Switch
+                trackColor={{ false: "#767577", true: "#9ebc63" }}
+                thumbColor={stat.soundObj?.isPlaying ? "#f4f3f4" : "#f4f3f4"}
+                ios_backgroundColor="#3e3e3e"
+                onValueChange={musicSwitch}
+                value={stat.soundObj?.isPlaying}
+              />
+            </View>
+          </View>
         </View>
         <View style={tw`flex items-center justify-center rounded-lg`}>
           <Modal
