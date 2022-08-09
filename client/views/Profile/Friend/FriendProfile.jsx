@@ -8,7 +8,7 @@ import React, { useEffect, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 
-import { getFriendDetail, ClearFriendDetail } from "../../../redux/actions/index";
+import { getFriendDetail, ClearFriendDetail, searchFriend } from "../../../redux/actions/index";
 
 import tw from "twrnc";
 
@@ -24,7 +24,7 @@ const FriendProfile = (params) => {
 
     const dispatch = useDispatch();
 
-    const { freId, userId, friendsArr } = params.route.params
+    const { freId, userId, userFriends } = params.route.params
 
     const [open, setOpen] = useState(false);
 
@@ -32,57 +32,40 @@ const FriendProfile = (params) => {
 
     
 
-
     //EN DATA ME GUARDO UN VALOR BOOLEANO, TRUE INDICA QUE ES AMIGO Y FALSE QUE NO.
     const data = friendInfo.hasOwnProperty('Request') && Object.keys(friendInfo?.Request).length > 0 && Object.keys(friendInfo.Request.stats).length > 0
         ? friendInfo.Request
         : false;
 
-    const following = [];
-    console.log("soy friend",friendInfo)
-    if (data && data.hasOwnProperty('friends')) {
-        if (data.friends.length > 0) {
-            data.friends.map((request) => {
-                if (request.FriendId === userId) {//VER DE BUSCAR LOS ENVIADOS
-                    following.push(true)
-                }
-            })
+    const following = [];//TENGO QUE USAR EL ARREGLO DE AMIGOS DE USUARIO
+    if (userFriends.length > 0) {
+        userFriends.map((request) => {
+            if (request.FriendId === freId) {//VER DE BUSCAR LOS ENVIADOS
+                following.push(true)
+            }
+        })
+        if (!following[0]) {
+            following.push(false)
         }
     }
 
-
-    // const following = data && data.hasOwnProperty('friends')
-    //     ? data.friends.length > 0
-    //         ? data.friends.map((request) => {
-    //             if (request.FriendId === userId && request.state === "Recibido") {//VER DE BUSCAR LOS ENVIADOS
-    //                 return true
-    //             }
-
-    //         })
-    //         : false
-    //     : false;
-
-
-
-
-
-
     //friendSended ES UN FILTRO DE TODO EL ARREGLO DE "FRIENDS" Y SOLO INDICA A LOS ENVIADOS. ESTOS SERIAN LOS AMIGOS DEL PROFILEFRIEND. 
-    
-   
+
+
 
 
 
     useEffect(() => {
         dispatch(getFriendDetail(freId))
-        setTimeout(()=>setOpen(true), 800)
+        // dispatch(searchFriend(' '))
+        setTimeout(() => setOpen(true), 800)
 
     }, [dispatch, freId])
 
     useEffect(() => {
         return () => {
             dispatch(ClearFriendDetail())
-        } 
+        }
     }, [dispatch])
 
 
@@ -137,7 +120,7 @@ const FriendProfile = (params) => {
                         height: '100%',
                         width: '100%',
                     }}>
-                        
+
                         <Image
                             source={LoadingWorld}
                             style={{

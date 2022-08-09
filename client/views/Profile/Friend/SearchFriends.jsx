@@ -3,29 +3,28 @@ import {
   Text,
   TouchableOpacity,
   ToastAndroid,
-  Alert,
   TextInput,
   Image,
-  Keyboard,
-  TouchableWithoutFeedback,
   ScrollView,
 } from "react-native";
 import avatarDefault from '../../../assets/avatar_default.png';
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { searchFriend, addFriend, GetProfileUser } from "../../../redux/actions/index";
-import { useNavigation } from '@react-navigation/native';
 import tw from "twrnc";
-import { FriendProfileBody } from "./FriendProfileBody";
-import BottomTabViewFriend from "./BottomTabViewFriend";
 import Ionic from 'react-native-vector-icons/Ionicons'
+//import * as Animatable from 'react-native-animatable';
+//import World from '../../../assets/World2.png';
 
 //let lengthOfObject = Object.keys(obj).lengt
 //<BottomTabView />
 
 const SearchFriends = (params) => {
-  let { id, friends, navigation } = params.route.params
+  let { id, navigation } = params.route.params
   let findUsers = useSelector((state) => state.searchFriend);
+  const userInfo = useSelector((state) => state.profileUser);
+  const friends = userInfo.friends
+
 
   let dispatch = useDispatch();
   console.log("search", friends);
@@ -34,7 +33,8 @@ const SearchFriends = (params) => {
     refresher: ""
   });
 
-  const [added, SetAdded] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [find, setFind] = useState(false);
 
 
 
@@ -46,10 +46,15 @@ const SearchFriends = (params) => {
     });
   };
 
+  //AJUSTAR BOTON AGREGADO Y AGREGAR
+  //FOLLOW Y FOLLOWING
+
   const handleSearch = () => {
     // console.log("hyo", userData.username);
+    dispatch(GetProfileUser(id))
     dispatch(searchFriend(userData.username));
-
+    setFind(true);
+    setTimeout(() => setOpen(true), 1200)
     SetUserData({
       ...userData,
       username: "",
@@ -67,12 +72,14 @@ const SearchFriends = (params) => {
   };
 
   const handleAdd = (UserId, FriendId) => {
-    SetAdded(true);
     sendFriend(UserId, FriendId)
   };
 
 
+  useEffect(() => {
+    dispatch(GetProfileUser(id));
 
+  }, [dispatch, id]);
 
   useEffect(() => {
     console.log('will')
@@ -85,22 +92,23 @@ const SearchFriends = (params) => {
 
 
 
+
   return findUsers.length > 0 ? (
     <ScrollView
-    style={{
-      backgroundColor: '#111827',
-    }}
+      style={{
+        backgroundColor: '#111827',
+      }}
     >
       <View style={{
         padding: 50,
       }}>
         <View>
           <View
-          style={{
-            display:'flex',
-            flexDirection:'row',
-            justifyContent:'space-between'
-          }}
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between'
+            }}
           >
             <Text style={{ opacity: 0.5, color: "#D1D5DB", fontSize: 20, padding: 5, }}>
               Find a friend
@@ -126,70 +134,81 @@ const SearchFriends = (params) => {
               borderColor: "#CDCDCD",
               color: "#D1D5DB",
               paddingTop: 15,
-              paddingBottom:5,
+              paddingBottom: 5,
             }}
             onChangeText={(event) => handleOnChange("username", event)}
           />
         </View>
       </View>
-
       {findUsers.map((user) => {
         if (user.id !== id) return (
-          <View style={{ width: "100%", marginBottom: 15, marginHorizontal: 20, backgroundColor: '#111827' }}
+          <TouchableOpacity
             key={user.id}
-          // onPress={() =>
-          //   navigation.navigate("FriendProfile", { freId: friend.FriendId })
-          // }
+            onPress={() => navigation.navigate('FriendProfile', { freId: user.id, userId: id, userFriends: friends })}
           >
-            <View
-              style={{ width: "100%", marginBottom: 15, }}
+
+            <View style={{ width: "100%", marginBottom: 15, marginHorizontal: 20, backgroundColor: '#111827' }}
+
+            // onPress={() =>
+            //   navigation.navigate("FriendProfile", { freId: friend.FriendId })
+            // }
             >
               <View
-                style={{
-                  borderRadius: 8, backgroundColor: "grey", padding: 15,
-                  justifyContent: "space-between", alignItems: "center", display: "flex",
-                  flexDirection: "row", marginHorizontal: 10,width:'90%'
-                }}
+                style={{ width: "100%", marginBottom: 15, }}
               >
-                <Image
-                  source={{ uri: user.avatar}}
+                <View
                   style={{
-                    width: 50,
-                    height: 50,
+                    borderRadius: 8, backgroundColor: "grey", padding: 15,
+                    justifyContent: "space-between", alignItems: "center", display: "flex",
+                    flexDirection: "row", marginHorizontal: 10, width: '90%'
                   }}
-                />
-
-                <Text style={{
-                  color: "white", fontSize: 25, textAlign: "center", paddingRight: 10,
-                }}
                 >
-                  {user.username ? user.username : "Unknow"}
+                  <Image
+                    style={{
+                      width: 50,
+                      height: 50,
+                    }}
+                    source={user.avatar ? user.avatar : avatarDefault}
+                  />
 
-                </Text>
-                {friends.some(friend => friend.FriendId === user.id) || added
-                ? <View><Text>Agregado</Text></View> 
-                : <TouchableOpacity onPress={() => handleAdd({ UserId: id, FriendId: user.id })}>
-                  <Text>Agregar</Text>
-                </TouchableOpacity>}
+                  <Text style={{
+                    color: "white", fontSize: 25, textAlign: "center", paddingRight: 10,
+                  }}
+                  >
+                    {user.username ? user.username : "Unknow"}
 
+                  </Text>
+                  {friends.some(friend => friend.FriendId === user.id)
+                    ? <View><Text>        </Text></View>
+                    : <Ionic
+                      onPress={() => handleAdd({ UserId: id, FriendId: user.id })}
+                      name="person-add"
+                      style={{
+                        fontSize: 30,
+                        color: 'white',
+                      }}
+                    />
+                  }
+
+                </View>
               </View>
             </View>
-          </View>
+          </TouchableOpacity>
         );
       })}
     </ScrollView>
   ) : (
-    <View style={{ backgroundColor: '#111827', height:'100%' }}>
+    <View style={{ backgroundColor: '#111827', height: '100%' }}>
 
-      <View style={{ padding: 50,  }}>
+      <View style={{ padding: 50, }}>
         <View>
           <View
-          style={{
-            display:'flex',
-            flexDirection:'row',
-            justifyContent:'space-between',
-            
-          }}
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+
+            }}
           >
             <Text style={{ opacity: 0.5, color: "#D1D5DB", fontSize: 20, padding: 5, }}>
               Find a friend
@@ -214,7 +233,7 @@ const SearchFriends = (params) => {
               borderColor: "#CDCDCD",
               color: "#D1D5DB",
               paddingTop: 15,
-              paddingBottom:5,
+              paddingBottom: 5,
             }}
             onChangeText={(event) => handleOnChange("username", event)}
           />
@@ -223,5 +242,6 @@ const SearchFriends = (params) => {
     </View>
   );
 };
+
 
 export default SearchFriends;

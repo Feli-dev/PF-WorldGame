@@ -284,7 +284,7 @@ const BottomTabView = ({
                 >
                     <Text style={tw`text-gray-400 text-center flex text-2xl `}>Friends</Text>
                     <Ionic
-                        onPress={() => navigation.navigate('SearchFriends', { id, friends, navigation })}
+                        onPress={() => navigation.navigate('SearchFriends', { id, navigation })}
                         name="search"
                         style={{
                             fontSize: 30,
@@ -301,7 +301,7 @@ const BottomTabView = ({
                         return (
                             <TouchableOpacity
                                 key={friend.id}
-                                onPress={() => navigation.navigate('FriendProfile', { freId: friend.FriendId, userId: id, friendsArr:friend })}
+                                onPress={() => navigation.navigate('FriendProfile', { freId: friend.FriendId, userId: id, userFriends:friends })}
                             >
                                 <View
                                     style={{
