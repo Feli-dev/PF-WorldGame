@@ -97,7 +97,7 @@ const SearchFriends = (params) => {
   }, [dispatch]);
 
   return (
-    <View style={{ backgroundColor: "#111827", height: "100%" }}>
+    <View style={{ backgroundColor: "#005f73", height: "100%" }}>
       <View style={{ padding: 50 }}>
         <View>
           <View
@@ -109,8 +109,7 @@ const SearchFriends = (params) => {
           >
             <Text
               style={{
-                opacity: 0.5,
-                color: "#D1D5DB",
+                color: "white",
                 fontSize: 20,
                 padding: 5,
               }}
@@ -122,7 +121,7 @@ const SearchFriends = (params) => {
               name="search"
               style={{
                 fontSize: 30,
-                color: "#D1D5DB",
+                color: "white",
               }}
             />
           </View>
@@ -131,7 +130,7 @@ const SearchFriends = (params) => {
             placeholder={
               isSpanish ? "Buscar por nombre de usuario" : "Search username"
             }
-            placeholderTextColor="#6B7280"
+            placeholderTextColor="#8d99ae"
             defaultValue={userData.username}
             style={{
               fontSize: 25,
@@ -148,7 +147,7 @@ const SearchFriends = (params) => {
       {find ? (
         <View
           style={{
-            backgroundColor: "#111827",
+            backgroundColor: "#005f73",
             height: "100%",
             display: "flex",
             alignItems: "center",
@@ -165,7 +164,7 @@ const SearchFriends = (params) => {
       ) : findUsers.length > 0 ? (
         <ScrollView
           style={{
-            backgroundColor: "#111827",
+            backgroundColor: "#005f73",
           }}
         >
           {findUsers.map((user) => {
@@ -186,7 +185,7 @@ const SearchFriends = (params) => {
                       width: "100%",
                       marginBottom: 15,
                       marginHorizontal: 20,
-                      backgroundColor: "#111827",
+                      backgroundColor: "#005f73",
                     }}
 
                     // onPress={() =>
@@ -197,7 +196,7 @@ const SearchFriends = (params) => {
                       <View
                         style={{
                           borderRadius: 8,
-                          backgroundColor: "grey",
+                          backgroundColor: "#C0D6DF",
                           padding: 15,
                           justifyContent: "space-between",
                           alignItems: "center",
@@ -211,13 +210,14 @@ const SearchFriends = (params) => {
                           style={{
                             width: 50,
                             height: 50,
+                            borderRadius:5,
                           }}
-                          source={user.avatar ? user.avatar : avatarDefault}
+                          source={{uri:user.avatar}}
                         />
 
                         <Text
                           style={{
-                            color: "white",
+                            color: "#333533",
                             fontSize: 25,
                             textAlign: "center",
                             paddingRight: 10,
@@ -243,7 +243,7 @@ const SearchFriends = (params) => {
                             name="person-add"
                             style={{
                               fontSize: 30,
-                              color: "white",
+                              color: "#333533",
                             }}
                           />
                         )}
@@ -259,7 +259,7 @@ const SearchFriends = (params) => {
         
         <View
           style={{
-            backgroundColor: "#111827",
+            backgroundColor: "#005f73",
             width: "100%",
             height: "80%",
             display: "flex",

@@ -214,14 +214,14 @@ export default function Register({ navigation }) {
           <TouchableOpacity
             disabled
             onPress={(e) => handleSubmit(e)}
-            style={tw`bg-[#023047] px-8 py-2 rounded-lg mt-5 w-50 shadow-lg `}
+            style={tw` bg-[#d00000] px-8 py-2 rounded-lg mt-5 w-50 shadow-lg `}
           >
             <Text style={tw`text-white text-center font-bold`}>{isSpanish ? 'REGISTRATE' : "REGISTER" }</Text>
           </TouchableOpacity>
         ) : (
           <TouchableOpacity
             onPress={(e) => {handleSubmit(e);touchSound(soundOn);}}
-            style={tw`bg-[#d00000] px-8 py-2 rounded-lg mt-5 w-50 shadow-lg`}
+            style={tw`bg-[#023047] px-8 py-2 rounded-lg mt-5 w-50 shadow-lg`}
           >
             <Text style={tw`text-white text-center font-bold`}>{isSpanish ? 'REGISTRATE' : "REGISTER" }</Text>
           </TouchableOpacity>

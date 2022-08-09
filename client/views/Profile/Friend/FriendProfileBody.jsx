@@ -64,7 +64,7 @@ const isSpanish= useSelector((state) => state.isSpanish);
 
 
                     }}>
-                        {userName.length > 10 ? userName.slice(0, 11).concat('...') : userName}
+                        {userName.length > 15 ? userName.slice(0, 11).concat('...') : userName}
                     </Text>
 
 
@@ -109,7 +109,7 @@ const isSpanish= useSelector((state) => state.isSpanish);
                 <View>
                     <Image
                         source={{uri: avatar}}
-                        style={tw`w-30 h-30`} />
+                        style={tw`w-25 h-25 mr-10 mb-3 rounded-3xl`} />
                 </View>
 
                 <View style={{
@@ -209,7 +209,7 @@ export const FriendProfileButtons = ({
                             justifyContent: 'center',
                             alignItems: 'center',
                             marginBottom: 40,
-                            marginTop: -40,
+                            
                         }}>
                         <Text style={{
                             fontWeight: 'bold',
