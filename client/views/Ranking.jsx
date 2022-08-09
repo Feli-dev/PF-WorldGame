@@ -118,7 +118,7 @@ export default function Ranking() {
                   <View
                     style={tw`flex justify-center items-center text-center w-20 h-10`}
                   >
-                    <Image style={tw`h-7 w-9.33 rounded-sm`}
+                    <Image style={tw`h-7 w-9.33 rounded-md`}
                       source={!(player?.country?.toLowerCase() === "afganistán") ? { 
                         uri:`${
                           allCountries.find((e) =>e?.name?.toLowerCase() === player?.country?.toLowerCase())?.flagSvg?.replace("svg", "png").replace("//","").replace("/","/w2560/").replace("https:","https://")
