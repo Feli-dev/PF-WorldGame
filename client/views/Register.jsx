@@ -97,6 +97,7 @@ export default function Register({ navigation }) {
           username: input.username,
           password: input.password,
           country: input.country,
+          avatar:"https://res.cloudinary.com/dunhnh8mv/image/upload/v1659972908/nnm2jznivdalyzycj3rb.png",
           first: true,
         })
       );
@@ -123,17 +124,17 @@ export default function Register({ navigation }) {
     // <ScrollView style={tw`pt-8 bg-gray-900`}>
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <View
-        style={tw`flex h-full items-center justify-center pt-10 bg-gray-900 `}
+        style={tw`flex h-full items-center justify-center pt-10 bg-[#005f73] `}//#C0D6DF
       >
         <View style={tw`flex`}>
           <View style={tw`flex flex-col`}>
-            <Text style={tw`text-white text-lg text-left mb-0.5`}>{isSpanish ? 'Correo electrónico' : "e-Mail" }</Text>
+            <Text style={tw`text-white shadow-lg text-lg text-left mb-0.5`}>{isSpanish ? 'Correo electrónico' : "e-Mail" }</Text>
             <TextInput
               type="email"
               onChangeText={(e) => handleInputChange("email", e)}
               placeholder={isSpanish ? 'Correo electrónico...' : "e-Mail..." }
               placeholderTextColor="#6f6f6f"
-              style={tw`pl-3 mb-1 w-70 h-10 rounded-lg bg-gray-800 text-white`}
+              style={tw`pl-3 mb-1 w-70 h-10 rounded-lg bg-[#C0D6DF] text-gray-900 shadow-lg`}
             ></TextInput>
             <Text style={tw`text-red-500 text-xs text-left mb-1`}>
               {err.email}
@@ -141,13 +142,13 @@ export default function Register({ navigation }) {
           </View>
 
           <View style={tw`flex flex-col`}>
-            <Text style={tw`text-white text-lg text-left mb-0.5`}>{isSpanish ? 'Nombre de Usuario' : "Username" }</Text>
+            <Text style={tw`text-white text-lg text-left mb-0.5 shadow-lg`}>{isSpanish ? 'Nombre de Usuario' : "Username" }</Text>
             <TextInput
               type="username"
               onChangeText={(e) => handleInputChange("username", e)}
               placeholder={isSpanish ? 'Nombre de Usuario...' : "Username..." }
               placeholderTextColor="#6f6f6f"
-              style={tw`pl-3 mb-1 w-70 h-10 rounded-lg bg-gray-800 text-white`}
+              style={tw`pl-3 mb-1 w-70 h-10 rounded-lg bg-[#C0D6DF] text-gray-900 shadow-lg`}
             ></TextInput>
             <Text style={tw`text-red-500 text-xs text-left mb-1`}>
               {err.username}
@@ -155,14 +156,14 @@ export default function Register({ navigation }) {
           </View>
 
           <View style={tw`flex flex-col`}>
-            <Text style={tw`text-white text-lg text-left mb-0.5`}>{isSpanish ? 'Contraseña' : "Password" }</Text>
+            <Text style={tw`text-white text-lg text-left mb-0.5 shadow-lg`}>{isSpanish ? 'Contraseña' : "Password" }</Text>
             <TextInput
               type="password"
               secureTextEntry={true}
               onChangeText={(e) => handleInputChange("password", e)}
               placeholder={isSpanish ? 'Contraseña...' : "Password..." }
               placeholderTextColor="#6f6f6f"
-              style={tw`pl-3 mb-1 w-70 h-10 rounded-lg bg-gray-800 text-white`}
+              style={tw`pl-3 mb-1 w-70 h-10 rounded-lg bg-[#C0D6DF] text-gray-900 shadow-lg`}
             ></TextInput>
             <Text style={tw`text-red-500 text-xs text-left mb-1`}>
               {err.password}
@@ -170,7 +171,7 @@ export default function Register({ navigation }) {
           </View>
 
           <View style={tw`flex flex-col`}>
-            <Text style={tw`text-white text-lg text-left mb-0.5`}>
+            <Text style={tw`text-white text-lg text-left mb-0.5 shadow-lg`}>
             {isSpanish ? 'Repetir Contraseña' : "Repeat Password" }
             </Text>
             <TextInput
@@ -179,17 +180,17 @@ export default function Register({ navigation }) {
               onChangeText={(e) => handleInputChange("repeatPassword", e)}
               placeholder={isSpanish ? 'Repetir Contraseña...' : "Repeat Password..." }
               placeholderTextColor="#6f6f6f"
-              style={tw`pl-3 mb-1 w-70 h-10 rounded-lg bg-gray-800 text-white`}
+              style={tw`pl-3 mb-1 w-70 h-10 rounded-lg bg-[#C0D6DF] text-gray-900`}
             ></TextInput>
-            <Text style={tw`text-red-500 text-xs text-left mb-1`}>
+            <Text style={tw`text-red-500 text-xs text-left mb-1 shadow-lg`}>
               {err.repeatPassword}
             </Text>
           </View>
 
           <View style={tw`flex flex-col`}>
-            <Text style={tw`text-white text-lg text-left mb-0.5`}>{isSpanish ? 'Pais' : "Country" }</Text>
+            <Text style={tw`text-white text-lg text-left mb-0.5 shadow-lg`}>{isSpanish ? 'País' : "Country" }</Text>
             <DropDownPicker onPress={Keyboard.dismiss} accessible={false}
-              style={tw`border-solid border-0 w-3/5 h-8 m-0 flex justify-center items-center bg-gray-800 rounded-lg z-0`}
+              style={tw`border-solid border-0 w-3/5 h-8 m-0 flex justify-center items-center bg-[#C0D6DF] rounded-lg z-0 shadow-lg`}
               textStyle={tw`text-gray-600`}
               open={open}
               value={value}
@@ -213,14 +214,14 @@ export default function Register({ navigation }) {
           <TouchableOpacity
             disabled
             onPress={(e) => handleSubmit(e)}
-            style={tw`bg-gray-600 px-8 py-2 rounded-lg mt-5 w-50`}
+            style={tw`bg-[#023047] px-8 py-2 rounded-lg mt-5 w-50 shadow-lg `}
           >
-            <Text style={tw`text-gray-500 text-center font-bold`}>{isSpanish ? 'REGISTRATE' : "REGISTER" }</Text>
+            <Text style={tw`text-white text-center font-bold`}>{isSpanish ? 'REGISTRATE' : "REGISTER" }</Text>
           </TouchableOpacity>
         ) : (
           <TouchableOpacity
             onPress={(e) => {handleSubmit(e);touchSound(soundOn);}}
-            style={tw`bg-gray-800 px-8 py-2 rounded-lg mt-5 w-50`}
+            style={tw`bg-[#d00000] px-8 py-2 rounded-lg mt-5 w-50 shadow-lg`}
           >
             <Text style={tw`text-white text-center font-bold`}>{isSpanish ? 'REGISTRATE' : "REGISTER" }</Text>
           </TouchableOpacity>
