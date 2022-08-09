@@ -124,16 +124,6 @@ export const ProfileBody = ({
                             height: 80,
                             borderRadius: 100,
                         }} />
-                    <Text
-                        style={{
-                            paddingVertical: 5,
-                            fontWeight: 'bold',
-                            color: 'white',
-                        }}>
-
-                        {name.length > 10 ? name.slice(0, 11).concat('...') : name}
-
-                    </Text>
                 </View>
 
                 <View style={{ alignItems: 'center' }}>
@@ -207,7 +197,7 @@ export const ProfileButtons = ({
                         }}
                         style={tw`w-9/10`}>
                         <View
-                            style={tw`h-8 rounded-lg items-center justify-center border-white border-2`}>
+                            style={tw`h-8 rounded-lg items-center justify-center shadow-xl bg-[#005f73] border-white border-2`}>
                             <Text
                                 style={tw`text-base text-white font-bold`}>
                                 {isSpanish ? "Editar Perfil":"Edit Profile"}

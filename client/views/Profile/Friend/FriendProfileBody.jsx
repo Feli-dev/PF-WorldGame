@@ -105,25 +105,11 @@ const isSpanish= useSelector((state) => state.isSpanish);
                 </View>
             ) : null}
             <View
-                style={{
-                }}>
-                <View
-                    style={{
-
-                    }}>
+                style={tw`flex flex-row mt-10`}>
+                <View>
                     <Image
                         source={{uri: avatar}}
-                        style={tw`w-10 h-10`} />
-                    <Text
-                        style={{
-                            paddingVertical: 5,
-                            fontWeight: 'bold',
-                            color: 'white',
-                        }}>
-
-                        {name.length > 10 ? name.slice(0, 11).concat('...') : name}
-
-                    </Text>
+                        style={tw`w-30 h-30`} />
                 </View>
 
                 <View style={{
@@ -131,19 +117,19 @@ const isSpanish= useSelector((state) => state.isSpanish);
                     flexDirection: 'row',
                     justifyContent: 'space-between',
                 }}>
-                    <View style={{}}>
-                        <Text style={{ fontWeight: 'bold', fontSize: 18, color: 'white' }}>{friends}</Text>
-                        <Text style={{ color: 'white' }}>{isSpanish?"Amigos":"Friends"}</Text>
+                    <View style={tw`mr-5`}>
+                        <Text style={{ fontWeight: 'bold', fontSize: 18, color: 'white', textAlign:"center" }}>{friends}</Text>
+                        <Text style={{ color: 'white', textAlign:"center" }}>{isSpanish?"Amigos":"Friends"}</Text>
                     </View>
 
-                    <View style={{}}>
-                        <Text style={{ fontWeight: 'bold', fontSize: 18, color: 'white' }}>{games}</Text>
-                        <Text style={{ color: 'white' }}>{isSpanish?"Partidas":"Games"}</Text>
+                    <View style={tw`mr-5`}>
+                        <Text style={{ fontWeight: 'bold', fontSize: 18, color: 'white', textAlign:"center" }}>{games}</Text>
+                        <Text style={{ color: 'white', textAlign:"center" }}>{isSpanish?"Partidas":"Games"}</Text>
                     </View>
 
-                    <View style={{}}>
-                        <Text style={{ fontWeight: 'bold', fontSize: 18, color: 'white' }}>{gamesWon}</Text>
-                        <Text style={{ color: 'white' }}>{isSpanish?"Victorias":"Wins"}</Text>
+                    <View style={tw`mr-5`}>
+                        <Text style={{ fontWeight: 'bold', fontSize: 18, color: 'white', textAlign:"center" }}>{gamesWon}</Text>
+                        <Text style={{ color: 'white', textAlign:"center" }}>{isSpanish?"Victorias":"Wins"}</Text>
                     </View>
                 </View>
 
@@ -218,17 +204,16 @@ export const FriendProfileButtons = ({
                         style={{
                             width: '100%',
                             height: 35,
-                            borderRadius: 5,
-                            backgroundColor: follow ? 'grey' : '#3493D9',
-                            borderWidth: follow ? 1 : 0,
-                            borderColor: '#DEDEDE',
+                            borderRadius: 10,
+                            backgroundColor: follow ? "#C0D6DF" : "#9ebc63",
                             justifyContent: 'center',
                             alignItems: 'center',
-                            marginBottom: 10,
+                            marginBottom: 40,
+                            marginTop: -40,
                         }}>
                         <Text style={{
                             fontWeight: 'bold',
-                            color: follow ? 'white' : '#111827',
+                            color: follow ? 'black' : 'white',
                         }}>
                             {follow ? (isSpanish ? 'Siguiendo':'Follow') : (isSpanish ? 'Seguir' : 'Following')}
                         </Text>

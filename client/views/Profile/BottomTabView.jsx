@@ -11,6 +11,7 @@ import { useNavigation } from '@react-navigation/native';
 import World from '../../assets/World.png';
 import * as Animatable from 'react-native-animatable';
 import { useSelector } from "react-redux";
+import Svg, { Path } from "react-native-svg";
 
 const BottomTabView = ({
     id,
@@ -80,7 +81,7 @@ const BottomTabView = ({
             }
           }
         return (
-            <ScrollView showsVerticalScrollIndicator={false} style={{ backgroundColor: '#111827', }}
+            <ScrollView showsVerticalScrollIndicator={false} style={{ backgroundColor: "#005f73", }}
             // style={tw`bg-gray-900`}
             >
                 <Text></Text>
@@ -94,15 +95,15 @@ const BottomTabView = ({
                         ? countriesAux.map((perGame) => {
                             return (
                                 <View key={perGame.id} style={{ width: '100%' }} >
-                                    <View style={{ height: 200, backgroundColor: perGame.winned ? '#18642C' : '#9D174D', marginBottom: 10, borderRadius: 8, }}>
+                                    <View style={{ height: 200, backgroundColor: perGame.winned ? '#18642C' : "#c94242", marginBottom: 10, borderRadius: 12, }}>
                                         <View style={{ justifyContent: 'space-between', alignItems: 'center', display: 'flex', flexDirection: 'row', margin: 15, }}>
                                             {/* VER COMO ACOMODAR LAS BANDERAS PARA QUE QUEDEN TODOS EN LA MISMA LINEA */}
                                             <View style={{ justifyContent: 'center', alignItems: 'center', }}>
                                                 {/* style={tw`h-7 w-9.33 rounded-sm`} */}
-                                                <Image style={{
+                                                <Image style={tw.style('shadow-2xl',{
                                                     width: 60, height: 40, borderRadius: 4, justifyContent: 'center', alignItems: 'center',
 
-                                                }}
+                                                })}
                                                     source={perGame?.flagSvg?.length > 10 && !(perGame?.countrie?.toLowerCase() === "afganistán") ? { 
                                                         uri:`${
                                                             perGame?.flagSvg?.replace("svg", "png").replace("//","").replace("/","/w2560/").replace("https:","https://")
@@ -140,7 +141,7 @@ const BottomTabView = ({
                                                 {isSpanish ? "Población" : "Population"}
                                                 </Text>
                                                 <Text style={{ color: 'white', paddingVertical: 5, fontWeight: 'bold', fontSize: 15, }}>
-                                                    {perGame.population > 1000000 ? (perGame.population / 1000000).toFixed(2).concat(' M') : perGame.population}
+                                                    {perGame.population > 1000000 ? (perGame.population / 1000000).toFixed(2).concat('M') : perGame.population}
                                                 </Text>
                                             </View>
                                             <View style={{ justifyContent: 'center', alignItems: 'center', }}>
@@ -148,27 +149,27 @@ const BottomTabView = ({
                                                     Area
                                                 </Text>
                                                 <Text style={{ color: 'white', paddingVertical: 5, fontWeight: 'bold', fontSize: 15, }}>
-                                                    {perGame.area > 100000 ? (perGame.area / 100000).toFixed(2).concat(' m ') : perGame.area}
-                                                    {' km²'}
+                                                    {perGame.area > 100000 ? (perGame.area / 100000).toFixed(2).concat('m') : perGame.area}
+                                                    {'km²'}
                                                 </Text>
                                             </View>
 
-                                            <View style={{ justifyContent: 'center', alignItems: 'center', }}>
+                                            <View style={{ justifyContent: 'center', alignItems: 'center', width: 80, textAlign: "center"}}>
                                                 <Text style={{ color: 'white', paddingVertical: 5, fontWeight: 'bold', fontSize: 16, }}>
                                                 {isSpanish?"Continente":"Continent"}
                                                 </Text>
-                                                <Text style={{ color: 'white', paddingVertical: 5, fontWeight: 'bold', fontSize: 15, }}>
+                                                <Text style={{ color: 'white', paddingVertical: 5, fontWeight: 'bold', fontSize: 15, textAlign: "center"}}>
                                                 {perGame.continent.length > 13 ? translateRegion(perGame.continent).slice(0, 12).concat('...') : translateRegion(perGame.continent)}
                                                 </Text>
                                             </View>
 
 
 
-                                            <View style={{ justifyContent: 'center', alignItems: 'center', }}>
+                                            {/* <View style={{ justifyContent: 'center', alignItems: 'center', }}>
                                                 <Ionic name="earth" style={{ fontSize: 25, color: 'white', display: 'flex', marginRight: 0, }}
                                                 // VER DE AGREGAR UN LINK PARA GOOGLE MAPS                                               
                                                 />
-                                            </View>
+                                            </View> */}
 
                                         </View>
                                     </View>
@@ -250,7 +251,7 @@ const BottomTabView = ({
 
         return (
             <View
-                style={tw`bg-gray-900 h-full`}>
+                style={tw`bg-[#005f73] h-full`}>
                 <Text style={tw`text-gray-400 text-center text-2xl mt-3`}>Chat</Text>
                 <ScrollView
                     showsVerticalScrollIndicator={false}
@@ -258,7 +259,7 @@ const BottomTabView = ({
                     onContentSizeChange={() =>
                         scrollViewRef.current.scrollToEnd({ animated: true })
                     }
-                    style={tw`mb-5 mt-3 bg-gray-800 rounded-lg`}
+                    style={tw`mb-5 mt-3 bg-gray-700 rounded-2xl`}
                 >
                     {
                         view().length > 0 ? view()?.map((el, i) => {
@@ -279,17 +280,24 @@ const BottomTabView = ({
                         placeholder="Enter a country..."
                         placeholderTextColor="#6f6f6f"
                         autoCapitalize="sentences"
-                        style={tw`pl-3 w-75 mr-1 h-12 rounded-lg bg-white text-black text-lg`}
+                        style={tw`pl-3 w-75 mr-1 h-12 rounded-l-xl bg-white text-black text-lg`}
                         onChangeText={text => setChatMessage(text.trimStart().trimEnd())}
                         multiline={true}
                         value={chatMessage}
                         textAlignVertical="center"
                     ></TextInput>
                     <TouchableOpacity
-                        style={tw`flex items-center justify-center h-12 w-12 bg-white rounded-lg`}
+                        style={tw`flex items-center justify-center h-12 w-12 bg-white rounded-r-xl`}
                         onPress={() => { onSubmitChatMessage(); }}
                     >
-                        <Text style={tw`text-center`}>{isSpanish ? "Enviar" : "Send"}</Text>
+                        <View style={tw`w-8 h-8`}>
+                            <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                            <Path
+                                fill="#9ebc63"
+                                d="M374.6 246.6c-6.2 6.3-14.4 9.4-22.6 9.4s-16.38-3.125-22.62-9.375L224 141.3V448c0 17.69-14.33 31.1-31.1 31.1S160 465.7 160 448V141.3L54.63 246.6c-12.5 12.5-32.75 12.5-45.25 0s-12.5-32.75 0-45.25l160-160c12.5-12.5 32.75-12.5 45.25 0l160 160c12.47 12.55 12.47 32.75-.03 45.25z"
+                            />
+                            </Svg>
+                        </View>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -299,7 +307,7 @@ const BottomTabView = ({
         return (
             <ScrollView
                 showsVerticalScrollIndicator={false}
-                style={tw`bg-gray-900`}>
+                style={tw`bg-[#005f73]`}>
                 <View
                     style={{
                         display: 'flex',
@@ -338,10 +346,10 @@ const BottomTabView = ({
                                 >
                                     <View
                                         style={{
-                                            borderRadius: 8,
-                                            backgroundColor: 'grey',
+                                            borderRadius: 20,
+                                            backgroundColor: "#C0D6DF",
                                             padding: 15,
-                                            justifyContent: 'space-between',
+                                            justifyContent: 'space-evenly',
                                             alignItems: 'center',
                                             display: 'flex',
                                             flexDirection: 'row',
@@ -356,20 +364,13 @@ const BottomTabView = ({
 
                                         <Text
                                             style={{
-                                                color: 'white',
+                                                color: 'black',
                                                 fontSize: 25,
                                                 textAlign: 'center',
                                                 paddingRight: 10,
                                             }}>
                                             {friend.username ? friend.username : 'Not friends :('}
-                                        </Text>
-
-                                        <Image
-                                            style={{
-                                                width: 50,
-                                                height: 50,
-                                            }}
-                                            source={{ uri: friend.avatar}} />                                        
+                                        </Text>                                        
                                     </View>
                                 </View>
                             </TouchableOpacity>
@@ -401,13 +402,13 @@ const BottomTabView = ({
                     let iconName;
                     if (route.name === "Games") {
                         iconName = focused ? "stats-chart-sharp" : "stats-chart-outline";
-                        colour = focused ? "black" : "gray";
+                        colour = focused ? "#9ebc63" : "gray";
                     } else if (route.name === "Chat") {
                         iconName = focused ? "chatbubbles-sharp" : "chatbubbles-outline";
-                        colour = focused ? "black" : "gray";
+                        colour = focused ? "#9ebc63" : "gray";
                     } else if (route.name === "Friends") {
                         iconName = focused ? "people" : "people-outline";
-                        colour = focused ? "black" : "gray";
+                        colour = focused ? "#9ebc63" : "gray";
                     }
                     return <Ionic name={iconName} color={colour} size={22} />
                 }

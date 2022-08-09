@@ -53,7 +53,7 @@ const Profile = () => {
                 {
                     data && open ?
 
-                        <View style={tw`h-full bg-gray-900 flex justify-center items-center`}>
+                        <View style={tw`h-full bg-[#005f73] flex justify-center items-center`}>
                             <View style={tw`mt-10 p-5`}>
 
                                 <ProfileBody
