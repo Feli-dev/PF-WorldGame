@@ -40,7 +40,7 @@ export const ProfileBody = ({
                         }}>
                             {userName.length > 10 ? userName.slice(0, 11).concat('...') : userName}
                         </Text>
-                        <Ionic
+                        {/* <Ionic
                             name="chevron-down"
                             style={{
                                 fontSize: 20,
@@ -49,7 +49,7 @@ export const ProfileBody = ({
                                 opacity: 0.5,
                             }}
                             onPress={() => navigation.navigate('Configuration')}
-                        />
+                        /> */}
                     </View>
                     <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 23, }}>
                         <Ionic
