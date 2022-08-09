@@ -21,9 +21,9 @@ module.exports = {
             return { Error: error, Request: "Fallo la función select", Path: path, Function: "select" };
         }
     },
-    insert: async(UserId = 0, FriendId = 0, name = "", username = "", avatar = "") => {
+    insert: async(UserId = 0, FriendId = 0, name = "", username = "", avatar = "", country = "") => {
         try {
-            return await Friend.create({ FriendId, UserId, name, username, connect: false, avatar })
+            return await Friend.create({ FriendId, UserId, name, username, connect: false, avatar, country })
             .then(result => {
                 result.setUser(UserId);
                 return { Request: `Siguiendo a ${username}` };
@@ -35,9 +35,9 @@ module.exports = {
             return { Error: error, Request: "Fallo la función insert", Path: path, Function: "insert" };
         }
     },
-    update: async(UserId = 0, username = "", name="", connect = false, avatar = "") => {
+    update: async(UserId = 0, username = "", name="", connect = false, avatar = "", country = "") => {
         try {
-            return await Friend.update({ username, name, connect, avatar }, { where: { FriendId: UserId } })
+            return await Friend.update({ username, name, connect, avatar, country }, { where: { FriendId: UserId } })
             .then(result => {
                 if(result[0] > 0) return { Request: "Amigos actualizados" };
                 return { Request: "No se actualizaron los amigos" };

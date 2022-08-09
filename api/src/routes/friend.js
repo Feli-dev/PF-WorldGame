@@ -20,7 +20,6 @@ router.get('/', async(req, res) =>{
 });
 
 router.post('/', async(req, res) =>{
-    console.log('req.body friend post',req.body)
     try {
         const { UserId, FriendId } = req.body;
         return await friend.create(UserId || 0, FriendId || 0)

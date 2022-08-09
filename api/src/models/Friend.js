@@ -26,6 +26,10 @@ module.exports = (sequelize) => {
             type: DataTypes.BOOLEAN,
             allowNull: false
         },
+        country: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
         avatar: {
             type: DataTypes.TEXT,
             defaultValue: "https://res.cloudinary.com/dunhnh8mv/image/upload/v1659972908/nnm2jznivdalyzycj3rb.png"

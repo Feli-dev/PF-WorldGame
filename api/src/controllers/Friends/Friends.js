@@ -1,5 +1,5 @@
 const { select, insert, update, remove } = require('./Crud');
-const { filterUser } = require('./Validate');
+const { filterUser, duplicate } = require('./Validate');
 
 module.exports = new class {
 
@@ -22,13 +22,18 @@ module.exports = new class {
 
     async create(UserId = 0, FriendId = 0){
         try {
-            const user = await filterUser(FriendId);
-            if(user.hasOwnProperty("Value")) return await insert(UserId, FriendId, user.Value.name, user.Value.username, user.Value.avatar)
-                .then(result => result)
-                .catch(error => {
-                    return { Error: error, Request: "Fallo al agregar un amigo", Path: this.#path, Function: "create" };
-                });
-            return { Error: [user[0], user[1]], Request: "Fallo la validación", Path: this.#path, Function: "create" };
+            const validate = await duplicate(UserId, FriendId);
+            if(validate.hasOwnProperty("Error")) return validate;
+            if(!validate.Value){
+                const user = await filterUser(FriendId);
+                if(user.hasOwnProperty("Value")) return await insert(UserId, FriendId, user.Value.name, user.Value.username, user.Value.avatar, user.Value.country)
+                    .then(result => result)
+                    .catch(error => {
+                        return { Error: error, Request: "Fallo al agregar un amigo", Path: this.#path, Function: "create" };
+                    });
+                return { Error: [user[0], user[1]], Request: "Fallo la validación", Path: this.#path, Function: "create" };
+            }
+            return validate;
         } catch (error) {
             return { Error: error, Request: "Fallo la función create", Path: this.#path, Function: "create" };
         }
@@ -37,7 +42,7 @@ module.exports = new class {
     async update(UserId = 0, connect = false, type = ""){
         try {
             const user = await filterUser(UserId);
-            if(user.hasOwnProperty("Value")) return await update(user.Value.id, user.Value.username, user.Value.name, type === "login" ? connect : user.Value.connect, user.Value.avatar)
+            if(user.hasOwnProperty("Value")) return await update(user.Value.id, user.Value.username, user.Value.name, type === "login" ? connect : user.Value.connect, user.Value.avatar, user.Value.country)
                 .then(result => result)
                 .catch(error => {
                     return { Error: error, Request: "Fallo al actualizar los amigos", Path: this.#path, Function: "notify" };
