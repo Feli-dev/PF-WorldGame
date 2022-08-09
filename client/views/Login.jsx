@@ -236,8 +236,8 @@ import img from "../assets/Worldgame.png";
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <View style={tw`flex h-full items-center justify-center bg-gray-900`}>
-        <Image style={tw`h-40 w-40`} source={img} />
+      <View style={tw`flex h-full items-center justify-center bg-[#005f73]`}>
+        <Image style={tw`h-40 w-40 `} source={img} />
         <View style={tw`flex flex-col mt-10`}>
           <Text style={tw`text-white text-lg text-left mb-1`}>{isSpanish ? "Usuario" : "User"}</Text>
           <TextInput
@@ -246,7 +246,7 @@ import img from "../assets/Worldgame.png";
             value={input.username}
             onChangeText={(e) => handleInputChange("username", e)}
             placeholderTextColor="#6f6f6f"
-            style={tw`pl-3 mb-1 w-70 h-10 rounded-lg bg-gray-800 text-white`}
+            style={tw`pl-3 mb-1 w-70 h-10 rounded-lg bg-[#C0D6DF] text-gray-900 shadow-lg`}
           ></TextInput>
           <Text style={tw`text-red-500 text-xs text-left mt-1 mb-1`}>
             {err.username}
@@ -261,7 +261,7 @@ import img from "../assets/Worldgame.png";
             value={input.password}
             onChangeText={(e) => handleInputChange("password", e)}
             placeholderTextColor="#6f6f6f"
-            style={tw`pl-3 mb-1 w-70 h-10 rounded-lg bg-gray-800 text-white`}
+            style={tw`pl-3 mb-1 w-70 h-10 rounded-lg bg-[#C0D6DF] text-gray-900 shadow-lg`}
           ></TextInput>
           <Text style={tw`text-red-500 text-xs text-left mt-1 mb-1`}>
             {err.password}
@@ -281,10 +281,10 @@ import img from "../assets/Worldgame.png";
           <Text style={tw`text-white text-center font-bold`}>REGISTER</Text>
         </TouchableOpacity>} */}
         <TouchableOpacity
-          style={tw`bg-gray-600 px-8 py-2 rounded-lg mt-3 w-50`}
+          style={tw`bg-[#023047] px-8 py-2 rounded-lg mt-3 w-50`}
           onPress={() => {log(input);touchSound(soundOn);}}
         >
-          <Text style={tw`text-white text-center font-bold`}>{isSpanish ? "INICIAR SESIÓN" : "LOGIN"}</Text>
+          <Text style={tw`text-white text-center font-bold shadow-lg`}>{isSpanish ? "INICIAR SESIÓN" : "LOGIN"}</Text>
         </TouchableOpacity>
         <View>
           <Text style={tw`text-red-500 text-xs text-left mt-2 mb-1`}>
@@ -314,7 +314,7 @@ import img from "../assets/Worldgame.png";
             </View>
           </TouchableOpacity> */}
           <TouchableOpacity
-            style={tw`flex flex-row justify-around items-center bg-[#FFFFFF] px-8 py-2 rounded-xl w-60 h-12`}
+            style={tw`flex flex-row justify-around items-center bg-[#FFFFFF] px-8 py-2 rounded-xl w-60 h-12 shadow-lg`}
             disabled={!request}
             onPress={() => {promptAsync();touchSound(soundOn);}}
           >

@@ -56,7 +56,7 @@ export default function Game() {
   }, [GV]);
 
   return (
-    <View style={tw`flex h-5/7 items-center justify-center`}>
+    <View style={tw`flex h-6/8 items-center justify-center`}>
       <ScrollView
         ref={scrollViewRef}
         showsVerticalScrollIndicator={false}
@@ -75,9 +75,9 @@ export default function Game() {
           >
             <View style={tw`flex items-center justify-center mt-35`}>
               <View
-                style={tw`flex items-center justify-center bg-gray-300 rounded-lg w-80 h-90`}
+                style={tw`flex items-center justify-center bg-[#C0D6DF] rounded-lg w-80 h-90`}
               >
-                <Text style={tw`text-base font-bold text-center mt-2 mb--2`}>
+                <Text style={tw`text-lg shadow-lg font-bold text-center mt-2 mb--2`}>
                   {dataModal[0]?.name}
                 </Text>
                 <View
@@ -88,7 +88,7 @@ export default function Game() {
                       dataModal[0]?.hemisphere?.asserted
                         ? "bg-green-400"
                         : "bg-red-400"
-                    } rounded-lg mr-5`}
+                    } rounded-lg shadow-lg mr-5`}
                   >
                     <View style={tw`h-7 w-7`}>
                       <Svg
@@ -118,7 +118,7 @@ export default function Game() {
                       dataModal[0]?.continent?.asserted
                         ? "bg-green-400"
                         : "bg-red-400"
-                    } rounded-lg mr-5`}
+                    } rounded-lg shadow-lg mr-5`}
                   >
                     <View style={tw`h-7 w-7`}>
                       <Svg
@@ -150,7 +150,7 @@ export default function Game() {
                         : dataModal[0]?.area?.arrowdirection === "up"
                         ? "bg-red-400"
                         : "bg-green-400"
-                    } rounded-lg`}
+                    } rounded-lg shadow-lg`}
                   >
                     <View style={tw`h-7 w-7`}>
                       <Svg
@@ -192,7 +192,7 @@ export default function Game() {
                         : dataModal[0]?.population?.arrowDirection === "up"
                         ? "bg-red-400"
                         : "bg-green-400"
-                    } rounded-lg mr-5`}
+                    } rounded-lg shadow-lg mr-5`}
                   >
                     <View style={tw`h-7 w-7`}>
                       <Svg
@@ -224,7 +224,7 @@ export default function Game() {
                       dataModal[0]?.coordinates?.direction?.length > 0
                         ? "bg-red-400"
                         : "bg-green-400"
-                    } rounded-lg`}
+                    } rounded-lg shadow-lg`}
                   >
                     <View style={tw`h-7 w-7`}>
                       <Svg
@@ -250,7 +250,7 @@ export default function Game() {
                   style={tw`h-1/10 flex flex-col items-center justify-center mb-2`}
                 >
                   <View
-                    style={tw`w-70 mb-2 mt-1 border-b border-solid border-gray-400`}
+                    style={tw`w-60 mb-2 mt-1 border-b border-solid border-gray-400`}
                   ></View>
                   <Pressable
                     style={tw`w-35 pt-1 rounded-lg`}
@@ -278,12 +278,12 @@ export default function Game() {
                 </Text>
                 <View
                   key={el.name}
-                  style={tw`flex flex-row justify-center items-center mb-3 mt-3`}
+                  style={tw`flex flex-row justify-center shadow-lg  items-center mb-3 mt-3`}
                 >
                   <View
                     style={tw`flex justify-center items-center ${
                       el.hemisphere.asserted ? "bg-green-600" : "bg-red-600"
-                    } h-10 w-10 rounded-lg mr-5`}
+                    } h-10 w-10 shadow-lg rounded-lg mr-5`}
                   >
                     <View style={tw`h-7 w-7`}>
                       <Svg
@@ -300,7 +300,7 @@ export default function Game() {
                   <View
                     style={tw`flex justify-center items-center ${
                       el.continent.asserted ? "bg-green-600" : "bg-red-600"
-                    } h-10 w-10 rounded-lg mr-5`}
+                    } h-10 w-10 shadow-lg rounded-lg mr-5`}
                   >
                     <View style={tw`h-7 w-7`}>
                       <Svg
@@ -321,7 +321,7 @@ export default function Game() {
                         : el.area.arrowdirection == "down"
                         ? "bg-red-600"
                         : "bg-green-600"
-                    } h-10 w-10 rounded-lg mr-5`}
+                    } h-10 w-10 shadow-lg rounded-lg mr-5`}
                   >
                     <View style={tw`h-7 w-7`}>
                       <Svg
@@ -348,7 +348,7 @@ export default function Game() {
                         : el.population.arrowDirection == "down"
                         ? "bg-red-600"
                         : "bg-green-600"
-                    } h-10 w-10 rounded-lg mr-5`}
+                    } h-10 w-10 shadow-lg rounded-lg mr-5`}
                   >
                     <View style={tw`h-7 w-7`}>
                       <Svg
@@ -367,7 +367,7 @@ export default function Game() {
                       el.coordinates.direction.length > 0
                         ? "bg-red-600"
                         : "bg-green-600"
-                    } h-10 w-10 rounded-lg`}
+                    } h-10 w-10 shadow-lg rounded-lg`}
                   >
                     <View style={tw`h-7 w-7`}>
                       <Svg
@@ -390,7 +390,7 @@ export default function Game() {
           <Text style={tw`mt-2 text-center text-white font-bold text-xl`}>
             {isSpanish
               ? "El país era: "
-              : "The country was: "`${countryOfGame.name}`}
+              : "The country was: "}{countryOfGame.name}
           </Text>
         ) : (
           <></>

@@ -83,7 +83,7 @@ const Landing = ({ navigation }) => {
     }, [allUser]);
 
     return (
-        <View style={tw`h-full bg-gray-900 flex items-center justify-center`}>
+        <View style={tw`h-full bg-[#005f73] flex items-center justify-center`}>
             {/* <Image style={tw`h-100 w-100`} source={img}/> */}
             <Video
                 ref={video}

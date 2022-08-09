@@ -93,24 +93,24 @@ const Payment = (
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
             <View
-                style={tw`bg-gray-900 items-center justify-center h-full w-full`}
+                style={tw`bg-[#005f73] items-center justify-center h-full w-full`}
             >
                 <Image
                     source={worldImg}
                     style={tw`h-90 w-90`} />
                 <View
-                    style={tw`bg-gray-900 items-center justify-center mt-5`}>
+                    style={tw`bg-[#005f73] items-center justify-center mt-5`}>
                     <Text style={tw`text-white font-bold text-base text-center p-5`}>{isSpanish?"Por favor, introduzca los datos del propietario de la tarjeta.":"Please enter the card owner's information."}</Text>
                     <View>
                         <TextInput
                             // value={premiumLevelAUX.name}
                             onChangeText={(text) => handleOnChange("name", text)}//VER SI AGREGO VARIAS OPCIONES DE PREMIUM O UNA SOLA
                             placeholder={isSpanish?"Nombre":"Name"}
-                            placeholderTextColor="white"
+                            placeholderTextColor="#6f6f6f"
                             type="name"
                             defaultValue={premiumLevelAUX.name}
                             required
-                            style={tw`w-70 text-lg text-white border-white border-2 rounded-lg p-3 mb-5`}
+                            style={tw`w-70 text-lg text-gray-900 rounded-lg p-3 mb-5 bg-[#C0D6DF] shadow-lg`}
                         />
                     </View>
                     <View>
@@ -118,25 +118,22 @@ const Payment = (
                             // value={premiumLevelAUX.email}
                             onChangeText={(text) => handleOnChange("email", text)}//VER SI AGREGO VARIAS OPCIONES DE PREMIUM O UNA SOLA
                             placeholder={isSpanish?"Correo Electrónico":"Email"}
-                            placeholderTextColor="white"
+                            placeholderTextColor="#6f6f6f"
                             type="email"
                             defaultValue={premiumLevelAUX.email}
                             required
-                            style={tw`w-70 text-lg text-white border-white border-2 rounded-lg p-3 mb-5`}
+                            style={tw`w-70 text-lg text-gray-900 rounded-lg p-3 mb-5 bg-[#C0D6DF] shadow-lg`}
                         />
                     </View>
                     <View>
-                        {/* <TouchableOpacity
+                        <TouchableOpacity
                         onPress={subscribe} 
-                    onPress={subscribe} 
-                        onPress={subscribe} 
-                        style={{}}                    
-                    style={{}}                    
-                        style={{}}                    
+                        style={tw`rounded-lg bg-[#9ebc63] mt-5 pt-3 pb-3 pr-4 pl-4 shadow-lg`}                    
                         >
-                            <Text>Subscribe - $5</Text>
-                        </TouchableOpacity> */}
-                    <Button title={isSpanish?"Suscribirse - $5":'Subscribe - $5'} onPress={subscribe} />
+                            <Text
+                            style={tw`text-lg font-bold text-white`}>Subscribe - $5</Text>
+                        </TouchableOpacity>
+                    {/* <Button style={tw`rounded-lg bg-[#9ebc63] pt-1 pb-1 pr-2 pl-2`} title={isSpanish?"Suscribirse - $5":'Subscribe - $5'} onPress={subscribe} /> */}
                 </View>
                 </View>
             </View>

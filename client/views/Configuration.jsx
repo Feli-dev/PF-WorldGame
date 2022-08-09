@@ -67,11 +67,11 @@ export default function Configuration({ navigation }) {
 
   return (
     <View
-      style={tw`h-full bg-gray-900 flex flex-col justify-around items-center`}
+      style={tw`h-full bg-[#005f73] flex flex-col justify-around items-center`}
     >
       <View style={tw`flex flex-col justify-center items-center`}>
-        <View style={tw`flex-col flex items-center justify-center`}>
-          <Text style={tw`text-white text-lg`}> {isSpanish ? "Cambiar lenguaje" : "Change language"} </Text>
+        <View style={tw`flex-col flex items-center justify-center mb-10`}>
+          <Text style={tw`text-white text-xl`}> {isSpanish ? "Cambiar lenguaje" : "Change language"} </Text>
           <View style={tw`flex flex-row justify-around items-center mt-5`}>
             <TouchableOpacity
               style={tw`flex mr-5 items-center justify-center w-12 h-10 bg-gray-300 rounded-lg`}
@@ -98,7 +98,7 @@ export default function Configuration({ navigation }) {
         <View style={tw`flex-row flex items-center justify-center`}>
           <Text style={tw`text-white text-lg`}> {isSpanish ? "Desactivar anuncios" : "Disable Ads"} </Text>
           <Switch
-            trackColor={{ false: "#767577", true: "#81b0ff" }}
+            trackColor={{ false: "#767577", true: "#9ebc63" }}
             thumbColor={isEnabled ? "#f4f3f4" : "#f4f3f4"}
             ios_backgroundColor="#3e3e3e"
             onValueChange={login?.Request?.premium ? handleError : toggleSwitch}
@@ -106,10 +106,10 @@ export default function Configuration({ navigation }) {
           />
         </View>
         <Text style={tw`text-red-500 text-xs`}>{err.errAds}</Text>
-        <View style={tw`flex-row flex items-center justify-center`}>
+        <View style={tw`flex-row flex items-center justify-center mb-5`}>
         <Text style={tw`text-white text-lg`}>{ isSpanish ? "Sonido" : "Sound"} </Text>
         <Switch
-          trackColor={{ false: "#767577", true: "#81b0ff" }}
+          trackColor={{ false: "#767577", true: "#9ebc63" }}
           thumbColor={soundOn ? "#f4f3f4" : "#f4f3f4"}
           ios_backgroundColor="#3e3e3e"
           onValueChange={soundSwitch}
@@ -119,14 +119,14 @@ export default function Configuration({ navigation }) {
         <View style={tw`flex-row flex items-center justify-center`}>
           <Text style={tw`text-white text-lg`}>{ isSpanish ? "Música" : "Music"} </Text>
           <Switch
-            trackColor={{ false: "#767577", true: "#81b0ff" }}
+            trackColor={{ false: "#767577", true: "#9ebc63" }}
             thumbColor={stat.soundObj?.isPlaying ? "#f4f3f4" : "#f4f3f4"}
             ios_backgroundColor="#3e3e3e"
             onValueChange={musicSwitch}
             value={stat.soundObj?.isPlaying}
           />
         </View>
-        <View style={tw`flex items-center justify-center rounded-md`}>
+        <View style={tw`flex items-center justify-center rounded-lg`}>
           <Modal
             animationType="none"
             transparent={true}
@@ -137,13 +137,13 @@ export default function Configuration({ navigation }) {
           >
             <View style={tw`flex items-center justify-center mt-35`}>
               <View
-                style={tw`flex items-center justify-evenly bg-gray-300 rounded-md w-80 h-90`}
+                style={tw`flex items-center justify-evenly bg-[#C0D6DF] rounded-2xl w-80 h-90`}
               >
                 <TextInput
                   placeholder={ isSpanish ? "Introduzca una reseña..." : "Enter a review..."}
                   placeholderTextColor="#000"
                   multiline={true}
-                  style={tw`p-3 w-65 h-65 rounded-md bg-gray-400 text-black text-justify text-base `}
+                  style={tw`p-3 w-65 h-65 rounded-md bg-gray-200 text-black text-justify text-base `}
                   onChangeText={(text) => setReviewMessage(text)}
                   autoCapitalize="sentences"
                   value={reviewMessage}
@@ -151,7 +151,7 @@ export default function Configuration({ navigation }) {
                   textAlignVertical="top"
                 />
                 <TouchableOpacity
-                  style={tw`rounded-lg bg-blue-400 pt-1 pb-1 pr-2 pl-2`}
+                  style={tw`rounded-lg bg-[#9ebc63] pt-1 pb-1 pr-2 pl-2`}
                   onPress={() => {
                     setModalVisible(!modalVisible);
                     if (reviewMessage !== "") {
@@ -172,7 +172,7 @@ export default function Configuration({ navigation }) {
           </Modal>
         </View>
         <TouchableOpacity
-          style={tw`w-30 h-10 bg-blue-500 flex items-center justify-center rounded-md mt-20`}
+          style={tw`w-30 h-10 bg-[#9ebc63] flex items-center justify-center rounded-md mt-10`}
           onPress={() => setModalVisible(true)}
         >
           <Text style={tw`text-white text-center font-bold`}>{isSpanish ? "Enviar reseña" : "Send review"}</Text>
