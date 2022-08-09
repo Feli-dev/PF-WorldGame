@@ -237,8 +237,8 @@ const BottomTabView = ({
         }, [Messages]);
 
         function onSubmitChatMessage() {
-            if (userName.length && chatMessage.length) {
-                socket.emit("mensaje", userName, chatMessage);
+            if (userName.length && chatMessage.trimStart().trimEnd().length) {
+                socket.emit("mensaje", userName, chatMessage.trimStart().trimEnd());
                 setChatMessage("");
             }
         }
@@ -281,7 +281,7 @@ const BottomTabView = ({
                         placeholderTextColor="#6f6f6f"
                         autoCapitalize="sentences"
                         style={tw`pl-3 w-75 mr-1 h-12 rounded-l-xl bg-white text-black text-lg`}
-                        onChangeText={text => setChatMessage(text.trimStart().trimEnd())}
+                        onChangeText={text => setChatMessage(text)}
                         multiline={true}
                         value={chatMessage}
                         textAlignVertical="center"
