@@ -1,9 +1,7 @@
 const { Router } = require('express');
-const ncrypt = require("ncrypt-js");
 const user = require('../controllers/Users/Users');
 const friend = require('../controllers/Friends/Friends');
 
-const ncryptObject = new ncrypt('key');
 const router = Router();
 const path = "api/src/routes/login.js"
 

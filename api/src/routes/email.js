@@ -1,9 +1,10 @@
 const { Router } = require('express');
-const { bitHash } = require('../db');
+const ncrypt = require("ncrypt-js");
 const { authEmail } = require('../controllers/Users/Validate');
 const user = require('../controllers/Users/Users');
 const e = require('../Tools/Email');
 
+const ncryptObject = new ncrypt('key');
 const router = Router();
 const path = "api/src/routes/email.js";
 
@@ -29,7 +30,7 @@ router.put('/', async(req, res) =>{
     try {
         const { id, password, email } = req.body;
         if(password.length){
-            const passEncrypt = bitHash.encrypt(password);
+            const passEncrypt = ncryptObject.encrypt(password);
             return await user.confirm(id, passEncrypt)
             .then(result => {
                 if(result.hasOwnProperty("Error")) return res.status(400).json(result);
@@ -43,6 +44,7 @@ router.put('/', async(req, res) =>{
             return res.status(404).json({ Error: `El campo${message} esta vacio`, Path: path, Router: "put" });
         }
     } catch (error) {
+        console.log(error)
         return res.status(404).json({ Error: error, Request: "Fallo la ruta put", Path: path, Router: "put" });
     }
 });
