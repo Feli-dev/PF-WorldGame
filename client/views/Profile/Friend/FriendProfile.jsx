@@ -5,33 +5,22 @@ import {
     TouchableWithoutFeedback,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-
+import { Video } from 'expo-av'
 import { useDispatch, useSelector } from "react-redux";
-
 import { getFriendDetail, ClearFriendDetail, searchFriend } from "../../../redux/actions/index";
-
 import tw from "twrnc";
-
 import { FriendProfileBody, FriendProfileButtons } from "./FriendProfileBody";
 import BottomTabViewFriend from "./BottomTabViewFriend";
-import LoadingWorld from '../../../assets/LoadingWorld.gif';
-
 
 //let lengthOfObject = Object.keys(obj).lengt
 //<BottomTabView />
 
 const FriendProfile = (params) => {
-
     const dispatch = useDispatch();
-
     const { freId, userId, userFriends } = params.route.params
-
     const [open, setOpen] = useState(false);
-
     const friendInfo = useSelector((state) => state.friendsDetail);
-
-    
-
+    const video = React.useRef(null);
     //EN DATA ME GUARDO UN VALOR BOOLEANO, TRUE INDICA QUE ES AMIGO Y FALSE QUE NO.
     const data = friendInfo.hasOwnProperty('Request') && Object.keys(friendInfo?.Request).length > 0 && Object.keys(friendInfo.Request.stats).length > 0
         ? friendInfo.Request
@@ -48,10 +37,7 @@ const FriendProfile = (params) => {
             following.push(false)
         }
     }
-
     //friendSended ES UN FILTRO DE TODO EL ARREGLO DE "FRIENDS" Y SOLO INDICA A LOS ENVIADOS. ESTOS SERIAN LOS AMIGOS DEL PROFILEFRIEND. 
-
-
     useEffect(() => {
         dispatch(getFriendDetail(freId))
         // dispatch(searchFriend(' '))
@@ -65,7 +51,6 @@ const FriendProfile = (params) => {
         }
     }, [dispatch])
 
-
     //navigation.goBack(); AGREGAR BOTON PARA IR ATRAS O HOME
 
     return (
@@ -74,7 +59,6 @@ const FriendProfile = (params) => {
                 {data && open ?
                     <View style={tw`h-full bg-[#005f73] flex justify-center items-center`}>
                         <View style={tw`mt-10 p-5`}>
-
                             <FriendProfileBody
                                 avatar={data.avatar}
                                 friends={data ? data.friends.length : 0}
@@ -97,36 +81,35 @@ const FriendProfile = (params) => {
                             friendID={freId}
                             userID={userId}
                             followingUser={following[0] ? true : false}
-
-
                         />
 
                         <BottomTabViewFriend
                             games={data.stats.games}
                             gamesArr={data.games}
-
                         />
-
                     </View>
                     :
                     <View style={{
-                        backgroundColor: '#050F1A',//cambiar por bg-[#005f73]
+                        backgroundColor: '#005f73',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         height: '100%',
                         width: '100%',
                     }}>
-
-                        <Image
-                            source={LoadingWorld}
-                            style={{
-                                width: '70%',
-                                height: '70%',
-                            }}
+                        <Video
+                            ref={video}
+                            style={tw`flex items-center justify-center w-full h-full`}
+                            // source={{ uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }}
+                            source={require("../../../assets/LoadingWorld.mp4")}
+                            useNativeControls={false}
+                            resizeMode="contain"
+                            shouldPlay
+                            isLooping={true}
+                            isMuted={true}
+                            onLoadStart={()=>{}}
                         />
                     </View>
-
                 }
             </View>
         </TouchableWithoutFeedback>
