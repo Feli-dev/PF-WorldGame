@@ -78,11 +78,25 @@ const BottomTabViewFriend = ({ games, gamesArr }) => {
                                             {/* VER COMO ACOMODAR LAS BANDERAS PARA QUE QUEDEN TODOS EN LA MISMA LINEA */}
                                             <View style={{ justifyContent: 'center', alignItems: 'center', }}>
                                                 {/* style={tw`h-7 w-9.33 rounded-sm`} */}
-                                                <Image style={{
+                                                {/* <Image style={{
                                                     width: 60, height: 40, borderRadius: 4, justifyContent: 'center', alignItems: 'center',
 
                                                 }}
                                                     source={{ uri: `${perGame.flagSvg?.replace("svg", "png").replace("//", "").replace("/", "/w2560/").replace("https:", "https://")}` }}
+                                                /> */}
+                                                 <Image style={tw.style('shadow-2xl', {
+                                                    width: 60, height: 40, borderRadius: 4, justifyContent: 'center', alignItems: 'center',
+
+                                                })}
+                                                    source={perGame?.flagSvg?.length > 10 && !(perGame?.countrie?.toLowerCase() === "afganistán") ? {
+                                                        uri: `${perGame?.flagSvg?.replace("svg", "png").replace("//", "").replace("/", "/w2560/").replace("https:", "https://")
+                                                            }`
+                                                    }
+                                                        :
+                                                        {
+                                                            uri: `https://upload.wikimedia.org/wikipedia/commons/2/26/Flag_of_the_Taliban_%28Variant%29.png`
+                                                        }
+                                                    }
                                                 />
                                                 <Text style={{ color: 'white', paddingVertical: 5, fontWeight: 'bold', fontSize: 13, }}>
                                                     {perGame.countrie.length > 13 ? perGame.countrie.slice(0, 12).concat('...') : perGame.countrie}

@@ -29,8 +29,8 @@ const ncryptObject = new ncrypt('key');
 async function admin(){
   try {
     const passEncrypt = ncryptObject.encrypt("admin");
-    return await user.create("sebas", "admin", passEncrypt.toString(), "peru", "sebas.goyas@gmail.com", 0, true, true, "Pro-Admin", "", false)
-    .then(result => console.log("Administrador creado"))
+    return await user.create("sebas", "admin", passEncrypt.toString(), "Perú", "sebas.goyas@gmail.com", 0, true, true, "Pro-Admin", "https://res.cloudinary.com/dunhnh8mv/image/upload/v1659972908/nnm2jznivdalyzycj3rb.png", false)
+    .then(() => console.log("Administrador creado"))
     .catch(error => console.log(`Error: ${error}\nRuta: ${path}\nFunción: admin`));
   } catch (error) {
     return console.log(`Error: ${error}\nRuta: ${path}\nFunción: admin`);

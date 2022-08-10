@@ -52,6 +52,28 @@ const BottomTabView = ({
         })
     }
 
+    const uploadFriend = [];
+    // FriendId: friends[i].FriendId,
+    // name: friends[i].name,
+    // connect: friends[i].connect,
+    // country: friends[i].country,
+    // UserId: friends[i].UserId,
+    for (let i = 0; i < friends.length; i++) {
+        allcountries?.map((pais) => {
+            if (friends[i].country == pais.name) {
+                uploadFriend.push({
+                    id:friends[i].id,
+                    username: friends[i].username,
+                    FriendId: friends[i].FriendId,
+                    avatar: friends[i].avatar,
+                    flagSvg: pais.flagSvg,
+                    country: friends[i].country,
+                })
+
+            }
+        })
+    }
+
     const Games = () => {
         const translateRegion = (reg) => {
             switch (reg) {
@@ -329,7 +351,7 @@ const BottomTabView = ({
                 <View style={{
                     //agregar boton busqueda
                 }}>
-                    {friends?.map((friend) => {
+                    {uploadFriend?.map((friend) => {
                         return (
                             <TouchableOpacity
                                 key={friend.id}
@@ -369,9 +391,23 @@ const BottomTabView = ({
                                             }}>
                                             {friend.username ? friend.username : 'Not friends :('}
                                         </Text>
-                                        <View>
-                                            <Text></Text>
-                                        </View>
+                                        <Image
+                                            style={{
+                                                width: 60,
+                                                height: 40,
+                                                borderRadius:5,
+                                            }}
+                                            source={friend?.flagSvg?.length > 10 && !(friend?.country?.toLowerCase() === "afganistán") ? {
+                                                uri: `${friend?.flagSvg?.replace("svg", "png").replace("//", "").replace("/", "/w2560/").replace("https:", "https://")
+                                                    }`
+                                            }
+                                                :
+                                                {
+                                                    uri: `https://upload.wikimedia.org/wikipedia/commons/2/26/Flag_of_the_Taliban_%28Variant%29.png`
+                                                }
+                                            }
+                                            
+                                            />
                                     </View>
                                 </View>
                             </TouchableOpacity>
