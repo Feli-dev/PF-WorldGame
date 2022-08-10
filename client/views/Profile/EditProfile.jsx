@@ -15,7 +15,7 @@ import tw from "twrnc";
 import { touchSound } from "../../utils/sounds";
 import { useDispatch, useSelector } from "react-redux";
 import { GetProfileUser, PutUser } from "../../redux/actions/index";
-import AvatarOptions from "./AvatarsOptions";
+
 import * as Animatable from "react-native-animatable";
 //-----------------select
 import DropDownPicker from "react-native-dropdown-picker";
@@ -33,6 +33,7 @@ export default function EditProfile({ route, navigation }) {
     password,
     countries,
   } = route.params;
+
   const userInfo = useSelector((state) => state.profileUser);
   const soundOn = useSelector((state) => state.soundOn);
   useEffect(() => {
@@ -46,8 +47,7 @@ export default function EditProfile({ route, navigation }) {
       let data = await ImagePicker.launchCameraAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
-        aspect: [4, 4],
-        quality: 1,
+        aspect: [3, 4],
       });
       if (!data.cancelled) {
         let newFile = {
@@ -69,7 +69,7 @@ export default function EditProfile({ route, navigation }) {
     if (granted) {
       let data = await ImagePicker.launchImageLibraryAsync({
         allowsEditing: false,
-        aspect: [4, 4],
+        aspect: [3, 4],
       });
       if (!data.cancelled) {
         let newFile = {
@@ -97,7 +97,7 @@ export default function EditProfile({ route, navigation }) {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-
+        setAvatar(data.secure_url)
         dispatch(
           PutUser({
             id: id,
@@ -127,6 +127,7 @@ export default function EditProfile({ route, navigation }) {
   });
 
   //---------------------------------selectCountry
+  const [avatar, setAvatar]= useState(userInfo.avatar)
   const [open, setOpen] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
   const [value, setValue] = useState(null);
@@ -197,7 +198,7 @@ export default function EditProfile({ route, navigation }) {
           }}
         >
           <Image
-            source={{ uri: userInfo.avatar }}
+            source={{ uri: avatar }}
             style={{ width: 100, height: 100, borderRadius: 100 }}
           />
           <TouchableOpacity

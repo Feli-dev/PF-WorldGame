@@ -52,13 +52,21 @@ export default function Register({ navigation }) {
         country: "Not Defined",
         avatar: useInfo.picture
       })
-    );
+      ).then(()=>{
+        console.log('entre al postLogin')
+        dispatch(
+          postLogin({
+            username: `${useInfo.given_name}${useInfo.family_name}`,
+            password: `P${useInfo.given_name}2`
+      }));
+      })
     setLogin({
       email: input.email,
       username: input.username,
       password: input.password,
       country: input.country,
     })
+
     navigation.navigate("Instructions");
   }
 
@@ -97,15 +105,20 @@ export default function Register({ navigation }) {
           username: input.username,
           password: input.password,
           country: input.country,
-          avatar:"https://res.cloudinary.com/dunhnh8mv/image/upload/v1659972908/nnm2jznivdalyzycj3rb.png",
+          avatar:"https://res.cloudinary.com/dunhnh8mv/image/upload/v1660090956/sgui6vs7tehvrggagkd5.png",
           first: true,
         })
-      );
+      ).then(()=>{
+        console.log('entre al postLogin')
+        dispatch(
+          postLogin({
+            username: input.username,
+            password: input.password,
+      }));
+      });
       dispatch(getUser());
-      const User = allUser.Request.find((e) => (e.username.toLowerCase() === input.username.toLowerCase()))
-      dispatch(postLogin(User))
       dispatch(first(true))
-      navigation.navigate("Login")
+      navigation.navigate("Instructions")
     }
   }
 
