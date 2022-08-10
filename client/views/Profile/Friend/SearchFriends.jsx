@@ -233,7 +233,7 @@ const SearchFriends = (params) => {
                             ? "No definido"
                             : "Unknow"}
                         </Text>
-                        {friends.some(
+                        {friends?.some(
                           (friend) => friend.FriendId === user.id || added
                         ) ? (
                           <View>
