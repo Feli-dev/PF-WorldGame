@@ -68,7 +68,7 @@ module.exports = (sequelize) => {
         },
         avatar: {
             type: DataTypes.TEXT,
-            defaultValue: "https://res.cloudinary.com/dunhnh8mv/image/upload/v1659972908/nnm2jznivdalyzycj3rb.png"
+            defaultValue: "https://res.cloudinary.com/dunhnh8mv/image/upload/v1660090956/sgui6vs7tehvrggagkd5.png"
         }
     },{
         timestamps: true,
