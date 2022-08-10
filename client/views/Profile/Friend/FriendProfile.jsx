@@ -27,8 +27,8 @@ const FriendProfile = (params) => {
         : false;
 
     const following = [];//TENGO QUE USAR EL ARREGLO DE AMIGOS DE USUARIO
-    if (userFriends.length > 0) {
-        userFriends.map((request) => {
+    if (userFriends?.length > 0) {
+        userFriends?.map((request) => {
             if (request.FriendId === freId) {//VER DE BUSCAR LOS ENVIADOS
                 following.push(true)
             }
