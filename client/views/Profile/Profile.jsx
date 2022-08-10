@@ -21,7 +21,7 @@ const Profile = () => {
     const dispatch = useDispatch();
     const userlogin = useSelector((state) => state.login);
     const userInfo = useSelector((state) => state.profileUser);
-    const profileId = useSelector((state) => state.loginProfile);
+    // const profileId = useSelector((state) => state.loginProfile);
 
     
     const [open, setOpen] = useState(false);
@@ -45,8 +45,8 @@ const Profile = () => {
         return () => dispatch(GetProfileUser(userId));
     }, [dispatch, userId]);
 
-    console.log('userlogin--->',userlogin)
-    console.log('profileId--->',profileId)
+    // console.log('userlogin--->',userlogin)
+    // console.log('profileId--->',profileId)
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>

@@ -52,9 +52,6 @@ const FriendProfile = (params) => {
     //friendSended ES UN FILTRO DE TODO EL ARREGLO DE "FRIENDS" Y SOLO INDICA A LOS ENVIADOS. ESTOS SERIAN LOS AMIGOS DEL PROFILEFRIEND. 
 
 
-
-
-
     useEffect(() => {
         dispatch(getFriendDetail(freId))
         // dispatch(searchFriend(' '))

@@ -76,14 +76,14 @@ export const rootReducer = (state = initialState, action) => {
         userdetail: action.payload,
       };
     case type.SET_LOGIN:
-      let profileAux = {Request:action.payload.Request.logear}
+      // let profileAux = {Request:action.payload.Request.logear}
       action.payload = { Request: action.payload }
       
       return {
         ...state,
         login: action.payload,
         userdetail: action.payload,
-        loginProfile: profileAux,        
+        // loginProfile: profileAux,        
       };
     case type.GET_LOGIN:
       return {
