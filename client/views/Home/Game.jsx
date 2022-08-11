@@ -1,10 +1,11 @@
-import { Text, View, ScrollView, Modal, Pressable } from "react-native";
+import { Text, View, ScrollView, Modal, Pressable, ImageBackground, Image } from "react-native";
 import tw from "twrnc";
 import Svg, { parse, Path } from "react-native-svg";
 import { useSelector } from "react-redux";
 import React, { useEffect, useRef, useState } from "react";
 import ShareButton from "./ShareButton";
 import Map from "./Map";
+import image from '../../assets/World.png'
 
 export default function Game() {
   let listOfAttemps = useSelector((state) => state.attemps);
@@ -57,6 +58,10 @@ export default function Game() {
 
   return (
     <View style={tw`flex h-6/8 items-center justify-center`}>
+      <View style ={tw` w-96 h-full flex-1 `} >
+      <Image source={image} style={{marginTop:120, opacity:0.3}}>
+    </Image>
+      </View>
       <ScrollView
         ref={scrollViewRef}
         showsVerticalScrollIndicator={false}
@@ -64,6 +69,7 @@ export default function Game() {
           scrollViewRef.current.scrollToEnd({ animated: true })
         }
       >
+        
         <View style={tw`flex items-center justify-center rounded-lg`}>
           <Modal
             animationType="none"
@@ -415,6 +421,7 @@ export default function Game() {
           <></>
         )}
       </ScrollView>
+      
     </View>
   );
 }
